@@ -33,6 +33,9 @@
     <ClCompile Include="structs.cpp">
       <Filter>framework files</Filter>
     </ClCompile>
+    <ClCompile Include="MyUtils.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyUtils.h">
+      <Filter>framework files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
