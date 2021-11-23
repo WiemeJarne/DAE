@@ -172,6 +172,11 @@ void DrawCircle()
 {
 
 	FillEllipse(g_MousePos, g_Radius, g_Radius);
+<<<<<<< HEAD
+=======
+	
+	
+>>>>>>> cee646bc16c84f852b742080ef99df23e5856e23
 }
 
 void Check_g_CircleDrawingState()
