@@ -73,6 +73,7 @@ namespace utils
 	float GetDistance(Point2f point1, Point2f point2);
 	bool IsPointInCircle(Point2f point, Circlef circle);
 	bool IsPointInRect(Point2f point, Rectf rectangle);
+	bool IsOverLapping(Point2f topLeftCornerRectangle1, Point2f bottomRightCornerRectangle1, Point2f topLeftCornerRectangle2, Point2f bottomRightCornerRectangle2);
 #pragma endregion CollisionFunctionality
 
 }

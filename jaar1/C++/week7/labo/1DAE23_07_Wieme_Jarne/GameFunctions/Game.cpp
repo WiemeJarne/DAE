@@ -15,7 +15,7 @@ void Start()
 	g_Circle.center.x = g_RandomMiddlePoint.x;
 	g_Circle.center.y = g_RandomMiddlePoint.y;
 
-	g_RandomRectangleHeight = float(rand() % 11 + 10);
+	g_RandomRectangleHeight = float(rand() % 11 + 30);
 	g_RandomRectangleWitdh = float(rand() % 6 + 30);
 	g_RandomLeftBottomRectanglePoint.x = float(rand() % int(g_WindowWidth - 2 * g_RandomRectangleWitdh) + g_RandomRectangleWitdh);
 	g_RandomLeftBottomRectanglePoint.y = float(rand() % int(g_WindowHeight - 2 * g_RandomRectangleHeight) + g_RandomRectangleHeight);
@@ -31,7 +31,7 @@ void Draw()
 	ClearBackground(0.f, 0.f, 0.f);
 
 	// Put your own draw statements here
-	
+
 	SetColor(1.f, 1.f, 1.f);
 	FillEllipse(g_Circle.center.x, g_Circle.center.y, g_Circle.radius, g_Circle.radius);
 
@@ -46,7 +46,20 @@ void Draw()
 	if (IsPointInRect(g_MousePos, g_Rectangle))
 	{
 		SetColor(1.f, 0.f, 0.f);
-		DrawRect(g_RandomLeftBottomRectanglePoint, g_RandomRectangleWitdh, g_RandomRectangleHeight);
+		DrawRect(g_RandomLeftBottomRectanglePoint, g_RandomRectangleWitdh, g_RandomRectangleHeight, 3.f);
+	}
+
+	const float semiTransparentRectangleWidth{ 30 };
+	const float semiTransparentRectangleHeight{ 10 };
+
+	SetColor(0.f, 1.f, 0.f, 0.5f);
+	FillRect(g_MousePos.x - semiTransparentRectangleWidth, g_MousePos.y, semiTransparentRectangleWidth, semiTransparentRectangleHeight);
+
+	if ( IsOverLapping( Point2f(g_MousePos.x - semiTransparentRectangleWidth, g_MousePos.y + semiTransparentRectangleHeight), Point2f(g_MousePos.x + semiTransparentRectangleWidth, g_MousePos.y),
+		                Point2f(g_Rectangle.left, g_Rectangle.bottom + g_Rectangle.height), Point2f(g_Rectangle.left + g_Rectangle.height, g_Rectangle.bottom))                                    )
+	{
+		SetColor(1.f, 0.f, 0.f, 0.5f);
+		FillRect(g_MousePos.x - semiTransparentRectangleWidth, g_MousePos.y, semiTransparentRectangleWidth, semiTransparentRectangleHeight);
 	}
 }
 

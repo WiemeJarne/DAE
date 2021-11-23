@@ -508,14 +508,39 @@ namespace utils
 
 	bool IsPointInRect(Point2f point, Rectf rectangle)
 	{
-		if (    point.x >= rectangle.left
-			 && point.x <= rectangle.left + rectangle.width
-			 && point.y >= rectangle.bottom
-			 && point.y <= rectangle.bottom + rectangle.height )
+		if (point.x >= rectangle.left
+			&& point.x <= rectangle.left + rectangle.width
+			&& point.y >= rectangle.bottom
+			&& point.y <= rectangle.bottom + rectangle.height)
 		{
 			return true;
 		}
 		return false;
+	}
+
+	bool IsOverLapping(Point2f topLeftCornerRectangle1, Point2f bottomRightCornerRectangle1, Point2f topLeftCornerRectangle2, Point2f bottomRightCornerRectangle2)
+	{
+		if (    bottomRightCornerRectangle1.x == topLeftCornerRectangle1.x
+			 || bottomRightCornerRectangle1.y == topLeftCornerRectangle1.y
+			 || bottomRightCornerRectangle2.x == topLeftCornerRectangle2.x
+			 || bottomRightCornerRectangle2.y == topLeftCornerRectangle2.y )
+		{
+			return false;
+		}
+
+		if (    topLeftCornerRectangle1.x >= bottomRightCornerRectangle2.x
+			 || topLeftCornerRectangle2.x >= bottomRightCornerRectangle1.x )
+		{
+			return false;
+		}
+
+		if (    bottomRightCornerRectangle1.y >= topLeftCornerRectangle2.y
+			 || bottomRightCornerRectangle2.y >= topLeftCornerRectangle1.y )
+		{
+			return false;
+		}
+
+		return true;
 	}
 #pragma endregion CollisionFunctionality
 }
