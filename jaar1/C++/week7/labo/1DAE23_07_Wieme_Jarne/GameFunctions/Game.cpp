@@ -14,6 +14,16 @@ void Start()
 	g_Circle.radius = g_RandomRadius;
 	g_Circle.center.x = g_RandomMiddlePoint.x;
 	g_Circle.center.y = g_RandomMiddlePoint.y;
+
+	g_RandomRectangleHeight = float(rand() % 11 + 10);
+	g_RandomRectangleWitdh = float(rand() % 6 + 30);
+	g_RandomLeftBottomRectanglePoint.x = float(rand() % int(g_WindowWidth - 2 * g_RandomRectangleWitdh) + g_RandomRectangleWitdh);
+	g_RandomLeftBottomRectanglePoint.y = float(rand() % int(g_WindowHeight - 2 * g_RandomRectangleHeight) + g_RandomRectangleHeight);
+
+	g_Rectangle.left = g_RandomLeftBottomRectanglePoint.x;
+	g_Rectangle.bottom = g_RandomLeftBottomRectanglePoint.y;
+	g_Rectangle.width = g_RandomRectangleWitdh;
+	g_Rectangle.height = g_RandomRectangleHeight;
 }
 
 void Draw()
@@ -25,10 +35,18 @@ void Draw()
 	SetColor(1.f, 1.f, 1.f);
 	FillEllipse(g_Circle.center.x, g_Circle.center.y, g_Circle.radius, g_Circle.radius);
 
+	FillRect(g_RandomLeftBottomRectanglePoint, g_RandomRectangleWitdh, g_RandomRectangleHeight);
+
 	if (IsPointInCircle(g_MousePos, g_Circle))
 	{
 		SetColor(1.f, 0.f, 0.f);
 		DrawEllipse(g_Circle.center.x, g_Circle.center.y, g_Circle.radius, g_Circle.radius, 3.f);
+	}
+
+	if (IsPointInRect(g_MousePos, g_Rectangle))
+	{
+		SetColor(1.f, 0.f, 0.f);
+		DrawRect(g_RandomLeftBottomRectanglePoint, g_RandomRectangleWitdh, g_RandomRectangleHeight);
 	}
 }
 

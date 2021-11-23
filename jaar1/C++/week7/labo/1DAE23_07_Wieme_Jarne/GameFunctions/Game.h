@@ -14,11 +14,16 @@ float g_WindowHeight{ 300 };
 #pragma region ownDeclarations
 // Declare your own global variables here
 float g_RandomRadius{};
+float g_RandomRectangleWitdh{};
+float g_RandomRectangleHeight{};
 
 Point2f g_RandomMiddlePoint{};
 Point2f g_MousePos{};
+Point2f g_RandomLeftBottomRectanglePoint{};
 
-Circlef g_Circle(g_RandomMiddlePoint, g_RandomRadius);
+Circlef g_Circle{ g_RandomMiddlePoint, g_RandomRadius };
+
+Rectf g_Rectangle{ g_RandomLeftBottomRectanglePoint.x, g_RandomLeftBottomRectanglePoint.y, g_RandomRectangleWitdh, g_RandomRectangleHeight };
 // Declare your own functions here
 
 #pragma endregion ownDeclarations
