@@ -50,6 +50,8 @@ namespace utils
 	void DrawPolygon(const Point2f* pVertices, size_t nrVertices, bool closed = true, float lineWidth = 1.0f);
 	void FillPolygon(const std::vector<Point2f>& vertices);
 	void FillPolygon(const Point2f* pVertices, size_t nrVertices);
+
+	void DrawVector(Vector2f vector, Point2f vectorStartingPoint = Point2f(0.f, 0.f));
 #pragma endregion OpenGLDrawFunctionality
 
 #pragma region TextureFunctionality
@@ -81,9 +83,13 @@ namespace utils
 	Vector2f Add(Vector2f vector1, Vector2f vector2);
 	Vector2f Substract(Vector2f vector1, Vector2f vector2);
 	Vector2f Scale(Vector2f vector, int scaleFactor);
+	Vector2f Normalize(Vector2f vector);
 	float DotProduct(Vector2f vector1, Vector2f vector2);
 	float CrossProduct(Vector2f vector1, Vector2f vector2);
+	float Length(Vector2f vector);
+	float AngleBetween(Vector2f vector1, Vector2f vector2);
 	std::string ToString(Vector2f vector);
+	bool AreEqual(Vector2f vector1, Vector2f vector2);
 
 #pragma endregion CollisionFunctionality
 

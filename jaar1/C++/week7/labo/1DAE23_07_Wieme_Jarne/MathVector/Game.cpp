@@ -10,10 +10,13 @@ void Start()
 
 void Draw()
 {
-	ClearBackground();
+	ClearBackground(0.f, 0.f, 0.f);
 
 	// Put your own draw statements here
+	Vector2f vector1{ 34,53 };
+	Point2f vector1StartPoint{ g_WindowWidth / 2, g_WindowHeight / 2 };
 
+	DrawVector(vector1, vector1StartPoint);
 }
 
 void Update(float elapsedSec)

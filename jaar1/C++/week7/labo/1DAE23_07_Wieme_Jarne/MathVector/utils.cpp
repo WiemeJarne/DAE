@@ -246,6 +246,18 @@ namespace utils
 		}
 		glEnd();
 	}
+
+	void DrawVector(Vector2f vector, Point2f vectorStartingPoint)
+	{
+		Point2f vectorEndPoint{ vectorStartingPoint.x + vector.x, vectorStartingPoint.y + vector.y };
+		DrawLine(vectorStartingPoint, vectorEndPoint);
+
+		Point2f arrowPoint1{};
+		Point2f arrowPoint2{};
+		Point2f arrowPoint3{};
+
+		FillTriangle(arrowPoint1, arrowPoint2, arrowPoint3);
+	}
 #pragma endregion OpenGLDrawFunctionality
 
 
@@ -567,6 +579,11 @@ namespace utils
 		return Vector2f{ vector.x * scaleFactor, vector.y * scaleFactor };
 	}
 
+	Vector2f Normalize(Vector2f vector)
+	{
+		return Vector2f{ vector.x / Length(vector), vector.y / Length(vector) };
+	}
+
 	float DotProduct(Vector2f vector1, Vector2f vector2)
 	{
 		return vector1.x * vector2.x + vector1.y * vector2.y;
@@ -577,9 +594,31 @@ namespace utils
 		return vector1.x * vector2.y - vector2.x * vector1.y;
 	}
 
+	float Length(Vector2f vector)
+	{
+		return sqrtf( powf(vector.x, 2) + powf(vector.y, 2) );
+	}
+
+	float AngleBetween(Vector2f vector1, Vector2f vector2)
+	{
+		Vector2f dotProduct{  };
+		return acosf( DotProduct(vector1, vector2) / ( Length(vector1) * Length(vector2) ) );
+	}
+
 	std::string ToString(Vector2f vector)
 	{
-		return std::string{ "(" + std::to_string(vector.x) + std::to_string(vector.y) + ")" };
+		return std::string{ "(" + std::to_string(vector.x) + ", " + std::to_string(vector.y) + ")"};
+	}
+
+	bool AreEqual(Vector2f vector1, Vector2f vector2)
+	{
+		if (    Length(vector1) == Length(vector2)
+			 && Normalize(vector1).x == Normalize(vector2).x
+			 && Normalize(vector1).y == Normalize(vector2).y )
+		{
+			return true;
+		}
+		return false;
 	}
 
 
