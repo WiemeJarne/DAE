@@ -13,7 +13,13 @@ float g_WindowHeight{ 300 };
 
 #pragma region ownDeclarations
 // Declare your own global variables here
-Texture g_ImgDAELogo{};
+Texture				g_ImgDAELogo{};
+
+Texture				g_ImgText		{};
+const std::string	g_TextForImage	{ "Jarne" };
+const std::string	g_FontName		{ "Resources/DIN-Light.otf" };
+const int			g_TextSize		{ 42 };
+const Color4f		g_TextColor		{ 1.0, 0.0, 0.0, 1.0 };
 
 // Declare your own functions here
 

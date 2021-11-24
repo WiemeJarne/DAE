@@ -7,13 +7,18 @@
 void Start()
 {
 	// initialize game resources here
-	bool isLoaded{ TextureFromFile("Resources/DAE.png", g_ImgDAELogo) };
 
-	if (isLoaded == false)
+	if ( !TextureFromFile("Resources/DAE.png", g_ImgDAELogo) )
 	{
 		std::cout << "File not found.";
 	}
 
+	bool isTextImageLoaded{ TextureFromString(g_TextForImage, g_FontName, g_TextSize, g_TextColor, g_ImgText) };
+
+	if (isTextImageLoaded == false)
+	{
+		std::cout << "Promblem generating image from text.";
+	}
 }
 
 void Draw()
@@ -22,7 +27,9 @@ void Draw()
 
 	// Put your own draw statements here
 	
-	DrawTexture(g_ImgDAELogo, Point2f{ 10, 10 });
+	const float scaleFactor{ 2.0f };
+	DrawTexture(g_ImgDAELogo,	Rectf{ 30, 10, g_ImgDAELogo.width * scaleFactor, g_ImgDAELogo.height * scaleFactor } );
+	DrawTexture(g_ImgText,		Point2f{ 10,200 } );
 }
 
 void Update(float elapsedSec)

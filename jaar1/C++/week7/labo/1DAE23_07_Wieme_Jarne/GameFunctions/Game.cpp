@@ -51,15 +51,25 @@ void Draw()
 
 	const float semiTransparentRectangleWidth{ 30 };
 	const float semiTransparentRectangleHeight{ 10 };
+	const float semiTransparentCircleRadius{ 25 };
 
 	SetColor(0.f, 1.f, 0.f, 0.5f);
 	FillRect(g_MousePos.x - semiTransparentRectangleWidth, g_MousePos.y, semiTransparentRectangleWidth, semiTransparentRectangleHeight);
+	FillEllipse(g_MousePos.x + semiTransparentCircleRadius, g_MousePos.y, semiTransparentCircleRadius, semiTransparentCircleRadius);
 
 	if ( IsOverLapping( Point2f(g_MousePos.x - semiTransparentRectangleWidth, g_MousePos.y + semiTransparentRectangleHeight), Point2f(g_MousePos.x + semiTransparentRectangleWidth, g_MousePos.y),
 		                Point2f(g_Rectangle.left, g_Rectangle.bottom + g_Rectangle.height), Point2f(g_Rectangle.left + g_Rectangle.height, g_Rectangle.bottom))                                    )
 	{
 		SetColor(1.f, 0.f, 0.f, 0.5f);
 		FillRect(g_MousePos.x - semiTransparentRectangleWidth, g_MousePos.y, semiTransparentRectangleWidth, semiTransparentRectangleHeight);
+	}
+
+	Circlef semiTransparentCircle( g_MousePos.x + semiTransparentCircleRadius, g_MousePos.y, semiTransparentCircleRadius);
+
+	if (IsOverLapping(semiTransparentCircle, g_Circle))
+	{
+		SetColor(1.f, 0., 0.f, 0.5f);
+		FillEllipse(g_MousePos.x + semiTransparentCircleRadius, g_MousePos.y, semiTransparentCircleRadius, semiTransparentCircleRadius);
 	}
 }
 

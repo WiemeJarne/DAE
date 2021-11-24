@@ -542,5 +542,14 @@ namespace utils
 
 		return true;
 	}
+
+	bool IsOverLapping(Circlef circle1, Circlef circle2)
+	{
+		if (sqrtf(powf(circle2.center.x - circle1.center.x, 2) + powf(circle2.center.y - circle1.center.y, 2)) < circle1.radius + circle2.radius)
+		{
+			return true;
+		}
+		return false;
+	}
 #pragma endregion CollisionFunctionality
 }

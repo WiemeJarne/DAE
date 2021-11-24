@@ -74,6 +74,7 @@ namespace utils
 	bool IsPointInCircle(Point2f point, Circlef circle);
 	bool IsPointInRect(Point2f point, Rectf rectangle);
 	bool IsOverLapping(Point2f topLeftCornerRectangle1, Point2f bottomRightCornerRectangle1, Point2f topLeftCornerRectangle2, Point2f bottomRightCornerRectangle2);
+	bool IsOverLapping(Circlef circle1, Circlef circle2);
 #pragma endregion CollisionFunctionality
 
 }
