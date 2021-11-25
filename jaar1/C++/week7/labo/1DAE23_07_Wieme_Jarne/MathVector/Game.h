@@ -13,7 +13,8 @@ float g_WindowHeight{ 300 };
 
 #pragma region ownDeclarations
 // Declare your own global variables here
-
+float g_Angle{ 0 };
+Color4f g_Red{};
 // Declare your own functions here
 
 #pragma endregion ownDeclarations

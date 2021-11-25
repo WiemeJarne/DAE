@@ -247,16 +247,18 @@ namespace utils
 		glEnd();
 	}
 
-	void DrawVector(Vector2f vector, Point2f vectorStartingPoint)
+	void DrawVector(Vector2f vector, Point2f vectorStartingPoint, Color4f color)
 	{
 		Point2f vectorEndPoint{ vectorStartingPoint.x + vector.x, vectorStartingPoint.y + vector.y };
+
+		SetColor(color);
 		DrawLine(vectorStartingPoint, vectorEndPoint);
 
-		Point2f arrowPoint1{};
+		/*Point2f arrowPoint1{};
 		Point2f arrowPoint2{};
 		Point2f arrowPoint3{};
 
-		FillTriangle(arrowPoint1, arrowPoint2, arrowPoint3);
+		FillTriangle(arrowPoint1, arrowPoint2, arrowPoint3);*/
 	}
 #pragma endregion OpenGLDrawFunctionality
 
@@ -574,7 +576,7 @@ namespace utils
 		return Vector2f{ vector1.x - vector2.x, vector1.y - vector2.y };
 	}
 
-	Vector2f Scale(Vector2f vector, int scaleFactor)
+	Vector2f Scale(Vector2f vector, float scaleFactor)
 	{
 		return Vector2f{ vector.x * scaleFactor, vector.y * scaleFactor };
 	}
@@ -602,19 +604,23 @@ namespace utils
 	float AngleBetween(Vector2f vector1, Vector2f vector2)
 	{
 		Vector2f dotProduct{  };
-		return acosf( DotProduct(vector1, vector2) / ( Length(vector1) * Length(vector2) ) );
+
+		return atan2f( CrossProduct(vector1, vector2), DotProduct(vector1, vector2) );
 	}
 
 	std::string ToString(Vector2f vector)
 	{
-		return std::string{ "(" + std::to_string(vector.x) + ", " + std::to_string(vector.y) + ")"};
+		return std::string{ "[" + std::to_string(vector.x) + ", " + std::to_string(vector.y) + "]"};
 	}
 
 	bool AreEqual(Vector2f vector1, Vector2f vector2)
 	{
-		if (    Length(vector1) == Length(vector2)
-			 && Normalize(vector1).x == Normalize(vector2).x
-			 && Normalize(vector1).y == Normalize(vector2).y )
+		if (    Length(vector1)      <= Length(vector2)      + 0.001f
+			 && Length(vector1)      >=	Length(vector2)      - 0.001f
+			 && Normalize(vector1).x <= Normalize(vector2).x + 0.001f
+			 && Normalize(vector1).x >= Normalize(vector2).x - 0.001f
+			 && Normalize(vector1).y <= Normalize(vector2).y + 0.001f
+			 && Normalize(vector1).y >= Normalize(vector2).y - 0.001f )
 		{
 			return true;
 		}
