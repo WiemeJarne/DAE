@@ -5,8 +5,8 @@ using namespace utils;
 std::string g_WindowTitle{ "Recursion - Wieme, Jarne - 1DAE23" };
 
 // Change the window dimensions here
-float g_WindowWidth{ 500 };
-float g_WindowHeight{ 500 };
+float g_WindowWidth{ 1920 };
+float g_WindowHeight{ 1080 };
 #pragma endregion gameInformation
 
 
@@ -16,8 +16,11 @@ float g_WindowHeight{ 500 };
 Color4f g_Red{};
 Color4f g_Blue{};
 Color4f g_Green{};
+
+int g_NumberOfLoops{};
 // Declare your own functions here
 void DrawSierpinskiTriangle(const Point2f& left, const Point2f& top, const Point2f& right);
+Point2f Middle(const Point2f& point1, const Point2f& point2);
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions											

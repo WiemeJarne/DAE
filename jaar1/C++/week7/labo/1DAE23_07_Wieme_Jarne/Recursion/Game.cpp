@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Game.h"
 
+#include <iostream>
+
 //Basic game functions
 #pragma region gameFunctions											
 void Start()
@@ -27,7 +29,7 @@ void Draw()
 void Update(float elapsedSec)
 {
 	// process input, do physics 
-
+	// 
 	// e.g. Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -104,48 +106,25 @@ void OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 
 #pragma region ownDefinitions
 // Define your own functions here
+Point2f Middle(const Point2f& point1, const Point2f& point2)
+{
+	return Point2f((point1.x + point2.x) / 2, (point1.y + point2.y) / 2);
+}
+
+
 void DrawSierpinskiTriangle(const Point2f& left,const Point2f& top,const Point2f& right)
 {
-	Point2f leftPoint = left;
-	Point2f topPoint = top;
-	Point2f rightPoint = right;
-
-	SetColor(0.f, 0.f, 0.f);
 	DrawTriangle(left, top, right);
 
-	leftPoint.x = top.x / 2;
-	leftPoint.y = top.y / 2;
-	rightPoint.x = top.x + top.x / 2;
-	rightPoint.y = leftPoint.y;
-
-	SetColor(g_Green);
-	DrawTriangle(leftPoint, topPoint, rightPoint);
-
-	leftPoint.x = left.x;
-	leftPoint.y = left.y;
-	topPoint.x = top.x / 2;
-	topPoint.y = top.y / 2;
-	rightPoint.x = top.x;
-	rightPoint.y = left.y;
-
-	SetColor(g_Red);
-	DrawTriangle(leftPoint, topPoint, rightPoint);
-
-	leftPoint.x = top.x;
-	leftPoint.y = left.y;
-	topPoint.x = top.x + top.x / 2;
-	topPoint.y = top.y / 2;
-	rightPoint.x = right.x;
-	rightPoint.y = right.y;
-
-	SetColor(g_Blue);
-	DrawTriangle(leftPoint, topPoint, rightPoint);
-
-	leftPoint.x = top.x / 2;
-	leftPoint.y = top.y / 2;
-	topPoint.x = top.x;
-	topPoint.y = left.y;
-	rightPoint.x = top.x + top.x / 2;
-	rightPoint.y = leftPoint.y;
+	if (right.x - left.x > 20)
+	{
+		SetColor(g_Red);
+		DrawSierpinskiTriangle(left, Middle(left, top), Middle(left, right));
+		SetColor(g_Green);
+		DrawSierpinskiTriangle(Middle(left, top), top, Middle(top, right));
+		SetColor(g_Blue);
+		DrawSierpinskiTriangle(Middle(left, right), Middle(right, top), right);
+	}
 }
+
 #pragma endregion ownDefinitions
