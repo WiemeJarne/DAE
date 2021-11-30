@@ -14,7 +14,6 @@ void Swap(int array[], const int arraySize, int indexFirstNumber, int indexSecon
 void SwapWithoutPrinting(int array[], const int arraySize, int indexFirstNumber, int indexSecondNumber);
 void Shuffle(int array[], const int arraySize, int numberOfSwaps);
 void BubbleSort(int array[], int arraySize);
-int GenerateRandomIndexes(int maxIndex);
 void TestCount();
 void TestMinMax();
 void TestSwap();
@@ -26,7 +25,7 @@ int g_Array[g_ArraySize]{ 7, -3, 9, -8, 3, 0, -7, 1, 9, 8 };
 
 int main()
 {
-	srand(time(nullptr));
+	srand(int(time(nullptr)));
 
 	PrintArray(g_Array, g_ArraySize);
 	TestCount();
@@ -130,26 +129,12 @@ void Shuffle(int array[], const int arraySize, int numberOfSwaps)
 {
 	for (int swapNumber{}; swapNumber < numberOfSwaps; ++swapNumber)
 	{
-		int randomNumber1{ GenerateRandomIndexes(arraySize) };
-		int randomNumber2{ GenerateRandomIndexes(arraySize) };
+		int randomIndex1{ rand() % arraySize };
+		int randomIndex2{ rand() % arraySize };
 
-		if (randomNumber1 == randomNumber2 && (0 < randomNumber1 && randomNumber1 < arraySize))
-		{
-			++randomNumber1;
-		}
-		else if (randomNumber1 == randomNumber2 && (0 < randomNumber2 && randomNumber2 < arraySize))
-		{
-			++randomNumber2;
-		}
-
-		SwapWithoutPrinting(array, arraySize, randomNumber1, randomNumber2);
+		SwapWithoutPrinting(array, arraySize, randomIndex1, randomIndex2);
 	}
 	PrintArray(array, arraySize);
-}
-
-int GenerateRandomIndexes(int maxIndex)
-{
-	int randomNumber = rand() % maxIndex;
 }
 
 void TestShuffle()
@@ -165,7 +150,7 @@ void BubbleSort(int array[], int arraySize)
 {
 	if(arraySize > 1)
 	{
-		for (int index{}; index < arraySize; ++index)
+		for (int index{}; index < arraySize - 1; ++index)
 		{
 			if (array[index] > array[index + 1])
 			{
