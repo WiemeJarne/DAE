@@ -16,11 +16,12 @@ float g_WindowHeight{ 300 };
 Texture				g_ImgDAELogo{};
 
 Texture				g_ImgText		{};
-const std::string	g_TextForImage	{ "Jarne" };
+const std::string	g_TextForImage	{ "123456789" };
 const std::string	g_FontName		{ "Resources/DIN-Light.otf" };
 const int			g_TextSize		{ 42 };
 const Color4f		g_TextColor		{ 1.0, 0.0, 0.0, 1.0 };
 
+const Rectf g_DAESourceRectangle{ 9, 50, 190, 10 };
 // Declare your own functions here
 
 #pragma endregion ownDeclarations

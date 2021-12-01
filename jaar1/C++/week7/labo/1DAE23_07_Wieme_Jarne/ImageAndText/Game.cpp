@@ -28,7 +28,8 @@ void Draw()
 	// Put your own draw statements here
 	
 	const float scaleFactor{ 2.0f };
-	DrawTexture(g_ImgDAELogo,	Rectf{ 30, 10, g_ImgDAELogo.width * scaleFactor, g_ImgDAELogo.height * scaleFactor } );
+	DrawTexture(g_ImgDAELogo, Point2f(10, 10) , g_DAESourceRectangle);
+	//DrawTexture(g_ImgDAELogo,	Rectf{ 30, 10, g_ImgDAELogo.width * scaleFactor, g_ImgDAELogo.height * scaleFactor } );
 	DrawTexture(g_ImgText,		Point2f{ 10,200 } );
 }
 

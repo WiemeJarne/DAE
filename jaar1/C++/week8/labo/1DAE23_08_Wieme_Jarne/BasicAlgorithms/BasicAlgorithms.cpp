@@ -129,8 +129,8 @@ void Shuffle(int array[], const int arraySize, int numberOfSwaps)
 {
 	for (int swapNumber{}; swapNumber < numberOfSwaps; ++swapNumber)
 	{
-		int randomIndex1{ rand() % arraySize };
-		int randomIndex2{ rand() % arraySize };
+		int randomIndex1{ rand() % (arraySize / 2) };
+		int randomIndex2{ (rand() % arraySize / 2) + (arraySize / 2) };
 
 		SwapWithoutPrinting(array, arraySize, randomIndex1, randomIndex2);
 	}
