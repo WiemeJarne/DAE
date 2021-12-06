@@ -39,29 +39,29 @@ int main()
 {
     srand(time(nullptr));
 
-    /*Sum(50, 30);
-    Sum(40, 20);
-    Sum(70, 100);
+    //Sum(50, 30);
+    //Sum(40, 20);
+    //Sum(70, 100);
 
-    Print();
+    //Print();
 
-    TestMultiply();
+    //TestMultiply();
 
-    TestPrintNumbers();
+    //TestPrintNumbers();
+    //
+    //TestCalcElapsedTime();
+    //
+    //TestPrintMessage();
+    //
+    //TestIsEven();
+    //
+    //TestLeapYear();
 
-    TestCalcElapsedTime();
+    //TestGetIntRand();
 
-    TestPrintMessage();
+    TestGetFloatRand();
 
-    TestIsEven();
-
-    TestLeapYear();
-
-    TestGetIntRand();
-
-    TestGetFloatRand();*/
-
-    TestGetDistance();
+    //TestGetDistance();
 }
 
 int Sum(int getal1, int getal2)
