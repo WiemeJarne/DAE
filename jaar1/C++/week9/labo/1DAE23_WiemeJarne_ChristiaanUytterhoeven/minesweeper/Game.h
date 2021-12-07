@@ -5,8 +5,8 @@ using namespace utils;
 std::string g_WindowTitle{ "Minesweeper - Wieme, Jarne - Christiaan, Uyterhoeven - 1DAE23" };
 
 // Change the window dimensions here
-float g_WindowWidth{ 500 };
-float g_WindowHeight{ 500 };
+float g_WindowWidth{ 200 };
+float g_WindowHeight{ 200 };
 #pragma endregion gameInformation
 
 
@@ -20,8 +20,9 @@ Texture* g_NumbersTexturesArr;
 
 const int g_AmountOfRows{ 10 };
 const int g_AmountOfColumns{ 10 };
+int* g_TilesCheckedArr;
 Texture* g_GridArr;
-Texture* g_BomGridArr;
+Texture* g_MineGridArr;
 
 Texture g_DefaultTileTexture{};
 Texture g_TilePressedTexture{};
@@ -32,11 +33,13 @@ void CreateNumbersTexturesArr(Texture*& textureArr, const int amountOfTextures);
 void CreateTextures();
 void DeleteTextures();
 void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture);
+void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture);
 void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumns);
 void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid);
-void CheckAdjacentTiles(const int tileIndex);
+int CheckAdjacentTiles(const int tileIndex);
 void ChangeTileTexture(const int rowNumber, const int columnNumber);
-void RandomBomPosGenerator(Texture*& bomGridArr, const int amountOfRows, const int amountOfColumns);
+void RandomMinesPosGenerator(Texture*& MineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines = 10);
+bool BInCheckedTilesArr(const int tileToCheck);
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions											

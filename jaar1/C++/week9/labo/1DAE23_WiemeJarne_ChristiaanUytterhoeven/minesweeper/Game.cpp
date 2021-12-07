@@ -10,7 +10,10 @@ void Start()
 	CreateNumbersTexturesArr(g_NumbersTexturesArr, g_AmountOfNumberTextures);
 	CreateTextures();
 	InitGridArr(g_GridArr, g_AmountOfRows, g_AmountOfColumns, g_DefaultTileTexture);
-	InitGridArr(g_BomGridArr, g_AmountOfRows, g_AmountOfColumns, g_TilePressedTexture);
+	InitGridArr(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, g_TilePressedTexture);
+	InitGridArr(g_TilesCheckedArr, g_AmountOfRows, g_AmountOfColumns, g_TilePressedTexture);
+	RandomMinesPosGenerator(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, 10);
+	
 }
 
 void Draw()
@@ -43,7 +46,8 @@ void End()
 	DeleteTextures();
 	delete[] g_NumbersTexturesArr;
 	delete[] g_GridArr;
-	delete[] g_BomGridArr;
+	delete[] g_MineGridArr;
+	delete[] g_TilesCheckedArr;
 }
 #pragma endregion gameFunctions
 
@@ -152,6 +156,16 @@ void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfCo
 	}
 }
 
+void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture)
+{
+	gridArr = new int[amountOfRows * amountOfColumns];
+
+	for (int index{}; index < amountOfRows * amountOfColumns; ++index)
+	{
+		gridArr[index] = -1;
+	}
+}
+
 void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumns)
 {
 	Rectf dstRect{ 0, 0, gridArr[0].width  * g_ScaleFactor, gridArr[0].height  * g_ScaleFactor };
@@ -185,7 +199,7 @@ void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
 				 && g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)].id == g_DefaultTileTexture.id )
 			{
 				ChangeTileTexture(rowNumber, columnNumber);
-				CheckAdjacentTiles(columnNumber + (g_AmountOfRows * rowNumber));
+				//CheckAdjacentTiles(columnNumber + (g_AmountOfRows * rowNumber));
 			}
 			bottomLeftCornerOfCurrentTile.x += g_GridArr[0].width * g_ScaleFactor;
 		}
@@ -194,21 +208,37 @@ void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
 	}
 }
 
-void CheckAdjacentTiles(const int tileIndex)
+int CheckAdjacentTiles(const int tileIndex)
 {
-	int offSet[8]{ -11, -10, -9, -1, 1, 9, 10, 11 };
-	int amountOfTilesToCheck{ 8 };
-	int number{};
-	for (int index{}; index < amountOfTilesToCheck; ++index)
+	int amountOfMines{};
+	int rowNumber{ tileIndex / g_AmountOfRows };
+	int columnNumber{ tileIndex % g_AmountOfColumns };
+	
+	//columnNumber + (g_AmountOfRows * rowNumber)
+	for (int dRow{ -1 }; dRow <= 1; ++dRow)
 	{
-		if (g_BomGridArr[tileIndex + offSet[index]].id == g_TilePressedTexture.id)
+		for (int dColumn{ -1 }; dColumn <= 1; ++dColumn)
 		{
-			g_GridArr[tileIndex + offSet[index]] = g_TilePressedTexture;
-
-			++number;
-			CheckAdjacentTiles(tileIndex + offSet[index]);
+			if (g_MineGridArr[columnNumber + dColumn + g_AmountOfRows * (rowNumber + dRow)].id == g_MineTexture.id)
+			{
+				++amountOfMines;
+			}
 		}
 	}
+
+	return amountOfMines;
+}
+
+bool BInCheckedTilesArr(const int tileToCheck)
+{
+	for (int index{}; index < g_AmountOfColumns * g_AmountOfRows; ++index)
+	{
+		if (g_TilesCheckedArr[index] == tileToCheck)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void ChangeTileTexture(const int rowNumber, const int columnNumber)
@@ -216,8 +246,25 @@ void ChangeTileTexture(const int rowNumber, const int columnNumber)
 	g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)] = g_TilePressedTexture;
 }
 
-void RandomBomPosGenerator(Texture*& bomGridArr, const int amountOfRows, const int amountOfColumns)
+void RandomMinesPosGenerator(Texture*& mineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines)
 {
+	int topBoundary{ amountOfRows * amountOfColumns };
+
+	for (int mineNumber{}; mineNumber < amountOfMines; ++mineNumber)
+	{
+		int randomNumber{ rand() % topBoundary };
+		std::cout << randomNumber << '\n';
+		mineGridArr[randomNumber] = g_MineTexture;
+	}
+
+	for (int index{}; index < topBoundary; ++index)
+	{
+		if (mineGridArr[index].id != g_MineTexture.id)
+		{
+			mineGridArr[index] = g_NumbersTexturesArr[CheckAdjacentTiles(index)];
+		}
+	}
+
 
 }
 #pragma endregion ownDefinitions
