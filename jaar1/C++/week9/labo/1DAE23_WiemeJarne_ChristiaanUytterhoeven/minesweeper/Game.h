@@ -13,7 +13,7 @@ float g_WindowHeight{ 200 };
 
 #pragma region ownDeclarations
 // Declare your own global variables here
-const int g_AmountOfNumberTextures{ 8 };
+const int g_AmountOfNumberTextures{ 9 };
 const float g_ScaleFactor{ 25 / 20 };
 
 Texture* g_NumbersTexturesArr;
@@ -21,6 +21,7 @@ Texture* g_NumbersTexturesArr;
 const int g_AmountOfRows{ 10 };
 const int g_AmountOfColumns{ 10 };
 int* g_TilesCheckedArr;
+int g_AmountOfTilesChecked{};
 Texture* g_GridArr;
 Texture* g_MineGridArr;
 
@@ -37,7 +38,7 @@ void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumn
 void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumns);
 void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid);
 int CheckAdjacentTiles(const int tileIndex);
-void ChangeTileTexture(const int rowNumber, const int columnNumber);
+void ChangeTileTexture(const int tileIndex);
 void RandomMinesPosGenerator(Texture*& MineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines = 10);
 bool BInCheckedTilesArr(const int tileToCheck);
 #pragma endregion ownDeclarations

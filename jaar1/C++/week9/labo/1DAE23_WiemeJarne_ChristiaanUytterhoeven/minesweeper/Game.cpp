@@ -110,13 +110,12 @@ void CreateTextures()
 	TextureFromFile("Resources/default.png", g_DefaultTileTexture);
 	TextureFromFile("Resources/flag.png", g_FlagTexture);
 	TextureFromFile("Resources/mine.png", g_MineTexture);
-	TextureFromFile("Resources/tilePressed.png", g_TilePressedTexture);
 }
 
 void CreateNumbersTexturesArr(Texture*& textureArr, const int amountOfTextures)
 {
 	textureArr = new Texture[amountOfTextures];
-	int number{1};
+	int number{0};
 
 	for (int index{}; index < amountOfTextures; ++index)
 	{
@@ -143,7 +142,6 @@ void DeleteTextures()
 	DeleteTexture(g_DefaultTileTexture);
 	DeleteTexture(g_FlagTexture);
 	DeleteTexture(g_MineTexture);
-	DeleteTexture(g_TilePressedTexture);
 }
 
 void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture)
@@ -198,8 +196,7 @@ void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
 				 && mousePos.y <= bottomLeftCornerOfCurrentTile.y + g_GridArr[0].height * g_ScaleFactor 
 				 && g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)].id == g_DefaultTileTexture.id )
 			{
-				ChangeTileTexture(rowNumber, columnNumber);
-				//CheckAdjacentTiles(columnNumber + (g_AmountOfRows * rowNumber));
+				ChangeTileTexture(columnNumber + (g_AmountOfRows * rowNumber));
 			}
 			bottomLeftCornerOfCurrentTile.x += g_GridArr[0].width * g_ScaleFactor;
 		}
@@ -229,9 +226,45 @@ int CheckAdjacentTiles(const int tileIndex)
 	return amountOfMines;
 }
 
+void ChangeTileTexture(const int tileIndex)
+{
+	int rowNumber{ tileIndex / g_AmountOfRows };
+	int columnNumber{ tileIndex % g_AmountOfRows };
+
+	for (int dRow{ -1 }; dRow <= 1; ++dRow) // dRow stands for difference
+	{
+		for (int dColumn{ -1 }; dColumn <= 1; ++dColumn)
+		{
+			if ((columnNumber + dColumn) >= 0
+				&& (columnNumber + dColumn) < g_AmountOfColumns
+				&& (rowNumber + dRow) >= 0
+				&& (rowNumber + dRow) < g_AmountOfRows)
+			{
+				int currentTileIndex{ columnNumber + dColumn + g_AmountOfRows * (rowNumber + dRow) };
+				if (g_MineGridArr[tileIndex].id == g_NumbersTexturesArr[0].id
+					&& !BInCheckedTilesArr(currentTileIndex))
+				{
+					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
+					++g_AmountOfTilesChecked;
+					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[0];
+					ChangeTileTexture(currentTileIndex);
+				} 
+				else if (g_MineGridArr[tileIndex].id == g_NumbersTexturesArr[1].id && !BInCheckedTilesArr(currentTileIndex))
+				{
+					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
+					++g_AmountOfTilesChecked;
+					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[1];
+					ChangeTileTexture(currentTileIndex);
+				}
+
+			}
+		}
+	}
+}
+
 bool BInCheckedTilesArr(const int tileToCheck)
 {
-	for (int index{}; index < g_AmountOfColumns * g_AmountOfRows; ++index)
+	for (int index{}; index < g_AmountOfTilesChecked; ++index)
 	{
 		if (g_TilesCheckedArr[index] == tileToCheck)
 		{
@@ -239,11 +272,6 @@ bool BInCheckedTilesArr(const int tileToCheck)
 		}
 	}
 	return false;
-}
-
-void ChangeTileTexture(const int rowNumber, const int columnNumber)
-{
-	g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)] = g_TilePressedTexture;
 }
 
 void RandomMinesPosGenerator(Texture*& mineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines)
@@ -264,7 +292,5 @@ void RandomMinesPosGenerator(Texture*& mineGridArr, const int amountOfRows, cons
 			mineGridArr[index] = g_NumbersTexturesArr[CheckAdjacentTiles(index)];
 		}
 	}
-
-
 }
 #pragma endregion ownDefinitions

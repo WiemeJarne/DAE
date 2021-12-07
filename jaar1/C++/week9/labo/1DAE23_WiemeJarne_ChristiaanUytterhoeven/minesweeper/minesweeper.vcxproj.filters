@@ -52,37 +52,40 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Recources\1.png">
+    <Image Include="Resources\0.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\2.png">
+    <Image Include="Resources\1.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\3.png">
+    <Image Include="Resources\2.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\4.png">
+    <Image Include="Resources\3.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\5.png">
+    <Image Include="Resources\4.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\7.png">
+    <Image Include="Resources\5.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\6.png">
+    <Image Include="Resources\6.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\8.png">
+    <Image Include="Resources\7.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\default.png">
+    <Image Include="Resources\8.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\flag.png">
+    <Image Include="Resources\default.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Recources\mine.png">
+    <Image Include="Resources\flag.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\mine.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
