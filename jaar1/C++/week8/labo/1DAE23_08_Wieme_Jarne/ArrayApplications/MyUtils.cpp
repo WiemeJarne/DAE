@@ -129,17 +129,17 @@ void DrawPentagram(const float middlePointX, const float middlePointY, const flo
 	DrawLine(middlePointX + radius * cosf(angle * 3), middlePointY + radius * sinf(angle * 3), middlePointX + radius * cosf(angle), middlePointY + radius * sinf(angle), lineWidth);
 }
 
-void DrawPentagram(const Point2f middlePoint, const float radius, const float lineWidth, const Color4f color)
+void DrawPentagram(const Point2f middlePoint, const float radius, float rotationAngle, const float lineWidth, const Color4f color)
 {
 	const float angle = { 1.25663706f };
 
 	SetColor(color);
 
-	DrawLine(middlePoint.x + radius * cosf(angle), middlePoint.y + radius * sinf(angle), middlePoint.x + radius * cosf(angle * 4), middlePoint.y + radius * sinf(angle * 4), 5.f);
-	DrawLine(middlePoint.x + radius * cosf(angle * 4), middlePoint.y + radius * sinf(angle * 4), middlePoint.x + radius * cosf(angle * 2), middlePoint.y + radius * sinf(angle * 2), 5.f);
-	DrawLine(middlePoint.x + radius * cosf(angle * 2), middlePoint.y + radius * sinf(angle * 2), middlePoint.x + radius, middlePoint.y, 5.f);
-	DrawLine(middlePoint.x + radius, middlePoint.y, middlePoint.x + radius * cosf(angle * 3), middlePoint.y + radius * sinf(angle * 3), 5.f);
-	DrawLine(middlePoint.x + radius * cosf(angle * 3), middlePoint.y + radius * sinf(angle * 3), middlePoint.x + radius * cosf(angle), middlePoint.y + radius * sinf(angle), 5.f);
+	DrawLine(middlePoint.x + radius * cosf(angle + rotationAngle), middlePoint.y + radius * sinf(angle + rotationAngle), middlePoint.x + radius * cosf(angle * 4 + rotationAngle), middlePoint.y + radius * sinf(angle * 4 + rotationAngle), lineWidth);
+	DrawLine(middlePoint.x + radius * cosf(angle * 4 + rotationAngle), middlePoint.y + radius * sinf(angle * 4 + rotationAngle), middlePoint.x + radius * cosf(angle * 2 + rotationAngle), middlePoint.y + radius * sinf(angle * 2 + rotationAngle), lineWidth);
+	DrawLine(middlePoint.x + radius * cosf(angle * 2 + rotationAngle), middlePoint.y + radius * sinf(angle * 2 + rotationAngle), middlePoint.x + radius * cosf(rotationAngle), middlePoint.y + radius * sinf(rotationAngle), lineWidth);
+	DrawLine(middlePoint.x + radius * cosf(rotationAngle), middlePoint.y + radius * sinf(rotationAngle), middlePoint.x + radius * cosf(angle * 3 + rotationAngle), middlePoint.y + radius * sinf(angle * 3 + rotationAngle), lineWidth);
+	DrawLine(middlePoint.x + radius * cosf(angle * 3 + rotationAngle), middlePoint.y + radius * sinf(angle * 3 + rotationAngle), middlePoint.x + radius * cosf(angle + rotationAngle), middlePoint.y + radius * sinf(angle + rotationAngle), lineWidth);
 }
 
 void DrawLinearGradient(const Rectf rectangle, Color4f startColor, Color4f endColor)

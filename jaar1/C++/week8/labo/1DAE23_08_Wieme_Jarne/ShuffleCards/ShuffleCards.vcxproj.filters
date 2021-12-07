@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="framework files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="game files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="structs.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyUtils.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyUtils.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Recources\101.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\102.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\103.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\104.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\105.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\106.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\107.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\108.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\109.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\110.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\111.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\112.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\113.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\201.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\202.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\203.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\204.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\205.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\206.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\207.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\208.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\209.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\210.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\211.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\212.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\213.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\301.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\302.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\303.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\304.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\305.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\306.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\307.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\308.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\309.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\310.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\311.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\312.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\313.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\401.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\402.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\403.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\404.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\405.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\406.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\407.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\408.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\409.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\410.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\411.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\412.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Recources\413.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

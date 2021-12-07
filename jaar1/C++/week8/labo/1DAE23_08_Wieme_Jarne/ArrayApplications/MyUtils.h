@@ -9,7 +9,7 @@ void DrawEquilateralTriangle(const float bottomLeftPointX, const float bottomLef
 void DrawEquilateralTriangle(const Point2f bottomLeftPoint, const float sideLenght, const bool filled, const Color4f color);
 
 void DrawPentagram(const float middlePointX, const float middlePointY, const float radius, const float lineWidth, const Color4f color);
-void DrawPentagram(const Point2f middlePoint, const float radius, const float lineWidth, const Color4f color);
+void DrawPentagram(const Point2f middlePoint, const float radius, float rotationAngle, const float lineWidth, const Color4f color);
 
 void DrawLinearGradient(const Rectf rectangle, Color4f startColor, Color4f endColor);
 
