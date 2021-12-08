@@ -10,10 +10,9 @@ void Start()
 	CreateNumbersTexturesArr(g_NumbersTexturesArr, g_AmountOfNumberTextures);
 	CreateTextures();
 	InitGridArr(g_GridArr, g_AmountOfRows, g_AmountOfColumns, g_DefaultTileTexture);
-	InitGridArr(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, g_TilePressedTexture);
-	InitGridArr(g_TilesCheckedArr, g_AmountOfRows, g_AmountOfColumns, g_TilePressedTexture);
+	InitGridArr(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, g_NumbersTexturesArr[0]);
+	InitGridArr(g_TilesCheckedArr, g_AmountOfRows, g_AmountOfColumns, -1);
 	RandomMinesPosGenerator(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, 10);
-	
 }
 
 void Draw()
@@ -22,6 +21,10 @@ void Draw()
 
 	// Put your own draw statements here
 	DrawGrid(g_GridArr, g_AmountOfRows, g_AmountOfColumns);
+	if (g_R)
+	{
+		DrawGrid(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns);
+	}
 }
 
 void Update(float elapsedSec)
@@ -60,19 +63,12 @@ void OnKeyDownEvent(SDL_Keycode key)
 
 void OnKeyUpEvent(SDL_Keycode key)
 {
-	//switch (key)
-	//{
-	//case SDLK_LEFT:
-	//	//std::cout << "Left arrow key released\n";
-	//	break;
-	//case SDLK_RIGHT:
-	//	//std::cout << "Right arrow key released\n";
-	//	break;
-	//case SDLK_1:
-	//case SDLK_KP_1:
-	//	//std::cout << "Key 1 released\n";
-	//	break;
-	//}
+	switch (key)
+	{
+	case SDLK_r:
+		g_R = !g_R;
+		break;
+	}
 }
 
 void OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
@@ -154,13 +150,13 @@ void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfCo
 	}
 }
 
-void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture)
+void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, int number)
 {
 	gridArr = new int[amountOfRows * amountOfColumns];
 
 	for (int index{}; index < amountOfRows * amountOfColumns; ++index)
 	{
-		gridArr[index] = -1;
+		gridArr[index] = number;
 	}
 }
 
@@ -196,7 +192,14 @@ void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
 				 && mousePos.y <= bottomLeftCornerOfCurrentTile.y + g_GridArr[0].height * g_ScaleFactor 
 				 && g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)].id == g_DefaultTileTexture.id )
 			{
-				ChangeTileTexture(columnNumber + (g_AmountOfRows * rowNumber));
+				if (CheckIFIsClickPosIsMine(columnNumber + (g_AmountOfRows * rowNumber)))
+				{
+					RevealGrid();
+				}
+				else
+				{
+					ChangeTileTexture(columnNumber + (g_AmountOfRows * rowNumber));
+				}
 			}
 			bottomLeftCornerOfCurrentTile.x += g_GridArr[0].width * g_ScaleFactor;
 		}
@@ -235,28 +238,44 @@ void ChangeTileTexture(const int tileIndex)
 	{
 		for (int dColumn{ -1 }; dColumn <= 1; ++dColumn)
 		{
-			if ((columnNumber + dColumn) >= 0
-				&& (columnNumber + dColumn) < g_AmountOfColumns
-				&& (rowNumber + dRow) >= 0
-				&& (rowNumber + dRow) < g_AmountOfRows)
+			if (	(columnNumber + dColumn) >= 0
+				 && (columnNumber + dColumn) < g_AmountOfColumns
+				 && (rowNumber + dRow) >= 0
+				 && (rowNumber + dRow) < g_AmountOfRows				)
 			{
 				int currentTileIndex{ columnNumber + dColumn + g_AmountOfRows * (rowNumber + dRow) };
-				if (g_MineGridArr[tileIndex].id == g_NumbersTexturesArr[0].id
-					&& !BInCheckedTilesArr(currentTileIndex))
+
+				if (    g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[0].id && !BInCheckedTilesArr(currentTileIndex))
 				{
 					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
 					++g_AmountOfTilesChecked;
 					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[0];
 					ChangeTileTexture(currentTileIndex);
 				} 
-				else if (g_MineGridArr[tileIndex].id == g_NumbersTexturesArr[1].id && !BInCheckedTilesArr(currentTileIndex))
+				else if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[1].id && !BInCheckedTilesArr(currentTileIndex))
 				{
 					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
 					++g_AmountOfTilesChecked;
 					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[1];
+				}
+				else if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[2].id && !BInCheckedTilesArr(currentTileIndex))
+				{
+					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
+					++g_AmountOfTilesChecked;
+					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[2];
+				}
+				else if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[3].id && !BInCheckedTilesArr(currentTileIndex))
+				{
+					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
+					++g_AmountOfTilesChecked;
+					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[3];
+				}
+				else if (g_MineGridArr[currentTileIndex].id == g_MineTexture.id && !BInCheckedTilesArr(currentTileIndex))
+				{
+					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
+					++g_AmountOfTilesChecked;
 					ChangeTileTexture(currentTileIndex);
 				}
-
 			}
 		}
 	}
@@ -281,7 +300,6 @@ void RandomMinesPosGenerator(Texture*& mineGridArr, const int amountOfRows, cons
 	for (int mineNumber{}; mineNumber < amountOfMines; ++mineNumber)
 	{
 		int randomNumber{ rand() % topBoundary };
-		std::cout << randomNumber << '\n';
 		mineGridArr[randomNumber] = g_MineTexture;
 	}
 
@@ -290,6 +308,26 @@ void RandomMinesPosGenerator(Texture*& mineGridArr, const int amountOfRows, cons
 		if (mineGridArr[index].id != g_MineTexture.id)
 		{
 			mineGridArr[index] = g_NumbersTexturesArr[CheckAdjacentTiles(index)];
+		}
+	}
+}
+
+bool CheckIFIsClickPosIsMine(const int index)
+{
+	if (g_MineGridArr[index].id == g_MineTexture.id)
+	{
+		return true;
+	}
+	return false;
+}
+
+void RevealGrid()
+{
+	for (int rowNumber{}; rowNumber < g_AmountOfRows; ++rowNumber)
+	{
+		for (int columnNumber{}; columnNumber < g_AmountOfColumns; ++columnNumber)
+		{
+			g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)].id = g_MineGridArr[columnNumber + (g_AmountOfRows * rowNumber)].id;
 		}
 	}
 }

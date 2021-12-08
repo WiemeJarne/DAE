@@ -16,6 +16,8 @@ float g_WindowHeight{ 200 };
 const int g_AmountOfNumberTextures{ 9 };
 const float g_ScaleFactor{ 25 / 20 };
 
+bool g_R{};
+
 Texture* g_NumbersTexturesArr;
 
 const int g_AmountOfRows{ 10 };
@@ -26,7 +28,6 @@ Texture* g_GridArr;
 Texture* g_MineGridArr;
 
 Texture g_DefaultTileTexture{};
-Texture g_TilePressedTexture{};
 Texture g_FlagTexture{};
 Texture g_MineTexture{};
 // Declare your own functions here
@@ -34,13 +35,15 @@ void CreateNumbersTexturesArr(Texture*& textureArr, const int amountOfTextures);
 void CreateTextures();
 void DeleteTextures();
 void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture);
-void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture);
+void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, int number);
 void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumns);
 void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid);
 int CheckAdjacentTiles(const int tileIndex);
 void ChangeTileTexture(const int tileIndex);
 void RandomMinesPosGenerator(Texture*& MineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines = 10);
 bool BInCheckedTilesArr(const int tileToCheck);
+bool CheckIFIsClickPosIsMine(const int index);
+void RevealGrid();
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions											
