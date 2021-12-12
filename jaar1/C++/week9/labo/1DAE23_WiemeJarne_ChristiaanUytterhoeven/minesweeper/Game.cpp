@@ -2,17 +2,54 @@
 #include "Game.h"
 #include <iostream>
 
+/*
+problemen:
+	1) aantal mines klopt niet (er zijn minder mines op het veld dan het ingegeven nummber) --> is nu correct
+	2) de cijfers op de rand kloppen niet (kijk in de CheckAdjacentTileForEdgeTiles functie) 
+	3) er gebeurt nog niets als je wint (kijk in de CheckIfPlayerWon functie) --> is nu correct 
+
+	4) als speler wint, geen clicks meer toelaten op het veld. (onMouseUpEvent) --> fixed
+*/
+
 //Basic game functions
 #pragma region gameFunctions											
 void Start()
 {
 	// initialize game resources here
+	g_AmountOfRowsAndColumnsAndMines = new int[3];
 	CreateNumbersTexturesArr(g_NumbersTexturesArr, g_AmountOfNumberTextures);
 	CreateTextures();
-	InitGridArr(g_GridArr, g_AmountOfRows, g_AmountOfColumns, g_DefaultTileTexture);
-	InitGridArr(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, g_NumbersTexturesArr[0]);
-	InitGridArr(g_TilesCheckedArr, g_AmountOfRows, g_AmountOfColumns, -1);
-	RandomMinesPosGenerator(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, 10);
+
+	std::cout << "-- Minesweeper --\nPress 'i' for more info.\n\n";
+
+	int amountOfRows{};
+	int amountOfColumns{};
+	int amountOfmines{};
+	float tileSideLenght{};
+	int maxAmountOfRowsAndColumns{};
+
+	std::cout << "How many pixels do you want the side lenght of 1 tile to have? ";
+	std::cin >> tileSideLenght;
+
+	g_ScaleFactor = tileSideLenght / g_DefaultTileTexture.height;
+	maxAmountOfRowsAndColumns = int(g_WindowHeight / tileSideLenght);
+
+	std::cout << "\nHow large do you want the field to be?(maximum " << maxAmountOfRowsAndColumns << ")";
+	std::cin >> amountOfRows;
+	g_AmountOfRowsAndColumnsAndMines[0] = amountOfRows;
+
+	amountOfColumns = amountOfRows;
+	g_AmountOfRowsAndColumnsAndMines[1] = amountOfColumns;
+
+	std::cout << "\nHow many mines do you want on the field? ";
+	std::cin >> amountOfmines;
+	g_AmountOfRowsAndColumnsAndMines[2] = amountOfmines;
+
+	InitArr(g_GridArr, g_DefaultTileTexture);
+	InitArr(g_MineGridArr, g_NumbersTexturesArr[0]);
+	InitArr(g_TilesCheckedArr, -1);
+
+	RandomMinesPosGenerator(g_MineGridArr);
 }
 
 void Draw()
@@ -20,17 +57,13 @@ void Draw()
 	ClearBackground(0.f, 0.f, 0.f);
 
 	// Put your own draw statements here
-	DrawGrid(g_GridArr, g_AmountOfRows, g_AmountOfColumns);
-	if (g_R)
-	{
-		DrawGrid(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns);
-	}
+	DrawGrid(g_GridArr, g_AmountOfRowsAndColumnsAndMines[0], g_AmountOfRowsAndColumnsAndMines[1]);
 }
 
 void Update(float elapsedSec)
 {
 	// process input, do physics 
-
+	
 	// e.g. Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -51,6 +84,7 @@ void End()
 	delete[] g_GridArr;
 	delete[] g_MineGridArr;
 	delete[] g_TilesCheckedArr;
+	delete[] g_AmountOfRowsAndColumnsAndMines;
 }
 #pragma endregion gameFunctions
 
@@ -66,8 +100,15 @@ void OnKeyUpEvent(SDL_Keycode key)
 	switch (key)
 	{
 	case SDLK_r:
-		g_R = !g_R;
+		reset();
 		break;
+
+	case SDLK_g:
+		if(CheckIfPlayerWon()) RevealGrid();
+		break;
+
+	case SDLK_i:
+		PrintInfo();
 	}
 }
 
@@ -84,18 +125,36 @@ void OnMouseDownEvent(const SDL_MouseButtonEvent& e)
 
 void OnMouseUpEvent(const SDL_MouseButtonEvent& e)
 {
+	Point2f mousePos{ float(e.x), float(g_WindowHeight - e.y) };
+
 	//std::cout << "  [" << e.x << ", " << e.y << "]\n";
+	
 	switch (e.button)
-	{
-	case SDL_BUTTON_LEFT:
-	{
-		CheckMousePos(Point2f{ float(e.x), float(g_WindowHeight - e.y) }, Point2f{ 0,0 });
-		break;
-	}
-	case SDL_BUTTON_RIGHT:
-		
-		break;
-	}
+		{
+		case SDL_BUTTON_LEFT:
+			if (CheckIfPlayerWon() == false)
+			{
+				ClickedOnGrid(mousePos, Point2f{ 0,0 });
+				
+				if (CheckIfPlayerWon())
+				{
+					std::cout << "YOU WON!\nPress 'r' to reset.\nPress 'g' to reveal the grid.\n";
+				}
+			}
+			break;
+
+		case SDL_BUTTON_RIGHT:
+			if (CheckIfPlayerWon() == false)
+			{
+				ToggleTexture(mousePos, Point2f{ 0,0 }, g_DefaultTileTexture, g_FlagTexture);
+
+				if (CheckIfPlayerWon())
+				{
+					std::cout << "YOU WON!\nPress r to reset.\nPress g to reveal the grid.\n";
+				}
+			}
+			break;
+		}	
 }
 #pragma endregion inputHandling
 
@@ -125,12 +184,15 @@ void CreateNumbersTexturesArr(Texture*& textureArr, const int amountOfTextures)
 
 void DeleteTextures()
 {
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
+
 	for (int index{}; index < g_AmountOfNumberTextures; ++index)
 	{
 		DeleteTexture(g_NumbersTexturesArr[index]);
 	}
 
-	for (int index{}; index < g_AmountOfRows * g_AmountOfColumns; ++index)
+	for (int index{}; index < amountOfRows * amountOfColumns; ++index)
 	{
 		DeleteTexture(g_GridArr[index]);
 	}
@@ -140,24 +202,85 @@ void DeleteTextures()
 	DeleteTexture(g_MineTexture);
 }
 
-void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture)
+void InitArr(int*& gridArr, int number)
 {
-	gridArr = new Texture[amountOfRows * amountOfColumns];
+	const int size = { g_AmountOfRowsAndColumnsAndMines[0] * g_AmountOfRowsAndColumnsAndMines[1] };
+	gridArr = new int[size];
 
-	for (int index{}; index < amountOfRows * amountOfColumns; ++index)
-	{
-		gridArr[index] = texture;
-	}
-}
-
-void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, int number)
-{
-	gridArr = new int[amountOfRows * amountOfColumns];
-
-	for (int index{}; index < amountOfRows * amountOfColumns; ++index)
+	for (int index{}; index <size; ++index)
 	{
 		gridArr[index] = number;
 	}
+}
+
+void RandomMinesPosGenerator(Texture*& mineGridArr)
+{
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
+	const int amountOfMines{ g_AmountOfRowsAndColumnsAndMines[2] };
+	const int topBoundary{ amountOfRows * amountOfColumns };
+	g_MineLocations = new int[amountOfMines];
+
+	for (int mineNumber{}; mineNumber < amountOfMines; ++mineNumber)
+	{
+		int randomLocation{ GenerateRandomNumber(topBoundary) };
+
+		g_MineLocations[mineNumber] = randomLocation;
+
+		for (int index{}; index < mineNumber; ++index)
+		{	
+			if (randomLocation == g_MineLocations[index])
+			{
+				randomLocation = GenerateRandomNumber(topBoundary);			
+			}			
+		}
+		mineGridArr[randomLocation] = g_MineTexture;
+	}
+
+	for (int index{}; index < topBoundary; ++index)
+	{
+		if (mineGridArr[index].id != g_MineTexture.id)
+		{
+		mineGridArr[index] = g_NumbersTexturesArr[CheckAdjacentTiles(index)];
+		}
+	}
+}
+
+int GenerateRandomNumber(int topBoundary)
+{
+	int randomNumber{ rand() % topBoundary };
+	if (g_MineGridArr[randomNumber].id == g_MineTexture.id)
+	{
+		GenerateRandomNumber(topBoundary);
+	}
+	return randomNumber;
+}
+
+int CheckAdjacentTiles(const int tileIndex)
+{
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
+	const int rowNumber{ tileIndex / amountOfRows };
+	const int columnNumber{ tileIndex % amountOfColumns };
+	int amountOfMines{};
+
+	for (int dRow{ -1 }; dRow <= 1; ++dRow) // dRow stands for difference
+	{
+		for (int dColumn{ -1 }; dColumn <= 1; ++dColumn)
+		{
+			const int currentTileIndex{ columnNumber + dColumn + amountOfRows * (rowNumber + dRow) };
+
+			if (	g_MineGridArr[currentTileIndex].id == g_MineTexture.id
+				 && rowNumber + dRow != amountOfRows
+				 && rowNumber + dRow != -1
+				 && columnNumber + dColumn != amountOfColumns
+				 && columnNumber + dColumn != -1							)
+			{
+				++amountOfMines;
+			}
+		}
+	}
+	return amountOfMines;
 }
 
 void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumns)
@@ -178,27 +301,32 @@ void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumn
 	}
 }
 
-void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
+void ClickedOnGrid(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
 {
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
 	Point2f bottomLeftCornerOfCurrentTile{bottomLeftCornerOfGrid};
 
-	for (int rowNumber{}; rowNumber < g_AmountOfRows; ++rowNumber)
+	for (int rowNumber{}; rowNumber < amountOfRows; ++rowNumber)
 	{
-		for (int columnNumber{}; columnNumber < g_AmountOfColumns; ++columnNumber)
+		for (int columnNumber{}; columnNumber < amountOfColumns; ++columnNumber)
 		{
+			const int currentTileIndex{ columnNumber + (amountOfRows * rowNumber) };
+
 			if (    mousePos.x >= bottomLeftCornerOfCurrentTile.x
 				 && mousePos.x <= bottomLeftCornerOfCurrentTile.x + g_GridArr[0].width * g_ScaleFactor
 				 && mousePos.y >= bottomLeftCornerOfCurrentTile.y
 				 && mousePos.y <= bottomLeftCornerOfCurrentTile.y + g_GridArr[0].height * g_ScaleFactor 
-				 && g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)].id == g_DefaultTileTexture.id )
+				 && g_GridArr[columnNumber + (amountOfRows * rowNumber)].id == g_DefaultTileTexture.id )
 			{
-				if (CheckIFIsClickPosIsMine(columnNumber + (g_AmountOfRows * rowNumber)))
+				if (BCheckIfClickedPosIsMine(currentTileIndex))
 				{
 					RevealGrid();
+					std::cout << "GAME OVER\nYou caused an explosion!";
 				}
 				else
 				{
-					ChangeTileTexture(columnNumber + (g_AmountOfRows * rowNumber));
+					ChangeTileTexture(currentTileIndex);
 				}
 			}
 			bottomLeftCornerOfCurrentTile.x += g_GridArr[0].width * g_ScaleFactor;
@@ -208,73 +336,57 @@ void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
 	}
 }
 
-int CheckAdjacentTiles(const int tileIndex)
+bool BCheckIfClickedPosIsMine(const int index)
 {
-	int amountOfMines{};
-	int rowNumber{ tileIndex / g_AmountOfRows };
-	int columnNumber{ tileIndex % g_AmountOfColumns };
-	
-	//columnNumber + (g_AmountOfRows * rowNumber)
-	for (int dRow{ -1 }; dRow <= 1; ++dRow)
+	if (g_MineGridArr[index].id == g_MineTexture.id)
 	{
-		for (int dColumn{ -1 }; dColumn <= 1; ++dColumn)
-		{
-			if (g_MineGridArr[columnNumber + dColumn + g_AmountOfRows * (rowNumber + dRow)].id == g_MineTexture.id)
-			{
-				++amountOfMines;
-			}
-		}
+		return true;
 	}
-
-	return amountOfMines;
+	return false;
 }
 
 void ChangeTileTexture(const int tileIndex)
 {
-	int rowNumber{ tileIndex / g_AmountOfRows };
-	int columnNumber{ tileIndex % g_AmountOfRows };
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
+	const int rowNumber{ tileIndex / amountOfRows };
+	const int columnNumber{ tileIndex % amountOfRows };
 
 	for (int dRow{ -1 }; dRow <= 1; ++dRow) // dRow stands for difference
 	{
 		for (int dColumn{ -1 }; dColumn <= 1; ++dColumn)
 		{
-			if (	(columnNumber + dColumn) >= 0
-				 && (columnNumber + dColumn) < g_AmountOfColumns
-				 && (rowNumber + dRow) >= 0
-				 && (rowNumber + dRow) < g_AmountOfRows				)
-			{
-				int currentTileIndex{ columnNumber + dColumn + g_AmountOfRows * (rowNumber + dRow) };
+			const int currentTileIndex{ columnNumber + dColumn + amountOfRows * (rowNumber + dRow) };
 
+			if (	(columnNumber + dColumn) >= 0
+				 && (columnNumber + dColumn) < amountOfColumns
+				 && (rowNumber + dRow) >= 0
+				 && (rowNumber + dRow) < amountOfRows			)
+			{
 				if (    g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[0].id && !BInCheckedTilesArr(currentTileIndex))
 				{
 					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
 					++g_AmountOfTilesChecked;
 					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[0];
 					ChangeTileTexture(currentTileIndex);
-				} 
-				else if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[1].id && !BInCheckedTilesArr(currentTileIndex))
-				{
-					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
-					++g_AmountOfTilesChecked;
-					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[1];
-				}
-				else if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[2].id && !BInCheckedTilesArr(currentTileIndex))
-				{
-					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
-					++g_AmountOfTilesChecked;
-					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[2];
-				}
-				else if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[3].id && !BInCheckedTilesArr(currentTileIndex))
-				{
-					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
-					++g_AmountOfTilesChecked;
-					g_GridArr[currentTileIndex] = g_NumbersTexturesArr[3];
 				}
 				else if (g_MineGridArr[currentTileIndex].id == g_MineTexture.id && !BInCheckedTilesArr(currentTileIndex))
 				{
 					g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
 					++g_AmountOfTilesChecked;
 					ChangeTileTexture(currentTileIndex);
+				}
+				else
+				{
+					for (int index{ 1 }; index < g_AmountOfNumberTextures; ++index)
+					{
+						if (g_MineGridArr[currentTileIndex].id == g_NumbersTexturesArr[index].id && !BInCheckedTilesArr(currentTileIndex))
+						{
+							g_TilesCheckedArr[g_AmountOfTilesChecked] = currentTileIndex;
+							++g_AmountOfTilesChecked;
+							g_GridArr[currentTileIndex] = g_NumbersTexturesArr[index];
+						}
+					}
 				}
 			}
 		}
@@ -293,42 +405,115 @@ bool BInCheckedTilesArr(const int tileToCheck)
 	return false;
 }
 
-void RandomMinesPosGenerator(Texture*& mineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines)
+void RevealGrid()
 {
-	int topBoundary{ amountOfRows * amountOfColumns };
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
 
-	for (int mineNumber{}; mineNumber < amountOfMines; ++mineNumber)
+	for (int rowNumber{}; rowNumber < amountOfRows; ++rowNumber)
 	{
-		int randomNumber{ rand() % topBoundary };
-		mineGridArr[randomNumber] = g_MineTexture;
-	}
-
-	for (int index{}; index < topBoundary; ++index)
-	{
-		if (mineGridArr[index].id != g_MineTexture.id)
+		for (int columnNumber{}; columnNumber <amountOfColumns; ++columnNumber)
 		{
-			mineGridArr[index] = g_NumbersTexturesArr[CheckAdjacentTiles(index)];
+			const int currentTileIndex{ columnNumber + (amountOfRows * rowNumber) };
+			g_GridArr[currentTileIndex].id = g_MineGridArr[currentTileIndex].id;
 		}
 	}
 }
 
-bool CheckIFIsClickPosIsMine(const int index)
+void ToggleTexture(Point2f mousePos, Point2f bottomLeftCornerOfGrid, Texture defaultTexture, Texture textureToToggle)
 {
-	if (g_MineGridArr[index].id == g_MineTexture.id)
+	if (g_GridArr[CheckMousePos(mousePos, bottomLeftCornerOfGrid)].id == defaultTexture.id)
 	{
-		return true;
+		g_GridArr[CheckMousePos(mousePos, bottomLeftCornerOfGrid)] = textureToToggle;
 	}
+	else if (g_GridArr[CheckMousePos(mousePos, bottomLeftCornerOfGrid)].id == textureToToggle.id)
+	{
+		g_GridArr[CheckMousePos(mousePos, bottomLeftCornerOfGrid)] = defaultTexture;
+	}
+}
+
+int CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid)
+{
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
+	Point2f bottomLeftCornerOfCurrentTile{ bottomLeftCornerOfGrid };
+
+	for (int rowNumber{}; rowNumber < amountOfRows; ++rowNumber)
+	{
+		for (int columnNumber{}; columnNumber < amountOfColumns; ++columnNumber)
+		{
+			const int currentTileIndex{ columnNumber + (amountOfRows * rowNumber) };
+
+			if (	mousePos.x >= bottomLeftCornerOfCurrentTile.x
+				 && mousePos.x <= bottomLeftCornerOfCurrentTile.x + g_GridArr[0].width * g_ScaleFactor
+				 && mousePos.y >= bottomLeftCornerOfCurrentTile.y
+				 && mousePos.y <= bottomLeftCornerOfCurrentTile.y + g_GridArr[0].height * g_ScaleFactor)
+			{
+				return currentTileIndex;
+			}
+			bottomLeftCornerOfCurrentTile.x += g_GridArr[0].width * g_ScaleFactor;
+		}
+		bottomLeftCornerOfCurrentTile.x = bottomLeftCornerOfGrid.x;
+		bottomLeftCornerOfCurrentTile.y += g_GridArr[0].height * g_ScaleFactor;
+	}
+	return -1;
+}
+
+bool CheckIfPlayerWon()
+{
+	const int amountOfRows{ g_AmountOfRowsAndColumnsAndMines[0] };
+	const int amountOfColumns{ g_AmountOfRowsAndColumnsAndMines[1] };
+	const int amountOfMines{ g_AmountOfRowsAndColumnsAndMines[2] };
+	int minesFound{};
+
+	for (int rowNumber{}; rowNumber < amountOfRows; ++rowNumber)
+	{
+		for (int columnNumber{}; columnNumber < amountOfColumns; ++columnNumber)
+		{
+			int currentTileIndex{ columnNumber + (amountOfRows * rowNumber) };
+
+			if (g_GridArr[currentTileIndex].id == g_FlagTexture.id && g_MineGridArr[currentTileIndex].id == g_MineTexture.id)
+			{
+				++minesFound;
+			}
+
+			if (minesFound == amountOfMines)
+			{
+				return true;
+			}
+		}
+	}	
 	return false;
 }
 
-void RevealGrid()
+void InitArr(Texture*& textureArr, Texture texture)
 {
-	for (int rowNumber{}; rowNumber < g_AmountOfRows; ++rowNumber)
+	const int size{ g_AmountOfRowsAndColumnsAndMines[0] * g_AmountOfRowsAndColumnsAndMines[1] };
+	textureArr = new Texture[size];
+
+	for (int index{}; index < size; ++index)
 	{
-		for (int columnNumber{}; columnNumber < g_AmountOfColumns; ++columnNumber)
-		{
-			g_GridArr[columnNumber + (g_AmountOfRows * rowNumber)].id = g_MineGridArr[columnNumber + (g_AmountOfRows * rowNumber)].id;
-		}
+		textureArr[index] = texture;
 	}
+}
+
+void reset()
+{
+	/*InitGridArr(g_GridArr, g_AmountOfRows, g_AmountOfColumns, g_DefaultTileTexture);
+	InitGridArr(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, g_NumbersTexturesArr[0]);
+	InitGridArr(g_TilesCheckedArr, g_AmountOfRows, g_AmountOfColumns, -1);
+	RandomMinesPosGenerator(g_MineGridArr, g_AmountOfRows, g_AmountOfColumns, g_AmountOfMines);*/
+}
+
+void PrintInfo()
+{
+	std::cout << "There are " << g_AmountOfRowsAndColumnsAndMines[2] << " mines on the field.\n\n";
+	std::cout << "The left mouse button is used to uncover the squares.\n";
+	std::cout << "If you click on a mine you cause an explosion and is it GAME OVER.\n";
+	std::cout << "The right mouse butten is used to place flags.\n";
+	std::cout << "If you click on a flag with the left mouse button nothing happens.\n";
+	std::cout << "But if you click on a flag with the right mouse button the flag disappears.\n";
+	std::cout << "The goal of the game is to place flags on all mines without causing an explosion.\n";
+	std::cout << "If you want to restart the game press the 'r' button\n\n";
 }
 #pragma endregion ownDefinitions

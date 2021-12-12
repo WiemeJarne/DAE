@@ -5,8 +5,8 @@ using namespace utils;
 std::string g_WindowTitle{ "Minesweeper - Wieme, Jarne - Christiaan, Uyterhoeven - 1DAE23" };
 
 // Change the window dimensions here
-float g_WindowWidth{ 200 };
-float g_WindowHeight{ 200 };
+float g_WindowWidth{ 1000 };
+float g_WindowHeight{ 1000 };
 #pragma endregion gameInformation
 
 
@@ -14,36 +14,46 @@ float g_WindowHeight{ 200 };
 #pragma region ownDeclarations
 // Declare your own global variables here
 const int g_AmountOfNumberTextures{ 9 };
-const float g_ScaleFactor{ 25 / 20 };
 
-bool g_R{};
-
-Texture* g_NumbersTexturesArr;
-
-const int g_AmountOfRows{ 10 };
-const int g_AmountOfColumns{ 10 };
-int* g_TilesCheckedArr;
 int g_AmountOfTilesChecked{};
-Texture* g_GridArr;
-Texture* g_MineGridArr;
+
+int* g_TilesCheckedArr;
+int* g_AmountOfRowsAndColumnsAndMines;
+int* g_MineLocations;
+
+float g_ScaleFactor{ 1.f };
 
 Texture g_DefaultTileTexture{};
 Texture g_FlagTexture{};
 Texture g_MineTexture{};
+
+Texture* g_GridArr;
+Texture* g_MineGridArr;
+Texture* g_NumbersTexturesArr;
+
 // Declare your own functions here
 void CreateNumbersTexturesArr(Texture*& textureArr, const int amountOfTextures);
 void CreateTextures();
 void DeleteTextures();
-void InitGridArr(Texture*& gridArr, const int amountOfRows, const int amountOfColumns, Texture texture);
-void InitGridArr(int*& gridArr, const int amountOfRows, const int amountOfColumns, int number);
-void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfColumns);
-void CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid);
-int CheckAdjacentTiles(const int tileIndex);
-void ChangeTileTexture(const int tileIndex);
-void RandomMinesPosGenerator(Texture*& MineGridArr, const int amountOfRows, const int amountOfColumns, const int amountOfMines = 10);
-bool BInCheckedTilesArr(const int tileToCheck);
-bool CheckIFIsClickPosIsMine(const int index);
+//void InitGridArr(Texture*& gridArr, const int size, Texture texture);
+void InitArr(int*& gridArr, int number);
+void InitArr(Texture*& textureArr, Texture texture);
+void DrawGrid(Texture* gridArr, const int amountOfRows, const int amountOfcolumns);
+void ClickedOnGrid(Point2f mousePos, Point2f bottomLeftCornerOfGrid);
+void reset();
 void RevealGrid();
+void PrintInfo();
+void ToggleTexture(Point2f mousePos, Point2f bottomLeftCornerOfGrid, Texture defaultTexture, Texture textureToToggle);
+void ChangeTileTexture(const int tileIndex);
+void RandomMinesPosGenerator(Texture*& MineGridArr);
+
+int CheckAdjacentTiles(const int tileIndex);
+int CheckMousePos(Point2f mousePos, Point2f bottomLeftCornerOfGrid);
+int GenerateRandomNumber(int topBoundary);
+
+bool BInCheckedTilesArr(const int tileToCheck);
+bool BCheckIfClickedPosIsMine(const int index);
+bool CheckIfPlayerWon();
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions											
