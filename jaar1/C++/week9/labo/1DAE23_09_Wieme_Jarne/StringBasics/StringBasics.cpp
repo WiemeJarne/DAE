@@ -22,8 +22,8 @@ int main()
    //std::string::size and std::string::lenght
    std::cout << "\nsize: " << gutenBergString.size() << "\nlenght: " << gutenBergString.length() << '\n';
 
-   ////std::string::c_string
-   //char* cgutenBergString = new char[gutenBergString.length() + 1];
+   //std::string::c_string
+   //char* cgutenBergString = new char[gutenBergString.length() * 2];
    //std::strcpy(cgutenBergString, gutenBergString.c_str());
 
    //char* p = std::strtok(cgutenBergString, " ");
@@ -36,7 +36,7 @@ int main()
    //delete[] cgutenBergString;
 
    //std::string::capacity
-   std::cout << "\nCapacity: " << gutenBergString.capacity() << '\n';
+   std::cout << "Capacity: " << gutenBergString.capacity() << '\n';
 
    //std::string::operator[]
    std::cout << "\nFirst character using []: " << gutenBergString[0]
@@ -48,7 +48,7 @@ int main()
 
    //std::string::find and std::string::rfind
    std::string userInput{};
-   std::cout << "\nThe string to search in the above text? ";
+   std::cout << "\n\nThe string to search in the above text? ";
    std::cin >> userInput;
 
    std::cout << "\nOccurances of '" << userInput << "' at:\n";
@@ -65,8 +65,34 @@ int main()
    found = gutenBergString.rfind(userInput);
    for (int index{}; index < 4; ++index)
    {
-	   found = gutenBergString.rfind(userInput, found + index);
+	   found = gutenBergString.rfind(userInput, found - index);
 	   if (found != std::string::npos)
 		   std::cout << found << ' ';
    }
+
+   //std::string::replace
+   std::cout << "\n\nThe string you want to replace by *** in the above text? ";
+   std::cin >> userInput;
+
+   found = gutenBergString.find(userInput);
+   for (unsigned int index{}; index < gutenBergString.size(); ++index)
+   {
+	   found = gutenBergString.find(userInput, found + index);
+	   if (found != std::string::npos) gutenBergString.replace(found, userInput.size(), "***");
+   }
+   std::cout << gutenBergString;
+
+   //std::string::erase
+   std::cout << "\n\nThe string you wnat to erase from the above text? ";
+   std::cin >> userInput;
+
+   found = gutenBergString.find(userInput);
+   for (unsigned int index{}; index < gutenBergString.size(); ++index)
+   {
+	   found = gutenBergString.find(userInput, found + index);
+	   if (found != std::string::npos) gutenBergString.erase(found, userInput.size());
+   }
+   std::cout << gutenBergString;
+   std::cout << "\nsize: " << gutenBergString.size() << "\nlenght: " << gutenBergString.length();
+   std::cout << "\nCapacity: " << gutenBergString.capacity() << '\n';
 }
