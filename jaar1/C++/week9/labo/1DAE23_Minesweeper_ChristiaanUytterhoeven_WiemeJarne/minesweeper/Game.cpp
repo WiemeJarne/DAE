@@ -185,7 +185,7 @@ void AskUserInput()
 	g_ScaleFactor = tileSideLenght / g_DefaultTileTexture.height;
 	maxAmountOfRowsAndColumns = int(g_WindowHeight / tileSideLenght);
 
-	std::cout << "\nHow large do you want the field to be?(maximum " << maxAmountOfRowsAndColumns << ")";
+	std::cout << "\nHow large do you want the field to be?(maximum " << maxAmountOfRowsAndColumns << ") ";
 	std::cin >> amountOfRows;
 	g_AmountOfRowsAndColumnsAndMines[0] = amountOfRows;
 
