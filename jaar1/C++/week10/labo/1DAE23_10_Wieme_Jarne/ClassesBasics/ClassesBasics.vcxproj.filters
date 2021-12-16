@@ -32,10 +32,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Square.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

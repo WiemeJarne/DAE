@@ -42,6 +42,8 @@ void DoSquareTests()
 	ptrSquare2->Print();
 
 	TestSquare(ptrSquare1);
+
+	delete ptrSquare1, ptrSquare2;
 }
 
 void TestSquare(Square* ptrSquare)
@@ -66,4 +68,6 @@ void DoTimeTests()
 	ptrTime1->Print();
 	ptrTime2->Print();
 	ptrTime3->Print();
+
+	delete ptrTime1, ptrTime2, ptrTime3;
 }
