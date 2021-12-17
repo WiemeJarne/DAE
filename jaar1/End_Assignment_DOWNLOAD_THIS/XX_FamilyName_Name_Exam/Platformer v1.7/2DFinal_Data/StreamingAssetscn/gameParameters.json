@@ -1,0 +1,71 @@
+{
+	"name": "hola",
+	"anims": [
+		{
+			"name": "characterRun",
+			"yOffset": -0.45,
+			"columns": 5,
+			"rows": 2,
+			"numFrames": 10,
+			"frameSpeed": 0.1,
+			"loopUpStartsAt": -1,
+			"loopUpEndsAt": -1,
+			"loopDownStartsAt": -1,
+			"loopDownEndsAt": -1,
+			"shouldFlip": true
+		},
+		{
+			"name": "characterJump",
+			"yOffset": -0.45,
+			"columns": 5,
+			"rows": 2,
+			"numFrames": 6,
+			"frameSpeed": 0.07,
+			"loopUpStartsAt": 1,
+			"loopUpEndsAt": 1,
+			"loopDownStartsAt": 5,
+			"loopDownEndsAt": 5,
+			"shouldFlip": true
+		},
+		{
+			"name": "characterIdle",
+			"yOffset": -0.45,
+			"columns": 2,
+			"rows": 1,
+			"numFrames": 2,
+			"frameSpeed": 0.1,
+			"loopUpStartsAt": -1,
+			"loopUpEndsAt": -1,
+			"loopDownStartsAt": -1,
+			"loopDownEndsAt": -1,
+			"shouldFlip": true  
+		},
+		{
+			"name": "characterDie",
+			"yOffset": -0.45,
+			"columns": 2,
+			"rows": 2,
+			"numFrames": 3,
+			"frameSpeed": 0.1,
+			"loopUpStartsAt": 3,
+			"loopUpEndsAt": 4,
+			"loopDownStartsAt": 3,
+			"loopDownEndsAt": 4,
+			"shouldFlip": true
+		},
+		{
+			"name": "enemy",
+			"yOffset": -0.05,
+			"columns": 3,
+			"rows": 3,
+			"numFrames": 9,
+			"frameSpeed": 0.07,
+			"loopUpStartsAt": -1,
+			"loopUpEndsAt": -1,
+			"loopDownStartsAt": -1,
+			"loopDownEndsAt": -1,
+			"shouldFlip": true
+		}
+	],
+	"color": [ 191, 213, 255 ]
+}
