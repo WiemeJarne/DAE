@@ -2,6 +2,7 @@
 using namespace utils;
 class Fraction;
 class Light;
+class DaeEllipse;
 #pragma region gameInformation
 // Set your name and group in the title here
 std::string g_WindowTitle{ "GraphicsClasses - Wieme, Jarne - 1DAE23" };
@@ -23,6 +24,9 @@ const int g_AmountOfColumns{ 2 };
 const int g_AmountOfLights{ g_AmountOfRows * g_AmountOfColumns };
 Light** g_DynArrLights;
 int g_AmountOfLightsOn{ g_AmountOfRows * g_AmountOfColumns };
+
+const int g_AmountOfDaeEllipses{ 3 };
+DaeEllipse** g_DynArrDaeEllipses;
 // Declare your own functions here
 void CreateFractions();
 void DeleteFractions();
@@ -35,6 +39,11 @@ void DrawLights();
 void HitLights(const Point2f& pos);
 void PrintAmountOfLightsOn();
 int CalculateAmountOfLightOn();
+
+void CreateDaeEllipses();
+void DeleteDaeEllipses();
+void DrawDaeEllipses();
+void ActivateDaeEllipsesTest(const Point2f& mousePos);
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions											

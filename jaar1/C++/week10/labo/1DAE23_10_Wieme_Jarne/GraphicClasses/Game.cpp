@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Fraction.h"
 #include "Light.h"
+#include "DaeEllipse.h"
 #include <iostream>
 
 //Basic game functions
@@ -9,12 +10,15 @@
 void Start()
 {
 	// initialize game resources here
-	g_DynArrFractions = new Fraction*[g_AmountOfFractions];
+	g_DynArrFractions = new Fraction* [g_AmountOfFractions];
 	CreateFractions();
 	PrintFractionsSum();
 
-	g_DynArrLights = new Light * [g_AmountOfLights];
+	g_DynArrLights = new Light* [g_AmountOfLights];
 	CreateLights();
+
+	g_DynArrDaeEllipses = new DaeEllipse* [g_AmountOfDaeEllipses];
+	CreateDaeEllipses();
 }
 
 void Draw()
@@ -24,6 +28,7 @@ void Draw()
 	// Put your own draw statements here
 	DrawFractions();
 	DrawLights();
+	DrawDaeEllipses();
 }
 
 void Update(float elapsedSec)
@@ -47,6 +52,7 @@ void End()
 	// free game resources here
 	DeleteFractions();
 	DeleteLights();
+	DeleteDaeEllipses();
 }
 #pragma endregion gameFunctions
 
@@ -76,8 +82,9 @@ void OnKeyUpEvent(SDL_Keycode key)
 
 void OnMouseMotionEvent(const SDL_MouseMotionEvent& e)
 {
-	//std::cout << "  [" << e.x << ", " << e.y << "]\n";
-	//Point2f mousePos{ float( e.x ), float( g_WindowHeight - e.y ) };
+	Point2f mousePos{ float( e.x ), float( g_WindowHeight - e.y ) };
+
+	ActivateDaeEllipsesTest(mousePos);
 }
 
 void OnMouseDownEvent(const SDL_MouseButtonEvent& e)
@@ -237,5 +244,48 @@ int CalculateAmountOfLightOn()
 		if (g_DynArrLights[index]->IsOn()) ++AmountIfLightsOn;
 	}
 	return AmountIfLightsOn;
+}
+
+void CreateDaeEllipses()
+{
+	Point2f center{350, g_WindowHeight / 2 };
+	float radX{ 140 };
+	float radY{ radX };
+	Color4f fillColor{ 1.f, 1.f, 0.f, 1.f };
+
+	for (int index{}; index < g_AmountOfDaeEllipses; ++index)
+	{
+		g_DynArrDaeEllipses[index] = new DaeEllipse{ center, radX, radY, fillColor };
+
+		if (index == 0) center = Point2f{ 200, 240 }, radX = 50, radY = 100, fillColor = Color4f{ 0.f, 1.f, 0.f, 1.f };
+		if (index == 1) center = Point2f{ 100, 240 }, radX = 50, radY = radX, fillColor = Color4f{ 1.f, 0.f, 0.f, 1.f };
+	}
+}
+
+void DeleteDaeEllipses()
+{
+	for (int index{}; index < g_AmountOfDaeEllipses; ++index)
+	{
+		delete g_DynArrDaeEllipses[index];
+		g_DynArrDaeEllipses[index] = nullptr;
+	}
+	delete[] g_DynArrDaeEllipses;
+	g_DynArrDaeEllipses = nullptr;
+}
+
+void DrawDaeEllipses()
+{
+	for (int index{}; index < g_AmountOfDaeEllipses; ++index)
+	{
+		g_DynArrDaeEllipses[index]->Draw();
+	}
+}
+
+void ActivateDaeEllipsesTest(const Point2f& mousePos)
+{
+	for (int index{}; index < g_AmountOfDaeEllipses; ++index)
+	{
+		g_DynArrDaeEllipses[index]->ActivateTests(mousePos);
+	}
 }
 #pragma endregion ownDefinitions

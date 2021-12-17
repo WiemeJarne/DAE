@@ -42,6 +42,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="DaeEllipse.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -66,6 +69,9 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="DaeEllipse.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>
