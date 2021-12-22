@@ -20,7 +20,7 @@ private:
 	const int m_Columns{}, m_Rows{};
 	int m_CurrentFrame{};
 	const int m_AmountOfFrames{};
-	const float m_SecondsPerFrame{};
+	const float m_g_SecondsPerFrame{};
 	float m_AccumulateSeconds{};
 	const float m_Scale{};
 	float m_SpriteFrameWidth{}, m_SpriteFrameHeight{};

@@ -6,7 +6,7 @@ using namespace utils;
 Sprite::Sprite(const std::string& filename, int nrCols, int nrRows, float frameSec, float scale)
 	: m_Columns{ nrCols }
 	, m_Rows{ nrRows }
-	, m_SecondsPerFrame{ frameSec }
+	, m_g_SecondsPerFrame{ frameSec }
 	, m_Scale{ scale }
 	,m_AmountOfFrames{nrCols * nrRows}
 {
@@ -28,7 +28,7 @@ void Sprite::Update(float elapsedSec)
 {
 	m_AccumulateSeconds += elapsedSec;
 
-	float elapsedFrames{m_AccumulateSeconds / m_SecondsPerFrame};
+	float elapsedFrames{m_AccumulateSeconds / m_g_SecondsPerFrame};
 	
 	m_CurrentFrame = int(elapsedFrames) % m_AmountOfFrames;
 }

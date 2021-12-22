@@ -15,14 +15,14 @@ float g_WindowHeight{ 300 };
 
 #pragma region ownDeclarations
 // Declare your own global variables here
-const std::string knightFileLocation{ "Resources/RunningKnight.png" };
-const std::string tiboFileLocation{ "Resources/Tibo.png" };
+const std::string g_KnightFileLocation{ "Resources/RunningKnight.png" };
+const std::string g_TiboFileLocation{ "Resources/Tibo.png" };
 
-const int framesPerSecond{ 20 };
-const float secondsPerFrame{ 1.f / framesPerSecond };
+const int g_FramesPerSecond{ 20 };
+const float g_SecondsPerFrame{ 1.f / g_FramesPerSecond };
 
-const int knightAmountOfRows{ 1 }, knightAmountOfColumns{ 8 };
-const int tiboAmountOfRows{ 5 }, tiboAmountOfColumns{ 5 };
+const int g_KnightAmountOfRows{ 1 }, g_KnightAmountOfColumns{ 8 };
+const int g_TiboAmountOfRows{ 5 }, g_TiboAmountOfColumns{ 5 };
 
 const int g_AmountOfSprites{ 5 };
 const int g_SpritesHeight{ 100 };

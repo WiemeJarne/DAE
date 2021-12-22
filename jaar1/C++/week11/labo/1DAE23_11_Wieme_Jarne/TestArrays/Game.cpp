@@ -9,11 +9,11 @@ void Start()
 	// initialize game resources here
 	int index{};
 
-	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, secondsPerFrame, 1.f);
-	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, secondsPerFrame, 0.5f);
-	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, secondsPerFrame, 0.33f);
-	g_MySpritesArr[index++] = new Sprite(tiboFileLocation, 	 tiboAmountOfColumns,   tiboAmountOfRows,	secondsPerFrame, 1.f);
-	g_MySpritesArr[index++] = new Sprite(tiboFileLocation,	 tiboAmountOfColumns,   tiboAmountOfRows,	secondsPerFrame, 1.f);
+	g_MySpritesArr[index++] = new Sprite(g_KnightFileLocation, g_KnightAmountOfColumns, g_KnightAmountOfRows, g_SecondsPerFrame, 1.f);
+	g_MySpritesArr[index++] = new Sprite(g_KnightFileLocation, g_KnightAmountOfColumns, g_KnightAmountOfRows, g_SecondsPerFrame, 0.5f);
+	g_MySpritesArr[index++] = new Sprite(g_KnightFileLocation, g_KnightAmountOfColumns, g_KnightAmountOfRows, g_SecondsPerFrame, 0.33f);
+	g_MySpritesArr[index++] = new Sprite(g_TiboFileLocation, 	 g_TiboAmountOfColumns,   g_TiboAmountOfRows,	g_SecondsPerFrame, 1.f);
+	g_MySpritesArr[index++] = new Sprite(g_TiboFileLocation,	 g_TiboAmountOfColumns,   g_TiboAmountOfRows,	g_SecondsPerFrame, 1.f);
 }
 
 void Draw()
