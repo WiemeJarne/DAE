@@ -9,20 +9,11 @@ void Start()
 	// initialize game resources here
 	int index{};
 
-	const std::string knightFileLocation{ "Resources/RunningKnight.png"};
-	const std::string tiboFileLocation{ "Resources/Tibo.png" };
-
-	const int framesPerSecond{ 20 };
-	const float secondsPerFrame{ 1.f / framesPerSecond };
-
-	const int knightAmountOfRows{ 1 }, knightAmountOfColumns{ 8 };
-	const int tiboAmountOfRows  { 5 }, tiboAmountOfColumns  { 5 };
-
-	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, framesPerSecond, 1.f);
-	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, framesPerSecond, 0.5f);
-	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, framesPerSecond, 0.33f);
-	g_MySpritesArr[index++] = new Sprite(tiboFileLocation, 	 tiboAmountOfColumns,   tiboAmountOfRows,   framesPerSecond, 1.f);
-	g_MySpritesArr[index++] = new Sprite(tiboFileLocation,	 tiboAmountOfColumns,   tiboAmountOfRows,   framesPerSecond, 1.f);
+	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, secondsPerFrame, 1.f);
+	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, secondsPerFrame, 0.5f);
+	g_MySpritesArr[index++] = new Sprite(knightFileLocation, knightAmountOfColumns, knightAmountOfRows, secondsPerFrame, 0.33f);
+	g_MySpritesArr[index++] = new Sprite(tiboFileLocation, 	 tiboAmountOfColumns,   tiboAmountOfRows,	secondsPerFrame, 1.f);
+	g_MySpritesArr[index++] = new Sprite(tiboFileLocation,	 tiboAmountOfColumns,   tiboAmountOfRows,	secondsPerFrame, 1.f);
 }
 
 void Draw()
@@ -32,7 +23,8 @@ void Draw()
 	// Put your own draw statements here
 	for (int index{}; index < g_AmountOfSprites; ++index)
 	{
-		g_MySpritesArr[index]->Draw(g_MySpritesLocationArr[index]);
+		if (g_MySpritesArr[index] != nullptr)
+			g_MySpritesArr[index]->Draw(g_MySpritesLocationArr[index]);
 	}
 }
 
@@ -41,7 +33,8 @@ void Update(float elapsedSec)
 	// process input, do physics 
 	for (int index{}; index < g_AmountOfSprites; ++index)
 	{
-		g_MySpritesArr[index]->Update(elapsedSec);
+		if(g_MySpritesArr[index] != nullptr)
+		   g_MySpritesArr[index]->Update(elapsedSec);
 	}
 
 	// e.g. Check keyboard state
@@ -59,6 +52,10 @@ void Update(float elapsedSec)
 void End()
 {
 	// free game resources here
+	for (int index{}; index < g_AmountOfSprites; ++index)
+	{
+		delete g_MySpritesArr[index];
+	}
 }
 #pragma endregion gameFunctions
 

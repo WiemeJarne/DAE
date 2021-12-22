@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Sprite.h"
+#include <iostream>
 using namespace utils;
 
 Sprite::Sprite(const std::string& filename, int nrCols, int nrRows, float frameSec, float scale)
@@ -27,7 +28,7 @@ void Sprite::Update(float elapsedSec)
 {
 	m_AccumulateSeconds += elapsedSec;
 
-	const float elapsedFrames{m_AccumulateSeconds / m_SecondsPerFrame};
+	float elapsedFrames{m_AccumulateSeconds / m_SecondsPerFrame};
 	
 	m_CurrentFrame = int(elapsedFrames) % m_AmountOfFrames;
 }
@@ -42,7 +43,7 @@ void Sprite::Draw(const Point2f& pos)
 
 	Rectf sourceRect{};
 	sourceRect.left   = (m_CurrentFrame % m_Columns) * m_TextureFrameWidth;
-	sourceRect.bottom = (m_CurrentFrame / m_Columns) * m_TextureFrameHeight;
+	sourceRect.bottom = (m_CurrentFrame / m_Columns + 1) * m_TextureFrameHeight;
 	sourceRect.width  = m_TextureFrameWidth;
 	sourceRect.height = m_TextureFrameHeight;
 

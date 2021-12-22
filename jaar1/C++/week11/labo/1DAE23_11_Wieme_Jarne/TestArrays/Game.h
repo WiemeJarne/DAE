@@ -15,15 +15,24 @@ float g_WindowHeight{ 300 };
 
 #pragma region ownDeclarations
 // Declare your own global variables here
+const std::string knightFileLocation{ "Resources/RunningKnight.png" };
+const std::string tiboFileLocation{ "Resources/Tibo.png" };
+
+const int framesPerSecond{ 20 };
+const float secondsPerFrame{ 1.f / framesPerSecond };
+
+const int knightAmountOfRows{ 1 }, knightAmountOfColumns{ 8 };
+const int tiboAmountOfRows{ 5 }, tiboAmountOfColumns{ 5 };
+
 const int g_AmountOfSprites{ 5 };
-const int g_SpritesHeight{ 200 };
+const int g_SpritesHeight{ 100 };
 
 Sprite* g_MySpritesArr[g_AmountOfSprites]{};
 Point2f g_MySpritesLocationArr[g_AmountOfSprites]{ {50,g_SpritesHeight}
+												  ,{100,g_SpritesHeight}
 												  ,{150,g_SpritesHeight}
-												  ,{200,g_SpritesHeight}
-												  ,{200,g_SpritesHeight}
-												  ,{2500,g_SpritesHeight} };
+												  ,{175,g_SpritesHeight}
+												  ,{325,g_SpritesHeight} };
 // Declare your own functions here
 
 #pragma endregion ownDeclarations
