@@ -1,3 +1,0 @@
-gradient: blauw maken
-gebouwen achtergrond: lichter maken
-platformen: i.p.v. bruin blauw
