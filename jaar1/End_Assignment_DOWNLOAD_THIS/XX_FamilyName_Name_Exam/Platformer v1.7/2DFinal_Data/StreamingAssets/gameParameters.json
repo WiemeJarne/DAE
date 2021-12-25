@@ -3,7 +3,7 @@
 	"anims": [
 		{
 			"name": "characterRun",
-			"yOffset": -0.74,
+			"yOffset": -0.50,
 			"columns": 4,
 			"rows": 2,
 			"numFrames": 8,
@@ -16,7 +16,7 @@
 		},
 		{
 			"name": "characterJump",
-			"yOffset": -0.74,
+			"yOffset": -0.50,
 			"columns": 1,
 			"rows": 1,
 			"numFrames": 1,
@@ -29,7 +29,7 @@
 		},
 		{
 			"name": "characterIdle",
-			"yOffset": -0.74,
+			"yOffset": -0.50,
 			"columns": 1,
 			"rows": 1,
 			"numFrames": 1,
@@ -42,7 +42,7 @@
 		},
 		{
 			"name": "characterDie",
-			"yOffset": -0.74,
+			"yOffset": -0.80,
 			"columns": 1,
 			"rows": 1,
 			"numFrames": 1,
@@ -59,7 +59,7 @@
 			"columns": 2,
 			"rows": 2,
 			"numFrames": 4,
-			"frameSpeed": 0.07,
+			"frameSpeed": 0.15,
 			"loopUpStartsAt": -1,
 			"loopUpEndsAt": -1,
 			"loopDownStartsAt": -1,
