@@ -5,6 +5,7 @@ Tile::Tile(const Rectf& dstRect, const std::string& textPath, int nrAnimals)
 	:m_DestinationRect{dstRect}
 	,m_AmountOfAnimals{nrAnimals}
 	,m_TileState{false}
+	,m_TileIsActive{true}
 {
 	utils::TextureFromFile(textPath, m_Texture);
 
@@ -21,12 +22,17 @@ Tile::Tile(const Rectf& dstRect, const std::string& textPath, int nrAnimals)
 	m_SmallRectHeight = m_DestinationRect.height / 4;
 }
 
+Tile::~Tile()
+{
+	utils::DeleteTexture(m_Texture);
+}
+
 void Tile::Draw()
 {
 	m_SourceRect.left = m_CurrentAnimal * m_SourceRect.width;
 	utils::DrawTexture(m_Texture, m_DestinationRect, m_SourceRect);
 
-	if (m_TileState == true)
+	if (m_TileState == true && m_TileIsActive == true)
 	{
 		utils::SetColor(128 / 255.f, 128 / 255.f, 128 / 255.f, 0.5f);
 		utils::FillRect(m_DestinationRect);
@@ -40,10 +46,10 @@ void Tile::Draw()
 
 void Tile::CheckActivation(const Point2f& pos)
 {
-	if (pos.x >= m_DestinationRect.left
-		&& pos.x <= m_DestinationRect.left + m_DestinationRect.width
-		&& pos.y >= m_DestinationRect.bottom
-		&& pos.y <= m_DestinationRect.bottom + m_DestinationRect.height)
+	if (	pos.x >= m_DestinationRect.left
+		 && pos.x <= m_DestinationRect.left + m_DestinationRect.width
+		 && pos.y >= m_DestinationRect.bottom
+		 && pos.y <= m_DestinationRect.bottom + m_DestinationRect.height)
 	{
 		m_TileState = true;
 	}
@@ -55,7 +61,8 @@ bool Tile::CheckHit(const Point2f& pos)
 	if (    pos.x >= m_SmallRectX
 		 && pos.x <= m_SmallRectX + m_SmallRectWidth
 		 && pos.y >= m_SmallRectY
-		 && pos.y <= m_SmallRectY + m_SmallRectHeight)
+		 && pos.y <= m_SmallRectY + m_SmallRectHeight
+		 && m_TileIsActive == true					  )
 	{
 		--m_CurrentAnimal;
 
@@ -66,7 +73,8 @@ bool Tile::CheckHit(const Point2f& pos)
 	else if (	pos.x >= m_SmallRectX + 3 * m_SmallRectWidth - 1
 			  && pos.x <= m_SmallRectX + 3 * m_SmallRectWidth - 1 + m_SmallRectWidth
 			  && pos.y >= m_SmallRectY
-			  && pos.y <= m_SmallRectY + m_SmallRectHeight)
+			  && pos.y <= m_SmallRectY + m_SmallRectHeight
+			  && m_TileIsActive	== true												 )
 	{
 		++m_CurrentAnimal;
 
@@ -75,4 +83,14 @@ bool Tile::CheckHit(const Point2f& pos)
 		return true;
 	}
 	return false;
+}
+
+int Tile::GetCurrentAnimal()
+{
+	return m_CurrentAnimal;
+}
+
+void Tile::Deactivate()
+{
+	m_TileIsActive = false;
 }

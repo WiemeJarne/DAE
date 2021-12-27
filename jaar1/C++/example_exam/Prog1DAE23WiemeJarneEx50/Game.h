@@ -14,13 +14,23 @@ float g_WindowHeight{ 128 * 2 + 50 };
 
 #pragma region ownDeclarations
 // Declare your own global variables here
-const int g_AmountOfTiles{ 4 };
+const int g_AmountOfAnimals{ 6 };
+
+const int g_AmountOfRows{ 2 };
+const int g_AmountOfColumns{ 2 };
+
+const int g_AmountOfTiles{ g_AmountOfRows * g_AmountOfColumns };
 Tile* g_DynnArrTiles[g_AmountOfTiles];
+
+Texture g_AnimalNames;
 
 Point2f g_MousePos{};
 // Declare your own functions here
+void CreateTiles();
 void CreateTextures();
-void DeleteTextures();
+void DeleteTexturesAndObject();
+void PuzzleIsSolved();
+bool CheckIfPuzzleIsSolved();
 #pragma endregion ownDeclarations
 
 #pragma region gameFunctions											
