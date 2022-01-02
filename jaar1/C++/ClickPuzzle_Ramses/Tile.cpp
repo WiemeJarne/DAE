@@ -89,9 +89,10 @@ bool Tile::CheckHit(const Point2f& pos)
 		&& pos.y >= m_LeftHitRegion.bottom
 		&& pos.y <= m_LeftHitRegion.bottom + m_LeftHitRegion.height)
 	{
-		m_SrcCurrentAnimal = m_pSrcAnimals[--m_IndexCurrentAnimal];
+                --m_IndexCurrentAnimal;
+		m_SrcCurrentAnimal = m_pSrcAnimals[m_IndexCurrentAnimal];
 
-		if (GetCurrentAnimal() == 0) m_SrcCurrentAnimal = m_pSrcAnimals[5];
+		if (GetCurrentAnimal() == -1) m_SrcCurrentAnimal = m_pSrcAnimals[5];
 
 		return true;
 	}
@@ -101,9 +102,10 @@ bool Tile::CheckHit(const Point2f& pos)
 		&& pos.y >= m_RightHitRegion.bottom
 		&& pos.y <= m_RightHitRegion.bottom + m_RightHitRegion.height)
 	{
-		m_SrcCurrentAnimal = m_pSrcAnimals[++m_IndexCurrentAnimal];
+                ++m_IndexCurrentAnimal;
+		m_SrcCurrentAnimal = m_pSrcAnimals[m_IndexCurrentAnimal];
 
-		if (GetCurrentAnimal() == 5) m_SrcCurrentAnimal = m_pSrcAnimals[0];
+		if (GetCurrentAnimal() == 6) m_SrcCurrentAnimal = m_pSrcAnimals[0];
 
 		return true;
 	}
