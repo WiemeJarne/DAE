@@ -14,7 +14,7 @@ Tile::Tile(const Rectf& dstRect, const std::string& textPath, int nrAnimals)
 	m_SourceRect.height = m_Texture.height;
 	m_SourceRect.width = m_Texture.width / nrAnimals;
 	m_SourceRect.left = m_CurrentAnimal * m_SourceRect.width;
-	m_SourceRect.bottom = 128;
+	m_SourceRect.bottom = m_SourceRect.height;
 
 	m_SmallRectX = m_DestinationRect.left + 1;
 	m_SmallRectY = m_DestinationRect.bottom;
