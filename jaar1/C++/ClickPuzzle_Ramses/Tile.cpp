@@ -84,10 +84,7 @@ bool Tile::CheckHit(const Point2f& pos)
 	
 	//std::cout << m_RightHitRegion.bottom << '\n';
 
-	if (pos.x >= m_LeftHitRegion.left
-		&& pos.x <= m_LeftHitRegion.left + m_LeftHitRegion.width
-		&& pos.y >= m_LeftHitRegion.bottom
-		&& pos.y <= m_LeftHitRegion.bottom + m_LeftHitRegion.height)
+	if (utils::IsPointInRectangle(m_LeftHitRegion, pos))
 	{
                 --m_IndexCurrentAnimal;
 		m_SrcCurrentAnimal = m_pSrcAnimals[m_IndexCurrentAnimal];
@@ -97,10 +94,7 @@ bool Tile::CheckHit(const Point2f& pos)
 		return true;
 	}
 	
-	if (pos.x >= m_RightHitRegion.left
-		&& pos.x <= m_RightHitRegion.left + m_RightHitRegion.width
-		&& pos.y >= m_RightHitRegion.bottom
-		&& pos.y <= m_RightHitRegion.bottom + m_RightHitRegion.height)
+	if (utils::IsPointInRectangle(m_RightHitRegion, pos))
 	{
                 ++m_IndexCurrentAnimal;
 		m_SrcCurrentAnimal = m_pSrcAnimals[m_IndexCurrentAnimal];
