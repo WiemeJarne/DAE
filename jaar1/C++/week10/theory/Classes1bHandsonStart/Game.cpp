@@ -9,13 +9,6 @@
 void Start()
 {
 	// initialize game resources here
-	/*g_pCircle = new BouncingCircle{ Rectf{50, 50, 200, 200} };
-
-	for (int index{}; index < g_AmountOfcircles; ++index)
-	{
-		g_PtrManyCircles[index] = new BouncingCircle{ Rectf{50, 50, 200, 200}, rand() % 30 + 10.f, Point2f{float(rand() % int(g_WindowWidth)), float(rand() % int(g_WindowHeight))} };
-	}*/
-
 	g_PtrBox1 = new Box{ Rectf{ 10,150,100,100 } };
 	g_PtrBox2 = new Box{ Rectf{ 210,150,100,100 } };
 }
@@ -25,29 +18,16 @@ void Draw()
 	ClearBackground();
 
 	// Put your own draw statements here
-	g_pCircle->DrawCircle();
-
-	for (int index{}; index < g_AmountOfcircles; ++index)
-	{
-		g_PtrManyCircles[index]->DrawCircle();
-	}
-
 	g_PtrBox1->Draw();
 	g_PtrBox2->Draw();
 }
 
 void Update(float elapsedSec)
 {
-	// process input, do physics 
-	g_pCircle->UpdateCircle(elapsedSec);
-	
-	for (int index{}; index < g_AmountOfcircles; ++index)
-	{
-		g_PtrManyCircles[index]->UpdateCircle(elapsedSec);
-	}
-
+	// process input, do physics
 	g_PtrBox1->Update(elapsedSec);
 	g_PtrBox2->Update(elapsedSec);
+
 	//g_pCircle->CheckCollisionCircle();
 	// e.g. Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -64,17 +44,11 @@ void Update(float elapsedSec)
 void End()
 {
 	// free game resources here
-	delete g_pCircle;
-	g_pCircle = nullptr;
-
-	for (int index{}; index < g_AmountOfcircles; ++index)
-	{
-		delete g_PtrManyCircles[index];
-		g_PtrManyCircles[index] = nullptr;
-	}
-
 	delete g_PtrBox1;
+	g_PtrBox1 = nullptr;
+
 	delete g_PtrBox2;
+	g_PtrBox2 = nullptr;
 }
 #pragma endregion gameFunctions
 
