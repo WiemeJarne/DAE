@@ -51,8 +51,8 @@
     <ClCompile Include="Vector2f.cpp">
       <Filter>framework files</Filter>
     </ClCompile>
-    <ClCompile Include="VectorContainerBasics.cpp">
-      <Filter>framework files</Filter>
+    <ClCompile Include="Card.cpp">
+      <Filter>game files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +87,9 @@
       <Filter>framework files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

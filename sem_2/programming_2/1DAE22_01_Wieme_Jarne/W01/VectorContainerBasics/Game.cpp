@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "Game.h"
+#include "Card.h"
+#include <iostream>
+#include <vector>
 
 Game::Game( const Window& window ) 
 	:m_Window{ window }
@@ -14,7 +17,21 @@ Game::~Game( )
 
 void Game::Initialize( )
 {
-	
+	std::cout << "+: Add a number at the end of the vector\n";
+	std::cout << "-: Remove last number from the vector\n";
+	std::cout << "^: Increment all numbers in the vector\n";
+	std::cout << "v: Decrement all numbers in the vector\n";
+
+	const int amountOfSuits{4};
+	const int amountOfRanks{ 13 };
+
+	for (int suit{}; suit < amountOfSuits; ++suit)
+	{
+		for (int rank{}; rank < amountOfRanks; ++rank)
+		{
+			m_Cards.push_back(Card{ Card::Suit(suit), rank });
+		}
+	}
 }
 
 void Game::Cleanup( )
@@ -38,11 +55,44 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
+
+	const int amountOfCards{};
+	const float scaleFactor{ 0.5f };
+
+	for (int cardNumber{}; cardNumber < amountOfCards; ++cardNumber)
+	{
+		m_Cards[cardNumber].Draw(Rectf{ 0, 0, m_Cards[cardNumber].GetWidth() * scaleFactor ,m_Cards[cardNumber].GetHeight() * scaleFactor });
+	}
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+	switch (e.keysym.sym)
+	{
+	case SDLK_EQUALS:
+		m_IntNumbers.push_back( rand() % 31 );
+		PrintIntVectorElements(m_IntNumbers);
+		break;
+
+	case SDLK_MINUS:
+		m_IntNumbers.pop_back();
+		PrintIntVectorElements(m_IntNumbers);
+		break;
+
+	case SDLK_UP:
+		for (int index{}; index < m_IntNumbers.size(); ++index)
+		{
+			++m_IntNumbers[index];
+		}
+		PrintIntVectorElements(m_IntNumbers);
+
+	case SDLK_DOWN:
+		for (int index{}; index < m_IntNumbers.size(); ++index)
+		{
+			--m_IntNumbers[index];
+		}
+		PrintIntVectorElements(m_IntNumbers);
+	}
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
@@ -106,4 +156,14 @@ void Game::ClearBackground( ) const
 {
 	glClearColor( 0.0f, 0.0f, 0.3f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
+}
+
+void Game::PrintIntVectorElements(std::vector<int> vector)
+{
+	for (int index{}; index < vector.size(); ++index)
+	{
+		std::cout << vector[index] << " ";
+	}
+
+	std::cout << "\n";
 }

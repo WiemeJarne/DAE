@@ -1,4 +1,8 @@
 #pragma once
+#include <iostream>
+#include <vector>
+
+class Card;
 
 class Game final
 {
@@ -23,10 +27,12 @@ public:
 private:
 	// DATA MEMBERS
 	const Window m_Window;
-	std::vector<int> m_IntNumbers;
+	std::vector<int> m_IntNumbers{};
+	std::vector<Card> m_Cards{};
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
+	void PrintIntVectorElements(std::vector<int> vector);
 };
