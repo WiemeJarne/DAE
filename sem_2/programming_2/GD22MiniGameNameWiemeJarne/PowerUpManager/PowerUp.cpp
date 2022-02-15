@@ -7,7 +7,7 @@ PowerUp::PowerUp(const Point2f& center, PowerUp::Type type)
 	:m_Type{type}
 	,m_RotSpeed{360.f}
 	,m_Angle{}
-	,m_pTexture{ new Texture{"resources/Images/PowerUp.png"} }
+	,m_pTexture{ new Texture{"Resources/Images/PowerUp.png"} }
 {
 	m_Shape.center = center;
 	m_Shape.radius = m_pTexture->GetWidth() / 2.f;
