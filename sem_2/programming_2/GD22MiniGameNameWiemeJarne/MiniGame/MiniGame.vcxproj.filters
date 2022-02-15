@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="framework files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="game files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix2x3.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEffect.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundStream.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="structs.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="SVGParser.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2f.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpManager.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x3.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundStream.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="SVGParser.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2f.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpManager.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Images\AvatarSheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\EffectsMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\EndSign.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\Fence.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\HudLeft.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\HudPowerUp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\HudRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\platform.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\PowerUp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\StreamsMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\level.svg" />
+    <None Include="Resources\Sounds\jingles.ogg" />
+    <None Include="Resources\Sounds\laser.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Sounds\DonkeyKong.mp3" />
+    <Media Include="Resources\Sounds\Mario.mp3" />
+    <Media Include="Resources\Sounds\powerUp.mp3" />
+  </ItemGroup>
+</Project>

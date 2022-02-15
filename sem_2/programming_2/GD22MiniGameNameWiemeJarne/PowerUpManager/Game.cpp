@@ -36,7 +36,7 @@ void Game::Initialize( )
 	//TestWithoutDrawing( );
 
 	// TODO: 2. Uncomment next call of InitTestWithDrawing
-	//InitTestWithDrawing( );
+	InitTestWithDrawing( );
 }
 
 void Game::Cleanup( )
@@ -144,7 +144,7 @@ void Game::TestWithoutDrawing( )
 	// Verify that hitting items works correctly
 	// Shuffle the centers and then hit one after the other
 	std::cout << "--> Call HitItem " << maxNr << " times and verify Size() result <--\n";
-	std::random_shuffle( centers.begin( ), centers.end( ) );
+	//std::random_shuffle( centers.begin( ), centers.end( ) );
 	TestHittingItems( pManager, centers );
 	size = 0;
 
