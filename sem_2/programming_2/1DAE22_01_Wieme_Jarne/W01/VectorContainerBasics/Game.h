@@ -28,11 +28,15 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 	std::vector<int> m_IntNumbers{};
-	std::vector<Card> m_Cards{};
+	std::vector<Card*> m_Cards{};
+	const int m_AmountOfSuits{ 4 };
+	const int m_AmountOfRanks{ 13 };
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
 	void PrintIntVectorElements(std::vector<int> vector);
+	void DrawCards() const;
+	void InitializeCards( );
 };

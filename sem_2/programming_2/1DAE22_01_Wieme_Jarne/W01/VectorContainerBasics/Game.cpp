@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Game.h"
 #include "Card.h"
-#include <iostream>
-#include <vector>
 
 Game::Game( const Window& window ) 
 	:m_Window{ window }
@@ -22,20 +20,15 @@ void Game::Initialize( )
 	std::cout << "^: Increment all numbers in the vector\n";
 	std::cout << "v: Decrement all numbers in the vector\n";
 
-	const int amountOfSuits{4};
-	const int amountOfRanks{ 13 };
-
-	for (int suit{}; suit < amountOfSuits; ++suit)
-	{
-		for (int rank{}; rank < amountOfRanks; ++rank)
-		{
-			m_Cards.push_back(Card{ Card::Suit(suit), rank });
-		}
-	}
+	InitializeCards();
 }
 
 void Game::Cleanup( )
 {
+	for (int index{}; index < m_Cards.size(); ++index)
+	{
+		delete m_Cards[index];
+	}
 }
 
 void Game::Update( float elapsedSec )
@@ -56,13 +49,7 @@ void Game::Draw( ) const
 {
 	ClearBackground( );
 
-	const int amountOfCards{};
-	const float scaleFactor{ 0.5f };
-
-	for (int cardNumber{}; cardNumber < amountOfCards; ++cardNumber)
-	{
-		m_Cards[cardNumber].Draw(Rectf{ 0, 0, m_Cards[cardNumber].GetWidth() * scaleFactor ,m_Cards[cardNumber].GetHeight() * scaleFactor });
-	}
+	Game::DrawCards( );
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -85,6 +72,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 			++m_IntNumbers[index];
 		}
 		PrintIntVectorElements(m_IntNumbers);
+		break;
 
 	case SDLK_DOWN:
 		for (int index{}; index < m_IntNumbers.size(); ++index)
@@ -92,6 +80,16 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 			--m_IntNumbers[index];
 		}
 		PrintIntVectorElements(m_IntNumbers);
+		break;
+
+	case SDLK_s:
+		for (int index{}; index < m_Cards.size(); ++index)
+		{
+			delete m_Cards[index];
+		}
+		m_Cards.clear();
+		InitializeCards();
+		break;
 	}
 }
 
@@ -160,10 +158,49 @@ void Game::ClearBackground( ) const
 
 void Game::PrintIntVectorElements(std::vector<int> vector)
 {
-	for (int index{}; index < vector.size(); ++index)
+	for (int index : vector)
 	{
-		std::cout << vector[index] << " ";
+		std::cout << index << " ";
 	}
 
 	std::cout << "\n";
+}
+
+void Game::DrawCards() const
+{
+	const float scaleFactor{ 0.5f };
+	const int amountOfRows{ 4 };
+	const int amountOfColumns{ 13 };
+	int cardNumber{ };
+
+	Rectf destRect{};
+	destRect.bottom = 0;
+	destRect.left = 0;
+	destRect.width = m_Cards[0]->GetWidth() * scaleFactor;
+	destRect.height = m_Cards[0]->GetHeight() * scaleFactor;
+
+	for (int rowNumber{}; rowNumber < amountOfRows; ++rowNumber)
+	{
+		for (int columnNumber{}; columnNumber < amountOfColumns; ++columnNumber)
+		{
+			m_Cards[cardNumber]->Draw(destRect);
+
+			++cardNumber;
+
+			destRect.left += m_Cards[1]->GetWidth() * scaleFactor / 2;
+		}
+		destRect.left = 0;
+		destRect.bottom += m_Cards[1]->GetHeight() * scaleFactor;
+	}
+}
+
+void Game::InitializeCards()
+{
+	for (int suit{ 1 }; suit <= m_AmountOfSuits; ++suit)
+	{
+		for (int rank{ 1 }; rank <= m_AmountOfRanks; ++rank)
+		{
+			m_Cards.push_back( new Card{Card::Suit{suit}, rand() % 13 + 1});
+		}
+	}
 }
