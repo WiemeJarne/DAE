@@ -21,4 +21,3 @@ private:
 	Texture* m_pFenceTexture;
 	Point2f m_FenceBottomLeft;
 };
-

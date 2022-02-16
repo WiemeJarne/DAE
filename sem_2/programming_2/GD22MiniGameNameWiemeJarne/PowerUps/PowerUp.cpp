@@ -1,7 +1,8 @@
+#include <iostream>
 #include "pch.h"
 #include "PowerUp.h"
 #include "Texture.h"
-#include <iostream>
+#include "utils.h"
 
 PowerUp::PowerUp(const Point2f& center, PowerUp::Type type)
 	:m_Type{type}
@@ -33,26 +34,21 @@ PowerUp::~PowerUp()
 
 void PowerUp::Update(float elapsedSec)
 {
-
+	m_Angle += elapsedSec * m_RotSpeed;
 }
 
 void PowerUp::Draw() const
 {
-	Rectf destRect{};
-	destRect.left = m_Shape.center.x - m_Shape.radius;
-	destRect.bottom = m_Shape.center.y - m_Shape.radius;
-	destRect.width = m_Shape.radius * 2;
-	destRect.height = m_Shape.radius * 2;
-
-	m_pTexture->Draw(destRect, m_TextClip);
+	glPushMatrix();
+		glTranslatef(m_Shape.center.x, m_Shape.center.y, 0);
+		glRotatef(m_Angle, 0, 0, 1);
+		m_pTexture->Draw(Point2f{ -m_Shape.radius, -m_Shape.radius }, m_TextClip);
+	glPopMatrix();
 }
 
 bool PowerUp::IsOverlapping(const Rectf& rect) const
 {
-	if (sqrtf( powf(m_Shape.center.x - rect.left,2) + powf(m_Shape.center.y - rect.bottom,2) ) <= m_Shape.radius
-		|| sqrtf( powf(m_Shape.center.x - (rect.left + rect.width), 2) + powf(m_Shape.center.y - rect.bottom, 2) ) <= m_Shape.radius
-		|| sqrtf( powf(m_Shape.center.x - rect.left, 2) + powf(m_Shape.center.y - (rect.bottom + rect.height), 2) ) <= m_Shape.radius
-		|| sqrtf( powf(m_Shape.center.x - (rect.left + rect.width), 2) + powf(m_Shape.center.y - (rect.bottom + rect.height), 2) ) <= m_Shape.radius )
+	if(utils::IsOverlapping(rect, m_Shape))
 	{
 		return true;
 	}

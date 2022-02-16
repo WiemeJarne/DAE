@@ -60,6 +60,9 @@
     <ClCompile Include="Level.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="Avatar.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -102,6 +105,9 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Avatar.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>
