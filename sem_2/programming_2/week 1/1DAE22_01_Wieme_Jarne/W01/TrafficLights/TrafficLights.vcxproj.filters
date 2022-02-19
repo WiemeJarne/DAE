@@ -21,9 +21,6 @@
     <ClCompile Include="Core.cpp">
       <Filter>framework files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>framework files</Filter>
-    </ClCompile>
     <ClCompile Include="Matrix2x3.cpp">
       <Filter>framework files</Filter>
     </ClCompile>
@@ -53,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="TrafficLight.cpp">
       <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>framework files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
