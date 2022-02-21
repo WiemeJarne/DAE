@@ -38,7 +38,7 @@ void Container::PushBack(int element)
 {
 	if (m_Capacity == m_Size)
 	{
-		Reverse(m_Capacity * 2);
+		Reverse(m_Capacity * 2 + 1);
 	}
 
 	++m_Size;
@@ -50,7 +50,7 @@ void Container::Reverse(int NewCapacity)
 {
 	int* pCopies{ new int[NewCapacity] };
 
-	for (int index{}; index < m_Capacity; ++index)
+	for (int index{}; index < m_Size; ++index)
 	{
 		pCopies[index] = m_pElement[index];
 	}
