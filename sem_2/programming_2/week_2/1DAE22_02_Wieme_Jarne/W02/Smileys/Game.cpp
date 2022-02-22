@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "Smiley.h"
-
-const int Game::m_AmountOfSmileys{ 10 };
-Smiley* Game::m_AmountOfSmileys[Game::m_AmountOfSmileys]{};
+#include <iostream>
 
 Game::Game( const Window& window ) 
 	:m_Window{ window }
@@ -12,6 +10,7 @@ Game::Game( const Window& window )
 						   m_SafeZoneBorder,
 						   m_Window.width - 2 * m_SafeZoneBorder,
 						   m_Window.height - 2 * m_SafeZoneBorder }
+	,m_PreviousHighestSmileyIndex{}
 {
 	Initialize( );
 }
@@ -50,20 +49,18 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
-	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
-	//switch ( e.keysym.sym )
-	//{
-	//case SDLK_LEFT:
-	//	//std::cout << "Left arrow key released\n";
-	//	break;
-	//case SDLK_RIGHT:
-	//	//std::cout << "`Right arrow key released\n";
-	//	break;
-	//case SDLK_1:
-	//case SDLK_KP_1:
-	//	//std::cout << "Key 1 released\n";
-	//	break;
-	//}
+	switch ( e.keysym.sym )
+	{
+	case SDLK_UP:
+		IncreaseSmileysSpeed( );
+		break;
+	case SDLK_DOWN:
+		DecreaseSmileySpeed( );
+		break;
+	case SDLK_DELETE:
+		DeleteSleepingSmileys( );
+		break;
+	}
 }
 
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
@@ -73,7 +70,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	const Point2f mousePos{ e.x, e.y };
+	const Point2f mousePos{ float(e.x), float(e.y) };
 
 	switch ( e.button )
 	{
@@ -109,11 +106,11 @@ void Game::ClearBackground( ) const
 void Game::CreateSmileys( )
 {
 	const float spaceBetweenSmileys{ m_Window.width / 10 };
-	Point2f position{ spaceBetweenSmileys, m_Window.height / 2 };
+	Point2f position{ spaceBetweenSmileys / 3.f, m_Window.height / 2 };
 
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
-		m_pSmileys[index] = new Smiley(position);
+		m_pSmileys[index] = new Smiley{position};
 
 		position.x += spaceBetweenSmileys;
 	}
@@ -123,27 +120,48 @@ void Game::DeleteSmileys( )
 {
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
-		delete m_pSmileys[index];
+		if (m_pSmileys[index] != nullptr) delete m_pSmileys[index];
 	}
-
-	delete[] m_pSmileys;
-	m_pSmileys = nullptr;
 }
 
 void Game::DrawSmileys() const
 {
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
-		delete m_pSmileys[index]->Draw();
+		if(m_pSmileys[index] != nullptr) m_pSmileys[index]->Draw();
 	}
 }
 
 void Game::UpdateSmileys( float elapsedSec )
 {
+	int highestSmileyIndex{};
+	Rectf boundingRect{};
+	boundingRect.width = m_Window.width;
+	boundingRect.height = m_Window.height;
+
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
-		delete m_pSmileys[index]->Update( elapsedSec, m_Window, m_SafezoneBorderRect);
+		if (m_pSmileys[index] != nullptr && m_pSmileys[highestSmileyIndex] != nullptr)
+		{
+			m_pSmileys[index]->Update(elapsedSec, boundingRect, m_SafezoneBorderRect);
+			highestSmileyIndex = DetermineHighestSmiley(highestSmileyIndex, index);
+		}
 	}
+
+	if (m_pSmileys[m_PreviousHighestSmileyIndex] != nullptr && m_pSmileys[highestSmileyIndex] != nullptr)
+	{
+		m_pSmileys[m_PreviousHighestSmileyIndex]->SetHighest(false);
+		m_pSmileys[highestSmileyIndex]->SetHighest(true);
+	}
+
+	m_PreviousHighestSmileyIndex = highestSmileyIndex;
+}
+
+int Game::DetermineHighestSmiley(const int highestSmileyIndex, const int index) const
+{
+	if (m_pSmileys[highestSmileyIndex]->GetPosition().y < m_pSmileys[index]->GetPosition().y) return index;
+
+	return highestSmileyIndex;
 }
 
 void Game::DrawSafeZoneBorder( ) const
@@ -158,6 +176,37 @@ void Game::HitTestSmileys( const Point2f& mousePos ) const
 {
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
-		delete m_pSmileys[index]->HitTest( mousePos );
+		if(m_pSmileys[index] != nullptr) m_pSmileys[index]->HitTest( mousePos );
+	}
+}
+
+void Game::IncreaseSmileysSpeed( )
+{
+	for (int index{}; index < m_AmountOfSmileys; ++index)
+	{
+		if(m_pSmileys[index] != nullptr) m_pSmileys[index]->IncreaseSpeed();
+	}
+}
+
+void Game::DecreaseSmileySpeed( )
+{
+	for (int index{}; index < m_AmountOfSmileys; ++index)
+	{
+		if (m_pSmileys[index] != nullptr) m_pSmileys[index]->DecreaseSpeed();
+	}
+}
+
+void Game::DeleteSleepingSmileys( )
+{
+	for (int index{}; index < m_AmountOfSmileys; ++index)
+	{
+		if( m_pSmileys[index] != nullptr )
+		{
+			if (m_pSmileys[index]->IsSleeping() == true)
+			{
+				delete m_pSmileys[index];
+				m_pSmileys[index] = nullptr;
+			}
+		}
 	}
 }

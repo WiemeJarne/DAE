@@ -14,6 +14,8 @@ public:
 	void Update( float elapsedSec );
 	void Draw( ) const;
 
+
+
 	// Event handling
 	void ProcessKeyDownEvent( const SDL_KeyboardEvent& e );
 	void ProcessKeyUpEvent( const SDL_KeyboardEvent& e );
@@ -24,10 +26,11 @@ public:
 private:
 	// DATA MEMBERS
 	const Window m_Window;
-	static const int m_AmountOfSmileys;
-	static Smiley* m_pSmileys;
 	const float m_SafeZoneBorder;
 	const Rectf m_SafezoneBorderRect;
+	static const int m_AmountOfSmileys{ 10 };
+	Smiley* m_pSmileys[m_AmountOfSmileys];
+	int m_PreviousHighestSmileyIndex;
 
 	// FUNCTIONS
 	void Initialize( );
@@ -39,4 +42,8 @@ private:
 	void UpdateSmileys( float elapsedSec );
 	void DrawSafeZoneBorder( ) const;
 	void HitTestSmileys( const Point2f& mousePos ) const;
+	int DetermineHighestSmiley(const int highestSmileyIndex, const int index) const;
+	void IncreaseSmileysSpeed( );
+	void DecreaseSmileySpeed( );
+	void DeleteSleepingSmileys( );
 };

@@ -5,6 +5,8 @@
 #include "pch.h"
 #include "Smiley.h"
 #include "Texture.h"
+#include<math.h>
+#include <iostream>
 
 // Static Texture data
 Texture* Smiley::m_pSmileyTexture{ nullptr };
@@ -21,13 +23,17 @@ Smiley::Smiley( const Point2f& position )
 	,m_IsHighest{}
 	,m_IsSleeping{}
 	,m_IsInSafeArea{}
+	,m_IncreaseOrDecreaseVelocityAmount{20.f}
 {
 	++m_InstanceCounter;
 
-	if (m_pSmileyTexture != nullptr)
+	if (m_pSmileyTexture == nullptr)
 	{
 		m_pSmileyTexture = new Texture("Resources/Smileys.png");
 	}
+
+	m_SmileyCircle.radius = m_pSmileyTexture->GetHeight() / 2.f;
+	m_SmileyCircle.center = Point2f{ m_Position.x + m_SmileyCircle.radius, m_Position.y + m_SmileyCircle.radius };
 }
 
 // Destructor
@@ -52,19 +58,19 @@ void Smiley::Draw( ) const
 {
 	Rectf srcRect{};
 	srcRect.width = m_pSmileyTexture->GetWidth() / 4.f;
-	srcRect.height = m_pSmileyTexture->GetWidth();
+	srcRect.height = m_pSmileyTexture->GetHeight();
 
 	if (m_IsSleeping == true) srcRect.left = 3 * srcRect.width;
 
 	else if (m_IsHighest == true) srcRect.left = 0.f;
 
-	else if (m_IsInSafeArea == false) srcRect.left = srcRect.width;
+	else if (m_IsInSafeArea == false) srcRect.left = 2 * srcRect.width;
 
-	else srcRect.left = 2 * srcRect.width;
+	else srcRect.left = srcRect.width;
 
 	glPushMatrix();
 		glTranslatef(m_Position.x, m_Position.y, 0);
-		m_pSmileyTexture->Draw(Point2f{ 0,0 }, srcRect);
+		m_pSmileyTexture->Draw(Point2f{ 0, 0 }, srcRect);
 	glPopMatrix();
 }
 
@@ -79,17 +85,14 @@ void Smiley::Update( float elapsedSec, const Rectf& boundingRect, const Rectf& s
 		m_Position.x += elapsedSec * m_Velocity.x;
 		m_Position.y += elapsedSec * m_Velocity.y;
 
-		if ( m_Position.x < safeRect.left
-			 || m_Position.x > safeRect.width - safeRect.left )
-		{
-			m_Velocity.x *= -1;
-		}
+		m_SmileyCircle.radius = m_pSmileyTexture->GetHeight() / 2.f;
+		m_SmileyCircle.center = Point2f{ m_Position.x + m_SmileyCircle.radius, m_Position.y + m_SmileyCircle.radius };
 
-		if ( m_Position.y < safeRect.bottom
-			 || m_Position.y > safeRect.height - safeRect.bottom )
-		{
-			m_Velocity.y *= -1;
-		}
+		if ( m_Position.x  <= boundingRect.left
+			 || m_Position.x + 2 * m_SmileyCircle.radius >= boundingRect.width ) m_Velocity.x *= -1;
+
+		if ( m_Position.y <= boundingRect.bottom
+			 || m_Position.y + 2 * m_SmileyCircle.radius >= boundingRect.height ) m_Velocity.y *= -1;
 
 		m_IsInSafeArea = IsInSafeArea( safeRect );
 	}
@@ -98,13 +101,9 @@ void Smiley::Update( float elapsedSec, const Rectf& boundingRect, const Rectf& s
 // HitTest
 // If the value of the parameter pos is within the boundaries of the smiley’s circle,
 // then the sleeping state of the smiley changes.
-void Smiley::HitTest( const Point2f& pos ) const
+void Smiley::HitTest( const Point2f& pos )
 {
-	Circlef smileyCircle{};
-	smileyCircle.center = m_Position;
-	smileyCircle.radius = m_pSmileyTexture->GetHeight() / 2;
-
-	if (utils::IsPointInCircle(pos, smileyCircle)) m_IsSleeping = !m_IsSleeping;
+	if (utils::IsPointInCircle(pos, m_SmileyCircle)) m_IsSleeping = !m_IsSleeping;
 }
 
 // IsSleeping
@@ -118,36 +117,46 @@ bool Smiley::IsSleeping( ) const
 // Getter of the m_Position data member
 Point2f Smiley::GetPosition( ) const
 {
-	return m_Position;
+	return m_SmileyCircle.center;
 }
 
 // SetHighest
 // Setter of the m_IsHighest data member
 void Smiley::SetHighest( bool isHighest )
 {
+	m_IsHighest = isHighest;
 }
 
 // IncreaseSpeed
 // Changes the speed 5% up
 void Smiley::IncreaseSpeed( )
 {
+	if (std::signbit(m_Velocity.x) == 1) m_Velocity.x -= m_IncreaseOrDecreaseVelocityAmount;
+	else m_Velocity.x += m_IncreaseOrDecreaseVelocityAmount;
+	
+	if (std::signbit(m_Velocity.y) == 1) m_Velocity.y -= m_IncreaseOrDecreaseVelocityAmount;
+	else m_Velocity.y += m_IncreaseOrDecreaseVelocityAmount;
 }
 
 // DecreaseSpeed
 // Changes the speed 5% down
 void Smiley::DecreaseSpeed( )
 {
+	if (std::signbit(m_Velocity.x) == 1) m_Velocity.x += m_IncreaseOrDecreaseVelocityAmount;
+	else m_Velocity.x -= m_IncreaseOrDecreaseVelocityAmount;
+
+	if (std::signbit(m_Velocity.y) == 1) m_Velocity.y += m_IncreaseOrDecreaseVelocityAmount;
+	else m_Velocity.y -= m_IncreaseOrDecreaseVelocityAmount;
 }
 
 // IsInSafeArea
 // Returns true when the smiley is completely inside the safe area as indicated by safeRect
 bool Smiley::IsInSafeArea( const Rectf& safeRect ) const
 {
-	const float smileyRadius{ Smiley::m_pSmileyTexture->GetHeight() / 2.f };
-	if ( utils::IsPointInRect(Point2f{ m_Position.x - smileyRadius, m_Position.y }, safeRect)
-		 && utils::IsPointInRect(Point2f{ m_Position.x + smileyRadius, m_Position.y }, safeRect)
-		 && utils::IsPointInRect(Point2f{ m_Position.x, m_Position.y - smileyRadius }, safeRect)
-		 && utils::IsPointInRect(Point2f{ m_Position.x, m_Position.y + smileyRadius }, safeRect) ) return true;
+	if ( utils::IsPointInRect(Point2f{ m_SmileyCircle.center.x - m_SmileyCircle.radius, m_SmileyCircle.center.y }, safeRect)
+		 && utils::IsPointInRect(Point2f{ m_SmileyCircle.center.x + m_SmileyCircle.radius, m_SmileyCircle.center.y }, safeRect)
+		 && utils::IsPointInRect(Point2f{ m_SmileyCircle.center.x, m_SmileyCircle.center.y - m_SmileyCircle.radius}, safeRect)
+		 && utils::IsPointInRect(Point2f{ m_SmileyCircle.center.x, m_SmileyCircle.center.y + m_SmileyCircle.radius }, safeRect) ) return true;
 
 	return false;
 }
