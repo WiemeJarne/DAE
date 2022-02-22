@@ -27,7 +27,7 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 	const float m_SafeZoneBorder;
-	const Rectf m_SafezoneBorderRect;
+	Rectf m_SafezoneBorderRect;
 	static const int m_AmountOfSmileys{ 10 };
 	Smiley* m_pSmileys[m_AmountOfSmileys];
 	int m_PreviousHighestSmileyIndex;

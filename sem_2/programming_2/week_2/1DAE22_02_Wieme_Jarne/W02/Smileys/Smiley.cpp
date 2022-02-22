@@ -23,7 +23,6 @@ Smiley::Smiley( const Point2f& position )
 	,m_IsHighest{}
 	,m_IsSleeping{}
 	,m_IsInSafeArea{}
-	,m_IncreaseOrDecreaseVelocityAmount{20.f}
 {
 	++m_InstanceCounter;
 
@@ -88,13 +87,31 @@ void Smiley::Update( float elapsedSec, const Rectf& boundingRect, const Rectf& s
 		m_SmileyCircle.radius = m_pSmileyTexture->GetHeight() / 2.f;
 		m_SmileyCircle.center = Point2f{ m_Position.x + m_SmileyCircle.radius, m_Position.y + m_SmileyCircle.radius };
 
-		if ( m_Position.x  <= boundingRect.left
-			 || m_Position.x + 2 * m_SmileyCircle.radius >= boundingRect.width ) m_Velocity.x *= -1;
-
-		if ( m_Position.y <= boundingRect.bottom
-			 || m_Position.y + 2 * m_SmileyCircle.radius >= boundingRect.height ) m_Velocity.y *= -1;
-
 		m_IsInSafeArea = IsInSafeArea( safeRect );
+	}
+	CheckCollision(boundingRect);
+}
+
+void Smiley::CheckCollision(const Rectf& boundingRect)
+{
+	if (m_SmileyCircle.center.x - m_SmileyCircle.radius <= boundingRect.left && std::signbit(m_Velocity.x) == 1)
+	{
+		m_Velocity.x *= -1;
+	}
+
+	if (m_SmileyCircle.center.x + m_SmileyCircle.radius >= boundingRect.left + boundingRect.width && std::signbit(m_Velocity.x) == 0)
+	{
+		m_Velocity.x *= -1;
+	}
+
+	if (m_SmileyCircle.center.y - m_SmileyCircle.radius <= boundingRect.bottom && std::signbit(m_Velocity.y) == 1)
+	{
+		m_Velocity.y *= -1;
+	}
+
+	if (m_SmileyCircle.center.y + m_SmileyCircle.radius >= boundingRect.bottom + boundingRect.height && std::signbit(m_Velocity.y) == 0)
+	{
+		m_Velocity.y *= -1;
 	}
 }
 
@@ -131,22 +148,22 @@ void Smiley::SetHighest( bool isHighest )
 // Changes the speed 5% up
 void Smiley::IncreaseSpeed( )
 {
-	if (std::signbit(m_Velocity.x) == 1) m_Velocity.x -= m_IncreaseOrDecreaseVelocityAmount;
-	else m_Velocity.x += m_IncreaseOrDecreaseVelocityAmount;
+	if (std::signbit(m_Velocity.x) == 1) m_Velocity.x += (m_Velocity.x / 100.f * 5);
+	else m_Velocity.x += m_Velocity.x / 100.f * 5;
 	
-	if (std::signbit(m_Velocity.y) == 1) m_Velocity.y -= m_IncreaseOrDecreaseVelocityAmount;
-	else m_Velocity.y += m_IncreaseOrDecreaseVelocityAmount;
+	if (std::signbit(m_Velocity.y) == 1) m_Velocity.y += (m_Velocity.y / 100.f * 5);
+	else m_Velocity.y += m_Velocity.y / 100.f * 5;
 }
 
 // DecreaseSpeed
 // Changes the speed 5% down
 void Smiley::DecreaseSpeed( )
 {
-	if (std::signbit(m_Velocity.x) == 1) m_Velocity.x += m_IncreaseOrDecreaseVelocityAmount;
-	else m_Velocity.x -= m_IncreaseOrDecreaseVelocityAmount;
+	if (std::signbit(m_Velocity.x) == 1) m_Velocity.x -= (m_Velocity.x / 100.f * 5);
+	else m_Velocity.x -= m_Velocity.x / 100.f * 5;
 
-	if (std::signbit(m_Velocity.y) == 1) m_Velocity.y += m_IncreaseOrDecreaseVelocityAmount;
-	else m_Velocity.y -= m_IncreaseOrDecreaseVelocityAmount;
+	if (std::signbit(m_Velocity.y) == 1) m_Velocity.y -= (m_Velocity.y / 100.f * 5);
+	else m_Velocity.y -= m_Velocity.y / 100.f * 5;
 }
 
 // IsInSafeArea

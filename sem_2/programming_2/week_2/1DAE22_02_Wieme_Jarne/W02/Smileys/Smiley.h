@@ -32,10 +32,10 @@ private:
 	bool m_IsHighest;
 	bool m_IsSleeping;
 	bool m_IsInSafeArea;
-	const float m_IncreaseOrDecreaseVelocityAmount;
 
 	// FUNCTIONS
 	bool IsInSafeArea( const Rectf& safeRect ) const;
+	void CheckCollision( const Rectf& boundingRect );
 };
 
 

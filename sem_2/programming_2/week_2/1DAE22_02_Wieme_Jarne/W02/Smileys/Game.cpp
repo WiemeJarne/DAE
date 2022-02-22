@@ -6,11 +6,8 @@
 Game::Game( const Window& window ) 
 	:m_Window{ window }
 	,m_SafeZoneBorder{ 30.f }
-	,m_SafezoneBorderRect{ m_SafeZoneBorder,
-						   m_SafeZoneBorder,
-						   m_Window.width - 2 * m_SafeZoneBorder,
-						   m_Window.height - 2 * m_SafeZoneBorder }
-	,m_PreviousHighestSmileyIndex{}
+	,m_SafezoneBorderRect{ }
+	,m_PreviousHighestSmileyIndex{ }
 {
 	Initialize( );
 }
@@ -23,6 +20,11 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	CreateSmileys();
+
+	m_SafezoneBorderRect.left = m_SafeZoneBorder;
+	m_SafezoneBorderRect.bottom = m_SafeZoneBorder;
+	m_SafezoneBorderRect.width = m_Window.width - 2 * m_SafeZoneBorder;
+	m_SafezoneBorderRect.height = m_Window.height - 2 * m_SafeZoneBorder;
 }
 
 void Game::Cleanup( )
@@ -105,8 +107,8 @@ void Game::ClearBackground( ) const
 
 void Game::CreateSmileys( )
 {
-	const float spaceBetweenSmileys{ m_Window.width / 10 };
-	Point2f position{ spaceBetweenSmileys / 3.f, m_Window.height / 2 };
+	const float spaceBetweenSmileys{ 80.f };
+	Point2f position{ 30.f, m_Window.height / 2 };
 
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
@@ -141,10 +143,18 @@ void Game::UpdateSmileys( float elapsedSec )
 
 	for (int index{}; index < m_AmountOfSmileys; ++index)
 	{
-		if (m_pSmileys[index] != nullptr && m_pSmileys[highestSmileyIndex] != nullptr)
+		if (m_pSmileys[index] != nullptr && m_pSmileys[index]->IsSleeping() == false)
 		{
 			m_pSmileys[index]->Update(elapsedSec, boundingRect, m_SafezoneBorderRect);
-			highestSmileyIndex = DetermineHighestSmiley(highestSmileyIndex, index);
+
+			if (m_pSmileys[highestSmileyIndex] != nullptr && m_pSmileys[highestSmileyIndex]->IsSleeping() == false)
+			{
+				highestSmileyIndex = DetermineHighestSmiley(highestSmileyIndex, index);
+			}
+			else
+			{
+				highestSmileyIndex = index;
+			}
 		}
 	}
 
