@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Classes2Basics", "Classes2B
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Smileys", "Smileys\Smileys.vcxproj", "{68BF97DA-1E36-44E9-8439-114674DE9C7D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShooterGame", "ShooterGame\ShooterGame.vcxproj", "{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{68BF97DA-1E36-44E9-8439-114674DE9C7D}.Release|x64.Build.0 = Release|x64
 		{68BF97DA-1E36-44E9-8439-114674DE9C7D}.Release|x86.ActiveCfg = Release|Win32
 		{68BF97DA-1E36-44E9-8439-114674DE9C7D}.Release|x86.Build.0 = Release|Win32
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Debug|x64.ActiveCfg = Debug|x64
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Debug|x64.Build.0 = Debug|x64
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Debug|x86.ActiveCfg = Debug|Win32
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Debug|x86.Build.0 = Debug|Win32
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Release|x64.ActiveCfg = Release|x64
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Release|x64.Build.0 = Release|x64
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Release|x86.ActiveCfg = Release|Win32
+		{45A74B0F-F8FA-4D1D-8A59-0CA5B5620BAE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
