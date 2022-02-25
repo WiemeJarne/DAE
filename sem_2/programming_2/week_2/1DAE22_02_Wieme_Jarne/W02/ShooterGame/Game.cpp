@@ -40,12 +40,13 @@ void Game::Update( float elapsedSec )
 	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	if ( pStates[SDL_SCANCODE_RIGHT] )
 	{
-		m_Avatar->Update(elapsedSec, m_Enemies, m_AmountOfEnemies);
+		m_Avatar->Update(elapsedSec, m_Enemies, true);
 	}
-	if ( pStates[SDL_SCANCODE_LEFT] )
+	else if ( pStates[SDL_SCANCODE_LEFT] )
 	{
-		m_Avatar->Update(-elapsedSec, m_Enemies, m_AmountOfEnemies);
+		m_Avatar->Update(-elapsedSec, m_Enemies, true);
 	}
+	else m_Avatar->Update(-elapsedSec, m_Enemies, false);
 }
 
 void Game::Draw( ) const
@@ -57,7 +58,7 @@ void Game::Draw( ) const
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+	m_Avatar->ProcessKeyDownEvent(e);
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )

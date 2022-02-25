@@ -10,8 +10,8 @@ public:
 	Bullet( );
 	Bullet(float width, float height);
 
-	void Draw( );
-	void Update(float elapesedSec, std::vector<Enemy*> pEnemies, int numEnemies);
+	void Update(float elapesedSec, std::vector<Enemy*> pEnemies);
+	void Draw( ) const;
 	void Shoot(const Point2f& center, const Vector2f& velocity);
 	void SetDimensions(float width, float height);
 	void SetBoundaries(const Rectf& boundaries);
@@ -22,5 +22,9 @@ private:
 	Rectf m_Boundaries;
 	Vector2f m_Velocity;
 	bool m_IsActivated;
+
+	void CheckBoundaries( );
+	void ChangeBulletRect(float width, float height);
+	void CheckEnemiesHit(std::vector<Enemy*> pEnemies);
 };
 

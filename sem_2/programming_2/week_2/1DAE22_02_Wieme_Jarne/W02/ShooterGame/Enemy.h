@@ -17,5 +17,6 @@ private:
 	Point2f m_Center;
 	Rectf m_EnemyRect;
 	bool m_IsDead;
-};
 
+	void ChangeEnemyRect(float width, float height);
+};
