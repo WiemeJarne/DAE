@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{24247643-5a98-49dd-a136-b11423a8a483}</ProjectGuid>
-    <RootNamespace>RayCast</RootNamespace>
+    <ProjectGuid>{1dee67d0-a669-4d46-915b-585998e09377}</ProjectGuid>
+    <RootNamespace>RaycastBasics</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Raycast</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

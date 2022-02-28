@@ -46,7 +46,7 @@ void Game::Update( float elapsedSec )
 	{
 		m_Avatar->Update(-elapsedSec, m_Enemies, true);
 	}
-	else m_Avatar->Update(-elapsedSec, m_Enemies, false);
+	else m_Avatar->Update(elapsedSec, m_Enemies, false);
 }
 
 void Game::Draw( ) const
