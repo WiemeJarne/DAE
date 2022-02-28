@@ -1,4 +1,6 @@
 #pragma once
+#include "utils.h"
+#include <vector>
 
 class Game final
 {
@@ -23,10 +25,13 @@ public:
 private:
 	// DATA MEMBERS
 	const Window m_Window;
+	Point2f m_MousePos;
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
-	void DrawPolygon( ) const;
+	void DrawPolygon(const std::vector<Point2f>& points) const;
+	void DrawRay(const std::vector<Point2f>& points) const;
+	void DrawVector(const Vector2f& vector, const Point2f& startPoint) const;
 };

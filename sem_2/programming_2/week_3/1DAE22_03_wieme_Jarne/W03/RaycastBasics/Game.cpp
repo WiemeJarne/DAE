@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Game.h"
-#include "utils.h"
 
 Game::Game( const Window& window ) 
 	:m_Window{ window }
+	,m_MousePos{ }
 {
 	Initialize( );
 }
@@ -39,7 +39,16 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	DrawPolygon( );
+
+	std::vector<Point2f> points{ Point2f{37.f, 46.f},
+								 Point2f{37.f, 356.f},
+								 Point2f{m_Window.width / 2.f, 465.f},
+								 Point2f{786.f, 379},
+								 Point2f{786.f, 47.f},
+								 Point2f{m_Window.width / 2.f, 12} };
+
+	DrawPolygon( points );
+	DrawRay( points );
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -67,7 +76,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
-	//std::cout << "MOUSEMOTION event: " << e.x << ", " << e.y << std::endl;
+	m_MousePos = Point2f{ float(e.x), float(e.y) };
 }
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
@@ -106,22 +115,50 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 
 void Game::ClearBackground( ) const
 {
-	glClearColor( 178/255.f, 178/255.f, 178/255.f, 1.0f );
+	glClearColor( 100/255.f, 100/255.f, 100/255.f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
 }
 
-void Game::DrawPolygon( ) const
+void Game::DrawPolygon(const std::vector<Point2f>& points) const
 {
-	std::vector<Point2f> points{ Point2f{37.f, 46.f},
-								 Point2f{37.f, 356.f},
-								 Point2f{m_Window.width / 2.f, 465.f},
-								 Point2f{786.f, 379},
-								 Point2f{786.f, 47.f},
-								 Point2f{m_Window.width / 2.f, 12} };
-
 	utils::SetColor(Color4f{ 0.f, 0.f, 0.f, 1.f });
 	utils::FillPolygon(points);
 
 	utils::SetColor(Color4f{ 1.f, 0.5, 0.f, 1.f });
 	utils::DrawPolygon(points, true, 2.f);
+}
+
+void Game::DrawRay(const std::vector<Point2f>& points) const
+{
+	Point2f rayStartPoint{ m_Window.width / 2.f, m_Window.height / 2.f };
+	Point2f rayEndPoint{ m_MousePos };
+
+	utils::SetColor(Color4f{ 1.f, 1.f, 0.f, 1.f });
+	utils::DrawLine(rayStartPoint, rayEndPoint);
+
+	utils::HitInfo hitInfo{};
+
+	if (utils::Raycast(points, rayStartPoint, rayEndPoint, hitInfo))
+	{
+		//draw circle on intersecting point
+		const float radius{ 4.f };
+		utils::DrawEllipse(hitInfo.intersectPoint, radius, radius);
+
+		//draw normal
+		const float normalLenght{ 30.f };
+		utils::SetColor(Color4f{ 0.f, 1.f, 0.f, 1.f });
+		DrawVector(hitInfo.normal * normalLenght, hitInfo.intersectPoint);
+
+		//draw reflection
+		Vector2f rayVector{ rayStartPoint, m_MousePos };
+		Vector2f relectedVector{ rayVector.Reflect(hitInfo.normal) };
+		utils::SetColor(Color4f{ 1.f, 1.f, 1.f, 1.f });
+		DrawVector(relectedVector * (1 - hitInfo.lambda), hitInfo.intersectPoint);
+	}
+}
+
+void Game::DrawVector(const Vector2f& vector, const Point2f& startPoint) const
+{
+	Point2f endPoint{ startPoint + vector };
+	utils::DrawLine(startPoint, endPoint);
 }
