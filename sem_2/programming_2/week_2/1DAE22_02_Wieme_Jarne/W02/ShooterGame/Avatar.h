@@ -11,7 +11,7 @@ public:
 	Avatar();
 	Avatar(const Point2f& center, float width, float height);
 
-	void Update(float elapsedSec, std::vector<Enemy*> pEnemies, bool move);
+	void Update(float elapsedSec, std::vector<Enemy*>& pEnemies, bool move);
 	void Draw() const;
 	void SetCenter(const Point2f& center);
 	void SetDimensions(float width, float height);

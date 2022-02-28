@@ -17,7 +17,7 @@ Bullet::Bullet(float width, float height)
 	ChangeBulletRect(width, height);
 }
 
-void Bullet::Update(float elapsedSec, std::vector<Enemy*> pEnemies)
+void Bullet::Update(float elapsedSec, std::vector<Enemy*>& pEnemies)
 {
 	if (m_IsActivated)
 	{

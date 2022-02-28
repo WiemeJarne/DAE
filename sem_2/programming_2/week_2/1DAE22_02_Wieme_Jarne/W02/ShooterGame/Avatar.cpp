@@ -21,7 +21,7 @@ Avatar::Avatar(const Point2f& center, float width, float height)
 	ChangeAvatarRect(width, height);
 }
 
-void Avatar::Update(const float elapsedSec, std::vector<Enemy*> pEnemies, bool move)
+void Avatar::Update(const float elapsedSec, std::vector<Enemy*>& pEnemies, bool move)
 {
 	m_Bullet.SetBoundaries(m_BoundariesRect);
 	m_Bullet.Update(elapsedSec, pEnemies);

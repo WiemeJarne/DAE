@@ -10,7 +10,7 @@ public:
 	Bullet( );
 	Bullet(float width, float height);
 
-	void Update(float elapesedSec, std::vector<Enemy*> pEnemies);
+	void Update(float elapesedSec, std::vector<Enemy*>& pEnemies);
 	void Draw( ) const;
 	void Shoot(const Point2f& center, const Vector2f& velocity);
 	void SetDimensions(float width, float height);
