@@ -8,16 +8,3 @@ DaeCircle::DaeCircle( const Point2f &center, float diameter, const Color4f &colo
 {
 	//no code
 }
-
-void DaeCircle::Draw() const
-{
-	utils::SetColor( m_Color );
-	if ( m_IsFilled )
-	{
-		utils::FillEllipse( m_Center, m_Diameter / 2, m_Diameter / 2 );
-	}
-	else
-	{
-		utils::DrawEllipse( m_Center, m_Diameter / 2, m_Diameter / 2 );
-	}
-}

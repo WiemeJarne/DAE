@@ -37,16 +37,9 @@ void Game::Cleanup( )
 void Game::Update( float elapsedSec )
 {
 	 //Check keyboard state
-	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	if ( pStates[SDL_SCANCODE_RIGHT] )
-	{
-		m_Avatar->Update(elapsedSec, m_Enemies, true);
-	}
-	else if ( pStates[SDL_SCANCODE_LEFT] )
-	{
-		m_Avatar->Update(-elapsedSec, m_Enemies, true);
-	}
-	else m_Avatar->Update(elapsedSec, m_Enemies, false);
+	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
+
+	m_Avatar->Update(elapsedSec, m_Enemies);
 }
 
 void Game::Draw( ) const

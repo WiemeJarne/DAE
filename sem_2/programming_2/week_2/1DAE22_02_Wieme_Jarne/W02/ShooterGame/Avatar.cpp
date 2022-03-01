@@ -9,7 +9,7 @@ Avatar::Avatar()
 	:m_Center{ }
 	,m_Speed{500.f}
 	,m_BoundariesRect{ }
-	,m_Bullet{ }
+	, m_Bullet{ new Bullet{ } }
 {
 	ChangeAvatarRect(50.f, 50.f);
 }
@@ -21,16 +21,25 @@ Avatar::Avatar(const Point2f& center, float width, float height)
 	ChangeAvatarRect(width, height);
 }
 
-void Avatar::Update(const float elapsedSec, std::vector<Enemy*>& pEnemies, bool move)
+void Avatar::Update(const float elapsedSec, std::vector<Enemy*>& pEnemies)
 {
-	m_Bullet.SetBoundaries(m_BoundariesRect);
-	m_Bullet.Update(elapsedSec, pEnemies);
-	if(move) HandleMoveKeyState(elapsedSec);
+	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
+	if (pStates[SDL_SCANCODE_RIGHT])
+	{
+		HandleMoveKeyState(elapsedSec);
+	}
+	else if (pStates[SDL_SCANCODE_LEFT])
+	{
+		HandleMoveKeyState(-elapsedSec);
+	}
+
+	m_Bullet->SetBoundaries(m_BoundariesRect);
+	m_Bullet->Update(elapsedSec, pEnemies);
 }
 
 void Avatar::Draw() const
 {
-	m_Bullet.Draw();
+	m_Bullet->Draw();
 
 	const float lineWidth{ 2.f };
 	Color4f yellow{ 1.f, 1.f, 0.f, 1.f };
@@ -58,7 +67,7 @@ void Avatar::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_UP:
-		m_Bullet.Shoot(m_Center, Vector2f{ 0, 750.f });
+		m_Bullet->Shoot(m_Center, Vector2f{ 0, 750.f });
 		break;
 	}
 }
