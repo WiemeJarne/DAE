@@ -20,43 +20,38 @@ void Avatar::Update(float elapsedSec, const Level& level)
 {
 	if (m_ActionState == ActionState::waiting)
 	{
-		Waiting(elapsedSec, level);
+		Waiting(elapsedSec);
 	}
-
 	else if (m_ActionState == ActionState::moving)
 	{
-		const Uint8* pStates = SDL_GetKeyboardState(nullptr);
+		Moving(elapsedSec, level);
 
-		if (pStates[SDL_SCANCODE_LEFT])
-		{
-			m_Shape.left -= elapsedSec * m_Velocity.x;
-		}
-		else if (pStates[SDL_SCANCODE_RIGHT])
-		{
-			m_Shape.left += elapsedSec * m_Velocity.x;
-		}
-		else if (pStates[SDL_SCANCODE_UP])
-		{
-			m_Shape.bottom += elapsedSec * m_Velocity.y;
-		}
-
-		m_Shape.bottom += elapsedSec * m_Acceleration.y;
-		level.HandleCollision(m_Shape, m_Acceleration);
-
-		if (level.IsOnGround(m_Shape)) m_ActionState = ActionState::waiting;
+		level.HandleCollision(m_Shape, m_Velocity);
 	}
-	else Transforming(elapsedSec);
+	else Transforming(elapsedSec, level);
 }
 
 void Avatar::Draw() const
 {
-	utils::SetColor(Color4f{ 1.f, 1.f, 0.f, 1.f });
+	if (m_ActionState == ActionState::waiting)
+	{
+		utils::SetColor(Color4f{ 1.f, 1.f, 0.f, 1.f });
+	}
+	else if (m_ActionState == ActionState::moving)
+	{
+		utils::SetColor(Color4f{ 1.f, 0.f, 0.f, 1.f });
+	}
+	else if (m_ActionState == ActionState::transforming)
+	{
+		utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
+	}
+
 	utils::FillRect(m_Shape);
 }
 
 void Avatar::PowerUpHit()
 {
-	
+	m_ActionState = ActionState::transforming;
 }
 
 Rectf Avatar::GetShape() const
@@ -64,37 +59,71 @@ Rectf Avatar::GetShape() const
 	return m_Shape;
 }
 
-void Avatar::Waiting(float elapsedSec, const Level& level)
+void Avatar::Waiting(float elapsedSec)
 {
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 
-	if (level.IsOnGround(m_Shape))
+	if (pStates[SDL_SCANCODE_LEFT] || pStates[SDL_SCANCODE_RIGHT] || pStates[SDL_SCANCODE_UP])
 	{
-		if (pStates[SDL_SCANCODE_UP])
-		{
-			m_ActionState = ActionState::moving;
-			Jump();
-		}
-		else
-		{
-			MoveHorizontal();
-		}
+		m_ActionState = ActionState::moving;
 	}
 }
 
-void Avatar::MoveHorizontal()
+void Avatar::Moving(float elapsedSec, const Level& level)
 {
-	m_Velocity.x = m_HorizontalSpeed;
-	m_ActionState = ActionState::moving;
+	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
+
+	if (pStates[SDL_SCANCODE_LEFT] && level.IsOnGround(m_Shape))
+	{
+		ChangeXVelocity();
+		MoveHorizontal(-elapsedSec);
+	}
+	else if (pStates[SDL_SCANCODE_RIGHT] && level.IsOnGround(m_Shape))
+	{
+		ChangeXVelocity();
+		MoveHorizontal(elapsedSec);
+	}
+	else if (pStates[SDL_SCANCODE_UP] && level.IsOnGround(m_Shape))
+	{
+		ChangeYVelocity();
+	}
+
+	m_Shape.bottom += elapsedSec * m_Velocity.y;
+
+	if (level.IsOnGround(m_Shape) == false)
+	{
+		m_Velocity.y += m_Acceleration.y * elapsedSec;
+	}
+
+	if (level.IsOnGround(m_Shape) && !pStates[SDL_SCANCODE_LEFT] && !pStates[SDL_SCANCODE_RIGHT])
+	{
+		m_ActionState = ActionState::waiting;
+	}
 }
 
-void Avatar::Jump()
+void Avatar::ChangeYVelocity()
 {
 	m_Velocity.y = m_JumpSpeed;
-	m_ActionState = ActionState::moving;
 }
 
-void Avatar::Transforming(float elapsedSec)
+void Avatar::ChangeXVelocity()
 {
+	m_Velocity.x = m_HorizontalSpeed;
+}
 
+void Avatar::MoveHorizontal(float elapsedSec)
+{
+	m_Shape.left += elapsedSec * m_Velocity.x;
+}
+
+void Avatar::Transforming(float elapsedSec, const Level& level)
+{
+	m_AccuTransFormSec += elapsedSec;
+
+	if (m_AccuTransFormSec >= m_MaxTransFormSec)
+	{
+		m_AccuTransFormSec = 0.f;
+
+		m_ActionState = ActionState::moving;
+	}
 }

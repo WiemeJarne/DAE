@@ -41,6 +41,7 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 	if (utils::Raycast(m_Vertices, rayStartPoint, rayEndPoint, hitInfo))
 	{
 		actorShape.bottom = hitInfo.intersectPoint.y;
+		actorVelocity.y = 0.f;
 	}
 }
 

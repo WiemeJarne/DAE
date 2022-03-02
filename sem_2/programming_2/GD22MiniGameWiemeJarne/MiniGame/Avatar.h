@@ -31,9 +31,11 @@ private:
 	float m_MaxTransFormSec;
 	int m_Power;
 
-	void Waiting(float elapsedSec, const Level& level);
-	void MoveHorizontal();
-	void Jump();
-	void Transforming(float elapsedSec);
+	void Waiting(float elapsedSec);
+	void Moving(float elapsedSec, const Level& level);
+	void ChangeXVelocity();
+	void ChangeYVelocity();
+	void MoveHorizontal(float elapsedSec);
+	void Transforming(float elapsedSec, const Level& level);
 };
 
