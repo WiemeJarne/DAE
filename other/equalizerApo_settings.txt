@@ -1,0 +1,3 @@
+Preamp: 5.8 dB
+LoudnessCorrection: State 1 ReferenceLevel 0 ReferenceOffset 7 Attenuation 1.0
+GraphicEQ: 25 2.2; 40 2.2; 63 2.2; 100 -1.8; 160 -3.8; 250 -5.4; 400 -7; 630 -8.6; 1000 -10.2; 1600 -11.4; 2500 -12.6; 4000 -13.4; 6300 -14.2; 10000 -15.4; 16000 -17
