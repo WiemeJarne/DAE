@@ -24,7 +24,7 @@ int main()
 	for (Animal* pAnimal : animals)
 	{
 		Cat* pCat{ dynamic_cast<Cat*>(pAnimal) };
-		if (pCat !=nullptr)
+		if (pCat != nullptr)
 		{
 			pCat->SetNightVision(true);
 		}

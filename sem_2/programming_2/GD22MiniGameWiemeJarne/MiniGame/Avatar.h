@@ -33,8 +33,7 @@ private:
 
 	void Waiting(float elapsedSec);
 	void Moving(float elapsedSec, const Level& level);
-	void ChangeXVelocity();
-	void ChangeYVelocity();
+	void UpdatePos(float elapsedSec);
 	void MoveHorizontal(float elapsedSec);
 	void Transforming(float elapsedSec, const Level& level);
 };

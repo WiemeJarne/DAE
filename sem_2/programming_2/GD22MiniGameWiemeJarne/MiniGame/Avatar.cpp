@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Avatar.h"
 #include "Level.h"
-
+#include <iostream>
 Avatar::Avatar()
 	:m_Shape{50.f, 280.f, 36.f, 97.f}
 	,m_HorizontalSpeed{200.f}
@@ -41,10 +41,7 @@ void Avatar::Draw() const
 	{
 		utils::SetColor(Color4f{ 1.f, 0.f, 0.f, 1.f });
 	}
-	else if (m_ActionState == ActionState::transforming)
-	{
-		utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
-	}
+	else utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
 
 	utils::FillRect(m_Shape);
 
@@ -68,6 +65,8 @@ void Avatar::Draw() const
 void Avatar::PowerUpHit()
 {
 	++m_Power;
+	m_Velocity.x = 0.f;
+	m_Velocity.y = 0.f;
 	m_ActionState = ActionState::transforming;
 }
 
@@ -90,27 +89,26 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 {
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 
-	if (pStates[SDL_SCANCODE_LEFT] && level.IsOnGround(m_Shape))
+	if (level.IsOnGround(m_Shape))
 	{
-		ChangeXVelocity();
-		MoveHorizontal(-elapsedSec);
-	}
-	else if (pStates[SDL_SCANCODE_RIGHT] && level.IsOnGround(m_Shape))
-	{
-		ChangeXVelocity();
-		MoveHorizontal(elapsedSec);
-	}
-	else if (pStates[SDL_SCANCODE_UP] && level.IsOnGround(m_Shape))
-	{
-		ChangeYVelocity();
-	}
+		if (pStates[SDL_SCANCODE_LEFT])
+		{
+			m_Velocity.x = -m_HorizontalSpeed;
+		}
 
-	m_Shape.bottom += elapsedSec * m_Velocity.y;
+		if (pStates[SDL_SCANCODE_RIGHT])
+		{
+			m_Velocity.x = m_HorizontalSpeed;
+		}
 
-	if (level.IsOnGround(m_Shape) == false)
-	{
-		m_Velocity.y += m_Acceleration.y * elapsedSec;
+		if (pStates[SDL_SCANCODE_UP])
+		{
+			m_Velocity.y = m_JumpSpeed;
+		}
 	}
+	UpdatePos(elapsedSec);
+
+	m_Velocity.y += m_Acceleration.y * elapsedSec;
 
 	if (level.IsOnGround(m_Shape) && !pStates[SDL_SCANCODE_LEFT] && !pStates[SDL_SCANCODE_RIGHT])
 	{
@@ -118,14 +116,10 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 	}
 }
 
-void Avatar::ChangeYVelocity()
+void Avatar::UpdatePos(float elapsedSec)
 {
-	m_Velocity.y = m_JumpSpeed;
-}
-
-void Avatar::ChangeXVelocity()
-{
-	m_Velocity.x = m_HorizontalSpeed;
+	MoveHorizontal(elapsedSec);
+	m_Shape.bottom += elapsedSec * m_Velocity.y;
 }
 
 void Avatar::MoveHorizontal(float elapsedSec)

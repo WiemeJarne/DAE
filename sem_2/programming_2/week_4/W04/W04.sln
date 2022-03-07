@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheoryHandsOn", "TheoryHandsOn\TheoryHandsOn.vcxproj", "{B89F44CB-6A5A-4878-8FDA-39A5894757A9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolymorphismBasics", "PolymorphismBasics\PolymorphismBasics.vcxproj", "{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolymorphismShapes", "PolymorphismShapes\PolymorphismShapes.vcxproj", "{728ECE0C-FB8E-4E4F-876A-5217FC702810}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{B89F44CB-6A5A-4878-8FDA-39A5894757A9}.Release|x64.Build.0 = Release|x64
 		{B89F44CB-6A5A-4878-8FDA-39A5894757A9}.Release|x86.ActiveCfg = Release|Win32
 		{B89F44CB-6A5A-4878-8FDA-39A5894757A9}.Release|x86.Build.0 = Release|Win32
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Debug|x64.ActiveCfg = Debug|x64
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Debug|x64.Build.0 = Debug|x64
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Debug|x86.ActiveCfg = Debug|Win32
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Debug|x86.Build.0 = Debug|Win32
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Release|x64.ActiveCfg = Release|x64
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Release|x64.Build.0 = Release|x64
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Release|x86.ActiveCfg = Release|Win32
+		{B51E6B7E-CADE-4BFD-AE5D-B95E808A8FC6}.Release|x86.Build.0 = Release|Win32
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Debug|x64.ActiveCfg = Debug|x64
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Debug|x64.Build.0 = Debug|x64
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Debug|x86.ActiveCfg = Debug|Win32
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Debug|x86.Build.0 = Debug|Win32
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Release|x64.ActiveCfg = Release|x64
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Release|x64.Build.0 = Release|x64
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Release|x86.ActiveCfg = Release|Win32
+		{728ECE0C-FB8E-4E4F-876A-5217FC702810}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
