@@ -23,3 +23,81 @@ add2:
 
 end:
 	RET
+	
+//print numbers between 9 - 100
+JMP start
+
+start:
+	MOV A, 99
+	CMP A, 10
+	JB stop ; jump if smaller then
+	PUSH A
+	DIV 10
+	MUL 10
+	MOV B, A 	; het tiental van het getal dat moet geprint worden bewaren in B
+	POP A
+	PUSH B
+	CALL substract2 ; call functie om 2 getallen af te trekken
+
+	ADD A, '0'    ; print
+	MOV [0xff], A
+	POP A
+	DIV 10
+	ADD A, '0'
+	MOV [0xfe], A
+
+	HLT
+	
+stop:
+	HLT
+	
+substract2:
+	CMP B, 0
+	JZ end
+	DEC A
+	DEC B
+	CALL substract2
+	
+end:
+	RET
+
+//print numbers between 9 - 256
+JMP start
+
+start:
+	MOV A, 100
+	CMP A, 10
+	JB stop ; jump if smaller then
+	PUSH A
+	DIV 10
+	MOV B, A 	; het tiental en honderdtal bewaren in B bv. als 255 wil printen dan staat 25 in B
+	DIV 10
+	ADD A, '0'
+	MOV [0xfd], A
+	XOR A, B
+	XOR B, A
+	XOR A, B
+	
+	CALL substract2 ; call functie om 2 getallen af te trekken
+
+	ADD A, '0'    ; print
+	MOV [0xff], A
+	POP A
+	DIV 10
+	ADD A, '0'
+	MOV [0xfe], A
+
+	HLT
+	
+stop:
+	HLT
+	
+substract2:
+	CMP B, 0
+	JZ end
+	DEC A
+	DEC B
+	CALL substract2
+	
+end:
+	RET
