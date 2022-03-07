@@ -1,0 +1,25 @@
+MOV A, 0xbe
+MOV B, 0xef
+
+JMP start
+
+start:
+	PUSH A ; push wat in A zit op stack
+	PUSH B ; push wat in B zit op stack
+	JMP start
+
+//	
+MOV A, 6
+MOV B, 9
+CALL add2
+HLT
+	  
+add2:
+	CMP B, 0
+	JZ end
+	INC A
+	DEC B
+	CALL add2
+
+end:
+	RET
