@@ -37,7 +37,7 @@ start:
 	MOV B, A 	; het tiental van het getal dat moet geprint worden bewaren in B
 	POP A
 	PUSH B
-	CALL substract2 ; call functie om 2 getallen af te trekken
+	SUB A, B
 
 	ADD A, '0'    ; print
 	MOV [0xff], A
@@ -50,54 +50,47 @@ start:
 	
 stop:
 	HLT
-	
-substract2:
-	CMP B, 0
-	JZ end
-	DEC A
-	DEC B
-	CALL substract2
-	
-end:
-	RET
 
 //print numbers between 9 - 256
 JMP start
 
 start:
-	MOV A, 100
-	CMP A, 10
+	MOV A, 255 ; steek een waarde (tussen 9 en 256) in A
+	CMP A, 10 ; als waarde in A kleiner is als 10 dan stop
 	JB stop ; jump if smaller then
-	PUSH A
-	DIV 10
-	MOV B, A 	; het tiental en honderdtal bewaren in B bv. als 255 wil printen dan staat 25 in B
-	DIV 10
-	ADD A, '0'
-	MOV [0xfd], A
-	XOR A, B
-	XOR B, A
-	XOR A, B
+	PUSH A ; bewaar waarde op de stack
+	JMP honderdtallen
 	
-	CALL substract2 ; call functie om 2 getallen af te trekken
+honderdtallen:
+	DIV 10 ; bereken aantal hondertallen en tientallen 
+	MOV B, A ; het aantal honderdtallen en tientallen bewaren in B bv. als 255 wil printen dan staat 25 in B
+	DIV 10 ; bereken hondertallen
+	CMP A, 0 ; als het aantal honderdtallen 0 is jump naar de eenheden (en print dus niks voor de honderdtallen)
+	JZ eenheden
+	ADD A, '0' ; maakt dat er een cijfer op het scherm komt
+	MOV [0xfd], A ; print honderdtallen
+	
+eenheden:
+	MOV A, B ; kopieer aantal hondertallen en tientallen naar A
+	MUL 10
+	MOV B, A
+	POP A ; haal waarde van de stack en plaats in A
+	PUSH A ; zet waarde in A op stack
+	SUB A, B ; bereken aantal eenheden
+	ADD A, '0' ; maakt dat er een cijfer op het scherm komt
+	MOV [0xff], A ; print aantal eenheden
+	JMP tientallen
 
-	ADD A, '0'    ; print
-	MOV [0xff], A
-	POP A
+tientallen:
+	POP A ; haal waarde van de stack en plaats in A
 	DIV 10
-	ADD A, '0'
-	MOV [0xfe], A
-
-	HLT
+	MOV B, A ; kopieer waarde in A naar B
+	DIV 10
+	MUL 10
+	SUB B, A ; bereken aantal tientallen
+	ADD B, '0' ; maakt dat er een cijfer op het scherm komt
+	MOV [0xfe], B ; print aantal tientallen
+	JMP stop
 	
 stop:
 	HLT
-	
-substract2:
-	CMP B, 0
-	JZ end
-	DEC A
-	DEC B
-	CALL substract2
-	
-end:
-	RET
