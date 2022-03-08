@@ -16,7 +16,7 @@ public:
 	bool IsOnGround(const Rectf& actorShape) const;
 
 private:
-	std::vector<Point2f> m_Vertices;
+	std::vector<std::vector<Point2f>> m_Vertices;
 	Texture* m_pBackgroundTexture;
 	Texture* m_pFenceTexture;
 	Point2f m_FenceBottomLeft;

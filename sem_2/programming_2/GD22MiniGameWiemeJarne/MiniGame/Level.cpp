@@ -1,16 +1,15 @@
 #include "pch.h"
 #include "Level.h"
 #include "Texture.h"
+#include "SVGParser.h"
 
 Level::Level()
 	:m_pBackgroundTexture{ new Texture{"Resources/Images/background.png" } }
 	,m_pFenceTexture{ new Texture{ "Resources/Images/Fence.png" } }
 	,m_FenceBottomLeft{200.f, 190.f}
-	,m_Vertices{Point2f{0.f, 0.f}, Point2f{0.f, 190.f}, Point2f{340.f, 190.f},
-				Point2f{408.f, 124.f}, Point2f{560.f, 124.f}, Point2f{660.f, 224.f},
-				Point2f{846.f, 224.f}, Point2f{864.f, 0}, Point2f{0, 0}				}
+	, m_Vertices{}
 {
-	//no code
+	SVGParser::GetVerticesFromSvgFile("Resources/Images/level.svg", m_Vertices);
 }
 
 Level::~Level()
@@ -38,7 +37,7 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 
 	utils::HitInfo hitInfo{};
 
-	if (utils::Raycast(m_Vertices, rayStartPoint, rayEndPoint, hitInfo))
+	if (utils::Raycast(m_Vertices.back(), rayStartPoint, rayEndPoint, hitInfo))
 	{
 		actorShape.bottom = hitInfo.intersectPoint.y;
 		actorVelocity.y = 0.f;
@@ -54,7 +53,7 @@ bool Level::IsOnGround(const Rectf& actorShape) const
 
 	utils::HitInfo hitInfo{};
 
-	if (utils::Raycast(m_Vertices, rayStartPoint, rayEndPoint, hitInfo))
+	if (utils::Raycast(m_Vertices.back(), rayStartPoint, rayEndPoint, hitInfo))
 	{
 		return true;
 	}

@@ -9,6 +9,16 @@ DaeShape::DaeShape(const Point2f& center, float width, float height, const Color
 	//no code
 }
 
+DaeShape::~DaeShape()
+{
+
+}
+
+void DaeShape::Draw( ) const
+{
+
+}
+
 void DaeShape::Translate(const Vector2f& tr)
 {
 	m_Center += tr;

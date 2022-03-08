@@ -3,13 +3,13 @@
 #include "Texture.h"
 #include "DaeRectangle.h"
 
-class DaeRectLabel : public DaeRectangle
+class DaeRectLabel final : public DaeRectangle
 {
 public:
 	DaeRectLabel( const Point2f& center, float width, float height, const Color4f& color, const std::string& label, const Color4f& textColor, TTF_Font* pFont );
 	~DaeRectLabel( );
 
-	void Draw( ) const;
+	virtual void Draw( ) const override;
 
 private: 
 	Texture* m_pLabelText;

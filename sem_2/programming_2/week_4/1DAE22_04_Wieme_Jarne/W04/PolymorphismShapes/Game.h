@@ -1,10 +1,7 @@
 #pragma once
 #include <vector>
 
-class  DaeEllipse;
-class  DaeRectangle;
-class  DaeCircle;
-class  DaeRectLabel;
+class  DaeShape;
 
 class Game final
 {
@@ -30,13 +27,9 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
-	std::vector< DaeEllipse* > m_pEllipses;
-	std::vector< DaeRectangle* > m_pRectangles;
-	std::vector< DaeCircle* > m_pCircles;
-	std::vector< DaeRectLabel* > m_pRectLabels;
+	std::vector< DaeShape* > m_pShapes;
 	const float m_TransSpeed; // pixels per second
 	TTF_Font *m_pFont;
-
 
 	// FUNCTIONS
 	void Initialize( );

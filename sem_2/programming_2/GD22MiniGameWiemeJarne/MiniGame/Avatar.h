@@ -2,11 +2,13 @@
 #include "utils.h"
 
 class Level;
+class Texture;
 
 class Avatar
 {
 public:
 	Avatar();
+	~Avatar();
 
 	void Update(float elapsedSec, const Level& level);
 	void Draw() const;
@@ -16,11 +18,18 @@ public:
 private:
 	enum class ActionState
 	{
-		waiting,
+		waiting = 1,
 		moving,
 		transforming
 	};
 
+	Texture* m_pSpriteTexture;
+	float m_ClipHeight;
+	float m_ClipWidth;
+	int m_NrOfFrames;
+	int m_NrFramesPerSec;
+	float m_AnimTime;
+	int m_AnimFrame;
 	Rectf m_Shape;
 	float m_HorizontalSpeed;
 	float m_JumpSpeed;
@@ -36,5 +45,6 @@ private:
 	void UpdatePos(float elapsedSec);
 	void MoveHorizontal(float elapsedSec);
 	void Transforming(float elapsedSec, const Level& level);
+	void CalculateFrame(float elapsedSec);
 };
 

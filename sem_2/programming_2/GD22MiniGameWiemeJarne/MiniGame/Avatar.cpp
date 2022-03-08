@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "Avatar.h"
 #include "Level.h"
+#include "Texture.h"
 #include <iostream>
 Avatar::Avatar()
-	:m_Shape{50.f, 280.f, 36.f, 97.f}
+	:m_Shape{50.f, 280.f, 0.f, 0.f}
 	,m_HorizontalSpeed{200.f}
 	,m_JumpSpeed{600.f}
 	,m_Velocity{0.f, 0.f}
@@ -12,12 +13,26 @@ Avatar::Avatar()
 	,m_AccuTransFormSec{0.f}
 	,m_MaxTransFormSec{1.f}
 	,m_Power{0}
+	,m_pSpriteTexture{ new Texture{"Resources/Images/AvatarSheet.png"}}
+	,m_ClipHeight{97.f}
+	,m_ClipWidth{72.f}
+	,m_NrOfFrames{10}
+	,m_NrFramesPerSec{10}
+	,m_AnimTime{}
+	,m_AnimFrame{}
 {
-	//no code
+	m_Shape.width = m_ClipWidth;
+	m_Shape.height = m_ClipHeight;
+}
+
+Avatar::~Avatar()
+{
+	delete m_pSpriteTexture;
 }
 
 void Avatar::Update(float elapsedSec, const Level& level)
 {
+	CalculateFrame(elapsedSec);
 	if (m_ActionState == ActionState::waiting)
 	{
 		Waiting(elapsedSec);
@@ -33,38 +48,25 @@ void Avatar::Update(float elapsedSec, const Level& level)
 
 void Avatar::Draw() const
 {
-	if (m_ActionState == ActionState::waiting)
-	{
-		utils::SetColor(Color4f{ 1.f, 1.f, 0.f, 1.f });
-	}
-	else if (m_ActionState == ActionState::moving)
-	{
-		utils::SetColor(Color4f{ 1.f, 0.f, 0.f, 1.f });
-	}
-	else utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
+	Rectf AvatarSrcRect{};
+	AvatarSrcRect.left = m_AnimFrame * m_ClipWidth;
+	AvatarSrcRect.bottom = (m_Power * 3 + int(m_ActionState)) * m_ClipHeight;
+	AvatarSrcRect.width = m_ClipWidth;
+	AvatarSrcRect.height = m_ClipHeight;
 
-	utils::FillRect(m_Shape);
-
-	const float spaceBetweenSmallRects{ 5.f };
-
-	Rectf smallRect{};
-	smallRect.left = m_Shape.left + spaceBetweenSmallRects;
-	smallRect.bottom = m_Shape.bottom + spaceBetweenSmallRects;
-	smallRect.width = 5.f;
-	smallRect.height = 5.f;
-
-	utils::SetColor(Color4f{ 0.f, 0.f, 0.f, 1.f });
-
-	for (int index{}; index < m_Power; ++index)
-	{
-		utils::FillRect(smallRect);
-		smallRect.bottom += smallRect.height + spaceBetweenSmallRects;
-	}
+	glPushMatrix();
+		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
+		if (m_Velocity.x < 0.f)
+		{
+			glScalef(-1, 1, 1);
+			glTranslatef(-m_Shape.width, 0.f, 0.f);
+		}
+		m_pSpriteTexture->Draw(Rectf{}, AvatarSrcRect);
+	glPopMatrix();
 }
 
 void Avatar::PowerUpHit()
 {
-	++m_Power;
 	m_Velocity.x = 0.f;
 	m_Velocity.y = 0.f;
 	m_ActionState = ActionState::transforming;
@@ -81,6 +83,8 @@ void Avatar::Waiting(float elapsedSec)
 
 	if (pStates[SDL_SCANCODE_LEFT] || pStates[SDL_SCANCODE_RIGHT] || pStates[SDL_SCANCODE_UP])
 	{
+		m_AnimFrame = 0;
+		m_AnimTime = 0.f;
 		m_ActionState = ActionState::moving;
 	}
 }
@@ -112,6 +116,8 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 
 	if (level.IsOnGround(m_Shape) && !pStates[SDL_SCANCODE_LEFT] && !pStates[SDL_SCANCODE_RIGHT])
 	{
+		m_AnimFrame = 0;
+		m_AnimTime = 0.f;
 		m_ActionState = ActionState::waiting;
 	}
 }
@@ -135,6 +141,19 @@ void Avatar::Transforming(float elapsedSec, const Level& level)
 	{
 		m_AccuTransFormSec = 0.f;
 
+		m_AnimFrame = 0;
+		m_AnimTime = 0.f;
+		++m_Power;
 		m_ActionState = ActionState::moving;
+	}
+}
+
+void Avatar::CalculateFrame(float elapsedSec)
+{
+	m_AnimTime += elapsedSec;
+	if (1.f / m_NrFramesPerSec <= m_AnimTime)
+	{
+		m_AnimTime -= 1.f / m_NrFramesPerSec;
+		m_AnimFrame = (m_AnimFrame + 1) % m_NrOfFrames;
 	}
 }
