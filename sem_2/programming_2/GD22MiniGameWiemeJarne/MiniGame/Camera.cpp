@@ -10,7 +10,7 @@ Camera::Camera(float width, float height)
 
 }
 
-void Camera::SetLevelBoundaries(const Rectf & levelBoundaries)
+void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
 {
 	m_LevelBoundaries = levelBoundaries;
 }
@@ -27,10 +27,10 @@ void Camera::Draw(const Rectf& target) const
 
 Point2f Camera::Track(const Rectf& target) const
 {
-	return Point2f{ target.left + target.width / 2.f - m_Width, target.bottom + target.height / 2.f - m_Height };
+	return Point2f{ target.left + target.width / 2.f - m_Width / 2.f, target.bottom + target.height / 2.f - m_Height / 2.f };
 }
 
-void Camera::Clamp(Point2f bottomLeftPos) const
+void Camera::Clamp(Point2f& bottomLeftPos) const
 {
 	if (bottomLeftPos.x < m_LevelBoundaries.left)
 	{

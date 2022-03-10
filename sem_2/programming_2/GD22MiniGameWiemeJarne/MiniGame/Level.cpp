@@ -7,9 +7,11 @@ Level::Level()
 	:m_pBackgroundTexture{ new Texture{"Resources/Images/background.png" } }
 	,m_pFenceTexture{ new Texture{ "Resources/Images/Fence.png" } }
 	,m_FenceBottomLeft{200.f, 190.f}
-	, m_Vertices{}
+	,m_Vertices{}
 {
 	SVGParser::GetVerticesFromSvgFile("Resources/Images/level.svg", m_Vertices);
+	
+
 }
 
 Level::~Level()
@@ -59,4 +61,9 @@ bool Level::IsOnGround(const Rectf& actorShape) const
 	}
 
 	return false;
+}
+
+Rectf Level::GetBoundaries()
+{
+	return m_Boundaries;
 }

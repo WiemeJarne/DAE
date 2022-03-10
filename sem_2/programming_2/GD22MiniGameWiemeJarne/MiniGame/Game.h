@@ -3,7 +3,7 @@
 #include "PowerUpManager.h"
 #include "Avatar.h"
 #include "Vector2f.h"
-
+#include "Camera.h"
 
 class Game final
 {
@@ -29,6 +29,7 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
+	Camera m_Camera;
 	Level m_Level;
 	PowerUpManager m_PowerUpManager;
 	Avatar m_Avatar;
@@ -41,4 +42,5 @@ private:
 	void ShowTestMessage( ) const;
 	void AddPowerUps( );
 	void DoCollisionTests( );
+	void DrawCamera() const;
 };

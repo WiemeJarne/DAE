@@ -5,7 +5,9 @@
 
 Game::Game( const Window& window )
 	:m_Window{ window }
+	,m_Camera{ 300.f, 300.f }
 {	 
+	m_Camera.SetLevelBoundaries(m_Level.GetBoundaries());
 	Initialize( );
 }
 
@@ -42,6 +44,7 @@ void Game::Draw( ) const
 	m_PowerUpManager.Draw( );
 	m_Avatar.Draw( );
 	m_Level.DrawForeground( );
+	DrawCamera( );
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -102,3 +105,7 @@ void Game::DoCollisionTests( )
 	}
 }
 
+void Game::DrawCamera() const
+{
+	m_Camera.Draw(m_Avatar.GetShape());
+}

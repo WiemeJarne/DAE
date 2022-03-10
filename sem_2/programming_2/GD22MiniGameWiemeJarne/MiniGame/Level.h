@@ -14,11 +14,13 @@ public:
 	void DrawForeground() const;
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	bool IsOnGround(const Rectf& actorShape) const;
+	Rectf GetBoundaries();
 
 private:
 	std::vector<std::vector<Point2f>> m_Vertices;
 	Texture* m_pBackgroundTexture;
 	Texture* m_pFenceTexture;
 	Point2f m_FenceBottomLeft;
+	Rectf m_Boundaries;
 };
 
