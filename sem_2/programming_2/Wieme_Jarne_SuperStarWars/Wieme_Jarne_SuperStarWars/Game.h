@@ -1,4 +1,8 @@
 #pragma once
+#include "Level.h"
+#include "Avatar.h"
+#include "Vector2f.h"
+#include "Camera.h"
 
 class Game final
 {
@@ -6,7 +10,7 @@ public:
 	explicit Game( const Window& window );
 	Game(const Game& other) = delete;
 	Game& operator=(const Game& other) = delete;
-	Game( Game&& other) = delete;
+	Game(Game&& other) = delete;
 	Game& operator=(Game&& other) = delete;
 	~Game();
 
@@ -24,8 +28,14 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
+	Camera m_Camera;
+	Level m_Level;
+	Avatar m_Avatar;
+
+
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
+	void DrawCamera() const;
 };

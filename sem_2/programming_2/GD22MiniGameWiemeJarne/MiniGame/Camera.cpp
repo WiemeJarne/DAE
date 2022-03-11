@@ -15,14 +15,13 @@ void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
 	m_LevelBoundaries = levelBoundaries;
 }
 
-void Camera::Draw(const Rectf& target) const
+void Camera::Transform(const Rectf& target) const
 {
 	Point2f cameraLeftBottomPoint{ Track(target) };
 
 	Clamp(cameraLeftBottomPoint);
 
-	utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
-	utils::DrawRect(cameraLeftBottomPoint, m_Width, m_Height);
+	glTranslatef(-cameraLeftBottomPoint.x, -cameraLeftBottomPoint.y, 0);
 }
 
 Point2f Camera::Track(const Rectf& target) const
@@ -39,5 +38,14 @@ void Camera::Clamp(Point2f& bottomLeftPos) const
 	else if (bottomLeftPos.x + m_Width > m_LevelBoundaries.left + m_LevelBoundaries.width)
 	{
 		bottomLeftPos.x = m_LevelBoundaries.left + m_LevelBoundaries.width - m_Width;
+	}
+
+	if (bottomLeftPos.y < m_LevelBoundaries.bottom)
+	{
+		bottomLeftPos.y = m_LevelBoundaries.bottom;
+	}
+	else if (bottomLeftPos.y + m_Height > m_LevelBoundaries.bottom + m_LevelBoundaries.height)
+	{
+		bottomLeftPos.y = m_LevelBoundaries.bottom + m_LevelBoundaries.height - m_Height;
 	}
 }

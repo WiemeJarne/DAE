@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ad9520fc-e1d6-4b8b-b65e-7f309fc4160f}</ProjectGuid>
+    <ProjectGuid>{6859d645-dbec-421b-82e3-9c74f8a0fb1b}</ProjectGuid>
     <RootNamespace>WiemeJarneSuperStarWars</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -59,19 +59,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="SDLWin32.props" />
+    <Import Project="..\SDLWin32.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="SDLWin32.props" />
+    <Import Project="..\SDLWin32.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="SDLx64.props" />
+    <Import Project="..\SDLx64.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="SDLx64.props" />
+    <Import Project="..\SDLx64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -151,8 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Avatar.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix2x3.cpp" />
     <ClCompile Include="pch.cpp">
@@ -170,8 +173,11 @@
     <ClCompile Include="Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Avatar.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SoundEffect.h" />
@@ -183,24 +189,59 @@
     <ClInclude Include="Vector2f.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Wieme_Jarne_SuperStarWars.xlsx" />
+    <Image Include="Resources\BigHeart.png" />
+    <Image Include="Resources\Enemies\Enemy1Attack.png" />
+    <Image Include="Resources\Enemies\Enemy1Walk.png" />
+    <Image Include="Resources\Enemies\Enemy2Attack.png" />
+    <Image Include="Resources\Enemies\Enemy2Fly.png" />
+    <Image Include="Resources\Enemies\Enemy3Attack.png" />
+    <Image Include="Resources\Enemies\Enemy3Idle.png" />
+    <Image Include="Resources\Enemies\Enemy3Walk.png" />
+    <Image Include="Resources\Enemies\Enemy4Death.png" />
+    <Image Include="Resources\Enemies\Enemy4Idle.png" />
+    <Image Include="Resources\Enemies\Enemy4Jump.png" />
+    <Image Include="Resources\Enemies\Enemy5Attack.png" />
+    <Image Include="Resources\Enemies\Enemy5Idle.png" />
+    <Image Include="Resources\Enemies\Enemy5RiseOutGround.png" />
+    <Image Include="Resources\Explosions\Explosion1.png" />
+    <Image Include="Resources\Explosions\Explosion2.png" />
+    <Image Include="Resources\Explosions\explosion3.png" />
+    <Image Include="Resources\Explosions\Explosion4.png" />
+    <Image Include="Resources\Lasers\HeavyLaserRight.png" />
+    <Image Include="Resources\Lasers\HeavyLaserUpRight.png" />
+    <Image Include="Resources\Lasers\LaserRight.png" />
+    <Image Include="Resources\Lasers\LaserUpRight.png" />
+    <Image Include="Resources\Level\BackGround.png" />
+    <Image Include="Resources\Level\Level.png" />
+    <Image Include="Resources\Level\Pit.png" />
+    <Image Include="Resources\Level\PitMonsterPit.png" />
+    <Image Include="Resources\LightSaber.png" />
+    <Image Include="Resources\Luke\Die.png" />
+    <Image Include="Resources\Luke\Idle.png" />
+    <Image Include="Resources\Luke\Jump.png" />
+    <Image Include="Resources\Luke\JumpShootDownRight.png" />
+    <Image Include="Resources\Luke\JumpShootRight.png" />
+    <Image Include="Resources\Luke\JumpShootUp.png" />
+    <Image Include="Resources\Luke\JumpShootUpRight.png" />
+    <Image Include="Resources\Luke\LukeHead.png" />
+    <Image Include="Resources\Luke\LukeHighJump.png" />
+    <Image Include="Resources\Luke\LukeHit.png" />
+    <Image Include="Resources\Luke\ShootDownRight.png" />
+    <Image Include="Resources\Luke\ShootRight.png" />
+    <Image Include="Resources\Luke\ShootUp.png" />
+    <Image Include="Resources\Luke\ShootUpRight.png" />
+    <Image Include="Resources\Luke\Slide.png" />
+    <Image Include="Resources\Luke\Walk.png" />
+    <Image Include="Resources\PitMonster\Attack.png" />
+    <Image Include="Resources\PitMonster\AttackRock.png" />
+    <Image Include="Resources\PitMonster\HeathBar.png" />
+    <Image Include="Resources\PitMonster\RiseOutGround.png" />
+    <Image Include="Resources\PitMonster\Tentacles.png" />
+    <Image Include="Resources\SmallHeart.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\LukeDie.png" />
-    <Image Include="Resources\LukeHead.png" />
-    <Image Include="Resources\LukeHighJump.png" />
-    <Image Include="Resources\LukeHit.png" />
-    <Image Include="Resources\LukeIdle.png" />
-    <Image Include="Resources\LukeJump.png" />
-    <Image Include="Resources\LukeJumpShootDownRight.png" />
-    <Image Include="Resources\LukeJumpShootRight.png" />
-    <Image Include="Resources\LukeJumpShootUp.png" />
-    <Image Include="Resources\LukeJumpShootUpRight.png" />
-    <Image Include="Resources\LukeShootDownRight.png" />
-    <Image Include="Resources\LukeShootRight.png" />
-    <Image Include="Resources\LukeShootUp.png" />
-    <Image Include="Resources\LukeSlide.png" />
-    <Image Include="Resources\LukeWalk.png" />
+    <None Include="Resources\Level\Level.svg" />
+    <None Include="Resources\Wieme_Jarne_SuperStarWars.xlsx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
