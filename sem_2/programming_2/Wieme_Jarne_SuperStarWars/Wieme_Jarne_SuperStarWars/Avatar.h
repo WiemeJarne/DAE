@@ -19,17 +19,24 @@ private:
 	{
 		waiting = 1,
 		walking,
-		jumping
+		jumping,
+		shoot,
+		shootDown,
+		shootUp
 	};
 
 	Texture* m_pWalkTexture;
 	Texture* m_pIdleTexture;
 	Texture* m_pJumpTexture;
+	Texture* m_pShootTexture;
+	Texture* m_pShootDownTexture;
+	Texture* m_pShootUpTexture;
 	float m_ClipHeight;
 	float m_ClipWidth;
-	int m_NrOfWalkFrames;
-	int m_NrOfIdleFrames;
-	int m_NrOfJumpFrames;
+	const int m_NrOfWalkFrames;
+	const int m_NrOfIdleFrames;
+	const int m_NrOfJumpFrames;
+	const int m_NrOfShootFrames;
 	int m_NrFramesPerSec;
 	float m_AnimTime;
 	int m_AnimFrame;
