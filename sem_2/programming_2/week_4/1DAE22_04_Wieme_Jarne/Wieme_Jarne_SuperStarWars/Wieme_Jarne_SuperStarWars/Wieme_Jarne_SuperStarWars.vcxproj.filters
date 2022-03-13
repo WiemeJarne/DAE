@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="framework files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="game files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="Avatar.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix2x3.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEffect.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundStream.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="structs.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="SVGParser.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2f.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>framework files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x3.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundStream.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="SVGParser.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2f.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Avatar.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\BigHeart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\LightSaber.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\SmallHeart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy1Attack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy1Walk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy2Attack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy2Fly.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy3Attack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy3Idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy3Walk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy4Death.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy4Idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy4Jump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy5Attack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy5Idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Enemies\Enemy5RiseOutGround.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Explosions\Explosion1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Explosions\Explosion2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Explosions\explosion3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Explosions\Explosion4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Lasers\HeavyLaserRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Lasers\HeavyLaserUpRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Lasers\LaserRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Lasers\LaserUpRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Level\BackGround.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Level\Level.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Level\Pit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Level\PitMonsterPit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\Die.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\Idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\Jump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\JumpShootDownRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\JumpShootRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\JumpShootUp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\JumpShootUpRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\LukeHead.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\LukeHighJump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\LukeHit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\ShootDownRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\ShootRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\ShootUp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\ShootUpRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\Slide.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Luke\Walk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\PitMonster\Attack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\PitMonster\AttackRock.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\PitMonster\HeathBar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\PitMonster\RiseOutGround.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\PitMonster\Tentacles.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wieme_Jarne_SuperStarWars.xlsx" />
+    <None Include="Resources\Level\Level.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
