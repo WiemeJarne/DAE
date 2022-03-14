@@ -11,12 +11,12 @@ Avatar::Avatar()
 	,m_Acceleration{ 0.f, -981.f }
 	,m_ActionState{ActionState::waiting}
 	,m_Power{0}
-	,m_pWalkTexture{ new Texture{"Resources/Luke/Walk.png"}}
-	,m_pIdleTexture{ new Texture{"Resources/Luke/Idle.png"}}
-	,m_pJumpTexture{ new Texture{"Resources/Luke/Jump.png"}}
-	,m_pShootTexture{ new Texture{"Resources/Luke/ShootRight.png"}}
-	,m_pShootDownTexture{ new Texture{"Resources/Luke/ShootDownRight.png"}}
-	,m_pShootUpTexture{ new Texture{"Resources/Luke/ShootUpRight.png"}}
+	,m_pWalkTexture{ new Texture{"Resources/Luke/Walk.png"} }
+	,m_pIdleTexture{ new Texture{"Resources/Luke/Idle.png"} }
+	,m_pJumpTexture{ new Texture{"Resources/Luke/Jump.png"} }
+	,m_pShootTexture{ new Texture{"Resources/Luke/ShootRight.png"} }
+	,m_pShootDownTexture{ new Texture{"Resources/Luke/ShootDownRight.png"} }
+	,m_pShootUpTexture{ new Texture{"Resources/Luke/ShootUpRight.png"} }
 	,m_NrOfWalkFrames{8}
 	,m_NrOfIdleFrames{3}
 	,m_NrOfJumpFrames{3}
@@ -93,8 +93,6 @@ void Avatar::Update(float elapsedSec, const Level& level)
 		ChangeClipWidthAndHeight(m_pShootUpTexture, m_NrOfShootFrames);
 		break;
 	}
-
-	std::cout << m_Shape.left << '\n';
 }
 
 void Avatar::Draw() const
