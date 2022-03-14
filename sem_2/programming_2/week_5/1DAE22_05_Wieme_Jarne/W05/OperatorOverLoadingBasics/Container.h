@@ -11,8 +11,7 @@ public:
 	void Set(int index, int newValue);
 	void PushBack(int element);
 
-	int& operator[](const int index);
-
+	int& operator[](const int index) const;
 private:
 	int m_Size;
 	int m_Capacity;
@@ -20,4 +19,3 @@ private:
 
 	void Reverse(int newCapacity);
 };
-

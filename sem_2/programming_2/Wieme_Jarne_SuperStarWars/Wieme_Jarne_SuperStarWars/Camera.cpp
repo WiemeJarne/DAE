@@ -23,7 +23,7 @@ void Camera::Transform(const Rectf& target, const float scaleFactor) const
 	Clamp(cameraLeftBottomPoint);
 
 	glTranslatef(-cameraLeftBottomPoint.x * scaleFactor, -cameraLeftBottomPoint.y * scaleFactor, 0);
-	glScalef(scaleFactor, scaleFactor, scaleFactor);
+	glScalef(scaleFactor, scaleFactor, 1.f);
 	
 }
 

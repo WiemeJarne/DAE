@@ -57,11 +57,11 @@ void Avatar::Draw() const
 	AvatarSrcRect.height = m_ClipHeight;
 
 	glPushMatrix();
-		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
+		glTranslatef(m_Shape.left + m_Shape.width / 2.f, m_Shape.bottom + m_Shape.height / 2.f, 0.f);
 		if (m_Velocity.x < 0.f)
 		{
 			glScalef(-1, 1, 1);
-			glTranslatef(-m_Shape.width, 0.f, 0.f);
+			glTranslatef(-m_Shape.width, -m_Shape.height / 2.f, 0.f);
 		}
 		m_pSpriteTexture->Draw(Rectf{}, AvatarSrcRect);
 	glPopMatrix();

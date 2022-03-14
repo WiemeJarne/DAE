@@ -35,7 +35,7 @@ void Game::Draw( ) const
 {
 	ClearBackground( );
 
-	const float scaleFactor{ 1 };
+	const float scaleFactor{ 2 };
 
 	glPushMatrix();
 		m_Camera.Transform(m_Avatar.GetShape(), scaleFactor);

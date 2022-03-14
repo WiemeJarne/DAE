@@ -13,7 +13,7 @@
 // Test function declarations
 void TestHealthClass( );
 void TestContainerClass( );
-//void PrintContainer( const Container &container );
+void PrintContainer( const Container &container );
 
 
 // Your code that uses the operators
@@ -93,6 +93,8 @@ void UseContainerOperators( )
 
 	container[1] = 5;
 	std::cout << container[1] << '\n';
+
+	PrintContainer(container);
 }
 
 void TestHealthClass()
@@ -243,17 +245,16 @@ void TestContainerClass()
 	}
 	std::cout << "ok\n";
 
-	//++testCntr;
-	//std::cout << "\n==> " << testCntr << ". Test of: Container[idx] to get an element of a const Container\n";
-	//PrintContainer(container);
+	++testCntr;
+	std::cout << "\n==> " << testCntr << ". Test of: Container[idx] to get an element of a const Container\n";
+	PrintContainer(container);
 }
 
-//void PrintContainer(const Container &container)
-//{
-//	for (int idx{ 0 }; idx < container.Size(); ++idx)
-//	{
-//		std::cout << container[idx] << " ";
-//	}
-//	std::cout << "\nok\n";
-//}
-
+void PrintContainer(const Container &container)
+{
+	for (int idx{ 0 }; idx < container.Size(); ++idx)
+	{
+		std::cout << container[idx] << " ";
+	}
+	std::cout << "\nok\n";
+}

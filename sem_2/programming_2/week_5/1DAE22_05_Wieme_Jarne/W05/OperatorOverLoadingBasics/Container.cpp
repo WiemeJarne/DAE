@@ -66,7 +66,7 @@ void Container::Reverse(int newCapacity)
 	m_Capacity = newCapacity;
 }
 
-int& Container::operator[](const int index)
+int& Container::operator[](const int index) const
 {
 	return m_pElement[index];
 }
