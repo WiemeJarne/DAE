@@ -1,8 +1,10 @@
 #pragma once
 #include "utils.h"
+#include <vector>
 
 class Level;
 class Texture;
+class Bullet;
 
 class Avatar
 {
@@ -22,7 +24,8 @@ private:
 		jumping,
 		shoot,
 		shootDown,
-		shootUp
+		shootUp,
+		shootUpDiagonal
 	};
 
 	const Texture* m_pWalkTexture;
@@ -31,6 +34,7 @@ private:
 	const Texture* m_pShootTexture;
 	const Texture* m_pShootDownTexture;
 	const Texture* m_pShootUpTexture;
+	const Texture* m_pShootUpDiagonalTexture;
 	float m_ClipHeight;
 	float m_ClipWidth;
 	const int m_NrOfWalkFrames;
@@ -48,6 +52,9 @@ private:
 	ActionState m_ActionState;
 	int m_Power;
 	int m_FrameDirection;
+	int m_AvatarFacingDirection;
+	std::vector<Bullet*> m_pBullets;
+	float m_ShootDelay;
 
 	void Moving(float elapsedSec, const Level& level);
 	void UpdatePos(float elapsedSec);
@@ -56,7 +63,10 @@ private:
 	void StayInLevelBoundaries(const Level& level);
 	void ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames);
 	void CheckActionState(const Level& level);
-	void CheckAndChangeWalkDirection() const;
 	void DrawAvatar() const;
+	void Shoot();
+	void DrawBullets() const;
+	void UpdateBullets(const float elapsedSec);
+	void DeleteBullets();
 };
 

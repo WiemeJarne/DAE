@@ -3,6 +3,7 @@
 #include "utils.h"
 
 class Texture;
+class Platform;
 
 class Level
 {
@@ -13,7 +14,7 @@ public:
 	void DrawBackground() const;
 	void DrawForeground() const;
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
-	bool IsOnGround(const Rectf& actorShape) const;
+	bool IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) const;
 	Rectf GetBoundaries() const;
 
 private:
@@ -22,5 +23,5 @@ private:
 	Texture* m_pFenceTexture;
 	Point2f m_FenceBottomLeft;
 	Rectf m_Boundaries;
+	Platform* m_pPlatform;
 };
-

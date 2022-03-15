@@ -7,7 +7,7 @@ Level::Level()
 	:m_LevelTexture{ new Texture{"Resources/Level/Level.png" } }
 	,m_PitTexture{ new Texture{"Resources/Level/Pit.png"} }
 	,m_BossPitTexture{ new Texture{"Resources/Level/PitMonsterPit.png"} }
-	, m_BackgroundTexture{ new Texture{"Resources/Level/Background.png"} }
+	,m_BackgroundTexture{ new Texture{"Resources/Level/Background.png"} }
 	,m_Vertices{}
 	,m_Boundaries{}
 {
@@ -22,6 +22,7 @@ Level::~Level()
 	delete m_LevelTexture;
 	delete m_PitTexture;
 	delete m_BossPitTexture;
+	delete m_BackgroundTexture;
 }
 
 void Level::DrawLevel() const

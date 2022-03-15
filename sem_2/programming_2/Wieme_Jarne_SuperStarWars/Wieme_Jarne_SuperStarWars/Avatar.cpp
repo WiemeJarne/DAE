@@ -2,9 +2,11 @@
 #include "Avatar.h"
 #include "Level.h"
 #include "Texture.h"
+#include "Bullet.h"
 #include <iostream>
+
 Avatar::Avatar()
-	:m_Shape{7800.f, 30.f, 0.f, 0.f}
+	:m_Shape{50.f, 30.f, 0.f, 0.f}
 	,m_HorizontalSpeed{150.f}
 	,m_JumpSpeed{400.f}
 	,m_Velocity{0.f, 0.f}
@@ -16,7 +18,8 @@ Avatar::Avatar()
 	,m_pJumpTexture{ new Texture{"Resources/Luke/Jump.png"} }
 	,m_pShootTexture{ new Texture{"Resources/Luke/ShootRight.png"} }
 	,m_pShootDownTexture{ new Texture{"Resources/Luke/ShootDownRight.png"} }
-	,m_pShootUpTexture{ new Texture{"Resources/Luke/ShootUpRight.png"} }
+	,m_pShootUpTexture{ new Texture{"Resources/Luke/ShootUp.png"} }
+	,m_pShootUpDiagonalTexture{ new Texture{"Resources/Luke/ShootUpRight.png"} }
 	,m_NrOfWalkFrames{8}
 	,m_NrOfIdleFrames{3}
 	,m_NrOfJumpFrames{3}
@@ -25,6 +28,9 @@ Avatar::Avatar()
 	,m_AnimTime{}
 	,m_AnimFrame{}
 	,m_FrameDirection{1}
+	,m_AvatarFacingDirection{1}
+	,m_pBullets{}
+	,m_ShootDelay{}
 {
 	m_ClipWidth = m_pIdleTexture->GetWidth() / m_NrOfIdleFrames;
 	m_ClipHeight = m_pIdleTexture->GetHeight();
@@ -41,10 +47,15 @@ Avatar::~Avatar()
 	delete m_pShootTexture;
 	delete m_pShootDownTexture;
 	delete m_pShootUpTexture;
+	delete m_pShootUpDiagonalTexture;
+
+	DeleteBullets();
 }
 
 void Avatar::Update(float elapsedSec, const Level& level)
 {
+	UpdateBullets(elapsedSec);
+
 	CheckActionState(level);
 	CalculateFrame(elapsedSec);
 
@@ -81,6 +92,7 @@ void Avatar::Update(float elapsedSec, const Level& level)
 	case ActionState::shoot:
 		m_NrFramesPerSec = 10;
 		ChangeClipWidthAndHeight(m_pShootTexture, m_NrOfShootFrames);
+		Shoot();
 		break;
 
 	case ActionState::shootDown:
@@ -92,6 +104,11 @@ void Avatar::Update(float elapsedSec, const Level& level)
 		m_NrFramesPerSec = 10;
 		ChangeClipWidthAndHeight(m_pShootUpTexture, m_NrOfShootFrames);
 		break;
+
+	case ActionState::shootUpDiagonal:
+		m_NrFramesPerSec = 10;
+		ChangeClipWidthAndHeight(m_pShootUpDiagonalTexture, m_NrOfShootFrames);
+		break;
 	}
 }
 
@@ -99,7 +116,12 @@ void Avatar::Draw() const
 {
 	glPushMatrix();
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
-		CheckAndChangeWalkDirection();
+		glScalef(GLfloat(m_AvatarFacingDirection), 1, 1);
+		if (m_AvatarFacingDirection == -1)
+		{
+			glTranslatef(-m_ClipWidth, 0.f, 0.f);
+		}
+		DrawBullets();
 		DrawAvatar();
 	glPopMatrix();
 }
@@ -107,16 +129,6 @@ void Avatar::Draw() const
 Rectf Avatar::GetShape() const
 {
 	return m_Shape;
-}
-
-void Avatar::CheckAndChangeWalkDirection() const
-{
-	if (m_Velocity.x < 0.f)
-	{
-		glScalef(-1, 1, 1);
-		glTranslatef(-m_ClipWidth, 0.f, 0.f);
-	}
-	else glScalef(1, 1, 1);
 }
 
 void Avatar::DrawAvatar() const
@@ -151,6 +163,10 @@ void Avatar::DrawAvatar() const
 
 	case ActionState::shootUp:
 		m_pShootUpTexture->Draw(Rectf{}, avatarSrcRect);
+		break;
+
+	case ActionState::shootUpDiagonal:
+		m_pShootUpDiagonalTexture->Draw(Rectf{}, avatarSrcRect);
 	}
 }
 
@@ -160,7 +176,39 @@ void Avatar::CheckActionState(const Level& level)
 
 	if (level.IsOnGround(m_Shape))
 	{
-		if ((pStates[SDL_SCANCODE_LEFT] || pStates[SDL_SCANCODE_RIGHT]))
+		if (pStates[SDL_SCANCODE_A])
+		{
+			m_ActionState = ActionState::shoot;
+
+			if (pStates[SDL_SCANCODE_LEFT])
+			{
+				m_AvatarFacingDirection = -1;
+			}
+
+			if (pStates[SDL_SCANCODE_RIGHT])
+			{
+				m_AvatarFacingDirection = 1;
+			}
+
+			if (pStates[SDL_SCANCODE_DOWN])
+			{
+				m_ActionState = ActionState::shootDown;
+			}
+			else if (pStates[SDL_SCANCODE_UP])
+			{
+				m_ActionState = ActionState::shootUp;
+
+				if (pStates[SDL_SCANCODE_RIGHT] && m_AvatarFacingDirection == 1)
+				{
+					m_ActionState = ActionState::shootUpDiagonal;
+				}
+				else if (pStates[SDL_SCANCODE_LEFT])
+				{
+					m_ActionState = ActionState::shootUpDiagonal;
+				}
+			}
+		}
+		else if ((pStates[SDL_SCANCODE_LEFT] || pStates[SDL_SCANCODE_RIGHT]))
 		{
 			m_ActionState = ActionState::walking;
 		}
@@ -169,18 +217,6 @@ void Avatar::CheckActionState(const Level& level)
 			m_AnimFrame = 0;
 			m_AnimTime = 0.f;
 			m_ActionState = ActionState::jumping;
-		}
-		else if (pStates[SDL_SCANCODE_A])
-		{
-			m_ActionState = ActionState::shoot;
-			if (pStates[SDL_SCANCODE_DOWN])
-			{
-				m_ActionState = ActionState::shootDown;
-			}
-			else if (pStates[SDL_SCANCODE_UP])
-			{
-				m_ActionState = ActionState::shootUp;
-			}
 		}
 		else
 		{
@@ -204,11 +240,13 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 		if (pStates[SDL_SCANCODE_LEFT])
 		{
 			m_Velocity.x = -m_HorizontalSpeed;
+			m_AvatarFacingDirection = -1;
 		}
 
 		if (pStates[SDL_SCANCODE_RIGHT])
 		{
 			m_Velocity.x = m_HorizontalSpeed;
+			m_AvatarFacingDirection = 1;
 		}
 	}
 
@@ -246,7 +284,7 @@ void Avatar::CalculateFrame(float elapsedSec)
 		switch (m_ActionState)
 		{
 		case ActionState::waiting:
-			m_AnimFrame += m_FrameDirection;
+			m_AnimFrame += 1;
 
 			if (m_AnimFrame == m_NrOfIdleFrames - 1 || m_AnimFrame == 0)
 			{
@@ -268,6 +306,7 @@ void Avatar::CalculateFrame(float elapsedSec)
 		case ActionState::shoot:
 		case ActionState::shootDown:
 		case ActionState::shootUp:
+		case ActionState::shootUpDiagonal:
 			m_AnimFrame = (m_AnimFrame + 1) % m_NrOfShootFrames;
 			break;
 		}
@@ -304,4 +343,52 @@ void Avatar::ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames)
 
 	m_Shape.width = m_ClipWidth;
 	m_Shape.height = m_ClipHeight;
+}
+
+void Avatar::Shoot()
+{
+	if (m_ShootDelay > 0.2)
+	{
+		m_ShootDelay = 0;
+
+		Point2f bulletBottomLeftPoint{};
+		bulletBottomLeftPoint.x = m_Shape.left;
+		bulletBottomLeftPoint.y = m_Shape.bottom;
+		m_pBullets.push_back(new Bullet{ Point2f{bulletBottomLeftPoint}, Vector2f{400.f * m_AvatarFacingDirection, 0}, Bullet::BulletState::horizontal });
+	}
+}
+
+void Avatar::DrawBullets() const
+{
+	for (Bullet* index : m_pBullets)
+	{
+		if (index != nullptr)
+		{
+			index->Draw();
+		}
+	}
+}
+
+void Avatar::UpdateBullets(const float elapsedSec)
+{
+	for (Bullet* index : m_pBullets)
+	{
+		if (index != nullptr)
+		{
+			index->Update(elapsedSec);
+		}
+	}
+	m_ShootDelay += elapsedSec;
+}
+
+void Avatar::DeleteBullets()
+{
+	for (Bullet* index : m_pBullets)
+	{
+		if (index != nullptr)
+		{
+			delete index;
+			index = nullptr;
+		}
+	}
 }

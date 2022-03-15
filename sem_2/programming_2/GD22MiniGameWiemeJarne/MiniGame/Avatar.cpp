@@ -57,11 +57,11 @@ void Avatar::Draw() const
 	AvatarSrcRect.height = m_ClipHeight;
 
 	glPushMatrix();
-		glTranslatef(m_Shape.left + m_Shape.width / 2.f, m_Shape.bottom + m_Shape.height / 2.f, 0.f);
+		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
 		if (m_Velocity.x < 0.f)
 		{
 			glScalef(-1, 1, 1);
-			glTranslatef(-m_Shape.width, -m_Shape.height / 2.f, 0.f);
+			glTranslatef(-m_Shape.width, 0.f, 0.f);
 		}
 		m_pSpriteTexture->Draw(Rectf{}, AvatarSrcRect);
 	glPopMatrix();
@@ -95,8 +95,14 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 {
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 
-	if (level.IsOnGround(m_Shape))
+	if (level.IsOnGround(m_Shape, m_Velocity))
 	{
+		if (pStates[SDL_SCANCODE_UP])
+		{
+			m_Velocity.x = 0;
+			m_Velocity.y = m_JumpSpeed;
+		}
+
 		if (pStates[SDL_SCANCODE_LEFT])
 		{
 			m_Velocity.x = -m_HorizontalSpeed;
@@ -106,17 +112,12 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 		{
 			m_Velocity.x = m_HorizontalSpeed;
 		}
-
-		if (pStates[SDL_SCANCODE_UP])
-		{
-			m_Velocity.y = m_JumpSpeed;
-		}
 	}
 	UpdatePos(elapsedSec);
 
 	m_Velocity.y += m_Acceleration.y * elapsedSec;
 
-	if (level.IsOnGround(m_Shape) && !pStates[SDL_SCANCODE_LEFT] && !pStates[SDL_SCANCODE_RIGHT])
+	if (level.IsOnGround(m_Shape, m_Velocity) && !pStates[SDL_SCANCODE_LEFT] && !pStates[SDL_SCANCODE_RIGHT])
 	{
 		m_AnimFrame = 0;
 		m_AnimTime = 0.f;

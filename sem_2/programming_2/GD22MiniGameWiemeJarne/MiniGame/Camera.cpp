@@ -22,6 +22,9 @@ void Camera::Transform(const Rectf& target) const
 	Clamp(cameraLeftBottomPoint);
 
 	glTranslatef(-cameraLeftBottomPoint.x, -cameraLeftBottomPoint.y, 0);
+
+	/*utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
+	utils::DrawRect(cameraLeftBottomPoint, m_Width, m_Height);*/
 }
 
 Point2f Camera::Track(const Rectf& target) const
