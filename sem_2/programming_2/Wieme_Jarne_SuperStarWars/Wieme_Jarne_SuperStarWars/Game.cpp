@@ -36,10 +36,12 @@ void Game::Draw( ) const
 	ClearBackground( );
 
 	const float scaleFactor{ 2 };
+	Point2f cameraTransformation{};
 
 	glPushMatrix();
-		m_Camera.Transform(m_Avatar.GetShape(), scaleFactor);
-		m_Level.DrawBackground( );
+		m_Camera.Transform(m_Avatar.GetShape(), scaleFactor, cameraTransformation);
+		m_Level.DrawBackground(cameraTransformation);
+		m_Level.DrawLevel( );
 		m_Avatar.Draw( );
 		m_Level.DrawPitTexture(Point2f{ 571, 14 });
 		m_Level.DrawPitTexture(Point2f{ 6966, 6 });

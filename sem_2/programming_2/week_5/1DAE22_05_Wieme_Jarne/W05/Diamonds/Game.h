@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+
+class Diamond;
 
 class Game final
 {
@@ -23,9 +26,12 @@ public:
 private:
 	// DATA MEMBERS
 	const Window m_Window;
+	
+	std::vector<Diamond*> m_Diamonds;
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
+	void CalculateRandomPos(Point2f& randomPos);
 };

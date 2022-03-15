@@ -7,6 +7,7 @@ Level::Level()
 	:m_LevelTexture{ new Texture{"Resources/Level/Level.png" } }
 	,m_PitTexture{ new Texture{"Resources/Level/Pit.png"} }
 	,m_BossPitTexture{ new Texture{"Resources/Level/PitMonsterPit.png"} }
+	, m_BackgroundTexture{ new Texture{"Resources/Level/Background.png"} }
 	,m_Vertices{}
 	,m_Boundaries{}
 {
@@ -23,7 +24,7 @@ Level::~Level()
 	delete m_BossPitTexture;
 }
 
-void Level::DrawBackground() const
+void Level::DrawLevel() const
 {
 	m_LevelTexture->Draw();
 }
@@ -80,4 +81,12 @@ bool Level::IsOnGround(const Rectf& actorShape) const
 Rectf Level::GetBoundaries() const
 {
 	return m_Boundaries;
+}
+
+void Level::DrawBackground(const Point2f& translation) const
+{
+	glPushMatrix();
+		glTranslatef(translation.x, translation.y, 0);
+		m_BackgroundTexture->Draw();
+	glPopMatrix();
 }

@@ -173,14 +173,14 @@ void Avatar::CheckActionState(const Level& level)
 		else if (pStates[SDL_SCANCODE_A])
 		{
 			m_ActionState = ActionState::shoot;
-		}
-		else if (/*pStates[SDL_SCANCODE_A] &&*/ pStates[SDL_SCANCODE_DOWN])
-		{
-			m_ActionState = ActionState::shootDown;
-		}
-		else if (/*pStates[SDL_SCANCODE_A] &&*/ pStates[SDL_SCANCODE_UP])
-		{
-			m_ActionState = ActionState::shootUp;
+			if (pStates[SDL_SCANCODE_DOWN])
+			{
+				m_ActionState = ActionState::shootDown;
+			}
+			else if (pStates[SDL_SCANCODE_UP])
+			{
+				m_ActionState = ActionState::shootUp;
+			}
 		}
 		else
 		{
