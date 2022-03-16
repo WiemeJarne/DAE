@@ -6,8 +6,10 @@ public:
 
 	void SetLevelBoundaries(const Rectf& levelBoundaries);
 	void Transform(const Rectf& target, const float scaleFactor, Point2f& translation) const;
+	Rectf GetBoundaries() const;
 
 private:
+	Point2f m_BottomLeftPoint;
 	float m_Width;
 	float m_Height;
 	float m_Scale;

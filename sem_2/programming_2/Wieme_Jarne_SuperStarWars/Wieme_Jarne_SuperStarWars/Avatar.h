@@ -1,10 +1,10 @@
 #pragma once
 #include "utils.h"
+#include "Bullet.h"
 #include <vector>
 
 class Level;
 class Texture;
-class Bullet;
 
 class Avatar
 {
@@ -15,6 +15,8 @@ public:
 	void Update(float elapsedSec, const Level& level);
 	void Draw() const;
 	Rectf GetShape() const;
+	std::vector<Bullet*>& GetBullets();
+	void DeleteBullet(Bullet* bullet);
 
 private:
 	enum class ActionState
@@ -55,6 +57,7 @@ private:
 	int m_AvatarFacingDirection;
 	std::vector<Bullet*> m_pBullets;
 	float m_ShootDelay;
+	float m_BulletVelocity;
 
 	void Moving(float elapsedSec, const Level& level);
 	void UpdatePos(float elapsedSec);
@@ -64,7 +67,7 @@ private:
 	void ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames);
 	void CheckActionState(const Level& level);
 	void DrawAvatar() const;
-	void Shoot();
+	void Shoot(const Bullet::BulletState& bulletState, const Vector2f& bulletVelocity);
 	void DrawBullets() const;
 	void UpdateBullets(const float elapsedSec);
 	void DeleteBullets();

@@ -2,7 +2,6 @@
 #include "Avatar.h"
 #include "Level.h"
 #include "Texture.h"
-#include "Bullet.h"
 #include <iostream>
 
 Avatar::Avatar()
@@ -31,6 +30,7 @@ Avatar::Avatar()
 	,m_AvatarFacingDirection{1}
 	,m_pBullets{}
 	,m_ShootDelay{}
+	,m_BulletVelocity{400.f}
 {
 	m_ClipWidth = m_pIdleTexture->GetWidth() / m_NrOfIdleFrames;
 	m_ClipHeight = m_pIdleTexture->GetHeight();
@@ -92,22 +92,25 @@ void Avatar::Update(float elapsedSec, const Level& level)
 	case ActionState::shoot:
 		m_NrFramesPerSec = 10;
 		ChangeClipWidthAndHeight(m_pShootTexture, m_NrOfShootFrames);
-		Shoot();
+		Shoot(Bullet::BulletState::horizontal, Vector2f{m_BulletVelocity, 0.f});
 		break;
 
 	case ActionState::shootDown:
 		m_NrFramesPerSec = 10;
 		ChangeClipWidthAndHeight(m_pShootDownTexture, m_NrOfShootFrames);
+		Shoot(Bullet::BulletState::downDiagonal, Vector2f{ m_BulletVelocity, -m_BulletVelocity });
 		break;
 
 	case ActionState::shootUp:
 		m_NrFramesPerSec = 10;
 		ChangeClipWidthAndHeight(m_pShootUpTexture, m_NrOfShootFrames);
+		Shoot(Bullet::BulletState::vertical, Vector2f{ 0.f, m_BulletVelocity });
 		break;
 
 	case ActionState::shootUpDiagonal:
 		m_NrFramesPerSec = 10;
 		ChangeClipWidthAndHeight(m_pShootUpDiagonalTexture, m_NrOfShootFrames);
+		Shoot(Bullet::BulletState::upDiagonal, Vector2f{ m_BulletVelocity, m_BulletVelocity });
 		break;
 	}
 }
@@ -115,13 +118,13 @@ void Avatar::Update(float elapsedSec, const Level& level)
 void Avatar::Draw() const
 {
 	glPushMatrix();
+		DrawBullets();
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
 		glScalef(GLfloat(m_AvatarFacingDirection), 1, 1);
 		if (m_AvatarFacingDirection == -1)
 		{
 			glTranslatef(-m_ClipWidth, 0.f, 0.f);
 		}
-		DrawBullets();
 		DrawAvatar();
 	glPopMatrix();
 }
@@ -345,16 +348,17 @@ void Avatar::ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames)
 	m_Shape.height = m_ClipHeight;
 }
 
-void Avatar::Shoot()
+void Avatar::Shoot(const Bullet::BulletState& bulletState, const Vector2f& bulletVelocity)
 {
 	if (m_ShootDelay > 0.2)
 	{
 		m_ShootDelay = 0;
 
 		Point2f bulletBottomLeftPoint{};
-		bulletBottomLeftPoint.x = m_Shape.left;
-		bulletBottomLeftPoint.y = m_Shape.bottom;
-		m_pBullets.push_back(new Bullet{ Point2f{bulletBottomLeftPoint}, Vector2f{400.f * m_AvatarFacingDirection, 0}, Bullet::BulletState::horizontal });
+		bulletBottomLeftPoint.x = m_Shape.left + m_Shape.width / 2.f;
+		bulletBottomLeftPoint.y = m_Shape.bottom + m_Shape.height / 2.f;
+		m_pBullets.push_back(new Bullet{ m_Shape, Vector2f{ bulletVelocity.x, bulletVelocity.y },
+										 bulletState, m_AvatarFacingDirection, 0.65f	         });
 	}
 }
 
@@ -391,4 +395,18 @@ void Avatar::DeleteBullets()
 			index = nullptr;
 		}
 	}
+}
+
+std::vector<Bullet*>& Avatar::GetBullets()
+{
+	return m_pBullets;
+}
+
+void Avatar::DeleteBullet(Bullet* bullet)
+{
+	delete bullet;
+	bullet = nullptr;
+
+	bullet = m_pBullets.back();
+	m_pBullets.pop_back();
 }

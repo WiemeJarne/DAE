@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Game.h"
 #include "utils.h"
+#include "Bullet.h"
 
 Game::Game( const Window& window )
 	:m_Window{ window }
@@ -29,6 +30,13 @@ void Game::Update( float elapsedSec )
 {
 	// Update game objects
 	m_Avatar.Update( elapsedSec, m_Level );
+	/*for (Bullet* index : m_Avatar.GetBullets())
+	{
+		if (!index->IsBulletInBoundaries(m_Camera.GetBoundaries()) && index != nullptr)
+		{
+			m_Avatar.DeleteBullet(index);
+		}
+	}*/
 }
 
 void Game::Draw( ) const

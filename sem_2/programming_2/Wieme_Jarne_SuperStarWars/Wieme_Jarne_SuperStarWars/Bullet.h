@@ -16,7 +16,7 @@ public:
 		downDiagonal
 	};
 
-	Bullet(const Point2f& bottomLeftPoint, const Vector2f& velocity, const Bullet::BulletState& bulletState);
+	Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet::BulletState& bulletState, const int direction, const float scale);
 	~Bullet();
 
 	void Update(float elapsedSec);
@@ -25,10 +25,13 @@ public:
 
 private:
 	Rectf m_Shape;
-	Vector2f m_Velocity;
-	Texture* m_pTexture;
-	BulletState m_BulletState;
-
+	Rectf m_AvatarShape;
+	const Vector2f m_Velocity;
+	const Texture* m_pTexture;
+	const BulletState m_BulletState;
+	const int m_Direction;
+	const float m_Scale;
+	const Point2f m_StartPos;
 	
 	//void CheckEnemiesHit(std::vector<Enemy*> pEnemies);
 };
