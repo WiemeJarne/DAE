@@ -3,6 +3,10 @@
 #include "Texture.h"
 #include <iostream>
 
+Texture* Bullet::m_pLaserTexture{ nullptr };
+Texture* Bullet::m_pDiagonalLaserTexture{ nullptr };
+int Bullet::m_AmountOfBullets{};
+
 Bullet::Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet::BulletState& bulletState, const int direction, const float scale)
 	:m_Shape{avatarShape}
 	,m_AvatarShape{avatarShape}
@@ -12,13 +16,30 @@ Bullet::Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet:
 	,m_Scale{scale}
 	,m_StartPos{avatarShape.left, avatarShape.bottom}
 {
+	++m_AmountOfBullets;
+	std::cout << m_AmountOfBullets << "\n";
+	if (m_pLaserTexture == nullptr)
+	{
+		m_pLaserTexture = new Texture{ "Resources/Lasers/LaserRight.png" };
+	}
+
+	if (m_pDiagonalLaserTexture == nullptr)
+	{
+		m_pDiagonalLaserTexture = new Texture{ "Resources/Lasers/LaserUpRight.png" };
+	}
+
+	m_Boundaries.left = m_StartPos.x - 250.f;
+	m_Boundaries.bottom = m_StartPos.y - 250.f;
+	m_Boundaries.width = 500.f;
+	m_Boundaries.height = 500.f;
+
 	if (m_BulletState == BulletState::vertical || m_BulletState == BulletState::horizontal)
 	{
-		m_pTexture = new Texture{ "Resources/Lasers/LaserRight.png" };
+		m_pTexture = m_pLaserTexture;
 	}
 	else
 	{
-		m_pTexture = new Texture{ "Resources/Lasers/LaserUpRight.png" };
+		m_pTexture = m_pDiagonalLaserTexture;
 	}
 
 	m_Shape.width = m_pTexture->GetWidth();
@@ -27,7 +48,16 @@ Bullet::Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet:
 
 Bullet::~Bullet()
 {
-	delete m_pTexture;
+	--m_AmountOfBullets;
+
+	if (m_AmountOfBullets == 0)
+	{
+		delete m_pLaserTexture;
+		m_pLaserTexture = nullptr;
+
+		delete m_pDiagonalLaserTexture;
+		m_pDiagonalLaserTexture = nullptr;
+	}
 }
 
 void Bullet::Update(float elapsedSec)
@@ -46,21 +76,13 @@ void Bullet::Update(float elapsedSec)
 		m_Shape.bottom += elapsedSec * m_Velocity.y * m_Direction;
 		break;
 	}
-
-	if (    m_Shape.left > m_StartPos.x + 200.f
-		 || m_Shape.left < m_StartPos.x - 200.f
-		 || m_Shape.bottom > m_StartPos.y + 200.f
-		 || m_Shape.bottom < m_StartPos.y - 200.f )
-	{
-		std::cout << "true\n";
-	}
 }
 
 void Bullet::Draw() const
 {
 	glPushMatrix();
-		glTranslatef(m_Shape.left + m_AvatarShape.width / 2.f - m_Shape.width / 2.f,
-					 m_Shape.bottom + m_AvatarShape.bottom / 2.f - m_Shape.height / 2.f, 0);
+		glTranslatef( m_Shape.left + m_AvatarShape.width / 2.f - m_Shape.width / 2.f,
+					  m_Shape.bottom + m_AvatarShape.bottom / 2.f - m_Shape.height / 2.f, 0 );
 
 		switch (m_BulletState)
 		{
@@ -130,12 +152,12 @@ void Bullet::Draw() const
 	glPopMatrix();
 }
 
-bool Bullet::IsBulletInBoundaries(const Rectf& boundaries) const
+bool Bullet::IsBulletOutOfBoundaries() const
 {
-	if (m_Shape.left > boundaries.left
-		&& m_Shape.left < boundaries.left + boundaries.width
-		&& m_Shape.bottom > boundaries.bottom
-		&& m_Shape.bottom < boundaries.bottom + boundaries.height)
+	if ( m_Shape.left + m_Shape.width < m_Boundaries.left 
+		 || m_Shape.left > m_Boundaries.left + m_Boundaries.width
+		 || m_Shape.bottom + m_Shape.height < m_Boundaries.bottom
+		 || m_Shape.bottom > m_Boundaries.bottom + m_Boundaries.height )
 	{
 		return true;
 	}

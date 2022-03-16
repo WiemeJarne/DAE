@@ -15,14 +15,14 @@ public:
 	void Update(float elapsedSec, const Level& level);
 	void Draw() const;
 	Rectf GetShape() const;
-	std::vector<Bullet*>& GetBullets();
 	void DeleteBullet(Bullet* bullet);
 
 private:
 	enum class ActionState
 	{
-		waiting = 1,
+		idle = 1,
 		walking,
+		sliding,
 		jumping,
 		shoot,
 		shootDown,
@@ -30,19 +30,22 @@ private:
 		shootUpDiagonal
 	};
 
-	const Texture* m_pWalkTexture;
+	ActionState m_ActionState;
 	const Texture* m_pIdleTexture;
+	const Texture* m_pWalkTexture;
+	const Texture* m_pSlideTexture;
 	const Texture* m_pJumpTexture;
 	const Texture* m_pShootTexture;
 	const Texture* m_pShootDownTexture;
 	const Texture* m_pShootUpTexture;
 	const Texture* m_pShootUpDiagonalTexture;
-	float m_ClipHeight;
-	float m_ClipWidth;
-	const int m_NrOfWalkFrames;
 	const int m_NrOfIdleFrames;
+	const int m_NrOfWalkFrames;
+	const int m_NrOfSlideFrames;
 	const int m_NrOfJumpFrames;
 	const int m_NrOfShootFrames;
+	float m_ClipHeight;
+	float m_ClipWidth;
 	int m_NrFramesPerSec;
 	float m_AnimTime;
 	int m_AnimFrame;
@@ -51,7 +54,6 @@ private:
 	float m_JumpSpeed;
 	Vector2f m_Velocity;
 	Vector2f m_Acceleration;
-	ActionState m_ActionState;
 	int m_Power;
 	int m_FrameDirection;
 	int m_AvatarFacingDirection;

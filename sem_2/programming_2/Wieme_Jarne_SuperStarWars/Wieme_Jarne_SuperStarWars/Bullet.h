@@ -21,7 +21,7 @@ public:
 
 	void Update(float elapsedSec);
 	void Draw() const;
-	bool IsBulletInBoundaries(const Rectf& boundaries) const;
+	bool IsBulletOutOfBoundaries() const;
 
 private:
 	Rectf m_Shape;
@@ -32,6 +32,11 @@ private:
 	const int m_Direction;
 	const float m_Scale;
 	const Point2f m_StartPos;
+	Rectf m_Boundaries;
 	
+	static Texture* m_pLaserTexture;
+	static Texture* m_pDiagonalLaserTexture;
+	static int m_AmountOfBullets;
+
 	//void CheckEnemiesHit(std::vector<Enemy*> pEnemies);
 };
