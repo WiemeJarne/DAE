@@ -5,17 +5,19 @@
 
 class Level;
 class Texture;
+class BulletManager;
 
-class Avatar
+class Avatar final
 {
 public:
-	Avatar();
+	explicit Avatar();
 	~Avatar();
+	Avatar& operator=(const Avatar& rhs) = delete;
+	Avatar(const Avatar& avatar) = delete;
 
 	void Update(float elapsedSec, const Level& level);
 	void Draw() const;
 	Rectf GetShape() const;
-	void DeleteBullet(Bullet* bullet);
 
 private:
 	enum class ActionState
@@ -60,6 +62,8 @@ private:
 	std::vector<Bullet*> m_pBullets;
 	float m_ShootDelay;
 	float m_BulletVelocity;
+	BulletManager* m_pBulletManager;
+	float m_SlideDelay;
 
 	void Moving(float elapsedSec, const Level& level);
 	void UpdatePos(float elapsedSec);
@@ -70,8 +74,5 @@ private:
 	void CheckActionState(const Level& level);
 	void DrawAvatar() const;
 	void Shoot(const Bullet::BulletState& bulletState, const Vector2f& bulletVelocity);
-	void DrawBullets() const;
-	void UpdateBullets(const float elapsedSec);
-	void DeleteBullets();
 };
 

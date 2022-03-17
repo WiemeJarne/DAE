@@ -9,6 +9,8 @@ class Level
 public:
 	Level();
 	~Level();
+	Level& operator=(const Level& rhs) = delete;
+	Level(const Level& level) = delete;
 
 	void DrawLevel() const;
 	void DrawPitTexture(Point2f bottomLeftPoint) const;

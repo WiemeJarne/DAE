@@ -2,6 +2,7 @@
 #include "Avatar.h"
 #include "Level.h"
 #include "Texture.h"
+#include "BulletManager.h"
 #include <iostream>
 
 Avatar::Avatar()
@@ -32,7 +33,9 @@ Avatar::Avatar()
 	,m_AvatarFacingDirection{1}
 	,m_pBullets{}
 	,m_ShootDelay{}
-	,m_BulletVelocity{400.f}
+	,m_BulletVelocity{500.f}
+	,m_pBulletManager{new BulletManager(0.65f)}
+	,m_SlideDelay{}
 {
 	m_ClipWidth = m_pIdleTexture->GetWidth() / m_NrOfIdleFrames;
 	m_ClipHeight = m_pIdleTexture->GetHeight();
@@ -52,12 +55,20 @@ Avatar::~Avatar()
 	delete m_pShootUpTexture;
 	delete m_pShootUpDiagonalTexture;
 
-	DeleteBullets();
+	delete m_pBulletManager;
 }
 
 void Avatar::Update(float elapsedSec, const Level& level)
 {
-	UpdateBullets(elapsedSec);
+	m_ShootDelay += elapsedSec;
+	m_SlideDelay += elapsedSec;
+
+	if (m_SlideDelay > 1.f)
+	{
+		m_SlideDelay = 0.f;
+	}
+
+	m_pBulletManager->UpdateBullets(elapsedSec);
 
 	CheckActionState(level);
 	CalculateFrame(elapsedSec);
@@ -130,7 +141,7 @@ void Avatar::Update(float elapsedSec, const Level& level)
 void Avatar::Draw() const
 {
 	glPushMatrix();
-		DrawBullets();
+		m_pBulletManager->DrawBullets();
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
 		glScalef(GLfloat(m_AvatarFacingDirection), 1, 1);
 		if (m_AvatarFacingDirection == -1)
@@ -240,8 +251,11 @@ void Avatar::CheckActionState(const Level& level)
 					m_AnimFrame = 0;
 					m_AnimTime = 0.f;
 				}
-
-				m_ActionState = ActionState::sliding;
+				
+				if (m_SlideDelay < 0.5f)
+				{
+					m_ActionState = ActionState::sliding;
+				}
 			}
 			else
 			{
@@ -265,7 +279,7 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 	{
 		if (pStates[SDL_SCANCODE_Z])
 		{
-			if (pStates[SDL_SCANCODE_DOWN])
+			if (pStates[SDL_SCANCODE_DOWN] && m_SlideDelay < 0.5f)
 			{
 				const int speedMultiplier{ 2 };
 
@@ -353,11 +367,6 @@ void Avatar::CalculateFrame(float elapsedSec)
 			if (m_AnimFrame < m_NrOfSlideFrames - 1)
 			{
 				++m_AnimFrame;
-
-				if (m_AnimFrame == m_NrOfSlideFrames)
-				{
-					m_ActionState = ActionState::idle;
-				}
 			}
 
 			break;
@@ -417,62 +426,14 @@ void Avatar::ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames)
 
 void Avatar::Shoot(const Bullet::BulletState& bulletState, const Vector2f& bulletVelocity)
 {
-	if (m_ShootDelay > 0.2)
+	if (m_ShootDelay > 0.1f)
 	{
 		m_ShootDelay = 0;
 
 		Point2f bulletBottomLeftPoint{};
 		bulletBottomLeftPoint.x = m_Shape.left + m_Shape.width / 2.f;
 		bulletBottomLeftPoint.y = m_Shape.bottom + m_Shape.height / 2.f;
-		m_pBullets.push_back(new Bullet{ m_Shape, Vector2f{ bulletVelocity.x, bulletVelocity.y },
-										 bulletState, m_AvatarFacingDirection, 0.65f	         });
+		
+		m_pBulletManager->AddBullet(m_Shape, bulletVelocity, bulletBottomLeftPoint, bulletState, m_AvatarFacingDirection);
 	}
-}
-
-void Avatar::DrawBullets() const
-{
-	for (Bullet* bullet : m_pBullets)
-	{
-		if (bullet != nullptr)
-		{
-			bullet->Draw();
-		}
-	}
-}
-
-void Avatar::UpdateBullets(const float elapsedSec)
-{
-	for (Bullet* bullet : m_pBullets)
-	{
-		if (bullet != nullptr)
-		{
-			bullet->Update(elapsedSec);
-			if (bullet->IsBulletOutOfBoundaries())
-			{
-				DeleteBullet(bullet);
-			}
-		}
-	}
-	m_ShootDelay += elapsedSec;
-}
-
-void Avatar::DeleteBullets()
-{
-	for (Bullet* bullet : m_pBullets)
-	{
-		if (bullet != nullptr)
-		{
-			delete bullet;
-			bullet = nullptr;
-		}
-	}
-}
-
-void Avatar::DeleteBullet(Bullet* bullet)
-{
-	delete bullet;
-	bullet = nullptr;
-
-	bullet = m_pBullets.back();
-	m_pBullets.pop_back();
 }

@@ -63,6 +63,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -108,6 +111,9 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

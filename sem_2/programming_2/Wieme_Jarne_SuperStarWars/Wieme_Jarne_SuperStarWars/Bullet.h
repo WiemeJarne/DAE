@@ -5,9 +5,10 @@
 class Enemy;
 class Texture;
 
-class Bullet
+class Bullet final
 {
 public:
+
 	enum class BulletState
 	{
 		vertical,
@@ -18,6 +19,8 @@ public:
 
 	Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet::BulletState& bulletState, const int direction, const float scale);
 	~Bullet();
+	Bullet& operator=(const Bullet& rhs) = delete;
+	Bullet(const Bullet& bullet) = delete;
 
 	void Update(float elapsedSec);
 	void Draw() const;
