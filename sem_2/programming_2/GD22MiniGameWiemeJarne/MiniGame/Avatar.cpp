@@ -180,6 +180,6 @@ void Avatar::StayInLevelBoundaries(const Level& level)
 	}
 	else if (m_Shape.bottom + m_Shape.height > levelBoundaries.bottom + levelBoundaries.height)
 	{
-		m_Shape.bottom = levelBoundaries.bottom + levelBoundaries.height - m_Shape.bottom;
+		m_Shape.bottom = levelBoundaries.bottom + levelBoundaries.height - m_Shape.height;
 	}
 }

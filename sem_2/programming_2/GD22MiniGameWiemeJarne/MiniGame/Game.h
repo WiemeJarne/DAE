@@ -4,6 +4,7 @@
 #include "Avatar.h"
 #include "Vector2f.h"
 #include "Camera.h"
+#include "HUD.h"
 
 class Game final
 {
@@ -33,7 +34,8 @@ private:
 	Level m_Level;
 	PowerUpManager m_PowerUpManager;
 	Avatar m_Avatar;
-
+	bool m_EndReached;
+	HUD m_HUD;
 
 	// FUNCTIONS
 	void Initialize( );

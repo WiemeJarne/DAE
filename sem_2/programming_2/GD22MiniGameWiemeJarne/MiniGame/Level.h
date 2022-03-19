@@ -16,6 +16,7 @@ public:
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	bool IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) const;
 	Rectf GetBoundaries() const;
+	bool HasReachedEnd(const Rectf& actorShape) const;
 
 private:
 	std::vector<std::vector<Point2f>> m_Vertices;
@@ -24,4 +25,6 @@ private:
 	Point2f m_FenceBottomLeft;
 	Rectf m_Boundaries;
 	Platform* m_pPlatform;
+	Texture* m_pSignTexture;
+	Rectf m_EndSignShape;
 };

@@ -5,7 +5,9 @@
 
 Game::Game( const Window& window )
 	:m_Window{ window }
-	,m_Camera{m_Window.width, m_Window.height}
+	,m_Camera{ m_Window.width, m_Window.height }
+	,m_EndReached{ }
+	,m_HUD{ Point2f{ 0.f, m_Window.height }, 3}
 {	 
 	m_Camera.SetLevelBoundaries(m_Level.GetBoundaries());
 	Initialize( );
@@ -29,8 +31,17 @@ void Game::Cleanup( )
 void Game::Update( float elapsedSec )
 {
 	// Update game objects
-	m_PowerUpManager.Update( elapsedSec );
-	m_Avatar.Update( elapsedSec, m_Level );
+	if (!m_EndReached)
+	{
+		m_PowerUpManager.Update(elapsedSec);
+		m_Avatar.Update(elapsedSec, m_Level);
+
+		if (m_Level.HasReachedEnd(m_Avatar.GetShape()))
+		{
+			m_EndReached = true;
+		}
+	}
+
 
 	// Do collision
 	DoCollisionTests( );
@@ -41,12 +52,21 @@ void Game::Draw( ) const
 	ClearBackground( );
 
 	glPushMatrix();
-		m_Camera.Transform(m_Avatar.GetShape());
+		DrawCamera();
 		m_Level.DrawBackground( );
 		m_PowerUpManager.Draw( );
 		m_Avatar.Draw( );
 		m_Level.DrawForeground( );
+		
+		if (m_EndReached)
+		{
+			utils::SetColor(Color4f{ 0.f, 0.f, 0.f, 0.5f });
+			utils::FillRect(m_Level.GetBoundaries());
+		}
+
 	glPopMatrix();
+		m_HUD.Draw();
+
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -104,6 +124,7 @@ void Game::DoCollisionTests( )
 	if ( m_PowerUpManager.HitItem( m_Avatar.GetShape( ) ) )
 	{
 		m_Avatar.PowerUpHit( );
+		m_HUD.PowerUpHit( );
 	}
 }
 

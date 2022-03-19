@@ -11,12 +11,18 @@ Level::Level()
 	,m_FenceBottomLeft{200.f, 190.f}
 	,m_Vertices{}
 	,m_Boundaries{}
-	, m_pPlatform{ new Platform{Point2f{300, 300}} }
+	,m_pPlatform{ new Platform{Point2f{300, 300}} }
+	,m_pSignTexture{ new Texture{ "Resources/Images/EndSign.png" } }
 {
 	SVGParser::GetVerticesFromSvgFile("Resources/Images/level.svg", m_Vertices);
 	
 	m_Boundaries.width = m_pBackgroundTexture->GetWidth();
 	m_Boundaries.height = m_pBackgroundTexture->GetHeight();
+
+	m_EndSignShape.left = 730.f;
+	m_EndSignShape.bottom = 224.f;
+	m_EndSignShape.width = m_pSignTexture->GetWidth();
+	m_EndSignShape.height = m_pSignTexture->GetHeight();
 }
 
 Level::~Level()
@@ -24,6 +30,7 @@ Level::~Level()
 	delete m_pBackgroundTexture;
 	delete m_pFenceTexture;
 	delete m_pPlatform;
+	delete m_pSignTexture;
 }
 
 void Level::DrawBackground() const
@@ -35,6 +42,7 @@ void Level::DrawBackground() const
 void Level::DrawForeground() const
 {
 	m_pFenceTexture->Draw(m_FenceBottomLeft);
+	m_pSignTexture->Draw(m_EndSignShape);
 }
 
 void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
@@ -44,7 +52,7 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 	Point2f rayStartPoint{ actorShape.left + actorShape.width / 2.f,
 						   actorShape.bottom + actorShape.height	};
 	Point2f rayEndPoint{ actorShape.left + actorShape.width / 2.f,
-						 actorShape.bottom							};
+						 actorShape.bottom						  };
 
 	utils::HitInfo hitInfo{};
 
@@ -80,4 +88,14 @@ bool Level::IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) c
 Rectf Level::GetBoundaries() const
 {
 	return m_Boundaries;
+}
+
+bool Level::HasReachedEnd(const Rectf& actorShape) const
+{
+	if (utils::IsOverlapping(actorShape, m_EndSignShape))
+	{
+		return true;
+	}
+
+	return false;
 }
