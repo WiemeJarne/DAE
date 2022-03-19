@@ -57,13 +57,12 @@ private:
 	Vector2f m_Velocity;
 	Vector2f m_Acceleration;
 	int m_Power;
-	int m_FrameDirection;
+	int m_IdleFrameDirection;
 	int m_AvatarFacingDirection;
 	std::vector<Bullet*> m_pBullets;
 	float m_ShootDelay;
 	float m_BulletVelocity;
 	BulletManager* m_pBulletManager;
-	float m_SlideDelay;
 
 	void Moving(float elapsedSec, const Level& level);
 	void UpdatePos(float elapsedSec);

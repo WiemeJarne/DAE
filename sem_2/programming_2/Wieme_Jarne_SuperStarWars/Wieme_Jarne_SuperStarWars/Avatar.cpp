@@ -29,13 +29,12 @@ Avatar::Avatar()
 	,m_NrFramesPerSec{10}
 	,m_AnimTime{}
 	,m_AnimFrame{}
-	,m_FrameDirection{1}
+	,m_IdleFrameDirection{1}
 	,m_AvatarFacingDirection{1}
 	,m_pBullets{}
 	,m_ShootDelay{}
 	,m_BulletVelocity{500.f}
 	,m_pBulletManager{new BulletManager(0.65f)}
-	,m_SlideDelay{}
 {
 	m_ClipWidth = m_pIdleTexture->GetWidth() / m_NrOfIdleFrames;
 	m_ClipHeight = m_pIdleTexture->GetHeight();
@@ -61,12 +60,6 @@ Avatar::~Avatar()
 void Avatar::Update(float elapsedSec, const Level& level)
 {
 	m_ShootDelay += elapsedSec;
-	m_SlideDelay += elapsedSec;
-
-	if (m_SlideDelay > 1.f)
-	{
-		m_SlideDelay = 0.f;
-	}
 
 	m_pBulletManager->UpdateBullets(elapsedSec);
 
@@ -81,7 +74,7 @@ void Avatar::Update(float elapsedSec, const Level& level)
 	switch (m_ActionState)
 	{
 	case ActionState::idle:
-		m_NrFramesPerSec = 2;
+		m_NrFramesPerSec = 3;
 		ChangeClipWidthAndHeight(m_pIdleTexture, m_NrOfIdleFrames);
 		break;
 	
@@ -95,7 +88,7 @@ void Avatar::Update(float elapsedSec, const Level& level)
 		break;
 
 	case ActionState::sliding:
-		m_NrFramesPerSec = 20;
+		m_NrFramesPerSec = 15;
 		ChangeClipWidthAndHeight(m_pSlideTexture, m_NrOfSlideFrames);
 
 		Moving(elapsedSec, level);
@@ -161,7 +154,7 @@ void Avatar::DrawAvatar() const
 {
 	Rectf avatarSrcRect{};
 	avatarSrcRect.left = m_AnimFrame * m_ClipWidth;
-	avatarSrcRect.bottom = (m_Power * 3 + int(m_ActionState)) * m_ClipHeight;
+	avatarSrcRect.bottom = 0.f;
 	avatarSrcRect.width = m_ClipWidth;
 	avatarSrcRect.height = m_ClipHeight;
 
@@ -244,25 +237,19 @@ void Avatar::CheckActionState(const Level& level)
 		}
 		else if (pStates[SDL_SCANCODE_Z])
 		{
-			if (pStates[SDL_SCANCODE_DOWN])
-			{
-				if (m_ActionState != ActionState::sliding)
-				{
-					m_AnimFrame = 0;
-					m_AnimTime = 0.f;
-				}
-				
-				if (m_SlideDelay < 0.5f)
-				{
-					m_ActionState = ActionState::sliding;
-				}
-			}
-			else
+			m_AnimFrame = 0;
+			m_AnimTime = 0.f;
+			m_ActionState = ActionState::jumping;	
+		}
+		else if (pStates[SDL_SCANCODE_DOWN])
+		{
+			if (m_ActionState != ActionState::sliding)
 			{
 				m_AnimFrame = 0;
 				m_AnimTime = 0.f;
-				m_ActionState = ActionState::jumping;
-			}	
+			}
+
+			m_ActionState = ActionState::sliding;
 		}
 		else
 		{
@@ -279,24 +266,22 @@ void Avatar::Moving(float elapsedSec, const Level& level)
 	{
 		if (pStates[SDL_SCANCODE_Z])
 		{
-			if (pStates[SDL_SCANCODE_DOWN] && m_SlideDelay < 0.5f)
-			{
-				const int speedMultiplier{ 2 };
+			m_Velocity.y = m_JumpSpeed;
+			m_Velocity.x = 0.f;	
+		}
 
-				if (m_AvatarFacingDirection == 1)
-				{
-					m_Velocity.x = m_HorizontalSpeed * speedMultiplier;
-				}
-				else
-				{
-					m_Velocity.x = -m_HorizontalSpeed * speedMultiplier;
-				}
+		if (pStates[SDL_SCANCODE_DOWN])
+		{
+			const int speedMultiplier{ 2 };
+
+			if (m_AvatarFacingDirection == 1)
+			{
+				m_Velocity.x = m_HorizontalSpeed * speedMultiplier;
 			}
 			else
 			{
-				m_Velocity.y = m_JumpSpeed;
-				m_Velocity.x = 0.f;
-			}	
+				m_Velocity.x = -m_HorizontalSpeed * speedMultiplier;
+			}
 		}
 
 		if (pStates[SDL_SCANCODE_LEFT])
@@ -346,12 +331,12 @@ void Avatar::CalculateFrame(float elapsedSec)
 		switch (m_ActionState)
 		{
 		case ActionState::idle:
-
-			++m_AnimFrame;
 			
+			m_AnimFrame += m_IdleFrameDirection;
+
 			if (m_AnimFrame == m_NrOfIdleFrames - 1 || m_AnimFrame == 0)
 			{
-				m_FrameDirection *= -1;
+				m_IdleFrameDirection *= -1;
 			}
 
 			break;

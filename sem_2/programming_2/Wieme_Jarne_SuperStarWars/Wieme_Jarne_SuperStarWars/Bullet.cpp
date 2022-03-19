@@ -17,7 +17,7 @@ Bullet::Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet:
 	,m_StartPos{avatarShape.left, avatarShape.bottom}
 {
 	++m_AmountOfBullets;
-	std::cout << m_AmountOfBullets << "\n";
+
 	if (m_pLaserTexture == nullptr)
 	{
 		m_pLaserTexture = new Texture{ "Resources/Lasers/LaserRight.png" };

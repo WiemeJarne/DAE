@@ -14,5 +14,5 @@ private:
 	Rectf m_LevelBoundaries;
 
 	Point2f Track(const Rectf& target, const float scaleFactor) const;
-	void Clamp(Point2f& bottomLeftPos) const;
+	void Clamp(Point2f& bottomLeftPos, const float scaleFactor) const;
 };
