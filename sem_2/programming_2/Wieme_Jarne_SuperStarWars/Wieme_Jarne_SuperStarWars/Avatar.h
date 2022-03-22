@@ -72,6 +72,6 @@ private:
 	void ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames);
 	void CheckActionState(const Level& level);
 	void DrawAvatar() const;
-	void Shoot(const Bullet::BulletState& bulletState, const Vector2f& bulletVelocity);
+	void Shoot(const Vector2f& bulletVelocity);
 };
 

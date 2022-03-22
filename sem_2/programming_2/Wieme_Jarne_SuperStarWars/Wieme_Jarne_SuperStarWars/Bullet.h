@@ -8,16 +8,7 @@ class Texture;
 class Bullet final
 {
 public:
-
-	enum class BulletState
-	{
-		vertical,
-		upDiagonal,
-		horizontal,
-		downDiagonal
-	};
-
-	Bullet(const Rectf& avatarShape, const Vector2f& velocity, const Bullet::BulletState& bulletState, const int direction, const float scale);
+	Bullet(const Point2f& pos, const Vector2f& velocity, const float scale);
 	~Bullet();
 	Bullet& operator=(const Bullet& rhs) = delete;
 	Bullet(const Bullet& bullet) = delete;
@@ -28,11 +19,8 @@ public:
 
 private:
 	Rectf m_Shape;
-	Rectf m_AvatarShape;
 	const Vector2f m_Velocity;
 	const Texture* m_pTexture;
-	const BulletState m_BulletState;
-	const int m_Direction;
 	const float m_Scale;
 	const Point2f m_StartPos;
 	Rectf m_Boundaries;

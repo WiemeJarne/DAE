@@ -13,7 +13,7 @@ public:
 
 	void UpdateBullets(const float elapsedSec);
 	void DrawBullets() const;
-	void AddBullet(const Rectf& avatarShape, const Vector2f& bulletVelocity, const Point2f& bulletBottomLeftPoint, const Bullet::BulletState& bulletState, const int avatarFacingDirection);
+	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity);
 
 private:
 	std::vector<Bullet*> m_pBullets;

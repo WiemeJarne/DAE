@@ -67,7 +67,7 @@ void BulletManager::DeleteBullet(const int index)
 	m_pBullets.pop_back();	
 }
 
-void BulletManager::AddBullet(const Rectf& avatarShape, const Vector2f& bulletVelocity, const Point2f& bulletBottomLeftPoint, const Bullet::BulletState& bulletState, const int avatarFacingDirection)
+void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity)
 {
-	m_pBullets.push_back(new Bullet{ avatarShape, bulletVelocity, bulletState, avatarFacingDirection, m_BulletScale });
+	m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_BulletScale });
 }

@@ -28,10 +28,10 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
+	static Texture m_StatDaeTexture;
+	Texture m_DaeTexture;
+
 	//Which test series
-	bool m_StreamTest;
-	const Texture m_StreamMenuText;
-	const Texture m_EffectMenuText;
 
 
 	// FUNCTIONS
@@ -39,12 +39,9 @@ private:
 	void Cleanup( );
 	void ClearBackground( ) const;
 
-	void DrawMenu( ) const;
-	void SwitchTest( );
-	void TestStreams( const SDL_KeyboardEvent& e );
-	void TestEffects( const SDL_KeyboardEvent& e );
-
 	void AddValues(Container& c, int nr, int min, int max);
 	void TestContainer( );
 	Container CreateMultiplied(Container c, int factor);
+
+	void DrawTexture(Texture texture, const Point2f& pos, int nr, int dx, int dy) const;
 };

@@ -12,7 +12,7 @@ Container::Container( int capacity )
 Container::Container(const Container& container)
 	:m_Capacity{container.m_Capacity}
 	,m_Size{container.m_Size}
-	,m_pElement{new int[container.m_Size]}
+	,m_pElement{new int[container.m_Capacity]}
 {
 	for (int index{}; index < m_Size; ++index)
 	{
@@ -104,6 +104,3 @@ void Container::Reserve( int newCapacity )
 	m_pElement = pNew;
 	m_Capacity = newCapacity;
 }
-
-
-
