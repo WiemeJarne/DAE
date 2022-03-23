@@ -2,7 +2,6 @@
 #include <vector>
 
 class Tower;
-class Disk;
 
 class Game final
 {
@@ -28,10 +27,12 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
-	
+	std::vector<Tower*> m_Towers;
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
+	void CreateTowers( );
+	void CreateDisks( );
 };
