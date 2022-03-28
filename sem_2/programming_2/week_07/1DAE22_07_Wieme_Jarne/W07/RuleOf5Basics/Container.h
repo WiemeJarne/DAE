@@ -5,7 +5,7 @@ class Container final
 public:
 	explicit Container( int capacity  = 10); 
 	Container(const Container& container);
-	Container(Container& container) noexcept;
+	Container(Container&& container) noexcept;
 	~Container( );
 
 	Container& operator=(const Container& rhs);

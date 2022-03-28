@@ -19,10 +19,8 @@ Sprite::Sprite(const Sprite& other)
 {
 }
 
-Sprite::Sprite(Sprite& other) noexcept
+Sprite::Sprite(Sprite&& other) noexcept
 {
-	delete m_pTexture;
-
 	m_TexturePath = other.m_TexturePath;
 	m_Cols = other.m_Cols;
 	m_Rows = other.m_Rows;
@@ -34,8 +32,8 @@ Sprite::Sprite(Sprite& other) noexcept
 	other.m_TexturePath = "";
 	other.m_Cols = 0;
 	other.m_Rows = 0;
-	other.m_FrameSec = 0;
-	other.m_AccuSec = 0;
+	other.m_FrameSec = 0.f;
+	other.m_AccuSec = 0.f;
 	other.m_ActFrame = 0;
 	other.m_pTexture = nullptr;
 }
@@ -47,12 +45,39 @@ Sprite::~Sprite( )
 
 Sprite& Sprite::operator=(const Sprite& rhs)
 {
+	delete m_pTexture;
 
+	m_TexturePath = rhs.m_TexturePath;
+	m_Cols = rhs.m_Cols;
+	m_Rows = rhs.m_Rows;
+	m_FrameSec = rhs.m_FrameSec;
+	m_AccuSec = rhs.m_AccuSec;
+	m_ActFrame = rhs.m_ActFrame;
+
+	return *this;
 }
 
 Sprite& Sprite::operator=(Sprite&& rhs) noexcept
 {
+	delete m_pTexture;
 
+	m_TexturePath = rhs.m_TexturePath;
+	m_Cols = rhs.m_Cols;
+	m_Rows = rhs.m_Rows;
+	m_FrameSec = rhs.m_FrameSec;
+	m_AccuSec = rhs.m_AccuSec;
+	m_ActFrame = rhs.m_ActFrame;
+	m_pTexture = rhs.m_pTexture;
+
+	rhs.m_TexturePath = "";
+	rhs.m_Cols = 0;
+	rhs.m_Rows = 0;
+	rhs.m_FrameSec = 0.f;
+	rhs.m_AccuSec = 0.f;
+	rhs.m_ActFrame = 0;
+	rhs.m_pTexture = nullptr;
+
+	return *this;
 }
 
 void Sprite::Update( float elapsedSec )

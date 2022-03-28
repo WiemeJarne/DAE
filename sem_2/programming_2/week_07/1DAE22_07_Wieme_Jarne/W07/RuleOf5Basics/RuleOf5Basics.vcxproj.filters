@@ -99,4 +99,12 @@
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\RunningKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Tibo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

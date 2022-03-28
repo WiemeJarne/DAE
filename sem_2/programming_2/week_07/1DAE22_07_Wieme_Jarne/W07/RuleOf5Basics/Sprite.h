@@ -8,7 +8,7 @@ class Sprite final
 public:
 	Sprite( const std::string& filename, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
 	Sprite(const Sprite& other);
-	Sprite(Sprite& other) noexcept;
+	Sprite(Sprite&& other) noexcept;
 	~Sprite( );
 
 	Sprite& operator=(const Sprite& rhs);

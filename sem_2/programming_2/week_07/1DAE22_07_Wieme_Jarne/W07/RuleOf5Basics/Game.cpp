@@ -6,6 +6,8 @@
 
 Game::Game( const Window& window ) 
 	:m_Window{ window }
+	,m_AmountOfRows{5}
+	,m_AmountOfColumns{5}
 {
 	Initialize( );
 }
@@ -18,6 +20,10 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	TestContainer( );
+
+	//TestSpriteClass( );
+
+	CreateSprites( );
 }
 
 void Game::Cleanup( )
@@ -41,6 +47,8 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
+
+	DrawSprites( );
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -107,7 +115,7 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 
 void Game::ClearBackground( ) const
 {
-	glClearColor( 0.0f, 0.0f, 0.3f, 1.0f );
+	glClearColor( 0.f, 0.f, 0.f, 1.f );
 	glClear( GL_COLOR_BUFFER_BIT );
 }
 
@@ -151,4 +159,30 @@ void Game::TestSpriteClass()
 Sprite Game::CreateSprite(const std::string& path, int cols, int rows, float frameSec)
 {
 	return Sprite{ path, cols, rows, frameSec };
+}
+
+void Game::CreateSprites( )
+{
+	m_Sprites.reserve(m_AmountOfRows * m_AmountOfColumns);
+
+	for (int index{}; index < m_AmountOfRows * m_AmountOfColumns; ++index)
+	{
+		m_Sprites.push_back( new Sprite{ "Resources/Tibo.png", 5, 5, 1.f / (rand() % (16 - 10 + 1) + 10) } );
+	}
+}
+
+void Game::DrawSprites( ) const
+{
+	Point2f spritePos{ 0.f, 0.f };
+
+	for (int rowNr{}; rowNr < m_AmountOfRows; ++rowNr)
+	{
+		for (int columnNr{}; columnNr < m_AmountOfColumns; ++columnNr)
+		{
+			m_Sprites[rowNr * columnNr]->Draw(spritePos);
+			spritePos.x += m_Sprites[rowNr * columnNr]->GetFrameWidth();
+		}
+		
+		spritePos.y += m_Sprites[0]->GetFrameHeight();
+	}
 }

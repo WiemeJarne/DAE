@@ -18,7 +18,7 @@ Container::Container(const Container& container)
 	}
 }
 
-Container::Container(Container& container) noexcept
+Container::Container(Container&& container) noexcept
 	:m_Size{ container.m_Size }
 	,m_Capacity { container.m_Capacity }
 	,m_pElement { container.m_pElement }

@@ -28,7 +28,9 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
-	std::vector<Sprite> m_Sprites;
+	const int m_AmountOfRows;
+	const int m_AmountOfColumns;
+	std::vector<Sprite*> m_Sprites;
 
 	// FUNCTIONS
 	void Initialize( );
@@ -40,4 +42,6 @@ private:
 
 	void TestSpriteClass();
 	Sprite CreateSprite(const std::string& path, int cols, int rows, float frameSec);
+	void CreateSprites( );
+	void DrawSprites( ) const;
 };
