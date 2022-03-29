@@ -43,8 +43,6 @@ private:
 	const int m_NrOfSlideFrames;
 	const int m_NrOfJumpFrames;
 	const int m_NrOfShootFrames;
-	float m_ClipHeight;
-	float m_ClipWidth;
 	int m_NrFramesPerSec;
 	float m_AnimTime;
 	int m_AnimFrame;
@@ -67,8 +65,8 @@ private:
 	void MoveHorizontal(float elapsedSec);
 	void CalculateFrame(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);
-	void ChangeClipWidthAndHeight(int nrOfFrames);
-	void CheckActionState(const Level& level);
+	void ChangeShapeDimensions(int nrOfFrames);
+	void HandleInput(const Level& level);
 	void DrawAvatar() const;
 	void Shoot(const Vector2f& bulletVelocity);
 };
