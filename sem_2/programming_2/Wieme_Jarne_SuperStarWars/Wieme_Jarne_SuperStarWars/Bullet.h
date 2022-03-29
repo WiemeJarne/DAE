@@ -8,10 +8,14 @@ class Texture;
 class Bullet final
 {
 public:
-	Bullet(const Point2f& pos, const Vector2f& velocity, const float scale);
+	explicit Bullet(const Point2f& pos, const Vector2f& velocity, const float scale);	
+	
 	~Bullet();
-	Bullet& operator=(const Bullet& rhs) = delete;
 	Bullet(const Bullet& bullet) = delete;
+	Bullet& operator=(const Bullet& rhs) = delete;
+	Bullet(const Bullet&& bullet) = delete;
+	Bullet& operator=(const Bullet&& rhs) = delete;
+
 
 	void Update(float elapsedSec);
 	void Draw() const;

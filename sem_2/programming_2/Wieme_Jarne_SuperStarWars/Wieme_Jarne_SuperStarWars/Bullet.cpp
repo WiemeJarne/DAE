@@ -68,7 +68,7 @@ void Bullet::Draw() const
 {
 	glPushMatrix();
 
-		glTranslatef(m_Shape.left + m_Shape.width / 2.f, m_Shape.bottom + m_Shape.height / 2.f, 0);
+		glTranslatef(m_Shape.left, m_Shape.bottom, 0);
 
 		if (m_Velocity.y > 0 && m_Velocity.x == 0)
 		{

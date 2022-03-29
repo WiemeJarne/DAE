@@ -15,10 +15,10 @@ public:
 	Sprite& operator=(Sprite&& rhs) noexcept;
 
 	void Update( float elapsedSec );
-	void Draw( const Point2f& pos, float scale = 1.0f );
+	void Draw( const Point2f& pos, float scale = 1.0f ) const;
 
-	float GetFrameWidth( );
-	float GetFrameHeight( );
+	float GetFrameWidth( ) const;
+	float GetFrameHeight( ) const;
 
 private:
 	std::string m_TexturePath;
@@ -29,5 +29,3 @@ private:
 	float m_AccuSec;
 	int   m_ActFrame;
 };
-
-

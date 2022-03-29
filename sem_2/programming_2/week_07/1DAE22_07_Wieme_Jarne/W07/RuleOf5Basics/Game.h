@@ -38,9 +38,9 @@ private:
 	void ClearBackground( ) const;
 
 	Container CreateContainer(int amountOfElements, int min, int max);
-	void TestContainer();
+	void TestContainer( );
 
-	void TestSpriteClass();
+	void TestSpriteClass( );
 	Sprite CreateSprite(const std::string& path, int cols, int rows, float frameSec);
 	void CreateSprites( );
 	void DrawSprites( ) const;

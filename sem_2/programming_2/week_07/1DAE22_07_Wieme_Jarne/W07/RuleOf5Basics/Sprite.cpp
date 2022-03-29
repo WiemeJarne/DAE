@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Sprite.h"
-
 #include "Texture.h"
+#include <iostream>
 
 Sprite::Sprite( const std::string& path, int cols, int rows, float frameSec )
 	: m_TexturePath{ path }
@@ -17,10 +17,13 @@ Sprite::Sprite( const std::string& path, int cols, int rows, float frameSec )
 Sprite::Sprite(const Sprite& other)
 	:Sprite(other.m_TexturePath, other.m_Cols, other.m_Rows, other.m_FrameSec)
 {
+	std::cout << "copy constructor\n";
 }
 
 Sprite::Sprite(Sprite&& other) noexcept
 {
+	std::cout << "move constructor\n";
+
 	m_TexturePath = other.m_TexturePath;
 	m_Cols = other.m_Cols;
 	m_Rows = other.m_Rows;
@@ -45,6 +48,8 @@ Sprite::~Sprite( )
 
 Sprite& Sprite::operator=(const Sprite& rhs)
 {
+	std::cout << "copy assignment\n";
+
 	delete m_pTexture;
 
 	m_TexturePath = rhs.m_TexturePath;
@@ -59,6 +64,8 @@ Sprite& Sprite::operator=(const Sprite& rhs)
 
 Sprite& Sprite::operator=(Sprite&& rhs) noexcept
 {
+	std::cout << "move assignment\n";
+
 	delete m_pTexture;
 
 	m_TexturePath = rhs.m_TexturePath;
@@ -98,7 +105,7 @@ void Sprite::Update( float elapsedSec )
 	}
 }
 
-void Sprite::Draw( const Point2f& pos, float scale )
+void Sprite::Draw( const Point2f& pos, float scale ) const
 {
 	// frame dimensions
 	const float frameWidth{  m_pTexture->GetWidth() / m_Cols };
@@ -115,12 +122,12 @@ void Sprite::Draw( const Point2f& pos, float scale )
 	m_pTexture->Draw( destRect, srcRect );
 }
 
-float Sprite::GetFrameWidth( )
+float Sprite::GetFrameWidth( ) const
 {
 	return m_pTexture->GetWidth( ) / m_Cols;
 }
 
-float Sprite::GetFrameHeight( )
+float Sprite::GetFrameHeight( ) const
 {
 	return m_pTexture->GetHeight( ) / m_Rows;
 }

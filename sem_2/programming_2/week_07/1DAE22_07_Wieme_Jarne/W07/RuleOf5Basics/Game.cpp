@@ -7,7 +7,7 @@
 Game::Game( const Window& window ) 
 	:m_Window{ window }
 	,m_AmountOfRows{5}
-	,m_AmountOfColumns{5}
+	,m_AmountOfColumns{10}
 {
 	Initialize( );
 }
@@ -28,10 +28,19 @@ void Game::Initialize( )
 
 void Game::Cleanup( )
 {
+	for (Sprite* sprite : m_Sprites)
+	{
+		delete sprite;
+	}
 }
 
 void Game::Update( float elapsedSec )
 {
+	for (Sprite* sprite : m_Sprites)
+	{
+		sprite->Update(elapsedSec);
+	}
+
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -164,25 +173,30 @@ Sprite Game::CreateSprite(const std::string& path, int cols, int rows, float fra
 void Game::CreateSprites( )
 {
 	m_Sprites.reserve(m_AmountOfRows * m_AmountOfColumns);
-
+	float test2{ 0.1f };
 	for (int index{}; index < m_AmountOfRows * m_AmountOfColumns; ++index)
 	{
-		m_Sprites.push_back( new Sprite{ "Resources/Tibo.png", 5, 5, 1.f / (rand() % (16 - 10 + 1) + 10) } );
+		const int maxFrameSec{90};
+		const int minFrameSec{30};
+		
+		m_Sprites.push_back( new Sprite{ "Resources/Tibo.png", 5, 5, 1.f / (rand() % (maxFrameSec - minFrameSec + 1) + minFrameSec) } );
 	}
 }
 
 void Game::DrawSprites( ) const
 {
-	Point2f spritePos{ 0.f, 0.f };
+	Point2f spritePos{ 17.f, 10.f };
+	const float scale{ 0.63f };
 
 	for (int rowNr{}; rowNr < m_AmountOfRows; ++rowNr)
 	{
 		for (int columnNr{}; columnNr < m_AmountOfColumns; ++columnNr)
 		{
-			m_Sprites[rowNr * columnNr]->Draw(spritePos);
-			spritePos.x += m_Sprites[rowNr * columnNr]->GetFrameWidth();
+			m_Sprites[rowNr * m_AmountOfColumns + columnNr]->Draw(spritePos, scale);
+			spritePos.x += m_Sprites[rowNr * m_AmountOfColumns + columnNr]->GetFrameWidth() * scale;
 		}
-		
-		spritePos.y += m_Sprites[0]->GetFrameHeight();
+
+		spritePos.x -= m_AmountOfColumns * m_Sprites[0]->GetFrameWidth() * scale;
+		spritePos.y += m_Sprites[0]->GetFrameHeight() * scale;
 	}
 }

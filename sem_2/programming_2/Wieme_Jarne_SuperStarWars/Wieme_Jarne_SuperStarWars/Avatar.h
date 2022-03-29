@@ -6,14 +6,18 @@
 class Level;
 class Texture;
 class BulletManager;
+class Sprite;
 
 class Avatar final
 {
 public:
 	explicit Avatar();
+
 	~Avatar();
-	Avatar& operator=(const Avatar& rhs) = delete;
 	Avatar(const Avatar& avatar) = delete;
+	Avatar& operator=(const Avatar& rhs) = delete;
+	Avatar(const Avatar&& avatar) = delete;
+	Avatar& operator=(const Avatar&& rhs) = delete;
 
 	void Update(float elapsedSec, const Level& level);
 	void Draw() const;
@@ -32,15 +36,8 @@ private:
 		shootUpDiagonal
 	};
 
+	std::vector<Sprite*> m_sprites;
 	ActionState m_ActionState;
-	const Texture* m_pIdleTexture;
-	const Texture* m_pWalkTexture;
-	const Texture* m_pSlideTexture;
-	const Texture* m_pJumpTexture;
-	const Texture* m_pShootTexture;
-	const Texture* m_pShootDownTexture;
-	const Texture* m_pShootUpTexture;
-	const Texture* m_pShootUpDiagonalTexture;
 	const int m_NrOfIdleFrames;
 	const int m_NrOfWalkFrames;
 	const int m_NrOfSlideFrames;
@@ -64,12 +61,13 @@ private:
 	float m_BulletVelocity;
 	BulletManager* m_pBulletManager;
 
+	void InitializeSprites( );
 	void Moving(float elapsedSec, const Level& level);
 	void UpdatePos(float elapsedSec);
 	void MoveHorizontal(float elapsedSec);
 	void CalculateFrame(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);
-	void ChangeClipWidthAndHeight(const Texture* texture, int nrOfFrames);
+	void ChangeClipWidthAndHeight(int nrOfFrames);
 	void CheckActionState(const Level& level);
 	void DrawAvatar() const;
 	void Shoot(const Vector2f& bulletVelocity);
