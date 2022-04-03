@@ -26,44 +26,37 @@ public:
 private:
 	enum class ActionState
 	{
-		idle = 1,
+		idle,
 		walking,
 		sliding,
 		jumping,
 		shoot,
 		shootDown,
 		shootUp,
-		shootUpDiagonal
+		shootUpDiagonal,
+		jumpShoot,
+		jumpShootDown,
+		jumpShootUp,
+		jumpShootUpDiagonal
 	};
 
 	std::vector<Sprite*> m_sprites;
+	std::vector<Bullet*> m_pBullets;
+	BulletManager* m_pBulletManager;
 	ActionState m_ActionState;
-	const int m_NrOfIdleFrames;
-	const int m_NrOfWalkFrames;
-	const int m_NrOfSlideFrames;
-	const int m_NrOfJumpFrames;
-	const int m_NrOfShootFrames;
-	int m_NrFramesPerSec;
-	float m_AnimTime;
-	int m_AnimFrame;
 	Rectf m_Shape;
 	float m_HorizontalSpeed;
 	float m_JumpSpeed;
 	Vector2f m_Velocity;
 	Vector2f m_Acceleration;
-	int m_Power;
-	int m_IdleFrameDirection;
 	int m_AvatarFacingDirection;
-	std::vector<Bullet*> m_pBullets;
 	float m_ShootDelay;
 	float m_BulletVelocity;
-	BulletManager* m_pBulletManager;
 
 	void InitializeSprites( );
-	void Moving(float elapsedSec, const Level& level);
+	void Moving(float elapsedSec);
 	void UpdatePos(float elapsedSec);
 	void MoveHorizontal(float elapsedSec);
-	void CalculateFrame(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);
 	void ChangeShapeDimensions(int nrOfFrames);
 	void HandleInput(const Level& level);

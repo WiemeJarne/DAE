@@ -6,27 +6,38 @@ class Texture;
 class Sprite final
 {
 public:
-	Sprite( const std::string& filename, int nrCols = 1, int nrRows = 1, float frameSec = 0, bool loop = true);
-	Sprite(const Sprite& other) = delete;
-	Sprite(Sprite&& other) = delete;
+	enum class animType
+	{
+		loop,
+		repeatBackwards,
+		dontRepeat
+	};
+
+	Sprite( const std::string& filename, animType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
+	Sprite( Sprite&& other ) = delete;
 	~Sprite( );
 
-	Sprite& operator=(const Sprite& rhs) = delete;
-	Sprite& operator=(Sprite&& rhs) = delete;
+	Sprite& operator=( const Sprite& rhs ) = delete;
+	Sprite& operator=( Sprite&& rhs ) = delete;
 
 	void Update( float elapsedSec );
 	void Draw( const Point2f& pos, float scale = 1.0f ) const;
 
 	float GetFrameWidth( ) const;
 	float GetFrameHeight( ) const;
-
+	int GetAmountOfFrames( ) const;
+	int Get();
+	void SetFrameNr(const int frameSec);
+	void SetAccuSec(const float accuSec);
+	int m_FrameDirection;
 private:
 	std::string m_TexturePath;
 	Texture *m_pTexture;
-	int m_Cols;
-	int m_Rows;
-	float m_FrameSec;
+	const animType m_AnimType;
+	const int m_Columns;
+	const int m_Rows;
+	const float m_FramesPerSec;
 	float m_AccuSec;
-	int m_ActFrame;
-	bool m_Loop;
+	int m_FrameNr;
+	
 };
