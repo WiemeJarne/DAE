@@ -62,5 +62,6 @@ private:
 	void HandleInput(const Level& level);
 	void DrawAvatar() const;
 	void Shoot(const Vector2f& bulletVelocity);
+	Point2f DetermineBulletPos( ) const;
 };
 
