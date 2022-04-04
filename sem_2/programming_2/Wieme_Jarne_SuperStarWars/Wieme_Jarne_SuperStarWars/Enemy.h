@@ -8,7 +8,7 @@ class Sprite;
 class Enemy final
 {
 public:
-	explicit Enemy(const Point2f& bottomLeftStartPoint);
+	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale);
 	Enemy(const Enemy& other) = delete;
 	Enemy(Enemy&& other) = delete;
 	~Enemy( );
@@ -27,5 +27,5 @@ private:
 	float m_RightBoundary;
 	Sprite* m_Sprite;
 	float m_Delay;
+	const float m_Scale;
 };
-

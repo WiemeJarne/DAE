@@ -213,6 +213,7 @@ void Avatar::HandleInput(const Level& level)
 			m_sprites[int(ActionState::jumping)]->SetAccuSec(0.f);
 
 			m_Velocity.y = m_JumpSpeed;
+			
 			m_ActionState = ActionState::jumping;
 		}
 

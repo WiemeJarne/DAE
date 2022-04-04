@@ -12,16 +12,9 @@ BulletManager::BulletManager(const float bulletScale)
 
 BulletManager::~BulletManager()
 {
-	int index{};
-
 	for (Bullet* bullet : m_pBullets)
 	{
-		if (bullet != nullptr)
-		{
-			DeleteBullet(index);
-		}
-
-		++index;
+		delete bullet;
 	}
 
 	m_pBullets.clear();
@@ -42,7 +35,6 @@ void BulletManager::UpdateBullets(const float elapsedSec)
 				DeleteBullet(index);
 			}
 		}
-
 		++index;
 	}
 }
@@ -61,10 +53,9 @@ void BulletManager::DrawBullets() const
 void BulletManager::DeleteBullet(const int index)
 {
 	delete m_pBullets[index];
-	m_pBullets[index] = nullptr;
 
 	m_pBullets[index] = m_pBullets.back();
-	m_pBullets.pop_back();	
+	m_pBullets.pop_back();
 }
 
 void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity)

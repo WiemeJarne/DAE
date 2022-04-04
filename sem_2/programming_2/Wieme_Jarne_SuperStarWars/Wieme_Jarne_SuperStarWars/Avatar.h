@@ -42,8 +42,8 @@ private:
 
 	ActionState m_ActionState;
 	Rectf m_Shape;
-	float m_HorizontalSpeed;
-	float m_JumpSpeed;
+	const float m_HorizontalSpeed;
+	const float m_JumpSpeed;
 	Vector2f m_Velocity;
 	const Vector2f m_Acceleration;
 	int m_FacingDirection;

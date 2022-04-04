@@ -75,6 +75,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -132,6 +135,9 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

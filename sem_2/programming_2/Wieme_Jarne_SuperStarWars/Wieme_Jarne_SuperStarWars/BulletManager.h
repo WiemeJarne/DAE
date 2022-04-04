@@ -7,12 +7,12 @@ class BulletManager final
 {
 public:
 	explicit BulletManager(const float bulletScale);
-	
-	~BulletManager();
 	BulletManager(const Bullet& bullet) = delete;
+	BulletManager(Bullet&& bullet) = delete;
+	~BulletManager();
+
 	BulletManager& operator=(const BulletManager& rhs) = delete;
-	BulletManager(const Bullet&& bullet) = delete;
-	BulletManager& operator=(const BulletManager&& rhs) = delete;
+	BulletManager& operator=(BulletManager&& rhs) = delete;
 
 	void UpdateBullets(const float elapsedSec);
 	void DrawBullets() const;

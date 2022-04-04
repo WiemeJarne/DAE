@@ -8,7 +8,7 @@
 Game::Game( const Window& window )
 	:m_Window{ window }
 	,m_Camera{m_Window.width, m_Window.height}
-	,m_Enemy{ Point2f{76.f, 84.f} }
+	,m_Enemy{ Point2f{76.f, 84.f}, 1.4f }
 {	 
 	m_Camera.SetLevelBoundaries(m_Level.GetBoundaries());
 	Initialize( );

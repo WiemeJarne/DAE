@@ -5,11 +5,12 @@
 #include "Sprite.h"
 #include <iostream>
 
-Enemy::Enemy(const Point2f& bottomLeftStartPoint)
+Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale)
 	:m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
 	,m_Velocity{ 75.f, 0.f }
 	,m_Acceleration{ 0.f, -981.f }
 	,m_Delay{}
+	,m_Scale{ scale }
 {
 	m_Sprite = new Sprite{ "Resources/Enemies/Enemy1Walk.png", Sprite::animType::loop, 4, 1, 10 };
 
@@ -49,19 +50,17 @@ void Enemy::Update(float elapsedSec, const Level& level)
 
 void Enemy::Draw( ) const
 {
-	const float scale{ 1.4f };
-
 	glPushMatrix( );
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
 		
 		if (m_Velocity.x > 0.f)
 		{
-			glScalef(-scale, scale, 1);
+			glScalef(-m_Scale, m_Scale, 1);
 			glTranslatef(-m_Shape.width, 0.f, 0.f);
 		}
 		else
 		{
-			glScalef(scale, scale, 1);
+			glScalef(m_Scale, m_Scale, 1);
 		}
 
 		m_Sprite->Draw(Point2f{ m_Shape.left, m_Shape.bottom });
