@@ -12,11 +12,11 @@ class Avatar final
 {
 public:
 	explicit Avatar();
-
-	~Avatar();
 	Avatar(const Avatar& avatar) = delete;
-	Avatar& operator=(const Avatar& rhs) = delete;
 	Avatar(const Avatar&& avatar) = delete;
+	~Avatar();
+
+	Avatar& operator=(const Avatar& rhs) = delete;
 	Avatar& operator=(const Avatar&& rhs) = delete;
 
 	void Update(float elapsedSec, const Level& level);
@@ -40,28 +40,26 @@ private:
 		jumpShootUpDiagonal
 	};
 
-	std::vector<Sprite*> m_sprites;
-	std::vector<Bullet*> m_pBullets;
-	BulletManager* m_pBulletManager;
 	ActionState m_ActionState;
 	Rectf m_Shape;
 	float m_HorizontalSpeed;
 	float m_JumpSpeed;
 	Vector2f m_Velocity;
-	Vector2f m_Acceleration;
-	int m_AvatarFacingDirection;
+	const Vector2f m_Acceleration;
+	int m_FacingDirection;
+	BulletManager* m_pBulletManager;
+	std::vector<Bullet*> m_pBullets;
 	float m_ShootDelay;
-	float m_BulletVelocity;
+	const float m_BulletVelocity;
+	std::vector<Sprite*> m_sprites;
 
 	void InitializeSprites( );
 	void Moving(float elapsedSec);
 	void UpdatePos(float elapsedSec);
-	void MoveHorizontal(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);
 	void ChangeShapeDimensions(int nrOfFrames);
 	void HandleInput(const Level& level);
 	void DrawAvatar() const;
 	void Shoot(const Vector2f& bulletVelocity);
-	Point2f DetermineBulletPos( ) const;
+	Point2f DetermineBulletPos() const;
 };
-

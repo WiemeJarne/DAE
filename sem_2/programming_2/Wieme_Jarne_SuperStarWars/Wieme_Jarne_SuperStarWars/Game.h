@@ -3,6 +3,7 @@
 #include "Avatar.h"
 #include "Vector2f.h"
 #include "Camera.h"
+#include "Enemy.h"
 
 class Game final
 {
@@ -31,7 +32,7 @@ private:
 	Camera m_Camera;
 	Level m_Level;
 	Avatar m_Avatar;
-
+	Enemy m_Enemy;
 
 	// FUNCTIONS
 	void Initialize( );

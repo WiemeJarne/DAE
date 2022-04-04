@@ -13,7 +13,8 @@ public:
 		dontRepeat
 	};
 
-	Sprite( const std::string& filename, animType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
+	explicit Sprite( const std::string& filename, animType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
+	Sprite( const Sprite& other ) = delete;
 	Sprite( Sprite&& other ) = delete;
 	~Sprite( );
 
@@ -29,15 +30,15 @@ public:
 	int Get();
 	void SetFrameNr(const int frameSec);
 	void SetAccuSec(const float accuSec);
-	int m_FrameDirection;
+
 private:
 	std::string m_TexturePath;
-	Texture *m_pTexture;
+	Texture* m_pTexture;
 	const animType m_AnimType;
 	const int m_Columns;
 	const int m_Rows;
 	const float m_FramesPerSec;
 	float m_AccuSec;
 	int m_FrameNr;
-	
+	int m_FrameDirection;
 };

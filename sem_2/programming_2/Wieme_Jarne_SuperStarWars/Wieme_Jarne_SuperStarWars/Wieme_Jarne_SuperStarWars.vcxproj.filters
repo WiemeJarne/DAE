@@ -69,6 +69,12 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -120,6 +126,12 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

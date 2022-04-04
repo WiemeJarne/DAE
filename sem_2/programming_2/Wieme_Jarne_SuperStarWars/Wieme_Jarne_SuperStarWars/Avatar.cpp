@@ -7,19 +7,20 @@
 #include <iostream>
 
 Avatar::Avatar()
-	:m_Shape{50.f, 30.f, 0.f, 0.f}
-	,m_HorizontalSpeed{150.f}
-	,m_JumpSpeed{400.f}
-	,m_Velocity{0.f, 0.f}
+	:m_ActionState{ActionState::idle}
+	,m_Shape{ 0.f, 0.f, 0.f, 0.f }
+	,m_HorizontalSpeed{ 150.f }
+	,m_JumpSpeed{ 400.f }
+	,m_Velocity{ 0.f, 0.f }
 	,m_Acceleration{ 0.f, -981.f }
-	,m_ActionState{ActionState::idle}
-	,m_AvatarFacingDirection{1}
+	,m_FacingDirection{1}
+	,m_pBulletManager{ new BulletManager(0.65f) }
 	,m_pBullets{}
 	,m_ShootDelay{}
-	,m_BulletVelocity{500.f}
-	,m_pBulletManager{new BulletManager(0.65f)}
+	,m_BulletVelocity{ 500.f }
 {
 	InitializeSprites( );
+	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
 }
 
 Avatar::~Avatar()
@@ -75,8 +76,7 @@ void Avatar::Update(float elapsedSec, const Level& level)
 	m_sprites[int(m_ActionState)]->Update(elapsedSec);
 
 	HandleInput(level);
-
-	
+		
 	level.HandleCollision(m_Shape, m_Velocity);
 
 	switch (m_ActionState)
@@ -88,11 +88,11 @@ void Avatar::Update(float elapsedSec, const Level& level)
 		break;
 
 	case ActionState::shoot:
-		Shoot(Vector2f{m_BulletVelocity * m_AvatarFacingDirection, 0.f});
+		Shoot(Vector2f{m_BulletVelocity * m_FacingDirection, 0.f});
 		break;
 
 	case ActionState::shootDown:
-		Shoot(Vector2f{ m_BulletVelocity * m_AvatarFacingDirection, -m_BulletVelocity });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, -m_BulletVelocity });
 		break;
 
 	case ActionState::shootUp:
@@ -100,17 +100,17 @@ void Avatar::Update(float elapsedSec, const Level& level)
 		break;
 
 	case ActionState::shootUpDiagonal:
-		Shoot(Vector2f{ m_BulletVelocity * m_AvatarFacingDirection, m_BulletVelocity });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, m_BulletVelocity });
 		break;
 
 	case ActionState::jumpShoot:
 		Moving(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_AvatarFacingDirection, 0.f });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, 0.f });
 		break;
 
 	case ActionState::jumpShootDown:
 		Moving(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_AvatarFacingDirection, -m_BulletVelocity });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, -m_BulletVelocity });
 		break;
 
 	case ActionState::jumpShootUp:
@@ -120,7 +120,7 @@ void Avatar::Update(float elapsedSec, const Level& level)
 
 	case ActionState::jumpShootUpDiagonal:
 		Moving(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_AvatarFacingDirection, m_BulletVelocity });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, m_BulletVelocity });
 		break;
 	}
 
@@ -135,9 +135,9 @@ void Avatar::Draw() const
 
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
 
-		glScalef(GLfloat(m_AvatarFacingDirection), 1, 1);
+		glScalef(GLfloat(m_FacingDirection), 1, 1);
 
-		if (m_AvatarFacingDirection == -1)
+		if (m_FacingDirection == -1)
 		{
 			glTranslatef(-m_Shape.width, 0.f, 0.f);
 		}
@@ -161,32 +161,38 @@ void Avatar::HandleInput(const Level& level)
 {
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 
-	if (pStates[SDL_SCANCODE_LEFT])
+	SDL_Scancode left{ SDL_Scancode::SDL_SCANCODE_A };
+	SDL_Scancode right{ SDL_Scancode::SDL_SCANCODE_D };
+	SDL_Scancode up{ SDL_Scancode::SDL_SCANCODE_W };
+	SDL_Scancode down{ SDL_Scancode::SDL_SCANCODE_S };
+	SDL_Scancode jump{ SDL_Scancode::SDL_SCANCODE_SPACE };
+	SDL_Scancode shoot{ SDL_Scancode::SDL_SCANCODE_LSHIFT };
+
+	if (pStates[left])
 	{
-		m_AvatarFacingDirection = -1;
+		m_FacingDirection = -1;
 	}
 
-	if (pStates[SDL_SCANCODE_RIGHT])
+	if (pStates[right])
 	{
-		m_AvatarFacingDirection = 1;
+		m_FacingDirection = 1;
 	}
 
-	if (level.IsOnGround(m_Shape))
+	if (level.IsOnGround(m_Shape, m_Velocity))
 	{
-		if (pStates[SDL_SCANCODE_LEFT] && m_ActionState != ActionState::sliding)
+		if (pStates[left] && m_ActionState != ActionState::sliding)
 		{
-				m_Velocity.x = m_HorizontalSpeed * m_AvatarFacingDirection;
-				m_ActionState = ActionState::walking;
+			m_Velocity.x = m_HorizontalSpeed * m_FacingDirection;
+			m_ActionState = ActionState::walking;
 		}
 
-		if (pStates[SDL_SCANCODE_RIGHT] && m_ActionState != ActionState::sliding)
+		if (pStates[right] && m_ActionState != ActionState::sliding)
 		{
-
-				m_Velocity.x = m_HorizontalSpeed * m_AvatarFacingDirection;
-				m_ActionState = ActionState::walking;
+			m_Velocity.x = m_HorizontalSpeed * m_FacingDirection;
+			m_ActionState = ActionState::walking;
 		}
 
-		if (pStates[SDL_SCANCODE_DOWN])
+		if (pStates[down])
 		{
 			if (m_ActionState != ActionState::sliding)
 			{
@@ -196,12 +202,12 @@ void Avatar::HandleInput(const Level& level)
 
 			const int speedMultiplier{ 2 };
 
-			m_Velocity.x = m_HorizontalSpeed * m_AvatarFacingDirection * speedMultiplier;
+			m_Velocity.x = m_HorizontalSpeed * m_FacingDirection * speedMultiplier;
 
 			m_ActionState = ActionState::sliding;
 		}
 
-		if (pStates[SDL_SCANCODE_Z] && m_ActionState != ActionState::sliding)
+		if (pStates[jump] && m_ActionState != ActionState::sliding)
 		{
 			m_sprites[int(ActionState::jumping)]->SetFrameNr(0);
 			m_sprites[int(ActionState::jumping)]->SetAccuSec(0.f);
@@ -210,25 +216,25 @@ void Avatar::HandleInput(const Level& level)
 			m_ActionState = ActionState::jumping;
 		}
 
-		if (pStates[SDL_SCANCODE_A])
+		if (pStates[shoot])
 		{
 			m_ActionState = ActionState::shoot;
 
-			if (pStates[SDL_SCANCODE_DOWN])
+			if (pStates[down])
 			{
 				m_ActionState = ActionState::shootDown;
 			}
 
-			if (pStates[SDL_SCANCODE_UP])
+			if (pStates[up])
 			{
 				m_ActionState = ActionState::shootUp;
 
-				if (pStates[SDL_SCANCODE_LEFT])
+				if (pStates[left])
 				{
 					m_ActionState = ActionState::shootUpDiagonal;
 				}
 
-				if (pStates[SDL_SCANCODE_RIGHT])
+				if (pStates[right])
 				{
 					m_ActionState = ActionState::shootUpDiagonal;
 				}
@@ -236,11 +242,11 @@ void Avatar::HandleInput(const Level& level)
 			}
 		}
 
-		if (!pStates[SDL_SCANCODE_A]
-			&& !pStates[SDL_SCANCODE_LEFT]
-			&& !pStates[SDL_SCANCODE_RIGHT]
-			&& !pStates[SDL_SCANCODE_Z]
-			&& !pStates[SDL_SCANCODE_DOWN])
+		if (   !pStates[left]
+			&& !pStates[right]
+			&& !pStates[down]
+			&& !pStates[jump]
+			&& !pStates[shoot] )
 		{
 			if (m_ActionState != ActionState::idle)
 			{
@@ -256,25 +262,25 @@ void Avatar::HandleInput(const Level& level)
 	}
 	else
 	{
-		if (pStates[SDL_SCANCODE_A])
+		if (pStates[shoot])
 		{
 			m_ActionState = ActionState::jumpShoot;
 
-			if (pStates[SDL_SCANCODE_DOWN])
+			if (pStates[down])
 			{
 				m_ActionState = ActionState::jumpShootDown;
 			}
 
-			if (pStates[SDL_SCANCODE_UP])
+			if (pStates[up])
 			{
 				m_ActionState = ActionState::jumpShootUp;
 
-				if (pStates[SDL_SCANCODE_LEFT])
+				if (pStates[left])
 				{
 					m_ActionState = ActionState::jumpShootUpDiagonal;
 				}
 
-				if (pStates[SDL_SCANCODE_RIGHT])
+				if (pStates[right])
 				{
 					m_ActionState = ActionState::jumpShootUpDiagonal;
 				}
@@ -292,13 +298,8 @@ void Avatar::Moving(float elapsedSec)
 
 void Avatar::UpdatePos(float elapsedSec)
 {
-	MoveHorizontal(elapsedSec);
-	m_Shape.bottom += elapsedSec * m_Velocity.y;
-}
-
-void Avatar::MoveHorizontal(float elapsedSec)
-{
 	m_Shape.left += elapsedSec * m_Velocity.x;
+	m_Shape.bottom += elapsedSec * m_Velocity.y;
 }
 
 void Avatar::StayInLevelBoundaries(const Level& level)
@@ -351,7 +352,7 @@ Point2f Avatar::DetermineBulletPos() const
 
 		bulletBottomLeftPoint.y = m_Shape.bottom + m_Shape.height * 0.77f;
 
-		if (m_AvatarFacingDirection == 1)
+		if (m_FacingDirection == 1)
 		{
 			bulletBottomLeftPoint.x = m_Shape.left + m_Shape.width * 0.95f;
 		}
@@ -367,7 +368,7 @@ Point2f Avatar::DetermineBulletPos() const
 
 		bulletBottomLeftPoint.y = m_Shape.bottom + m_Shape.height * 0.45f;
 
-		if (m_AvatarFacingDirection == 1)
+		if (m_FacingDirection == 1)
 		{
 			bulletBottomLeftPoint.x = m_Shape.left + m_Shape.width * 0.9f;
 		}
@@ -392,7 +393,7 @@ Point2f Avatar::DetermineBulletPos() const
 
 		bulletBottomLeftPoint.y = m_Shape.bottom + m_Shape.height * 0.98f;
 
-		if (m_AvatarFacingDirection == 1)
+		if (m_FacingDirection == 1)
 		{
 			bulletBottomLeftPoint.x = m_Shape.left + m_Shape.width * 0.95f;
 		}

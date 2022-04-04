@@ -8,6 +8,7 @@
 Game::Game( const Window& window )
 	:m_Window{ window }
 	,m_Camera{m_Window.width, m_Window.height}
+	,m_Enemy{ Point2f{76.f, 84.f} }
 {	 
 	m_Camera.SetLevelBoundaries(m_Level.GetBoundaries());
 	Initialize( );
@@ -31,6 +32,7 @@ void Game::Update( float elapsedSec )
 {
 	// Update game objects
 	m_Avatar.Update( elapsedSec, m_Level );
+	m_Enemy.Update( elapsedSec, m_Level) ;
 }
 
 void Game::Draw( ) const
@@ -45,6 +47,7 @@ void Game::Draw( ) const
 		m_Level.DrawBackground(cameraTransformation);
 		m_Level.DrawLevel( );
 		m_Avatar.Draw( );
+		m_Enemy.Draw( );
 		m_Level.DrawPitTexture(Point2f{ 571, 14 });
 		m_Level.DrawPitTexture(Point2f{ 6966, 6 });
 		m_Level.DrawPitMonsterPitTexture(Point2f{ 7828, 0 });

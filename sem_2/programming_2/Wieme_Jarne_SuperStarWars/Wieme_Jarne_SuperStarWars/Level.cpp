@@ -2,6 +2,8 @@
 #include "Level.h"
 #include "Texture.h"
 #include "SVGParser.h"
+#include "Platform.h"
+#include <iostream>
 
 Level::Level()
 	:m_LevelTexture{ new Texture{"Resources/Level/Level.png" } }
@@ -15,6 +17,8 @@ Level::Level()
 	
 	m_Boundaries.width = m_LevelTexture->GetWidth();
 	m_Boundaries.height = 500.f;
+
+	InitializePlatforms( );
 }
 
 Level::~Level()
@@ -23,6 +27,11 @@ Level::~Level()
 	delete m_PitTexture;
 	delete m_BossPitTexture;
 	delete m_BackgroundTexture;
+
+	for (Platform* platform : m_Platforms)
+	{
+		delete platform;
+	}
 }
 
 void Level::DrawLevel() const
@@ -46,8 +55,21 @@ void Level::DrawPitMonsterPitTexture(Point2f bottomLeftPoint) const
 	glPopMatrix();
 }
 
+void Level::DrawBackground(const Point2f& translation) const
+{
+	glPushMatrix();
+	glTranslatef(translation.x, translation.y, 0);
+	m_BackgroundTexture->Draw();
+	glPopMatrix();
+}
+
 void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 {
+	for (Platform* platform : m_Platforms)
+	{
+		platform->HandleCollision(actorShape, actorVelocity);
+	}
+
 	Point2f rayStartPoint{ actorShape.left + actorShape.width / 2.f,
 						   actorShape.bottom + actorShape.height	};
 	Point2f rayEndPoint{ actorShape.left + actorShape.width / 2.f,
@@ -62,8 +84,16 @@ void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const
 	}
 }
 
-bool Level::IsOnGround(const Rectf& actorShape) const
+bool Level::IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) const
 {
+	for (Platform* platform : m_Platforms)
+	{
+		if (platform->IsOnGround(actorShape, actorVelocity))
+		{
+			return true;
+		}
+	}
+
 	Point2f rayStartPoint{ actorShape.left + actorShape.width / 2.f,
 						   actorShape.bottom + actorShape.height	 };
 	Point2f rayEndPoint{ actorShape.left + actorShape.width / 2.f,
@@ -84,10 +114,17 @@ Rectf Level::GetBoundaries() const
 	return m_Boundaries;
 }
 
-void Level::DrawBackground(const Point2f& translation) const
+void Level::InitializePlatforms( )
 {
-	glPushMatrix();
-		glTranslatef(translation.x, translation.y, 0);
-		m_BackgroundTexture->Draw();
-	glPopMatrix();
+	const float bigRockWidth{ 83.f };
+	const float normalRockWidth{ 41.f };
+	const float smallRockWidth{ 22.f };
+
+	m_Platforms.push_back(new Platform{ Point2f{76.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{204.f, 84.f}, normalRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{279.f, 84.f}, smallRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{1110.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{1292.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{2381.f, 84.f}, bigRockWidth });
+
 }
