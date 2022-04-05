@@ -75,7 +75,8 @@ void BulletManager::HandleCollision(std::vector<Enemy*> enemies)
 
 		for (Bullet* bullet : m_pBullets)
 		{
-			if (utils::IsOverlapping(enemy->GetShape(), bullet->GetShape()))
+			if (utils::IsOverlapping(enemy->GetShape(), bullet->GetShape())
+				&& enemy->GetHeath() > 0                                   )
 			{
 				DeleteBullet(index);
 				enemy->Hit();

@@ -24,14 +24,7 @@ void EnemyManager::Update(float elapsecSec, const Level& level)
 
 	for (Enemy* enemy : m_pEnemies)
 	{
-		if (enemy->GetHeath() > 1)
-		{
-			enemy->Update(elapsecSec, level);
-		}
-		else
-		{
-			DeleteEnemy(index);
-		}
+		enemy->Update(elapsecSec, level);
 
 		++index;
 	}

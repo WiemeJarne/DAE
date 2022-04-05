@@ -30,8 +30,11 @@ private:
 	Vector2f m_Acceleration;
 	float m_LeftBoundary;
 	float m_RightBoundary;
-	float m_AccuSec;
 	const float m_Scale;
+	float m_AccuSec;
 	int m_Health;
+	const int m_StartHealth;
 	Sprite* m_Sprite;
+	float m_RespawnDelay;
+	const Point2f m_StartPos;
 };
