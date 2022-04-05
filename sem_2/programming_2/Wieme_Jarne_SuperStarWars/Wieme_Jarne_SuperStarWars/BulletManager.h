@@ -2,6 +2,7 @@
 #include <vector>
 #include "Vector2f.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 class BulletManager final
 {
@@ -17,6 +18,7 @@ public:
 	void UpdateBullets(const float elapsedSec);
 	void DrawBullets() const;
 	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity);
+	void HandleCollision(std::vector<Enemy*> enemies);
 
 private:
 	std::vector<Bullet*> m_pBullets;

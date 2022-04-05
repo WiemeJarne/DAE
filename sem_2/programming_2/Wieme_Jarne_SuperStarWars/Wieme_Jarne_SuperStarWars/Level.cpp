@@ -34,7 +34,7 @@ Level::~Level()
 	}
 }
 
-void Level::DrawLevel() const
+void Level::DrawLevel( ) const
 {
 	m_LevelTexture->Draw();
 }

@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "BulletManager.h"
 #include "Bullet.h"
+#include "EnemyManager.h"
+#include "utils.h"
 #include <iostream>
 
 BulletManager::BulletManager(const float bulletScale)
 	:m_pBullets{}
 	,m_BulletScale{bulletScale}
 {
-	//no code
 }
 
 BulletManager::~BulletManager()
@@ -52,13 +53,35 @@ void BulletManager::DrawBullets() const
 
 void BulletManager::DeleteBullet(const int index)
 {
-	delete m_pBullets[index];
+	if (m_pBullets[index] != nullptr)
+	{
+		delete m_pBullets[index];
 
-	m_pBullets[index] = m_pBullets.back();
-	m_pBullets.pop_back();
+		m_pBullets[index] = m_pBullets.back();
+		m_pBullets.pop_back();
+	}
 }
 
 void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity)
 {
 	m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_BulletScale });
+}
+
+void BulletManager::HandleCollision(std::vector<Enemy*> enemies)
+{
+	for (Enemy* enemy : enemies)
+	{
+		int index{};
+
+		for (Bullet* bullet : m_pBullets)
+		{
+			if (utils::IsOverlapping(enemy->GetShape(), bullet->GetShape()))
+			{
+				DeleteBullet(index);
+				enemy->Hit();
+			}
+
+			++index;
+		}
+	}
 }

@@ -13,7 +13,7 @@ public:
 		dontRepeat
 	};
 
-	explicit Sprite( const std::string& filename, animType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
+	explicit Sprite( const std::string& filename, animType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0, float scale = 1 );
 	Sprite( const Sprite& other ) = delete;
 	Sprite( Sprite&& other ) = delete;
 	~Sprite( );
@@ -22,7 +22,7 @@ public:
 	Sprite& operator=( Sprite&& rhs ) = delete;
 
 	void Update( float elapsedSec );
-	void Draw( const Point2f& pos, float scale = 1.0f ) const;
+	void Draw( ) const;
 
 	float GetFrameWidth( ) const;
 	float GetFrameHeight( ) const;
@@ -41,4 +41,5 @@ private:
 	float m_AccuSec;
 	int m_FrameNr;
 	int m_FrameDirection;
+	const float m_Scale;
 };

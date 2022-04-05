@@ -8,14 +8,13 @@
 
 Avatar::Avatar()
 	:m_ActionState{ActionState::idle}
-	,m_Shape{ 0.f, 0.f, 0.f, 0.f }
+	,m_Shape{ }
 	,m_HorizontalSpeed{ 150.f }
 	,m_JumpSpeed{ 400.f }
 	,m_Velocity{ 0.f, 0.f }
 	,m_Acceleration{ 0.f, -981.f }
 	,m_FacingDirection{1}
 	,m_pBulletManager{ new BulletManager(0.65f) }
-	,m_pBullets{}
 	,m_ShootDelay{}
 	,m_BulletVelocity{ 500.f }
 {
@@ -66,9 +65,11 @@ void Avatar::InitializeSprites()
 	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUpRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
 }
 
-void Avatar::Update(float elapsedSec, const Level& level)
+void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies)
 {
 	m_ShootDelay += elapsedSec;
+
+	m_pBulletManager->HandleCollision(enemies);
 
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
 
@@ -77,8 +78,6 @@ void Avatar::Update(float elapsedSec, const Level& level)
 
 	HandleInput(level);
 		
-	level.HandleCollision(m_Shape, m_Velocity);
-
 	switch (m_ActionState)
 	{
 	case ActionState::walking:
@@ -123,6 +122,8 @@ void Avatar::Update(float elapsedSec, const Level& level)
 		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, m_BulletVelocity });
 		break;
 	}
+	
+	level.HandleCollision(m_Shape, m_Velocity);
 
 	StayInLevelBoundaries(level);
 }
@@ -154,7 +155,7 @@ Rectf Avatar::GetShape() const
 
 void Avatar::DrawAvatar() const
 {
-	m_sprites[int(m_ActionState)]->Draw(Point2f{});
+	m_sprites[int(m_ActionState)]->Draw( );
 }
 
 void Avatar::HandleInput(const Level& level)

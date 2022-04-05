@@ -3,7 +3,7 @@
 #include "Avatar.h"
 #include "Vector2f.h"
 #include "Camera.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
 
 class Game final
 {
@@ -32,10 +32,11 @@ private:
 	Camera m_Camera;
 	Level m_Level;
 	Avatar m_Avatar;
-	Enemy m_Enemy;
+	EnemyManager m_EnemyManager;
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
+	void AddEnemies( );
 };

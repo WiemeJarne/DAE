@@ -2,7 +2,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 
-Sprite::Sprite( const std::string& path, animType animType, int cols, int rows, float frameSec )
+Sprite::Sprite( const std::string& path, animType animType, int cols, int rows, float frameSec, float scale )
 	: m_TexturePath{ path }
 	, m_AnimType{ animType }
 	, m_Columns{ cols }
@@ -11,6 +11,7 @@ Sprite::Sprite( const std::string& path, animType animType, int cols, int rows, 
 	, m_AccuSec{}
 	, m_FrameNr{}
 	,m_FrameDirection{ -1 }
+	,m_Scale{scale}
 {
 	m_pTexture = new Texture( m_TexturePath );
 }
@@ -65,7 +66,7 @@ void Sprite::Update( float elapsedSec )
 	}
 }
 
-void Sprite::Draw( const Point2f& pos, float scale ) const
+void Sprite::Draw( ) const
 {
 	int rowNr = m_FrameNr / m_Columns;
 	int columnNr = m_FrameNr % m_Columns;

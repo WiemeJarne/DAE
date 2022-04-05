@@ -9,17 +9,17 @@ class Bullet final
 {
 public:
 	explicit Bullet(const Point2f& pos, const Vector2f& velocity, const float scale);	
-	
-	~Bullet();
 	Bullet(const Bullet& bullet) = delete;
+	Bullet(Bullet&& bullet) = delete;
+	~Bullet();
+	
 	Bullet& operator=(const Bullet& rhs) = delete;
-	Bullet(const Bullet&& bullet) = delete;
-	Bullet& operator=(const Bullet&& rhs) = delete;
-
+	Bullet& operator=(Bullet&& rhs) = delete;
 
 	void Update(float elapsedSec);
-	void Draw() const;
-	bool IsBulletOutOfBoundaries() const;
+	void Draw( ) const;
+	bool IsBulletOutOfBoundaries( ) const;
+	Rectf GetShape( );
 
 private:
 	Rectf m_Shape;
@@ -32,6 +32,4 @@ private:
 	static Texture* m_pLaserTexture;
 	static Texture* m_pDiagonalLaserTexture;
 	static int m_AmountOfBullets;
-
-	//void CheckEnemiesHit(std::vector<Enemy*> pEnemies);
 };

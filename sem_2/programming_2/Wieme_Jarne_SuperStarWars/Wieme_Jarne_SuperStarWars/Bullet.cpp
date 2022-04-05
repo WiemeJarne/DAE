@@ -40,8 +40,8 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, const float scale)
 		m_pTexture = m_pDiagonalLaserTexture;
 	}
 
-	m_Shape.width = m_pTexture->GetWidth();
-	m_Shape.height = m_pTexture->GetHeight();
+	m_Shape.width = m_pTexture->GetWidth() * m_Scale;
+	m_Shape.height = m_pTexture->GetHeight() * m_Scale;
 }
 
 Bullet::~Bullet()
@@ -116,4 +116,9 @@ bool Bullet::IsBulletOutOfBoundaries() const
 		return true;
 	}
 	return false;
+}
+
+Rectf Bullet::GetShape()
+{
+	return m_Shape;
 }

@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Camera.h"
-#include "utils.h"
 #include <iostream>
 
 Camera::Camera(float width, float height)
@@ -8,7 +7,6 @@ Camera::Camera(float width, float height)
 	,m_Height{height}
 	,m_LevelBoundaries{}
 {
-
 }
 
 void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)

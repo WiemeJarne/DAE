@@ -13,13 +13,13 @@ class Avatar final
 public:
 	explicit Avatar();
 	Avatar(const Avatar& avatar) = delete;
-	Avatar(const Avatar&& avatar) = delete;
+	Avatar(Avatar&& avatar) = delete;
 	~Avatar();
 
 	Avatar& operator=(const Avatar& rhs) = delete;
-	Avatar& operator=(const Avatar&& rhs) = delete;
+	Avatar& operator=(Avatar&& rhs) = delete;
 
-	void Update(float elapsedSec, const Level& level);
+	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies);
 	void Draw() const;
 	Rectf GetShape() const;
 
@@ -48,7 +48,6 @@ private:
 	const Vector2f m_Acceleration;
 	int m_FacingDirection;
 	BulletManager* m_pBulletManager;
-	std::vector<Bullet*> m_pBullets;
 	float m_ShootDelay;
 	const float m_BulletVelocity;
 	std::vector<Sprite*> m_sprites;

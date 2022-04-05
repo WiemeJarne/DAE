@@ -8,10 +8,10 @@
 Game::Game( const Window& window )
 	:m_Window{ window }
 	,m_Camera{m_Window.width, m_Window.height}
-	,m_Enemy{ Point2f{76.f, 84.f}, 1.4f }
 {	 
 	m_Camera.SetLevelBoundaries(m_Level.GetBoundaries());
 	Initialize( );
+	AddEnemies( );
 }
 
 Game::~Game( )
@@ -31,8 +31,8 @@ void Game::Cleanup( )
 void Game::Update( float elapsedSec )
 {
 	// Update game objects
-	m_Avatar.Update( elapsedSec, m_Level );
-	m_Enemy.Update( elapsedSec, m_Level) ;
+	m_Avatar.Update( elapsedSec, m_Level, m_EnemyManager.GetEnemies() );
+	m_EnemyManager.Update( elapsedSec, m_Level );
 }
 
 void Game::Draw( ) const
@@ -47,7 +47,7 @@ void Game::Draw( ) const
 		m_Level.DrawBackground(cameraTransformation);
 		m_Level.DrawLevel( );
 		m_Avatar.Draw( );
-		m_Enemy.Draw( );
+		m_EnemyManager.Draw( );
 		m_Level.DrawPitTexture(Point2f{ 571, 14 });
 		m_Level.DrawPitTexture(Point2f{ 6966, 6 });
 		m_Level.DrawPitMonsterPitTexture(Point2f{ 7828, 0 });
@@ -78,4 +78,9 @@ void Game::ClearBackground( ) const
 {
 	glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
+}
+
+void Game::AddEnemies( )
+{
+	m_EnemyManager.AddEnemy(Point2f{ 76.f, 84.f }, 1.5f, 5);
 }
