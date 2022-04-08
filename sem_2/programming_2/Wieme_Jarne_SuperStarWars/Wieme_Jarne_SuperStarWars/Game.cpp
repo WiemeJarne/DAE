@@ -32,7 +32,7 @@ void Game::Update( float elapsedSec )
 {
 	// Update game objects
 	m_Avatar.Update( elapsedSec, m_Level, m_EnemyManager.GetEnemies() );
-	m_EnemyManager.Update( elapsedSec, m_Level );
+	m_EnemyManager.Update(elapsedSec, m_Level, m_Avatar);
 }
 
 void Game::Draw( ) const

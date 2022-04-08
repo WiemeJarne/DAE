@@ -15,14 +15,17 @@ Avatar::Avatar()
 	,m_Acceleration{ 0.f, -981.f }
 	,m_FacingDirection{1}
 	,m_pBulletManager{ new BulletManager(0.65f) }
-	,m_ShootDelay{}
+	,m_ShootDelay{ }
 	,m_BulletVelocity{ 500.f }
+	,m_StartHealth{ 15 }
+	,m_AccuHitSec{ }
 {
+	m_Health = m_StartHealth;
 	InitializeSprites( );
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
 }
 
-Avatar::~Avatar()
+Avatar::~Avatar( )
 {
 	for (Sprite* sprite : m_sprites)
 	{
@@ -32,7 +35,7 @@ Avatar::~Avatar()
 	delete m_pBulletManager;
 }
 
-void Avatar::InitializeSprites()
+void Avatar::InitializeSprites( )
 {
 	float framesPerSec{ 3 };
 
@@ -63,13 +66,22 @@ void Avatar::InitializeSprites()
 	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUp.png", Sprite::animType::loop, 2, 1, framesPerSec });
 
 	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUpRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
+
+	framesPerSec = 1;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Die.png", Sprite::animType::dontRepeat, 2, 1, framesPerSec });
 }
 
 void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies)
 {
+	std::cout << m_Health << std::endl;
+
+	m_AccuHitSec += elapsedSec;
+
 	m_ShootDelay += elapsedSec;
 
 	m_pBulletManager->HandleCollision(enemies);
+
+	HandleCollision(enemies);
 
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
 
@@ -78,6 +90,17 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 
 	HandleInput(level);
 		
+	if (m_Health == 0)
+	{
+		if (m_ActionState != ActionState::dead)
+		{
+			m_sprites[int(ActionState::dead)]->SetFrameNr(0);
+			m_sprites[int(ActionState::dead)]->SetAccuSec(0.f);
+		}
+
+		m_ActionState = ActionState::dead;
+	}
+
 	switch (m_ActionState)
 	{
 	case ActionState::walking:
@@ -128,7 +151,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 	StayInLevelBoundaries(level);
 }
 
-void Avatar::Draw() const
+void Avatar::Draw( ) const
 {
 	glPushMatrix();
 
@@ -148,12 +171,12 @@ void Avatar::Draw() const
 	glPopMatrix();
 }
 
-Rectf Avatar::GetShape() const
+Rectf Avatar::GetShape( ) const
 {
 	return m_Shape;
 }
 
-void Avatar::DrawAvatar() const
+void Avatar::DrawAvatar( ) const
 {
 	m_sprites[int(m_ActionState)]->Draw( );
 }
@@ -168,6 +191,7 @@ void Avatar::HandleInput(const Level& level)
 	SDL_Scancode down{ SDL_Scancode::SDL_SCANCODE_S };
 	SDL_Scancode jump{ SDL_Scancode::SDL_SCANCODE_SPACE };
 	SDL_Scancode shoot{ SDL_Scancode::SDL_SCANCODE_LSHIFT };
+	SDL_Scancode reset{ SDL_Scancode::SDL_SCANCODE_R };
 
 	if (pStates[left])
 	{
@@ -248,7 +272,8 @@ void Avatar::HandleInput(const Level& level)
 			&& !pStates[right]
 			&& !pStates[down]
 			&& !pStates[jump]
-			&& !pStates[shoot] )
+			&& !pStates[shoot]
+			&& m_Health != 0   )
 		{
 			if (m_ActionState != ActionState::idle)
 			{
@@ -288,6 +313,13 @@ void Avatar::HandleInput(const Level& level)
 				}
 			}
 		}
+	}
+
+	if (pStates[reset])
+	{
+		m_Health = m_StartHealth;
+		m_Shape.left = 0.f;
+		m_ActionState = ActionState::idle;
 	}
 }
 
@@ -343,7 +375,7 @@ void Avatar::Shoot(const Vector2f& bulletVelocity)
 	}
 }
 
-Point2f Avatar::DetermineBulletPos() const
+Point2f Avatar::DetermineBulletPos( ) const
 {
 	Point2f bulletBottomLeftPoint{};
 
@@ -408,4 +440,24 @@ Point2f Avatar::DetermineBulletPos() const
 	}
 
 	return bulletBottomLeftPoint;
+}
+
+void Avatar::Hit( )
+{
+	if (m_Health > 0 && m_AccuHitSec > .5f)
+	{
+		m_AccuHitSec = 0.f;
+		--m_Health;
+	}
+}
+
+void Avatar::HandleCollision(std::vector<Enemy*> enemies)
+{
+	for (Enemy* enemy : enemies)
+	{
+		if (utils::IsOverlapping(enemy->GetShape(), m_Shape))
+		{
+			Hit( );
+		}
+	}
 }

@@ -5,7 +5,8 @@
 class Level;
 class Texture;
 class Sprite;
-class Bullet;
+class EnemyBulletManager;
+class Avatar;
 
 class Enemy final
 {
@@ -18,13 +19,20 @@ public:
 	Enemy& operator=(const Enemy& rhs) = delete;
 	Enemy& operator=(Enemy&& rhs) = delete;
 
-	void Update(float elapsedSec, const Level& level);
+	void Update(float elapsedSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
 	void Hit( );
 	Rectf GetShape( ) const;
 	int GetHeath( ) const;
 
 private:
+	enum class ActionState
+	{
+		walking,
+		attacking
+	};
+
+	ActionState m_ActionState;
 	Rectf m_Shape;
 	Vector2f m_Velocity;
 	Vector2f m_Acceleration;
@@ -34,7 +42,12 @@ private:
 	float m_AccuSec;
 	int m_Health;
 	const int m_StartHealth;
-	Sprite* m_Sprite;
+	std::vector<Sprite*> m_pSprites;
 	float m_RespawnDelay;
 	const Point2f m_StartPos;
+	EnemyBulletManager* m_pEnemyBulletManager;
+	float m_ShootDelay;
+	int m_FacingDirection;
+
+	void Shoot( );
 };

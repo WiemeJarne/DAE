@@ -7,11 +7,17 @@ Texture* Bullet::m_pLaserTexture{ nullptr };
 Texture* Bullet::m_pDiagonalLaserTexture{ nullptr };
 int Bullet::m_AmountOfBullets{};
 
+Bullet::Bullet(const Vector2f& velocity, const float scale, const Point2f& startPos)
+	: m_Shape{ }
+	, m_Velocity{ velocity }
+	, m_Scale{ scale }
+	, m_StartPos{ startPos }
+{
+	// no code
+}
+
 Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, const float scale)
-	:m_Shape{pos.x, pos.y, 0.f, 0.f}
-	,m_Velocity{velocity}
-	,m_Scale{scale}
-	,m_StartPos{pos}
+	: Bullet(velocity, scale, pos)
 {
 	++m_AmountOfBullets;
 
@@ -40,6 +46,8 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, const float scale)
 		m_pTexture = m_pDiagonalLaserTexture;
 	}
 
+	m_Shape.left = pos.x;
+	m_Shape.bottom = pos.y;
 	m_Shape.width = m_pTexture->GetWidth() * m_Scale;
 	m_Shape.height = m_pTexture->GetHeight() * m_Scale;
 }

@@ -19,11 +19,10 @@ public:
 	void DrawBullets() const;
 	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity);
 	void HandleCollision(std::vector<Enemy*> enemies);
-
+	
 private:
 	std::vector<Bullet*> m_pBullets;
 	const float m_BulletScale;
 
 	void DeleteBullet(const int index);
 };
-

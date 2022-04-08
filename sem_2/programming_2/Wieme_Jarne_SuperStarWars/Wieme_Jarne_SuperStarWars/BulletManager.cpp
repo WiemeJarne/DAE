@@ -3,11 +3,12 @@
 #include "Bullet.h"
 #include "EnemyManager.h"
 #include "utils.h"
+#include "EnemyBullet.h"
 #include <iostream>
 
 BulletManager::BulletManager(const float bulletScale)
-	:m_pBullets{}
-	,m_BulletScale{bulletScale}
+	: m_pBullets{ }
+	, m_BulletScale{ bulletScale }
 {
 }
 
@@ -51,17 +52,6 @@ void BulletManager::DrawBullets() const
 	}
 }
 
-void BulletManager::DeleteBullet(const int index)
-{
-	if (m_pBullets[index] != nullptr)
-	{
-		delete m_pBullets[index];
-
-		m_pBullets[index] = m_pBullets.back();
-		m_pBullets.pop_back();
-	}
-}
-
 void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity)
 {
 	m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_BulletScale });
@@ -76,7 +66,7 @@ void BulletManager::HandleCollision(std::vector<Enemy*> enemies)
 		for (Bullet* bullet : m_pBullets)
 		{
 			if (utils::IsOverlapping(enemy->GetShape(), bullet->GetShape())
-				&& enemy->GetHeath() > 0                                   )
+				&& enemy->GetHeath() > 0                                    )
 			{
 				DeleteBullet(index);
 				enemy->Hit();
@@ -84,5 +74,16 @@ void BulletManager::HandleCollision(std::vector<Enemy*> enemies)
 
 			++index;
 		}
+	}
+}
+
+void BulletManager::DeleteBullet(const int index)
+{
+	if (m_pBullets[index] != nullptr && m_pBullets.size() > 0)
+	{
+		delete m_pBullets[index];
+
+		m_pBullets[index] = m_pBullets.back();
+		m_pBullets.pop_back();
 	}
 }

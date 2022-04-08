@@ -3,6 +3,7 @@
 
 class Enemy;
 class Level;
+class Avatar;
 
 class EnemyManager final
 {
@@ -10,17 +11,18 @@ public:
 	explicit EnemyManager( );
 	EnemyManager(const EnemyManager& other) = delete;
 	EnemyManager(EnemyManager&& other) = delete;
-	~EnemyManager();
+	~EnemyManager( );
 
 	EnemyManager& operator=(const EnemyManager& rhs) = delete;
 	EnemyManager& operator=(EnemyManager&& rhs) = delete;
 
-	void Update(float elapsecSec, const Level& level);
+	void Update(float elapsecSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
 	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health);
-	std::vector<Enemy*> GetEnemies();
+	std::vector<Enemy*> GetEnemies( );
 
 private:
 	std::vector<Enemy*> m_pEnemies;
+
 	void DeleteEnemy(const int index);
 };

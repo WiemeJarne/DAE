@@ -105,7 +105,7 @@ void Sprite::SetAccuSec(const float accuSec)
 	m_AccuSec = accuSec;
 }
 
-int Sprite::Get()
+int Sprite::GetFrameNr()
 {
 	return m_FrameNr;
 }

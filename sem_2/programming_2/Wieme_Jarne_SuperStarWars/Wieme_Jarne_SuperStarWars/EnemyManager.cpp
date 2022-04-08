@@ -2,6 +2,7 @@
 #include "EnemyManager.h"
 #include "Enemy.h"
 #include "Level.h"
+#include "Avatar.h"
 #include <iostream>
 
 EnemyManager::EnemyManager( )
@@ -18,13 +19,13 @@ EnemyManager::~EnemyManager( )
 	m_pEnemies.clear();
 }
 
-void EnemyManager::Update(float elapsecSec, const Level& level)
+void EnemyManager::Update(float elapsecSec, const Level& level, Avatar& avatar)
 {
 	int index{};
 
 	for (Enemy* enemy : m_pEnemies)
 	{
-		enemy->Update(elapsecSec, level);
+		enemy->Update(elapsecSec, level, avatar);
 
 		++index;
 	}

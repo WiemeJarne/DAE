@@ -14,14 +14,15 @@ public:
 	explicit Avatar();
 	Avatar(const Avatar& avatar) = delete;
 	Avatar(Avatar&& avatar) = delete;
-	~Avatar();
+	~Avatar( );
 
 	Avatar& operator=(const Avatar& rhs) = delete;
 	Avatar& operator=(Avatar&& rhs) = delete;
 
 	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies);
-	void Draw() const;
-	Rectf GetShape() const;
+	void Draw( ) const;
+	Rectf GetShape( ) const;
+	void Hit( );
 
 private:
 	enum class ActionState
@@ -37,7 +38,8 @@ private:
 		jumpShoot,
 		jumpShootDown,
 		jumpShootUp,
-		jumpShootUpDiagonal
+		jumpShootUpDiagonal,
+		dead
 	};
 
 	ActionState m_ActionState;
@@ -51,6 +53,9 @@ private:
 	float m_ShootDelay;
 	const float m_BulletVelocity;
 	std::vector<Sprite*> m_sprites;
+	int m_Health;
+	const int m_StartHealth;
+	float m_AccuHitSec;
 
 	void InitializeSprites( );
 	void Moving(float elapsedSec);
@@ -58,7 +63,8 @@ private:
 	void StayInLevelBoundaries(const Level& level);
 	void ChangeShapeDimensions(int nrOfFrames);
 	void HandleInput(const Level& level);
-	void DrawAvatar() const;
+	void DrawAvatar( ) const;
 	void Shoot(const Vector2f& bulletVelocity);
 	Point2f DetermineBulletPos() const;
+	void HandleCollision(std::vector<Enemy*> enemies);
 };

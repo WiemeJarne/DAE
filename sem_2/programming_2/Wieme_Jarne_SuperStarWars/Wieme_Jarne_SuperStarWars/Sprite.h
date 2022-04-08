@@ -27,7 +27,7 @@ public:
 	float GetFrameWidth( ) const;
 	float GetFrameHeight( ) const;
 	int GetAmountOfFrames( ) const;
-	int Get();
+	int GetFrameNr();
 	void SetFrameNr(const int frameSec);
 	void SetAccuSec(const float accuSec);
 
