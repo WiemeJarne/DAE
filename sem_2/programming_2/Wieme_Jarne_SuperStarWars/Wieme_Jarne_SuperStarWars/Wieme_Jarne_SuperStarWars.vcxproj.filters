@@ -84,6 +84,12 @@
     <ClCompile Include="EnemyBulletManager.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="FlyingEnemy.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="WormEnemy.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -150,6 +156,12 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBulletManager.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingEnemy.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="WormEnemy.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

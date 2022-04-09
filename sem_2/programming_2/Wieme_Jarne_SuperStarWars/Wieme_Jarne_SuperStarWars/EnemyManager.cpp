@@ -3,7 +3,8 @@
 #include "Enemy.h"
 #include "Level.h"
 #include "Avatar.h"
-#include <iostream>
+#include "FlyingEnemy.h"
+#include "WormEnemy.h"
 
 EnemyManager::EnemyManager( )
 {
@@ -39,9 +40,21 @@ void EnemyManager::Draw( ) const
 	}
 }
 
-void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
+void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind)
 {
-	m_pEnemies.push_back(new Enemy{ bottomLeftStartPoint, scale, health });
+	switch (enemyKind)
+	{
+	case EnemyManager::EnemyKind::normal:
+		m_pEnemies.push_back(new Enemy{ bottomLeftStartPoint, scale, health });
+		break;
+
+	case EnemyManager::EnemyKind::flying:
+		m_pEnemies.push_back(new FlyingEnemy{ bottomLeftStartPoint, scale, health });
+		break;
+	case EnemyManager::EnemyKind::worm:
+		m_pEnemies.push_back(new WormEnemy{ bottomLeftStartPoint, scale, health });
+		break;
+	}
 }
 
 void EnemyManager::DeleteEnemy(const int index)

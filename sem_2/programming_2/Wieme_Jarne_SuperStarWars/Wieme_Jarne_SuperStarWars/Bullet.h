@@ -1,14 +1,12 @@
 #pragma once
-#include <vector>
 #include "Vector2f.h"
 
-class Enemy;
 class Texture;
 
 class Bullet
 {
 public:
-	explicit Bullet(const Vector2f& velocity, const float scale, const Point2f& startPos);
+	explicit Bullet(const Vector2f& velocity, const float scale, const Point2f& startPos); // constructor used in EnemyBullet class
 	explicit Bullet(const Point2f& pos, const Vector2f& velocity, const float scale = 1);	
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;

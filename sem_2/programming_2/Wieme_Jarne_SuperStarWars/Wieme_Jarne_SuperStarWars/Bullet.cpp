@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Bullet.h"
 #include "Texture.h"
-#include <iostream>
 
 Texture* Bullet::m_pLaserTexture{ nullptr };
 Texture* Bullet::m_pDiagonalLaserTexture{ nullptr };
@@ -12,8 +11,8 @@ Bullet::Bullet(const Vector2f& velocity, const float scale, const Point2f& start
 	, m_Velocity{ velocity }
 	, m_Scale{ scale }
 	, m_StartPos{ startPos }
+	, m_pTexture{ }
 {
-	// no code
 }
 
 Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, const float scale)

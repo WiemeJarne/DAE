@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "EnemyBullet.h"
-#include "Texture.h"
-#include "Vector2f.h"
 #include "Sprite.h"
-#include <iostream>
 
 Sprite* EnemyBullet::m_pEnemyBullet{ nullptr };
 int EnemyBullet::m_AmountOfEnemyBullets{ };
@@ -16,7 +13,7 @@ EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, const flo
 
 	if (m_pEnemyBullet == nullptr)
 	{
-		m_pEnemyBullet = new Sprite{"Resources/Lasers/EnemyLaser.png", Sprite::animType::loop, 2, 1, 1, 1};
+		m_pEnemyBullet = new Sprite{"Resources/Lasers/EnemyLaser.png", Sprite::AnimType::loop, 2, 1, 1, 1};
 	}
 
 	m_Boundaries.left = m_StartPos.x - 250.f;

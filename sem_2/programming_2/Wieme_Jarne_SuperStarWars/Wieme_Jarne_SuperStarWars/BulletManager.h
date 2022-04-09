@@ -1,8 +1,9 @@
 #pragma once
 #include <vector>
 #include "Vector2f.h"
-#include "Bullet.h"
-#include "Enemy.h"
+
+class Bullet;
+class Enemy;
 
 class BulletManager final
 {

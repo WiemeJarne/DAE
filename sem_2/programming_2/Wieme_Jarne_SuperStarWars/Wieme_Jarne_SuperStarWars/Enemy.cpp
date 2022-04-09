@@ -4,13 +4,33 @@
 #include "Level.h"
 #include "Sprite.h"
 #include "Bullet.h"
-#include "utils.h"
 #include "EnemyBulletManager.h"
 #include "Avatar.h"
 #include <iostream>
 
+EnemyBulletManager* Enemy::m_pEnemyBulletManager{ nullptr };
+int Enemy::m_amountOfEnemies{ };
+
+Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration)
+	: m_ActionState{ }
+	, m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
+	, m_Velocity{ velocity }
+	, m_Acceleration{ acceleration }
+	, m_Scale{ scale }
+	, m_AccuSec{ }
+	, m_Health{ health }
+	, m_StartHealth{ health }
+	, m_RespawnDelay{ }
+	, m_StartPos{ bottomLeftStartPoint }
+	, m_AttackDelay{ }
+	, m_FacingDirection{ 1 }
+	, m_LeftBoundary{ }
+	, m_RightBoundary{ }
+{
+}
+
 Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: m_ActionState{ ActionState::walking }
+	: m_ActionState{ ActionState::moving }
 	, m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
 	, m_Velocity{ 75.f, 0.f }
 	, m_Acceleration{ 0.f, -981.f }
@@ -20,14 +40,20 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 	, m_StartHealth{ health }
 	, m_RespawnDelay{ }
 	, m_StartPos{ bottomLeftStartPoint }
-	, m_pEnemyBulletManager{ new EnemyBulletManager(1.f) }
-	, m_ShootDelay{ }
+	, m_AttackDelay{ }
 	, m_FacingDirection{ 1 }
 {
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Walk.png", Sprite::animType::loop, 4, 1, 10, scale });
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Attack.png", Sprite::animType::loop, 4, 1, 5, scale });
+	++m_amountOfEnemies;
 
-	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
+	if (m_pEnemyBulletManager == nullptr)
+	{
+		m_pEnemyBulletManager = new EnemyBulletManager{ 1.f };
+	}
+
+	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Walk.png", Sprite::AnimType::loop, 4, 1, 10, scale });
+	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Attack.png", Sprite::AnimType::loop, 4, 1, 5, scale });
+
+	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth( ) * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight( ) * m_Scale;
 
 	m_LeftBoundary = m_Shape.left - 35.f;
@@ -36,39 +62,28 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 
 Enemy::~Enemy( )
 {
+	--m_amountOfEnemies;
+
 	for (Sprite* sprite : m_pSprites)
 	{
 		delete sprite;
 	}
 
-	delete m_pEnemyBulletManager;
+	if (m_amountOfEnemies == 0)
+	{
+		delete m_pEnemyBulletManager;
+	}
 }
 
 void Enemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
-	Point2f avatarPos{ avatar.GetShape( ).left, avatar.GetShape( ).bottom };
+	m_AttackDelay += elapsedSec;
 
-	m_ShootDelay += elapsedSec;
+	m_pEnemyBulletManager->UpdateBullets(elapsedSec, avatar);
 
-	m_pEnemyBulletManager->UpdateBullets(elapsedSec);
+	CheckActionState(avatar);
 
-	m_pEnemyBulletManager->HandleCollision(avatar);
-
-	if ( avatarPos.x <= m_Shape.left - 50.f
-		 || avatarPos.x >= m_Shape.left + m_Shape.width + 50.f)
-	{
-		m_ActionState = ActionState::walking;
-	}
-
-	if ((  (avatarPos.x >= m_Shape.left - 50.f 
-		    && avatarPos.x <= m_Shape.left 
-		    && m_FacingDirection == -1        )
-	    || (avatarPos.x <= m_Shape.left + m_Shape.width + 50.f 
-		    && avatarPos.x >= m_Shape.left + m_Shape.width
-		    && m_FacingDirection == 1                          )))
-	{
-		m_ActionState = ActionState::attacking;
-	}
+	ChangeShapeDimensions( );
 
 	if (m_Health <= 0)
 	{
@@ -76,41 +91,28 @@ void Enemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 		if (m_RespawnDelay >= 2.f)
 		{
-			m_RespawnDelay = 0.f;
-			m_Health = m_StartHealth;
-			m_Shape.left = m_StartPos.x;
-			m_Shape.bottom = m_StartPos.y;
+			Respawn( );
 		}
 	}
 
 	if (m_Health > 0)
 	{
-		if (m_ActionState == ActionState::walking)
+		switch (m_ActionState)
 		{
-			if (m_Shape.left < m_LeftBoundary
-				|| m_Shape.left + m_Shape.width > m_RightBoundary)
+		case Enemy::ActionState::moving:
+			Moving(elapsedSec);
+			break;
+
+		case Enemy::ActionState::attacking:
+
+			if (m_Health > 0
+				&& m_pSprites[int(ActionState::attacking)]->GetFrameNr() == m_pSprites[int(ActionState::attacking)]->GetAmountOfFrames() - 1
+				&& m_AttackDelay >= 0.3f                                                                                                     )
 			{
-				m_AccuSec += elapsedSec;
-
-				if (m_AccuSec >= 0.1f)
-				{
-					m_AccuSec = 0.f;
-					m_FacingDirection *= -1;
-				}
+				m_AttackDelay = 0.f;
+				Attack();
 			}
-
-			m_Velocity.y += m_Acceleration.y * elapsedSec;
-
-			m_Shape.left += m_Velocity.x * m_FacingDirection * elapsedSec;
-			m_Shape.bottom += m_Velocity.y * elapsedSec;
-		}
-
-		if ( m_ActionState == ActionState::attacking
-			 && m_pSprites[int(ActionState::attacking)]->GetFrameNr( ) == m_pSprites[int(ActionState::attacking)]->GetAmountOfFrames( ) - 1
-			 && m_ShootDelay >= 0.3f																									    )
-		{
-			m_ShootDelay = 0.f;
-			Shoot();
+			break;
 		}
 
 		m_pSprites[int(m_ActionState)]->Update(elapsedSec);
@@ -121,7 +123,10 @@ void Enemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 void Enemy::Draw( ) const
 {
-	m_pEnemyBulletManager->DrawBullets();
+	if (m_pEnemyBulletManager != nullptr)
+	{
+		m_pEnemyBulletManager->DrawBullets();
+	}
 
 	glPushMatrix( );
 
@@ -139,7 +144,6 @@ void Enemy::Draw( ) const
 
 		if (m_Health > 0)
 		{
-			
 			m_pSprites[int(m_ActionState)]->Draw();
 		}
 		
@@ -164,7 +168,7 @@ int Enemy::GetHeath( ) const
 	return m_Health;
 }
 
-void Enemy::Shoot( )
+void Enemy::Attack( )
 {
 	Vector2f velocity{0, 180.f};
 
@@ -178,4 +182,72 @@ void Enemy::Shoot( )
 	}
 
 	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity);
+}
+
+void Enemy::Respawn( )
+{
+	m_RespawnDelay = 0.f;
+	m_Health = m_StartHealth;
+	m_Shape.left = m_StartPos.x;
+	m_Shape.bottom = m_StartPos.y;
+}
+
+bool Enemy::IsAvatarInAttackZone(const Point2f& avatarPos)
+{
+	if (((avatarPos.x >= m_LeftBoundary
+		  && avatarPos.x <= m_Shape.left
+		  && m_FacingDirection == -1    )
+	     || (avatarPos.x <= m_RightBoundary
+		     && avatarPos.x >= m_Shape.left + m_Shape.width
+	         && m_FacingDirection == 1                      )))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Enemy::CheckActionState(const Avatar& avatar)
+{
+	if (IsAvatarInAttackZone(Point2f{ avatar.GetShape().left, avatar.GetShape().bottom }))
+	{
+		m_ActionState = ActionState::attacking;
+	}
+	else
+	{
+		m_ActionState = ActionState::moving;
+	}
+}
+
+void Enemy::Moving(const float elapsedSec)
+{
+	if (m_Health > 0)
+	{
+		if (m_Shape.left < m_LeftBoundary
+			|| m_Shape.left + m_Shape.width > m_RightBoundary)
+		{
+			m_AccuSec += elapsedSec;
+
+			if (m_AccuSec >= 0.1f)
+			{
+				m_AccuSec = 0.f;
+				m_FacingDirection *= -1;
+			}
+		}
+
+		m_Velocity.y += m_Acceleration.y * elapsedSec;
+
+		m_Shape.left += m_Velocity.x * m_FacingDirection * elapsedSec;
+		m_Shape.bottom += m_Velocity.y * elapsedSec;
+	}
+}
+
+void Enemy::ChangeShapeDimensions( )
+{
+	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
+	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
+
+
 }

@@ -3,14 +3,14 @@
 #include <vector>
 
 class Level;
-class Texture;
+class Avatar;
 class Sprite;
 class EnemyBulletManager;
-class Avatar;
 
-class Enemy final
+class Enemy
 {
 public:
+	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration);
 	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health);
 	Enemy(const Enemy& other) = delete;
 	Enemy(Enemy&& other) = delete;
@@ -19,20 +19,14 @@ public:
 	Enemy& operator=(const Enemy& rhs) = delete;
 	Enemy& operator=(Enemy&& rhs) = delete;
 
-	void Update(float elapsedSec, const Level& level, Avatar& avatar);
-	void Draw( ) const;
+	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar);
+	virtual void Draw( ) const;
 	void Hit( );
 	Rectf GetShape( ) const;
 	int GetHeath( ) const;
 
-private:
-	enum class ActionState
-	{
-		walking,
-		attacking
-	};
-
-	ActionState m_ActionState;
+protected:
+	
 	Rectf m_Shape;
 	Vector2f m_Velocity;
 	Vector2f m_Acceleration;
@@ -45,9 +39,25 @@ private:
 	std::vector<Sprite*> m_pSprites;
 	float m_RespawnDelay;
 	const Point2f m_StartPos;
-	EnemyBulletManager* m_pEnemyBulletManager;
-	float m_ShootDelay;
+	float m_AttackDelay;
 	int m_FacingDirection;
 
-	void Shoot( );
+	virtual void Attack( );
+	void Respawn( );
+	bool IsAvatarInAttackZone(const Point2f& avatarPos);
+	virtual void CheckActionState(const Avatar& avatar);
+	void Moving(const float elapsedSec);
+	virtual void ChangeShapeDimensions( );
+
+	static EnemyBulletManager* m_pEnemyBulletManager;
+	static int m_amountOfEnemies;
+
+private:
+	enum class ActionState
+	{
+		moving,
+		attacking
+	};
+
+	ActionState m_ActionState;	
 };

@@ -16,7 +16,7 @@ public:
 	EnemyBulletManager& operator=(const EnemyBulletManager& rhs) = delete;
 	EnemyBulletManager& operator=(EnemyBulletManager&& rhs) = delete;
 
-	void UpdateBullets(const float elapsedSec);
+	void UpdateBullets(const float elapsedSec, Avatar& avatar);
 	void DrawBullets() const;
 	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity);
 	void HandleCollision(Avatar& avatar);

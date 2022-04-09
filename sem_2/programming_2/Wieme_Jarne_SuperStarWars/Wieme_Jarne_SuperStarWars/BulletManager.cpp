@@ -1,10 +1,8 @@
 #include "pch.h"
 #include "BulletManager.h"
 #include "Bullet.h"
-#include "EnemyManager.h"
+#include "Enemy.h"
 #include "utils.h"
-#include "EnemyBullet.h"
-#include <iostream>
 
 BulletManager::BulletManager(const float bulletScale)
 	: m_pBullets{ }

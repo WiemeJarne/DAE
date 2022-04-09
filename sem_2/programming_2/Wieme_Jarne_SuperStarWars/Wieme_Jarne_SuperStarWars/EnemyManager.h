@@ -16,9 +16,16 @@ public:
 	EnemyManager& operator=(const EnemyManager& rhs) = delete;
 	EnemyManager& operator=(EnemyManager&& rhs) = delete;
 
+	enum class EnemyKind
+	{
+		normal,
+		flying,
+		worm
+	};
+
 	void Update(float elapsecSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
-	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health);
+	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind);
 	std::vector<Enemy*> GetEnemies( );
 
 private:

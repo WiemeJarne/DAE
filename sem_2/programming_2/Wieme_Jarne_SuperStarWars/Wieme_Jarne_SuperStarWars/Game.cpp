@@ -82,5 +82,7 @@ void Game::ClearBackground( ) const
 
 void Game::AddEnemies( )
 {
-	m_EnemyManager.AddEnemy(Point2f{ 76.f, 84.f }, 1.5f, 5);
+	m_EnemyManager.AddEnemy(Point2f{ 76.f, 84.f }, 1.5f, 5, EnemyManager::EnemyKind::normal);
+	m_EnemyManager.AddEnemy(Point2f{ 76.f, 200.f }, 1.f, 5, EnemyManager::EnemyKind::flying);
+	m_EnemyManager.AddEnemy(Point2f{ 130.f, 50.f }, 1.f, 5, EnemyManager::EnemyKind::worm);
 }

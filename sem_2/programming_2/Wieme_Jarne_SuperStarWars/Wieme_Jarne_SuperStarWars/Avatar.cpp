@@ -1,24 +1,23 @@
 #include "pch.h"
 #include "Avatar.h"
 #include "Level.h"
-#include "Texture.h"
 #include "BulletManager.h"
 #include "Sprite.h"
-#include <iostream>
+#include "Enemy.h"
 
 Avatar::Avatar()
-	:m_ActionState{ActionState::idle}
-	,m_Shape{ }
-	,m_HorizontalSpeed{ 150.f }
-	,m_JumpSpeed{ 400.f }
-	,m_Velocity{ 0.f, 0.f }
-	,m_Acceleration{ 0.f, -981.f }
-	,m_FacingDirection{1}
-	,m_pBulletManager{ new BulletManager(0.65f) }
-	,m_ShootDelay{ }
-	,m_BulletVelocity{ 500.f }
-	,m_StartHealth{ 15 }
-	,m_AccuHitSec{ }
+	: m_ActionState{ActionState::idle}
+	, m_Shape{ }
+	, m_HorizontalSpeed{ 150.f }
+	, m_JumpSpeed{ 400.f }
+	, m_Velocity{ 0.f, 0.f }
+	, m_Acceleration{ 0.f, -981.f }
+	, m_FacingDirection{1}
+	, m_pBulletManager{ new BulletManager(0.65f) }
+	, m_ShootDelay{ }
+	, m_BulletVelocity{ 500.f }
+	, m_StartHealth{ 10 }
+	, m_AccuHitSec{ }
 {
 	m_Health = m_StartHealth;
 	InitializeSprites( );
@@ -35,46 +34,8 @@ Avatar::~Avatar( )
 	delete m_pBulletManager;
 }
 
-void Avatar::InitializeSprites( )
-{
-	float framesPerSec{ 3 };
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/Idle.png", Sprite::animType::repeatBackwards, 3, 1, framesPerSec });
-
-	framesPerSec = 10;
-	m_sprites.push_back(new Sprite{ "Resources/Luke/Walk.png", Sprite::animType::loop, 8, 1, framesPerSec });
-
-	framesPerSec = 15;
-	m_sprites.push_back(new Sprite{ "Resources/Luke/Slide.png", Sprite::animType::dontRepeat, 5, 1,  framesPerSec });
-
-	framesPerSec = 7;
-	m_sprites.push_back(new Sprite{ "Resources/Luke/Jump.png", Sprite::animType::dontRepeat, 3, 1, framesPerSec });
-
-	framesPerSec = 10;
-	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootDownRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootUp.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootUpRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootDownRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUp.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUpRight.png", Sprite::animType::loop, 2, 1, framesPerSec });
-
-	framesPerSec = 1;
-	m_sprites.push_back(new Sprite{ "Resources/Luke/Die.png", Sprite::animType::dontRepeat, 2, 1, framesPerSec });
-}
-
 void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies)
 {
-	std::cout << m_Health << std::endl;
-
 	m_AccuHitSec += elapsedSec;
 
 	m_ShootDelay += elapsedSec;
@@ -171,14 +132,96 @@ void Avatar::Draw( ) const
 	glPopMatrix();
 }
 
+void Avatar::Hit( )
+{
+	if (m_Health > 0 && m_AccuHitSec > .5f)
+	{
+		m_AccuHitSec = 0.f;
+		--m_Health;
+	}
+}
+
 Rectf Avatar::GetShape( ) const
 {
 	return m_Shape;
 }
 
-void Avatar::DrawAvatar( ) const
+void Avatar::InitializeSprites()
 {
-	m_sprites[int(m_ActionState)]->Draw( );
+	float framesPerSec{ 3 };
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Idle.png", Sprite::AnimType::repeatBackwards, 3, 1, framesPerSec });
+
+	framesPerSec = 10;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Walk.png", Sprite::AnimType::loop, 8, 1, framesPerSec });
+
+	framesPerSec = 15;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Slide.png", Sprite::AnimType::dontRepeat, 5, 1,  framesPerSec });
+
+	framesPerSec = 7;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Jump.png", Sprite::AnimType::dontRepeat, 3, 1, framesPerSec });
+
+	framesPerSec = 10;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootDownRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootUp.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootUpRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootDownRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUp.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUpRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
+
+	framesPerSec = 1;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Die.png", Sprite::AnimType::dontRepeat, 2, 1, framesPerSec });
+}
+
+void Avatar::Moving(float elapsedSec)
+{
+	UpdatePos(elapsedSec);
+
+	m_Velocity.y += m_Acceleration.y * elapsedSec;
+}
+
+void Avatar::UpdatePos(float elapsedSec)
+{
+	m_Shape.left += elapsedSec * m_Velocity.x;
+	m_Shape.bottom += elapsedSec * m_Velocity.y;
+}
+
+void Avatar::StayInLevelBoundaries(const Level& level)
+{
+	Rectf levelBoundaries{ level.GetBoundaries() };
+
+	if (m_Shape.left < levelBoundaries.left)
+	{
+		m_Shape.left = levelBoundaries.left;
+	}
+	else if (m_Shape.left + m_Shape.width > levelBoundaries.left + levelBoundaries.width)
+	{
+		m_Shape.left = levelBoundaries.left + levelBoundaries.width - m_Shape.width;
+	}
+
+	if (m_Shape.bottom < levelBoundaries.bottom)
+	{
+		m_Shape.bottom = levelBoundaries.bottom;
+	}
+	else if (m_Shape.bottom + m_Shape.height > levelBoundaries.bottom + levelBoundaries.height)
+	{
+		m_Shape.bottom = levelBoundaries.bottom + levelBoundaries.height - m_Shape.height;
+	}
+}
+
+void Avatar::ChangeShapeDimensions(int nrOfFrames)
+{
+	m_Shape.width = m_sprites[int(m_ActionState)]->GetFrameWidth() / nrOfFrames;
+	m_Shape.height = m_sprites[int(m_ActionState)]->GetFrameHeight();
 }
 
 void Avatar::HandleInput(const Level& level)
@@ -323,46 +366,9 @@ void Avatar::HandleInput(const Level& level)
 	}
 }
 
-void Avatar::Moving(float elapsedSec)
+void Avatar::DrawAvatar( ) const
 {
-	UpdatePos(elapsedSec);
-
-	m_Velocity.y += m_Acceleration.y * elapsedSec;
-}
-
-void Avatar::UpdatePos(float elapsedSec)
-{
-	m_Shape.left += elapsedSec * m_Velocity.x;
-	m_Shape.bottom += elapsedSec * m_Velocity.y;
-}
-
-void Avatar::StayInLevelBoundaries(const Level& level)
-{
-	Rectf levelBoundaries{ level.GetBoundaries() };
-
-	if (m_Shape.left < levelBoundaries.left)
-	{
-		m_Shape.left = levelBoundaries.left;
-	}
-	else if (m_Shape.left + m_Shape.width > levelBoundaries.left + levelBoundaries.width)
-	{
-		m_Shape.left = levelBoundaries.left + levelBoundaries.width - m_Shape.width;
-	}
-
-	if (m_Shape.bottom < levelBoundaries.bottom)
-	{
-		m_Shape.bottom = levelBoundaries.bottom;
-	}
-	else if (m_Shape.bottom + m_Shape.height > levelBoundaries.bottom + levelBoundaries.height)
-	{
-		m_Shape.bottom = levelBoundaries.bottom + levelBoundaries.height - m_Shape.height;
-	}
-}
-
-void Avatar::ChangeShapeDimensions(int nrOfFrames)
-{
-	m_Shape.width = m_sprites[int(m_ActionState)]->GetFrameWidth() / nrOfFrames;
-	m_Shape.height = m_sprites[int(m_ActionState)]->GetFrameHeight();
+	m_sprites[int(m_ActionState)]->Draw( );
 }
 
 void Avatar::Shoot(const Vector2f& bulletVelocity)
@@ -440,15 +446,6 @@ Point2f Avatar::DetermineBulletPos( ) const
 	}
 
 	return bulletBottomLeftPoint;
-}
-
-void Avatar::Hit( )
-{
-	if (m_Health > 0 && m_AccuHitSec > .5f)
-	{
-		m_AccuHitSec = 0.f;
-		--m_Health;
-	}
 }
 
 void Avatar::HandleCollision(std::vector<Enemy*> enemies)

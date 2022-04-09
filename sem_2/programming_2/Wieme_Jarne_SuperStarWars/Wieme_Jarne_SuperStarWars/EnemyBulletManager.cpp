@@ -20,7 +20,7 @@ EnemyBulletManager::~EnemyBulletManager( )
 	m_pEnemyBullets.clear();
 }
 
-void EnemyBulletManager::UpdateBullets(const float elapsedSec)
+void EnemyBulletManager::UpdateBullets(const float elapsedSec, Avatar& avatar)
 {
 	int index{};
 
@@ -37,6 +37,8 @@ void EnemyBulletManager::UpdateBullets(const float elapsedSec)
 		}
 		++index;
 	}
+
+	HandleCollision(avatar);
 }
 
 void EnemyBulletManager::DrawBullets( ) const

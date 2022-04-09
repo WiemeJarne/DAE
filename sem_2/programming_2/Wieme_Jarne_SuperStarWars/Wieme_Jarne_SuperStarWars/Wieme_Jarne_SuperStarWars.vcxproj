@@ -160,6 +160,7 @@
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Vector2f.cpp" />
+    <ClCompile Include="WormEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
@@ -190,6 +192,7 @@
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Matrix2x3.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Vector2f.h" />
+    <ClInclude Include="WormEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\BigHeart.png" />

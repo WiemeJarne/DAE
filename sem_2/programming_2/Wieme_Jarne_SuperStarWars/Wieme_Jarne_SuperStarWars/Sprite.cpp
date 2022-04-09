@@ -2,7 +2,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 
-Sprite::Sprite( const std::string& path, animType animType, int cols, int rows, float frameSec, float scale )
+Sprite::Sprite( const std::string& path, AnimType animType, int cols, int rows, float frameSec, float scale )
 	: m_TexturePath{ path }
 	, m_AnimType{ animType }
 	, m_Columns{ cols }
@@ -27,7 +27,7 @@ void Sprite::Update( float elapsedSec )
 
 	switch (m_AnimType)
 	{
-	case animType::loop:
+	case AnimType::loop:
 
 		if (m_AccuSec >= 1.f / m_FramesPerSec)
 		{
@@ -38,7 +38,7 @@ void Sprite::Update( float elapsedSec )
 
 		break;
 
-	case animType::repeatBackwards:
+	case AnimType::repeatBackwards:
 
 		if (m_AccuSec >= 1.f / m_FramesPerSec)
 		{
@@ -55,7 +55,7 @@ void Sprite::Update( float elapsedSec )
 
 		break;
 
-	case animType::dontRepeat:
+	case AnimType::dontRepeat:
 
 		if (m_FrameNr < m_Rows * m_Columns - 1)
 		{

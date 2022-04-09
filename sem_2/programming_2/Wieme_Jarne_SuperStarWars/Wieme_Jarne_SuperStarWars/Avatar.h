@@ -1,10 +1,9 @@
 #pragma once
-#include "utils.h"
-#include "Bullet.h"
 #include <vector>
+#include "Vector2f.h"
 
 class Level;
-class Texture;
+class Enemy;
 class BulletManager;
 class Sprite;
 
@@ -21,8 +20,8 @@ public:
 
 	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies);
 	void Draw( ) const;
-	Rectf GetShape( ) const;
 	void Hit( );
+	Rectf GetShape( ) const;
 
 private:
 	enum class ActionState
