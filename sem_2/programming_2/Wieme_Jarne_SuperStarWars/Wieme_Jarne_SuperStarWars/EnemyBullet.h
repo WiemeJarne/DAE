@@ -6,7 +6,13 @@ class Sprite;
 class EnemyBullet final : public Bullet
 {
 public:
-	explicit EnemyBullet(const Point2f& pos, const Vector2f& velocity, const float scale);
+	enum class BulletType
+	{
+		Enemy,
+		boss
+	};
+
+	explicit EnemyBullet(const Point2f& pos, const Vector2f& velocity, const float scale, BulletType bulletType);
 	EnemyBullet(const EnemyBullet& other) = delete;
 	EnemyBullet(EnemyBullet&& other) = delete;
 	~EnemyBullet( );
@@ -19,7 +25,10 @@ public:
 
 private:
 	const Vector2f m_Acceleration;
+	const BulletType m_BulletType;
 
 	static Sprite* m_pEnemyBullet;
 	static int m_AmountOfEnemyBullets;
+	static Sprite* m_pBossBullet;
+	static int m_AmountOfBossBullets;
 };

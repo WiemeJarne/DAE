@@ -7,7 +7,7 @@
 
 Avatar::Avatar()
 	: m_ActionState{ActionState::idle}
-	, m_Shape{ }
+	, m_Shape{ 7500.f, 0.f, 0.f, 0.f }
 	, m_HorizontalSpeed{ 150.f }
 	, m_JumpSpeed{ 400.f }
 	, m_Velocity{ 0.f, 0.f }
@@ -49,10 +49,15 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 	m_pBulletManager->UpdateBullets(elapsedSec);
 	m_sprites[int(m_ActionState)]->Update(elapsedSec);
 
-	HandleInput(level);
-		
+	if (m_Health > 0)
+	{
+		HandleInput(level);
+	}
+
 	if (m_Health == 0)
 	{
+		Moving(elapsedSec);
+
 		if (m_ActionState != ActionState::dead)
 		{
 			m_sprites[int(ActionState::dead)]->SetFrameNr(0);
@@ -60,6 +65,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 		}
 
 		m_ActionState = ActionState::dead;
+		m_Velocity.x = 0.f;
 	}
 
 	switch (m_ActionState)

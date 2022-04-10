@@ -20,7 +20,8 @@ public:
 	{
 		normal,
 		flying,
-		worm
+		worm,
+		boss
 	};
 
 	void Update(float elapsecSec, const Level& level, Avatar& avatar);

@@ -52,9 +52,9 @@ void EnemyBulletManager::DrawBullets( ) const
 	}
 }
 
-void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity)
+void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, EnemyBullet::BulletType bulletType)
 {
-	m_pEnemyBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, m_BulletScale });
+	m_pEnemyBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, m_BulletScale, bulletType });
 }
 
 void EnemyBulletManager::HandleCollision(Avatar& avatar)

@@ -90,6 +90,9 @@
     <ClCompile Include="WormEnemy.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -162,6 +165,9 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="WormEnemy.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

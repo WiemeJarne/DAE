@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include "Vector2f.h"
+#include "EnemyBullet.h"
 
-class EnemyBullet;
 class Avatar;
 
 class EnemyBulletManager final
@@ -18,7 +18,7 @@ public:
 
 	void UpdateBullets(const float elapsedSec, Avatar& avatar);
 	void DrawBullets() const;
-	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity);
+	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, EnemyBullet::BulletType bulletType);
 	void HandleCollision(Avatar& avatar);
 
 private:

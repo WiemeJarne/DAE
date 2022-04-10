@@ -181,7 +181,7 @@ void Enemy::Attack( )
 		velocity.x = 200.f;
 	}
 
-	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity);
+	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity, EnemyBullet::BulletType::Enemy);
 }
 
 void Enemy::Respawn( )
@@ -248,6 +248,4 @@ void Enemy::ChangeShapeDimensions( )
 {
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
-
-
 }

@@ -3,9 +3,9 @@
 #include <iostream>
 
 Camera::Camera(float width, float height)
-	:m_Width{width}
-	,m_Height{height}
-	,m_LevelBoundaries{}
+	: m_Width{ width }
+	, m_Height{ height }
+	, m_LevelBoundaries{ }
 {
 }
 
@@ -19,7 +19,7 @@ void Camera::Transform(const Rectf& target, const float scale, Point2f& translat
 	Point2f m_BottomLeftPoint{ Track(target, scale) };
 
 	Clamp(m_BottomLeftPoint, scale);
-
+	
 	glScalef(scale, scale, 1.f);
 	glTranslatef(-m_BottomLeftPoint.x, -m_BottomLeftPoint.y, 0);
 	translation = m_BottomLeftPoint;

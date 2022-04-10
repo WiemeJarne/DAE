@@ -85,4 +85,12 @@ void Game::AddEnemies( )
 	m_EnemyManager.AddEnemy(Point2f{ 76.f, 84.f }, 1.5f, 5, EnemyManager::EnemyKind::normal);
 	m_EnemyManager.AddEnemy(Point2f{ 76.f, 200.f }, 1.f, 5, EnemyManager::EnemyKind::flying);
 	m_EnemyManager.AddEnemy(Point2f{ 130.f, 50.f }, 1.f, 5, EnemyManager::EnemyKind::worm);
+
+	const int minXPos{ 7950 };
+	const int maxXPos{ 8015 };
+
+	Point2f bossSpawnPos{};
+	bossSpawnPos.x = float(rand() % (maxXPos - minXPos + 1) + minXPos);
+
+	m_EnemyManager.AddEnemy(bossSpawnPos, 1.f, 15, EnemyManager::EnemyKind::boss);
 }

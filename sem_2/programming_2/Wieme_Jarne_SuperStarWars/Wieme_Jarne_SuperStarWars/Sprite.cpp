@@ -57,8 +57,9 @@ void Sprite::Update( float elapsedSec )
 
 	case AnimType::dontRepeat:
 
-		if (m_FrameNr < m_Rows * m_Columns - 1)
+		if (m_FrameNr < m_Rows * m_Columns - 1 && m_AccuSec >= 1.f / m_FramesPerSec)
 		{
+			m_AccuSec -= 1.f / m_FramesPerSec;
 			++m_FrameNr;
 		}
 
