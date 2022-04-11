@@ -1,15 +1,15 @@
 #pragma once
 #include "Enemy.h"
-class Boss final : public Enemy
+class PitMonster final : public Enemy
 {
 public:
-	explicit Boss(const Point2f& bottomLeftStartPoint, float scale, int health);
-	Boss(const Boss& other) = delete;
-	Boss(Boss&& other) = delete;
-	~Boss( );
+	explicit PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health);
+	PitMonster(const PitMonster& other) = delete;
+	PitMonster(PitMonster&& other) = delete;
+	~PitMonster( );
 
-	Boss& operator=(const Boss& rhs) = delete;
-	Boss& operator=(const Boss&& rhs) = delete;
+	PitMonster& operator=(const PitMonster& rhs) = delete;
+	PitMonster& operator=(const PitMonster&& rhs) = delete;
 
 	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar) override;
 	virtual void Draw( ) const override;

@@ -13,7 +13,7 @@ public:
 		dontRepeat
 	};
 
-	explicit Sprite( const std::string& filename, AnimType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0, float scale = 1 );
+	explicit Sprite( const std::string& filename, AnimType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
 	Sprite( const Sprite& other ) = delete;
 	Sprite( Sprite&& other ) = delete;
 	~Sprite( );
@@ -41,5 +41,4 @@ private:
 	float m_AccuSec;
 	int m_FrameNr;
 	int m_FrameDirection;
-	const float m_Scale;
 };

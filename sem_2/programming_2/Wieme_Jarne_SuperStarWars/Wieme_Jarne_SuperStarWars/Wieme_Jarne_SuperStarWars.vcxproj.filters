@@ -90,7 +90,16 @@
     <ClCompile Include="WormEnemy.cpp">
       <Filter>game files</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
+    <ClCompile Include="PitMonster.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpingEnemy.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpManager.cpp">
       <Filter>game files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,8 +176,17 @@
     <ClInclude Include="WormEnemy.h">
       <Filter>game files</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
+    <ClInclude Include="PitMonster.h">
       <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingEnemy.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpManager.h">
+      <Filter>framework files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

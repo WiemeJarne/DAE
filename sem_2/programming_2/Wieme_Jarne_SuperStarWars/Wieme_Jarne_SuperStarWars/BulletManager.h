@@ -17,8 +17,8 @@ public:
 	BulletManager& operator=(BulletManager&& rhs) = delete;
 
 	void UpdateBullets(const float elapsedSec);
-	void DrawBullets() const;
-	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity);
+	void DrawBullets( ) const;
+	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, bool BlasterPowerUpActive);
 	void HandleCollision(std::vector<Enemy*> enemies);
 	
 private:

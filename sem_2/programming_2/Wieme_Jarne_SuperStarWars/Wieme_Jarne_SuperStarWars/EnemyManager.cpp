@@ -5,7 +5,8 @@
 #include "Avatar.h"
 #include "FlyingEnemy.h"
 #include "WormEnemy.h"
-#include "Boss.h"
+#include "JumpingEnemy.h"
+#include "PitMonster.h"
 
 EnemyManager::EnemyManager( )
 {
@@ -45,7 +46,7 @@ void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, in
 {
 	switch (enemyKind)
 	{
-	case EnemyKind::normal:
+	case EnemyKind::Enemy:
 		m_pEnemies.push_back(new Enemy{ bottomLeftStartPoint, scale, health });
 		break;
 
@@ -57,8 +58,11 @@ void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, in
 		m_pEnemies.push_back(new WormEnemy{ bottomLeftStartPoint, scale, health });
 		break;
 
+	case EnemyKind::jumping:
+		m_pEnemies.push_back(new JumpingEnemy{ bottomLeftStartPoint, scale, health });
+
 	case EnemyKind::boss:
-		m_pEnemies.push_back(new Boss{ bottomLeftStartPoint, scale, health });
+		m_pEnemies.push_back(new PitMonster{ bottomLeftStartPoint, scale, health });
 		break;
 	}
 }

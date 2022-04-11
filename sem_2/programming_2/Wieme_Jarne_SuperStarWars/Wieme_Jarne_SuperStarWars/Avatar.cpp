@@ -7,7 +7,7 @@
 
 Avatar::Avatar()
 	: m_ActionState{ActionState::idle}
-	, m_Shape{ 7500.f, 0.f, 0.f, 0.f }
+	, m_Shape{ }
 	, m_HorizontalSpeed{ 150.f }
 	, m_JumpSpeed{ 400.f }
 	, m_Velocity{ 0.f, 0.f }
@@ -15,9 +15,10 @@ Avatar::Avatar()
 	, m_FacingDirection{1}
 	, m_pBulletManager{ new BulletManager(0.65f) }
 	, m_ShootDelay{ }
-	, m_BulletVelocity{ 500.f }
+	, m_BulletVelocity{ 350.f }
 	, m_StartHealth{ 10 }
 	, m_AccuHitSec{ }
+	, m_BlasterPowerUpHit{ }
 {
 	m_Health = m_StartHealth;
 	InitializeSprites( );
@@ -49,10 +50,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 	m_pBulletManager->UpdateBullets(elapsedSec);
 	m_sprites[int(m_ActionState)]->Update(elapsedSec);
 
-	if (m_Health > 0)
-	{
-		HandleInput(level);
-	}
+	HandleInput(level);
 
 	if (m_Health == 0)
 	{
@@ -147,27 +145,32 @@ void Avatar::Hit( )
 	}
 }
 
+void Avatar::PowerupHit( )
+{
+	m_BlasterPowerUpHit = true;
+}
+
 Rectf Avatar::GetShape( ) const
 {
 	return m_Shape;
 }
 
-void Avatar::InitializeSprites()
+void Avatar::InitializeSprites( )
 {
 	float framesPerSec{ 3 };
 
 	m_sprites.push_back(new Sprite{ "Resources/Luke/Idle.png", Sprite::AnimType::repeatBackwards, 3, 1, framesPerSec });
 
-	framesPerSec = 10;
+	framesPerSec = 10.f;
 	m_sprites.push_back(new Sprite{ "Resources/Luke/Walk.png", Sprite::AnimType::loop, 8, 1, framesPerSec });
 
-	framesPerSec = 15;
+	framesPerSec = 15.f;
 	m_sprites.push_back(new Sprite{ "Resources/Luke/Slide.png", Sprite::AnimType::dontRepeat, 5, 1,  framesPerSec });
 
-	framesPerSec = 7;
+	framesPerSec = 7.f;
 	m_sprites.push_back(new Sprite{ "Resources/Luke/Jump.png", Sprite::AnimType::dontRepeat, 3, 1, framesPerSec });
 
-	framesPerSec = 10;
+	framesPerSec = 10.f;
 	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
 
 	m_sprites.push_back(new Sprite{ "Resources/Luke/ShootDownRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
@@ -184,7 +187,7 @@ void Avatar::InitializeSprites()
 
 	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUpRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
 
-	framesPerSec = 1;
+	framesPerSec = 3.f;
 	m_sprites.push_back(new Sprite{ "Resources/Luke/Die.png", Sprite::AnimType::dontRepeat, 2, 1, framesPerSec });
 }
 
@@ -234,141 +237,145 @@ void Avatar::HandleInput(const Level& level)
 {
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 
-	SDL_Scancode left{ SDL_Scancode::SDL_SCANCODE_A };
-	SDL_Scancode right{ SDL_Scancode::SDL_SCANCODE_D };
-	SDL_Scancode up{ SDL_Scancode::SDL_SCANCODE_W };
-	SDL_Scancode down{ SDL_Scancode::SDL_SCANCODE_S };
-	SDL_Scancode jump{ SDL_Scancode::SDL_SCANCODE_SPACE };
-	SDL_Scancode shoot{ SDL_Scancode::SDL_SCANCODE_LSHIFT };
 	SDL_Scancode reset{ SDL_Scancode::SDL_SCANCODE_R };
-
-	if (pStates[left])
-	{
-		m_FacingDirection = -1;
-	}
-
-	if (pStates[right])
-	{
-		m_FacingDirection = 1;
-	}
-
-	if (level.IsOnGround(m_Shape, m_Velocity))
-	{
-		if (pStates[left] && m_ActionState != ActionState::sliding)
-		{
-			m_Velocity.x = m_HorizontalSpeed * m_FacingDirection;
-			m_ActionState = ActionState::walking;
-		}
-
-		if (pStates[right] && m_ActionState != ActionState::sliding)
-		{
-			m_Velocity.x = m_HorizontalSpeed * m_FacingDirection;
-			m_ActionState = ActionState::walking;
-		}
-
-		if (pStates[down])
-		{
-			if (m_ActionState != ActionState::sliding)
-			{
-				m_sprites[int(ActionState::sliding)]->SetFrameNr(0);
-				m_sprites[int(ActionState::sliding)]->SetAccuSec(0.f);
-			}
-
-			const int speedMultiplier{ 2 };
-
-			m_Velocity.x = m_HorizontalSpeed * m_FacingDirection * speedMultiplier;
-
-			m_ActionState = ActionState::sliding;
-		}
-
-		if (pStates[jump] && m_ActionState != ActionState::sliding)
-		{
-			m_sprites[int(ActionState::jumping)]->SetFrameNr(0);
-			m_sprites[int(ActionState::jumping)]->SetAccuSec(0.f);
-
-			m_Velocity.y = m_JumpSpeed;
-			
-			m_ActionState = ActionState::jumping;
-		}
-
-		if (pStates[shoot])
-		{
-			m_ActionState = ActionState::shoot;
-
-			if (pStates[down])
-			{
-				m_ActionState = ActionState::shootDown;
-			}
-
-			if (pStates[up])
-			{
-				m_ActionState = ActionState::shootUp;
-
-				if (pStates[left])
-				{
-					m_ActionState = ActionState::shootUpDiagonal;
-				}
-
-				if (pStates[right])
-				{
-					m_ActionState = ActionState::shootUpDiagonal;
-				}
-			
-			}
-		}
-
-		if (   !pStates[left]
-			&& !pStates[right]
-			&& !pStates[down]
-			&& !pStates[jump]
-			&& !pStates[shoot]
-			&& m_Health != 0   )
-		{
-			if (m_ActionState != ActionState::idle)
-			{
-				m_sprites[int(ActionState::idle)]->SetFrameNr(0);
-				m_sprites[int(ActionState::idle)]->SetAccuSec(0.f);
-			}
-
-			m_Velocity.x = 0.f;
-			m_Velocity.y = 0.f;
-
-			m_ActionState = ActionState::idle;
-		}
-	}
-	else
-	{
-		if (pStates[shoot])
-		{
-			m_ActionState = ActionState::jumpShoot;
-
-			if (pStates[down])
-			{
-				m_ActionState = ActionState::jumpShootDown;
-			}
-
-			if (pStates[up])
-			{
-				m_ActionState = ActionState::jumpShootUp;
-
-				if (pStates[left])
-				{
-					m_ActionState = ActionState::jumpShootUpDiagonal;
-				}
-
-				if (pStates[right])
-				{
-					m_ActionState = ActionState::jumpShootUpDiagonal;
-				}
-			}
-		}
-	}
 
 	if (pStates[reset])
 	{
 		m_Health = m_StartHealth;
 		m_Shape.left = 0.f;
 		m_ActionState = ActionState::idle;
+	}
+
+	if (m_Health > 0)
+	{
+		SDL_Scancode left{ SDL_Scancode::SDL_SCANCODE_A };
+		SDL_Scancode right{ SDL_Scancode::SDL_SCANCODE_D };
+		SDL_Scancode up{ SDL_Scancode::SDL_SCANCODE_W };
+		SDL_Scancode down{ SDL_Scancode::SDL_SCANCODE_S };
+		SDL_Scancode jump{ SDL_Scancode::SDL_SCANCODE_SPACE };
+		SDL_Scancode shoot{ SDL_Scancode::SDL_SCANCODE_LSHIFT };
+
+		if (pStates[left])
+		{
+			m_FacingDirection = -1;
+		}
+
+		if (pStates[right])
+		{
+			m_FacingDirection = 1;
+		}
+
+		if (level.IsOnGround(m_Shape, m_Velocity))
+		{
+			if (pStates[left] && m_ActionState != ActionState::sliding)
+			{
+				m_Velocity.x = m_HorizontalSpeed * m_FacingDirection;
+				m_ActionState = ActionState::walking;
+			}
+
+			if (pStates[right] && m_ActionState != ActionState::sliding)
+			{
+				m_Velocity.x = m_HorizontalSpeed * m_FacingDirection;
+				m_ActionState = ActionState::walking;
+			}
+
+			if (pStates[down])
+			{
+				if (m_ActionState != ActionState::sliding)
+				{
+					m_sprites[int(ActionState::sliding)]->SetFrameNr(0);
+					m_sprites[int(ActionState::sliding)]->SetAccuSec(0.f);
+				}
+
+				const int speedMultiplier{ 2 };
+
+				m_Velocity.x = m_HorizontalSpeed * m_FacingDirection * speedMultiplier;
+
+				m_ActionState = ActionState::sliding;
+			}
+
+			if (pStates[jump] && m_ActionState != ActionState::sliding)
+			{
+				m_sprites[int(ActionState::jumping)]->SetFrameNr(0);
+				m_sprites[int(ActionState::jumping)]->SetAccuSec(0.f);
+
+				m_Velocity.y = m_JumpSpeed;
+
+				m_ActionState = ActionState::jumping;
+			}
+
+			if (pStates[shoot])
+			{
+				m_ActionState = ActionState::shoot;
+
+				if (pStates[down])
+				{
+					m_ActionState = ActionState::shootDown;
+				}
+
+				if (pStates[up])
+				{
+					m_ActionState = ActionState::shootUp;
+
+					if (pStates[left])
+					{
+						m_ActionState = ActionState::shootUpDiagonal;
+					}
+
+					if (pStates[right])
+					{
+						m_ActionState = ActionState::shootUpDiagonal;
+					}
+
+				}
+			}
+
+			if (!pStates[left]
+				&& !pStates[right]
+				&& !pStates[down]
+				&& !pStates[jump]
+				&& !pStates[shoot]
+				&& m_Health != 0)
+			{
+				if (m_ActionState != ActionState::idle)
+				{
+					m_sprites[int(ActionState::idle)]->SetFrameNr(0);
+					m_sprites[int(ActionState::idle)]->SetAccuSec(0.f);
+				}
+
+				m_Velocity.x = 0.f;
+				m_Velocity.y = 0.f;
+
+				m_ActionState = ActionState::idle;
+			}
+		}
+		else
+		{
+			if (pStates[shoot])
+			{
+				m_ActionState = ActionState::jumpShoot;
+
+				if (pStates[down])
+				{
+					m_ActionState = ActionState::jumpShootDown;
+				}
+
+				if (pStates[up])
+				{
+					m_ActionState = ActionState::jumpShootUp;
+
+					if (pStates[left])
+					{
+						m_ActionState = ActionState::jumpShootUpDiagonal;
+					}
+
+					if (pStates[right])
+					{
+						m_ActionState = ActionState::jumpShootUpDiagonal;
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -382,8 +389,8 @@ void Avatar::Shoot(const Vector2f& bulletVelocity)
 	if (m_ShootDelay > 0.1f)
 	{
 		m_ShootDelay = 0;
-		
-		m_pBulletManager->AddBullet( DetermineBulletPos( ), bulletVelocity );
+
+		m_pBulletManager->AddBullet( DetermineBulletPos( ), bulletVelocity, m_BlasterPowerUpHit );
 	}
 }
 

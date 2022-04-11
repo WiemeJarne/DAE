@@ -1,9 +1,9 @@
 #include "pch.h"
-#include <iostream>
 #include "Game.h"
 #include "utils.h"
 #include "Bullet.h"
 #include "Texture.h"
+#include "utils.h"
 
 Game::Game( const Window& window )
 	:m_Window{ window }
@@ -11,7 +11,6 @@ Game::Game( const Window& window )
 {	 
 	m_Camera.SetLevelBoundaries(m_Level.GetBoundaries());
 	Initialize( );
-	AddEnemies( );
 }
 
 Game::~Game( )
@@ -21,7 +20,8 @@ Game::~Game( )
 
 void Game::Initialize( )
 {
-	
+	AddEnemies( );
+	AddPowerups( );
 }
 
 void Game::Cleanup( )
@@ -33,6 +33,11 @@ void Game::Update( float elapsedSec )
 	// Update game objects
 	m_Avatar.Update( elapsedSec, m_Level, m_EnemyManager.GetEnemies() );
 	m_EnemyManager.Update(elapsedSec, m_Level, m_Avatar);
+
+	if (m_PowerupManager.HitItem( m_Avatar.GetShape( ) ))
+	{
+		m_Avatar.PowerupHit( );
+	}
 }
 
 void Game::Draw( ) const
@@ -48,10 +53,12 @@ void Game::Draw( ) const
 		m_Level.DrawLevel( );
 		m_Avatar.Draw( );
 		m_EnemyManager.Draw( );
+		m_PowerupManager.Draw( );
 		m_Level.DrawPitTexture(Point2f{ 571, 14 });
 		m_Level.DrawPitTexture(Point2f{ 6966, 6 });
 		m_Level.DrawPitMonsterPitTexture(Point2f{ 7828, 0 });
 	glPopMatrix();
+
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -82,9 +89,13 @@ void Game::ClearBackground( ) const
 
 void Game::AddEnemies( )
 {
-	m_EnemyManager.AddEnemy(Point2f{ 76.f, 84.f }, 1.5f, 5, EnemyManager::EnemyKind::normal);
-	m_EnemyManager.AddEnemy(Point2f{ 76.f, 200.f }, 1.f, 5, EnemyManager::EnemyKind::flying);
-	m_EnemyManager.AddEnemy(Point2f{ 130.f, 50.f }, 1.f, 5, EnemyManager::EnemyKind::worm);
+	/*m_EnemyManager.AddEnemy(Point2f{ 76.f, 84.f }, 1.5f, 3, EnemyManager::EnemyKind::Enemy);
+	m_EnemyManager.AddEnemy(Point2f{ 76.f, 200.f }, 1.f, 4, EnemyManager::EnemyKind::flying);
+	m_EnemyManager.AddEnemy(Point2f{ 325.f, 200.f }, 1.f, 4, EnemyManager::EnemyKind::flying);
+	m_EnemyManager.AddEnemy(Point2f{ 276.f, 84.f }, 1.5f, 4, EnemyManager::EnemyKind::Enemy);
+	m_EnemyManager.AddEnemy(Point2f{ 130.f, 0.f }, 1.f, 6, EnemyManager::EnemyKind::worm);
+	m_EnemyManager.AddEnemy(Point2f{ 100.f, 0.f }, 1.f, 7, EnemyManager::EnemyKind::jumping);
+	m_EnemyManager.AddEnemy(Point2f{ 250.f, 0.f }, 1.f, 7, EnemyManager::EnemyKind::jumping);*/
 
 	const int minXPos{ 7950 };
 	const int maxXPos{ 8015 };
@@ -93,4 +104,9 @@ void Game::AddEnemies( )
 	bossSpawnPos.x = float(rand() % (maxXPos - minXPos + 1) + minXPos);
 
 	m_EnemyManager.AddEnemy(bossSpawnPos, 1.f, 15, EnemyManager::EnemyKind::boss);
+}
+
+void Game::AddPowerups( )
+{
+	m_PowerupManager.AddItem(Point2f{ 100.f, 100.f });
 }

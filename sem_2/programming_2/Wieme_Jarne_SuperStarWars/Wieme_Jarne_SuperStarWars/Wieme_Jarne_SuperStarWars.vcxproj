@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
-    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="PitMonster.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -163,6 +163,7 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="JumpingEnemy.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix2x3.cpp" />
@@ -173,6 +174,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
+    <ClCompile Include="PowerUpManager.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="SoundStream.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -185,7 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
-    <ClInclude Include="Boss.h" />
+    <ClInclude Include="PitMonster.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Camera.h" />
@@ -196,10 +199,13 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="JumpingEnemy.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="PowerUp.h" />
+    <ClInclude Include="PowerUpManager.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SoundStream.h" />
     <ClInclude Include="Sprite.h" />

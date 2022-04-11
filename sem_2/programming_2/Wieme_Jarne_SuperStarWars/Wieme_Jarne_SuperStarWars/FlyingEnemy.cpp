@@ -9,14 +9,14 @@ FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int h
 	, m_ActionState{ ActionState::flying }
 	, m_BottomBoundary{ 50.f }
 {
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy2Fly.png", Sprite::AnimType::loop, 4, 1, 5, 1.f });
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy2Attack.png", Sprite::AnimType::dontRepeat, 3, 1, 0.f, 1.f });
+	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy2Fly.png", Sprite::AnimType::loop, 4, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy2Attack.png", Sprite::AnimType::dontRepeat, 3, 1, 0.f });
 
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
 
 	m_LeftBoundary = m_Shape.left - 60.f;
-	m_RightBoundary = m_Shape.left + m_Shape.width + 170.f;
+	m_RightBoundary = m_Shape.left + m_Shape.width + 60.f;
 }
 
 FlyingEnemy::~FlyingEnemy()
@@ -47,16 +47,6 @@ void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 		ChangeShapeDimensions( );
 
-		if (m_Shape.bottom < m_StartPos.y || m_AttackDelay >= 1.f)
-		{
-			m_AttackDelay = 0.f;
-			m_ActionState = ActionState::attacking;
-		}
-		else
-		{
-			m_ActionState = ActionState::flying;
-		}
-
 		if (m_Shape.bottom > m_StartPos.y)
 		{
 			m_Shape.bottom = m_StartPos.y;
@@ -66,6 +56,11 @@ void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		{
 		case ActionState::flying:
 			m_pSprites[int(m_ActionState)]->Update(elapsedSec);
+
+			if (m_Shape.left <= m_LeftBoundary || m_Shape.left + m_Shape.width >= m_RightBoundary)
+			{
+				m_FacingDirection *= -1;
+			}
 			break;
 
 		case ActionState::attacking:
@@ -129,6 +124,12 @@ void FlyingEnemy::CheckActionState(const Avatar& avatar)
 {
 	if (IsAvatarInAttackZone(Point2f{ avatar.GetShape().left, avatar.GetShape().bottom }))
 	{
+		m_ActionState = ActionState::attacking;
+	}
+
+	if (m_Shape.bottom < m_StartPos.y || m_AttackDelay >= 1.f)
+	{
+		m_AttackDelay = 0.f;
 		m_ActionState = ActionState::attacking;
 	}
 	else

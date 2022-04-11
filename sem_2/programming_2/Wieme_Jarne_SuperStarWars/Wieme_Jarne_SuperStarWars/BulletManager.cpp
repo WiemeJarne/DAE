@@ -50,9 +50,16 @@ void BulletManager::DrawBullets() const
 	}
 }
 
-void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity)
+void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, bool BlasterPowerUpActive)
 {
-	m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_BulletScale });
+	if (BlasterPowerUpActive)
+	{
+		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_BulletScale, Bullet::BulletType::heavy });
+	}
+	else
+	{
+		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_BulletScale, Bullet::BulletType::normal });
+	}
 }
 
 void BulletManager::HandleCollision(std::vector<Enemy*> enemies)

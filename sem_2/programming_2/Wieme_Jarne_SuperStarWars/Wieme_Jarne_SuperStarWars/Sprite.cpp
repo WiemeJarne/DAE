@@ -2,16 +2,15 @@
 #include "Sprite.h"
 #include "Texture.h"
 
-Sprite::Sprite( const std::string& path, AnimType animType, int cols, int rows, float frameSec, float scale )
+Sprite::Sprite( const std::string& path, AnimType animType, int cols, int rows, float frameSec )
 	: m_TexturePath{ path }
 	, m_AnimType{ animType }
 	, m_Columns{ cols }
 	, m_Rows{ rows }
 	, m_FramesPerSec{ frameSec }
-	, m_AccuSec{}
-	, m_FrameNr{}
-	,m_FrameDirection{ -1 }
-	,m_Scale{scale}
+	, m_AccuSec{ }
+	, m_FrameNr{ }
+	, m_FrameDirection{ -1 }
 {
 	m_pTexture = new Texture( m_TexturePath );
 }

@@ -21,6 +21,7 @@ public:
 	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies);
 	void Draw( ) const;
 	void Hit( );
+	void PowerupHit( );
 	Rectf GetShape( ) const;
 
 private:
@@ -55,6 +56,7 @@ private:
 	int m_Health;
 	const int m_StartHealth;
 	float m_AccuHitSec;
+	bool m_BlasterPowerUpHit;
 
 	void InitializeSprites( );
 	void Moving(float elapsedSec);

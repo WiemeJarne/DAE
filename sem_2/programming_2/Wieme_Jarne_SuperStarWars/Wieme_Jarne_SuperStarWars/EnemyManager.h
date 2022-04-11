@@ -18,9 +18,10 @@ public:
 
 	enum class EnemyKind
 	{
-		normal,
+		Enemy,
 		flying,
 		worm,
+		jumping,
 		boss
 	};
 

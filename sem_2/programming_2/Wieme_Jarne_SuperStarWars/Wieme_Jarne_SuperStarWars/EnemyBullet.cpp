@@ -18,7 +18,7 @@ EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, const flo
 
 		if (m_pEnemyBullet == nullptr)
 		{
-			m_pEnemyBullet = new Sprite{ "Resources/Lasers/EnemyLaser.png", Sprite::AnimType::loop, 2, 1, 1.f, 1.f };
+			m_pEnemyBullet = new Sprite{ "Resources/Lasers/EnemyLaser.png", Sprite::AnimType::loop, 2, 1, 1.f };
 		}
 	}
 	else
@@ -27,7 +27,7 @@ EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, const flo
 
 		if (m_pBossBullet == nullptr)
 		{
-			m_pBossBullet = new Sprite{ "Resources/PitMonster/AttackRock.png", Sprite::AnimType::loop, 4, 1, 2.f, 1.f };
+			m_pBossBullet = new Sprite{ "Resources/PitMonster/AttackRock.png", Sprite::AnimType::loop, 4, 1, 2.f };
 		}
 	}
 	

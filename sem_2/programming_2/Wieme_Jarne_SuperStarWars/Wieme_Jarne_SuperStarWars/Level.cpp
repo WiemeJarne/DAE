@@ -116,15 +116,32 @@ Rectf Level::GetBoundaries() const
 
 void Level::InitializePlatforms( )
 {
-	const float bigRockWidth{ 83.f };
+	const float bigRockWidth{ 70.f };
 	const float normalRockWidth{ 41.f };
-	const float smallRockWidth{ 22.f };
+	const float smallRockWidth{ 14.f };
 
-	m_Platforms.push_back(new Platform{ Point2f{76.f, 84.f}, bigRockWidth });
-	m_Platforms.push_back(new Platform{ Point2f{204.f, 84.f}, normalRockWidth });
-	m_Platforms.push_back(new Platform{ Point2f{279.f, 84.f}, smallRockWidth });
-	m_Platforms.push_back(new Platform{ Point2f{1110.f, 84.f}, bigRockWidth });
-	m_Platforms.push_back(new Platform{ Point2f{1292.f, 84.f}, bigRockWidth });
-	m_Platforms.push_back(new Platform{ Point2f{2381.f, 84.f}, bigRockWidth });
-
+	m_Platforms.push_back(new Platform{ Point2f{83.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{210.f, 90.f}, normalRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{283.f, 84.f}, smallRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{1105.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{1295.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{1438.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{2383.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{2584.f, 84.f}, smallRockWidth + bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{2895.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{3020.f, 84.f}, normalRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{3095.f, 84.f}, smallRockWidth + bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{3606.f, 84.f}, smallRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{3692.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{4888.f, 84.f}, smallRockWidth + bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{5200.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{5327.f, 84.f}, normalRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{5390.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{5534.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{6474.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{6602.f, 84.f}, normalRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{6676.f, 84.f}, smallRockWidth + bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{7498.f, 84.f}, bigRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{7626.f, 84.f}, normalRockWidth });
+	m_Platforms.push_back(new Platform{ Point2f{7699.f, 84.f}, smallRockWidth });
 }

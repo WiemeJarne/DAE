@@ -4,6 +4,7 @@
 #include "Vector2f.h"
 #include "Camera.h"
 #include "EnemyManager.h"
+#include "PowerUpManager.h"
 
 class Game final
 {
@@ -33,10 +34,12 @@ private:
 	Level m_Level;
 	Avatar m_Avatar;
 	EnemyManager m_EnemyManager;
+	PowerUpManager m_PowerupManager;
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
 	void AddEnemies( );
+	void AddPowerups( );
 };

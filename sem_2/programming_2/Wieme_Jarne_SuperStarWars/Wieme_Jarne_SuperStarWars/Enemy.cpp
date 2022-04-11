@@ -23,7 +23,7 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const
 	, m_RespawnDelay{ }
 	, m_StartPos{ bottomLeftStartPoint }
 	, m_AttackDelay{ }
-	, m_FacingDirection{ 1 }
+	, m_FacingDirection{ -1 }
 	, m_LeftBoundary{ }
 	, m_RightBoundary{ }
 {
@@ -41,7 +41,7 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 	, m_RespawnDelay{ }
 	, m_StartPos{ bottomLeftStartPoint }
 	, m_AttackDelay{ }
-	, m_FacingDirection{ 1 }
+	, m_FacingDirection{ -1 }
 {
 	++m_amountOfEnemies;
 
@@ -50,8 +50,8 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 		m_pEnemyBulletManager = new EnemyBulletManager{ 1.f };
 	}
 
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Walk.png", Sprite::AnimType::loop, 4, 1, 10, scale });
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Attack.png", Sprite::AnimType::loop, 4, 1, 5, scale });
+	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Walk.png", Sprite::AnimType::loop, 4, 1, 10 });
+	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Attack.png", Sprite::AnimType::loop, 4, 1, 5 });
 
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth( ) * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight( ) * m_Scale;
