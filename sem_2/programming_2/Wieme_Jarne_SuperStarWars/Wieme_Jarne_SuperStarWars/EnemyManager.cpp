@@ -16,7 +16,11 @@ EnemyManager::~EnemyManager( )
 {
 	for (Enemy* enemy : m_pEnemies)
 	{
-		delete enemy;
+		if (enemy != nullptr)
+		{
+			delete enemy;;
+		}
+		
 	}
 
 	m_pEnemies.clear();

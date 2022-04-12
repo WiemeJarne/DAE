@@ -7,7 +7,7 @@ class Enemy;
 class Bullet;
 class ExplosionManager;
 
-class BulletManager final
+class BulletManager
 {
 public:
 	explicit BulletManager(const float bulletScale);
@@ -18,16 +18,18 @@ public:
 	BulletManager& operator=(const BulletManager& rhs) = delete;
 	BulletManager& operator=(BulletManager&& rhs) = delete;
 
-	void UpdateBullets(const float elapsedSec, const Level& level);
-	void DrawBullets( ) const;
+	void Update(const float elapsedSec, const Level& level);
+	virtual void Draw( ) const;
 	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, bool BlasterPowerUpActive);
 	void HandleCollisionWithEnemies(std::vector<Enemy*> enemies);
 	
-private:
-	std::vector<Bullet*> m_pBullets;
+protected:
 	const float m_BulletScale;
+	std::vector<Bullet*> m_pBullets;
 	ExplosionManager* m_pExplosionManager;
 
-	void DeleteBullet(int index);
+	virtual void DeleteBullet(int index);
+	
+private:
 	float DetermineExplosionSize(int bulletIndex) const;
 };

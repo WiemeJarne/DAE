@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "BulletManager.h"
-#include "Bullet.h"
-#include "Enemy.h"
-#include "utils.h"
 #include "Level.h"
+#include "Enemy.h"
+#include "Bullet.h"
 #include "ExplosionManager.h"
-#include "Explosion.h"
+#include "EnemyBullet.h"
+#include "utils.h"
 
 BulletManager::BulletManager(const float bulletScale)
 	: m_pBullets{ }
@@ -26,7 +26,7 @@ BulletManager::~BulletManager( )
 	delete m_pExplosionManager;
 }
 
-void BulletManager::UpdateBullets(const float elapsedSec, const Level& level)
+void BulletManager::Update(const float elapsedSec, const Level& level)
 {
 	int index{};
 
@@ -59,7 +59,7 @@ void BulletManager::UpdateBullets(const float elapsedSec, const Level& level)
 	m_pExplosionManager->Update(elapsedSec);
 }
 
-void BulletManager::DrawBullets( ) const
+void BulletManager::Draw( ) const
 {
 	for (Bullet* bullet : m_pBullets)
 	{
@@ -121,7 +121,15 @@ void BulletManager::DeleteBullet(int index)
 {
 	if (index < m_pBullets.size() && m_pBullets[index] != nullptr)
 	{
-		delete m_pBullets[index];
+		EnemyBullet* pEnemyBullet{ dynamic_cast<EnemyBullet*>(m_pBullets[index]) };
+		if (pEnemyBullet != nullptr)
+		{
+			delete pEnemyBullet;
+		}
+		else
+		{
+			delete m_pBullets[index];
+		}
 
 		m_pBullets[index] = m_pBullets.back();
 		m_pBullets.pop_back();

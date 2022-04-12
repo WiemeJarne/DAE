@@ -32,7 +32,7 @@ void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	{
 		m_AttackDelay += elapsedSec;
 
-		m_pEnemyBulletManager->UpdateBullets(elapsedSec, avatar, level);
+		m_pEnemyBulletManager->Update(elapsedSec, avatar, level);
 
 		CheckActionState(avatar);
 

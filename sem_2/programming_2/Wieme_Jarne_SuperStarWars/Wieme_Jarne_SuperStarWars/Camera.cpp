@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Camera.h"
-#include <iostream>
 
 Camera::Camera(float width, float height)
 	: m_Width{ width }

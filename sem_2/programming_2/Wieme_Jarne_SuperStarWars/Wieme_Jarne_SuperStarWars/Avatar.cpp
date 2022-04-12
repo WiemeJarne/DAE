@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Avatar.h"
 #include "Level.h"
+#include "Enemy.h"
 #include "BulletManager.h"
 #include "Sprite.h"
-#include "Enemy.h"
 
 Avatar::Avatar()
 	: m_ActionState{ActionState::idle}
@@ -49,7 +49,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames( ));
 
-	m_pBulletManager->UpdateBullets(elapsedSec, level);
+	m_pBulletManager->Update(elapsedSec, level);
 
 	m_sprites[int(m_ActionState)]->Update(elapsedSec);
 
@@ -124,7 +124,7 @@ void Avatar::Draw( ) const
 {
 	glPushMatrix( );
 
-		m_pBulletManager->DrawBullets();
+		m_pBulletManager->Draw();
 
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
 

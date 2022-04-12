@@ -1,35 +1,19 @@
 #include "pch.h"
 #include "EnemyBulletManager.h"
-#include "EnemyBullet.h"
-#include "utils.h"
 #include "Avatar.h"
 #include "ExplosionManager.h"
-#include "Explosion.h"
+#include "utils.h"
 
 EnemyBulletManager::EnemyBulletManager(const float bulletScale)
-	: m_pEnemyBullets{ }
-	, m_BulletScale{ bulletScale }
-	, m_pExplosionManager{ new ExplosionManager{} }
+	: BulletManager(bulletScale)
 {
 }
 
-EnemyBulletManager::~EnemyBulletManager( )
-{
-	for (EnemyBullet* enemyBullet : m_pEnemyBullets)
-	{
-		delete enemyBullet;
-	}
-
-	m_pEnemyBullets.clear( );
-
-	delete m_pExplosionManager;
-}
-
-void EnemyBulletManager::UpdateBullets(const float elapsedSec, Avatar& avatar, const Level& level)
+void EnemyBulletManager::Update(const float elapsedSec, Avatar& avatar, const Level& level)
 {
 	int index{};
 
-	for (EnemyBullet* enemyBullet : m_pEnemyBullets)
+	for (Bullet* enemyBullet : m_pBullets)
 	{
 		if (enemyBullet != nullptr)
 		{
@@ -46,32 +30,19 @@ void EnemyBulletManager::UpdateBullets(const float elapsedSec, Avatar& avatar, c
 	
 	m_pExplosionManager->Update(elapsedSec);
 
-	HandleCollision(avatar);
-}
-
-void EnemyBulletManager::Draw( ) const
-{
-	for (EnemyBullet* bullet : m_pEnemyBullets)
-	{
-		if (bullet != nullptr)
-		{
-			bullet->Draw();
-		}
-	}
-
-	m_pExplosionManager->Draw( );
+	HandleCollisionWithAvatar(avatar);
 }
 
 void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, EnemyBullet::BulletType bulletType)
 {
-	m_pEnemyBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, m_BulletScale, bulletType });
+	m_pBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, m_BulletScale, bulletType });
 }
 
-void EnemyBulletManager::HandleCollision(Avatar& avatar)
+void EnemyBulletManager::HandleCollisionWithAvatar(Avatar& avatar)
 {
 	int index{};
 
-	for (EnemyBullet* enemyBullet : m_pEnemyBullets)
+	for (Bullet* enemyBullet : m_pBullets)
 	{
 		if (utils::IsOverlapping(avatar.GetShape( ), enemyBullet->GetShape( )))
 		{
@@ -84,20 +55,9 @@ void EnemyBulletManager::HandleCollision(Avatar& avatar)
 	}
 }
 
-void EnemyBulletManager::DeleteBullet(const int index)
-{
-	if (m_pEnemyBullets[index] != nullptr && m_pEnemyBullets.size() > 0)
-	{
-		delete m_pEnemyBullets[index];
-
-		m_pEnemyBullets[index] = m_pEnemyBullets.back();
-		m_pEnemyBullets.pop_back();
-	}
-}
-
 void EnemyBulletManager::DeleteAllEnemyBullets( )
 {
-	for (EnemyBullet* enemyBullet : m_pEnemyBullets)
+	for (Bullet* enemyBullet : m_pBullets)
 	{
 		if (enemyBullet != nullptr)
 		{
@@ -105,10 +65,10 @@ void EnemyBulletManager::DeleteAllEnemyBullets( )
 		}
 	}
 
-	for (EnemyBullet* enemyBullet : m_pEnemyBullets)
+	for (Bullet* enemyBullet : m_pBullets)
 	{
-		m_pEnemyBullets.pop_back( );
+		m_pBullets.pop_back( );
 	}
 
-	m_pEnemyBullets.clear( );
+	m_pBullets.clear( );
 }

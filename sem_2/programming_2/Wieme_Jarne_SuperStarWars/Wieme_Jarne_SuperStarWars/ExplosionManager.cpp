@@ -3,6 +3,7 @@
 #include "Sprite.h"
 
 ExplosionManager::ExplosionManager( )
+	: m_pExplosions{ }
 {
 }
 
@@ -10,8 +11,13 @@ ExplosionManager::~ExplosionManager( )
 {
 	for (Explosion* explosion : m_pExplosions)
 	{
-		delete explosion;
+		if (explosion != nullptr)
+		{
+			delete explosion;
+		}
 	}
+
+	m_pExplosions.clear( );
 }
 
 void ExplosionManager::Update(float elapsedSec)

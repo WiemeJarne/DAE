@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "Enemy.h"
-#include "Texture.h"
 #include "Level.h"
-#include "Sprite.h"
-#include "Bullet.h"
-#include "EnemyBulletManager.h"
 #include "Avatar.h"
+#include "Sprite.h"
+#include "EnemyBulletManager.h"
 
 Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking)
 	: m_ActionState{ }
@@ -23,26 +21,14 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const
 	, m_LeftBoundary{ }
 	, m_RightBoundary{ }
 	, m_DistanceFromAvatarWhenAttacking{ distanceFromAvatarWhenAttacking }
+	, m_pEnemyBulletManager{ new EnemyBulletManager{1.f} }
 {
-	m_pEnemyBulletManager = new EnemyBulletManager{ 1.f };
 }
 
 Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: m_ActionState{ ActionState::moving }
-	, m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
-	, m_Velocity{ 25.f, 0.f }
-	, m_Acceleration{ 0.f, -981.f }
-	, m_Scale{ scale }
-	, m_AccuSec{ }
-	, m_Health{ health }
-	, m_StartHealth{ health }
-	, m_SecondsAftherDeath{ }
-	, m_StartPos{ bottomLeftStartPoint }
-	, m_AttackDelay{ }
-	, m_FacingDirection{ -1 }
-	, m_DistanceFromAvatarWhenAttacking{ 60.f }
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 25.f, 0.f }, Vector2f{ 0.f, -981.f }, 60.f)
 {
-	m_pEnemyBulletManager = new EnemyBulletManager{ 1.f };
+	m_ActionState = ActionState::moving;
 
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Walk.png", Sprite::AnimType::loop, 4, 1, 10 });
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy1Attack.png", Sprite::AnimType::loop, 4, 1, 5 });
@@ -82,7 +68,7 @@ void Enemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	{
 		m_AttackDelay += elapsedSec;
 
-		m_pEnemyBulletManager->UpdateBullets(elapsedSec, avatar, level);
+		m_pEnemyBulletManager->Update(elapsedSec, avatar, level);
 
 		CheckActionState(avatar);
 
@@ -163,11 +149,11 @@ void Enemy::Attack( )
 
 	if (m_FacingDirection == -1)
 	{
-		velocity.x = -150.f;
+		velocity.x = -200.f;
 	}
 	else
 	{
-		velocity.x = 150.f;
+		velocity.x = 200.f;
 	}
 
 	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity, EnemyBullet::BulletType::Enemy);

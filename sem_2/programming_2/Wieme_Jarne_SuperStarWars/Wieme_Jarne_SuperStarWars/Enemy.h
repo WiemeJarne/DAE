@@ -1,6 +1,6 @@
 #pragma once
-#include "Vector2f.h"
 #include <vector>
+#include "Vector2f.h"
 
 class Level;
 class Avatar;
