@@ -5,14 +5,11 @@
 #include "Level.h"
 
 JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f})
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f)
 	, m_ActionState{ ActionState::idle }
 {
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy4Idle.png", Sprite::AnimType::loop, 3, 1, 3.f });
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy4Jump.png", Sprite::AnimType::dontRepeat, 3, 1, 3.f });
-
-	m_LeftBoundary = m_Shape.left - 100.f;
-	m_RightBoundary = m_Shape.left + m_Shape.width + 100.f;
 }
 
 JumpingEnemy::~JumpingEnemy( )
@@ -27,9 +24,9 @@ void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
 	if (m_Health <= 0)
 	{
-		m_RespawnDelay += elapsedSec;
+		m_SecondsAftherDeath += elapsedSec;
 
-		if (m_RespawnDelay >= 2.f)
+		if (m_SecondsAftherDeath >= 5.f)
 		{
 			Respawn( );
 		}

@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "Bullet.h"
 #include "Texture.h"
-#include <iostream>
+#include "Level.h"
+#include "Sprite.h"
 
 Texture* Bullet::m_pLaserTexture{ nullptr };
 Texture* Bullet::m_pDiagonalLaserTexture{ nullptr };
@@ -100,11 +101,17 @@ Bullet::~Bullet()
 
 		if (m_AmountOfBullets == 0)
 		{
-			delete m_pLaserTexture;
-			m_pLaserTexture = nullptr;
+			if (m_pLaserTexture != nullptr)
+			{
+				delete m_pLaserTexture;
+				m_pLaserTexture = nullptr;
+			}
 
-			delete m_pDiagonalLaserTexture;
-			m_pDiagonalLaserTexture = nullptr;
+			if (m_pDiagonalLaserTexture)
+			{
+				delete m_pDiagonalLaserTexture;
+				m_pDiagonalLaserTexture = nullptr;
+			}
 		}
 	}
 	else if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
@@ -137,9 +144,9 @@ void Bullet::Update(float elapsedSec)
 	}
 }
 
-void Bullet::Draw() const
+void Bullet::Draw( ) const
 {
-	glPushMatrix();
+	glPushMatrix( );
 
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0);
 
@@ -191,7 +198,7 @@ void Bullet::Draw() const
 			}
 		}
 
-	glPopMatrix();
+	glPopMatrix( );
 }
 
 bool Bullet::IsBulletOutOfBoundaries() const
@@ -206,7 +213,22 @@ bool Bullet::IsBulletOutOfBoundaries() const
 	return false;
 }
 
-Rectf Bullet::GetShape()
+bool Bullet::DidBulletHitGround(const Level& level) const
+{
+	if (level.IsOnGround(m_Shape, m_Velocity))
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+Rectf Bullet::GetShape( ) const
 {
 	return m_Shape;
+}
+
+Bullet::BulletType Bullet::GetBulletType( ) const
+{
+	return m_BulletType;
 }

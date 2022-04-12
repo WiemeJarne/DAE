@@ -1,8 +1,9 @@
 #pragma once
 #include "Vector2f.h"
-#include "Sprite.h"
 
 class Texture;
+class Level;
+class Sprite;
 
 class Bullet
 {
@@ -25,7 +26,9 @@ public:
 	virtual void Update(float elapsedSec);
 	virtual void Draw( ) const;
 	bool IsBulletOutOfBoundaries( ) const;
-	Rectf GetShape( );
+	bool DidBulletHitGround(const Level& level) const;
+	Rectf GetShape( ) const;
+	BulletType GetBulletType( ) const;
 
 protected:
 	Rectf m_Shape;

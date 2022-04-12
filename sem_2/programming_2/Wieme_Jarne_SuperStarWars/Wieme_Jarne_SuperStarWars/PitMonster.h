@@ -1,5 +1,8 @@
 #pragma once
 #include "Enemy.h"
+
+class EnemyBulletManager;
+
 class PitMonster final : public Enemy
 {
 public:

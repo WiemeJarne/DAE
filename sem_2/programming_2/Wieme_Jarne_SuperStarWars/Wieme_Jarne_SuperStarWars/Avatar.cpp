@@ -15,8 +15,8 @@ Avatar::Avatar()
 	, m_FacingDirection{1}
 	, m_pBulletManager{ new BulletManager(0.65f) }
 	, m_ShootDelay{ }
-	, m_BulletVelocity{ 350.f }
-	, m_StartHealth{ 10 }
+	, m_BulletVelocity{ 300.f }
+	, m_StartHealth{ 20 }
 	, m_AccuHitSec{ }
 	, m_BlasterPowerUpHit{ }
 {
@@ -37,25 +37,29 @@ Avatar::~Avatar( )
 
 void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies)
 {
+	UpdateYPos(elapsedSec);
+
 	m_AccuHitSec += elapsedSec;
 
 	m_ShootDelay += elapsedSec;
 
-	m_pBulletManager->HandleCollision(enemies);
+	m_pBulletManager->HandleCollisionWithEnemies(enemies);
 
 	HandleCollision(enemies);
 
-	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
+	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames( ));
 
-	m_pBulletManager->UpdateBullets(elapsedSec);
+	m_pBulletManager->UpdateBullets(elapsedSec, level);
+
 	m_sprites[int(m_ActionState)]->Update(elapsedSec);
 
-	HandleInput(level);
+	if (m_AccuHitSec >= 0.1f)
+	{
+		HandleInput(level);
+	}
 
 	if (m_Health == 0)
 	{
-		Moving(elapsedSec);
-
 		if (m_ActionState != ActionState::dead)
 		{
 			m_sprites[int(ActionState::dead)]->SetFrameNr(0);
@@ -71,7 +75,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 	case ActionState::walking:
 	case ActionState::sliding:
 	case ActionState::jumping:
-		Moving(elapsedSec);
+		UpdateXPos(elapsedSec);
 		break;
 
 	case ActionState::shoot:
@@ -79,7 +83,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 		break;
 
 	case ActionState::shootDown:
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, -m_BulletVelocity });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, -m_BulletVelocity * 0.5f });
 		break;
 
 	case ActionState::shootUp:
@@ -87,27 +91,27 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 		break;
 
 	case ActionState::shootUpDiagonal:
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, m_BulletVelocity });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f });
 		break;
 
 	case ActionState::jumpShoot:
-		Moving(elapsedSec);
+		UpdateXPos(elapsedSec);
 		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, 0.f });
 		break;
 
 	case ActionState::jumpShootDown:
-		Moving(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, -m_BulletVelocity });
+		UpdateXPos(elapsedSec);
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, -m_BulletVelocity * 0.5f });
 		break;
 
 	case ActionState::jumpShootUp:
-		Moving(elapsedSec);
+		UpdateXPos(elapsedSec);
 		Shoot(Vector2f{ 0.f, m_BulletVelocity });
 		break;
 
 	case ActionState::jumpShootUpDiagonal:
-		Moving(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, m_BulletVelocity });
+		UpdateXPos(elapsedSec);
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f });
 		break;
 	}
 	
@@ -118,7 +122,7 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 
 void Avatar::Draw( ) const
 {
-	glPushMatrix();
+	glPushMatrix( );
 
 		m_pBulletManager->DrawBullets();
 
@@ -142,6 +146,7 @@ void Avatar::Hit( )
 	{
 		m_AccuHitSec = 0.f;
 		--m_Health;
+		m_ActionState = ActionState::hit;
 	}
 }
 
@@ -187,21 +192,22 @@ void Avatar::InitializeSprites( )
 
 	m_sprites.push_back(new Sprite{ "Resources/Luke/JumpShootUpRight.png", Sprite::AnimType::loop, 2, 1, framesPerSec });
 
+	framesPerSec = 1.f;
+	m_sprites.push_back(new Sprite{ "Resources/Luke/Hit.png", Sprite::AnimType::loop, 1, 1, framesPerSec });
+
 	framesPerSec = 3.f;
 	m_sprites.push_back(new Sprite{ "Resources/Luke/Die.png", Sprite::AnimType::dontRepeat, 2, 1, framesPerSec });
 }
 
-void Avatar::Moving(float elapsedSec)
-{
-	UpdatePos(elapsedSec);
-
-	m_Velocity.y += m_Acceleration.y * elapsedSec;
-}
-
-void Avatar::UpdatePos(float elapsedSec)
+void Avatar::UpdateXPos(float elapsedSec)
 {
 	m_Shape.left += elapsedSec * m_Velocity.x;
+}
+
+void Avatar::UpdateYPos(float elapsedSec)
+{
 	m_Shape.bottom += elapsedSec * m_Velocity.y;
+	m_Velocity.y += m_Acceleration.y * elapsedSec;
 }
 
 void Avatar::StayInLevelBoundaries(const Level& level)
@@ -465,7 +471,7 @@ void Avatar::HandleCollision(std::vector<Enemy*> enemies)
 {
 	for (Enemy* enemy : enemies)
 	{
-		if (utils::IsOverlapping(enemy->GetShape(), m_Shape))
+		if (utils::IsOverlapping(enemy->GetShape(), m_Shape) && enemy->GetHeath( ) > 0)
 		{
 			Hit( );
 		}

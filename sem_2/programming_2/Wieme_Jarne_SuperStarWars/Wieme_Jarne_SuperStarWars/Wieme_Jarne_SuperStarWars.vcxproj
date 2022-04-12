@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="ExplosionManager.cpp" />
     <ClCompile Include="PitMonster.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
@@ -188,6 +190,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="ExplosionManager.h" />
     <ClInclude Include="PitMonster.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />

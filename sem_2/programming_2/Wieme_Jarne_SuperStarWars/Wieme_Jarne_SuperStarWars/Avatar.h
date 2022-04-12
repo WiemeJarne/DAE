@@ -39,6 +39,7 @@ private:
 		jumpShootDown,
 		jumpShootUp,
 		jumpShootUpDiagonal,
+		hit,
 		dead
 	};
 
@@ -59,8 +60,8 @@ private:
 	bool m_BlasterPowerUpHit;
 
 	void InitializeSprites( );
-	void Moving(float elapsedSec);
-	void UpdatePos(float elapsedSec);
+	void UpdateXPos(float elapsedSec);
+	void UpdateYPos(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);
 	void ChangeShapeDimensions(int nrOfFrames);
 	void HandleInput(const Level& level);

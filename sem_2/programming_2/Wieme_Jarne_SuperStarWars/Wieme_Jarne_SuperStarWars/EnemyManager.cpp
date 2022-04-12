@@ -75,7 +75,7 @@ void EnemyManager::DeleteEnemy(const int index)
 	m_pEnemies.pop_back();
 }
 
-std::vector<Enemy*> EnemyManager::GetEnemies()
+std::vector<Enemy*> EnemyManager::GetEnemies( )
 {
 	return m_pEnemies;
 }

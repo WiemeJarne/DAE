@@ -4,6 +4,7 @@
 #include "EnemyBullet.h"
 
 class Avatar;
+class ExplosionManager;
 
 class EnemyBulletManager final
 {
@@ -16,14 +17,16 @@ public:
 	EnemyBulletManager& operator=(const EnemyBulletManager& rhs) = delete;
 	EnemyBulletManager& operator=(EnemyBulletManager&& rhs) = delete;
 
-	void UpdateBullets(const float elapsedSec, Avatar& avatar);
-	void DrawBullets() const;
+	void UpdateBullets(const float elapsedSec, Avatar& avatar, const Level& level);
+	void Draw( ) const;
 	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, EnemyBullet::BulletType bulletType);
 	void HandleCollision(Avatar& avatar);
+	void DeleteAllEnemyBullets( );
 
 private:
 	std::vector<EnemyBullet*> m_pEnemyBullets;
 	const float m_BulletScale;
+	ExplosionManager* m_pExplosionManager;
 
 	virtual void DeleteBullet(const int index);
 };

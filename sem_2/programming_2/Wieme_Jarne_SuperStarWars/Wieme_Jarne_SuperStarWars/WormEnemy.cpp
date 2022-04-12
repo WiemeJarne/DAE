@@ -6,7 +6,7 @@
 #include <iostream>
 
 WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{0, -981.f})
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{0, -981.f}, 10.f)
 	, m_ActionState{ ActionState::inGround }
 {
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy5InGround.png", Sprite::AnimType::dontRepeat });
@@ -14,8 +14,8 @@ WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int healt
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy5Idle.png", Sprite::AnimType::loop, 2, 1, 5.f });
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy5Attack.png", Sprite::AnimType::dontRepeat });
 
-	m_LeftBoundary = m_Shape.left - 15.f;
-	m_RightBoundary = m_Shape.left + m_Shape.width + 15.f;
+	m_LeftBoundary = m_Shape.left - 40.f;
+	m_RightBoundary = m_Shape.left + m_Shape.width + 40.f;
 }
 
 WormEnemy::~WormEnemy( )
@@ -28,16 +28,6 @@ WormEnemy::~WormEnemy( )
 
 void WormEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
-	if (m_Health <= 0)
-	{
-		m_RespawnDelay += elapsedSec;
-
-		if (m_RespawnDelay >= 2.f)
-		{
-			Respawn();
-		}
-	}
-
 	if (m_Health > 0)
 	{
 		if (avatar.GetShape().left < m_Shape.left)
@@ -92,7 +82,7 @@ void WormEnemy::Draw() const
 void WormEnemy::CheckActionState(const Avatar& avatar)
 {
 	if (avatar.GetShape().left >= m_LeftBoundary - 20.f && avatar.GetShape().left < m_LeftBoundary
-		|| avatar.GetShape().left <= m_RightBoundary + 40.f && avatar.GetShape().left > m_RightBoundary)
+		|| avatar.GetShape().left <= m_RightBoundary + 20.f && avatar.GetShape().left > m_RightBoundary)
 	{
 		if (m_ActionState == ActionState::inGround)
 		{

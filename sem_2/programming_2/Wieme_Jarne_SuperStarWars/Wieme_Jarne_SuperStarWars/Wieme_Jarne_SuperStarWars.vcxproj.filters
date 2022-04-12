@@ -102,6 +102,12 @@
     <ClCompile Include="PowerUpManager.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionManager.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -187,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="PowerUpManager.h">
       <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionManager.h">
+      <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

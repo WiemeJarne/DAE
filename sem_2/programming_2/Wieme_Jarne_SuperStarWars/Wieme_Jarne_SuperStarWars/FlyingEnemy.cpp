@@ -5,7 +5,7 @@
 #include "Avatar.h"
 
 FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{175.f, 0.f}, Vector2f{ 0.f, 0.f })
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{175.f, 0.f}, Vector2f{ 0.f, 0.f }, 40.f)
 	, m_ActionState{ ActionState::flying }
 	, m_BottomBoundary{ 50.f }
 {
@@ -29,13 +29,15 @@ FlyingEnemy::~FlyingEnemy()
 
 void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
+	m_AccuSec += elapsedSec;
+
 	m_AttackDelay += elapsedSec;
 	
 	if (m_Health <= 0)
 	{
-		m_RespawnDelay += elapsedSec;
+		m_SecondsAftherDeath += elapsedSec;
 
-		if (m_RespawnDelay >= 2.f)
+		if (m_SecondsAftherDeath >= 2.f)
 		{
 			Respawn( );
 		}
@@ -57,7 +59,7 @@ void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		case ActionState::flying:
 			m_pSprites[int(m_ActionState)]->Update(elapsedSec);
 
-			if (m_Shape.left <= m_LeftBoundary || m_Shape.left + m_Shape.width >= m_RightBoundary)
+			if ((m_Shape.left <= m_LeftBoundary || m_Shape.left + m_Shape.width >= m_RightBoundary) && m_AccuSec >= 1.f)
 			{
 				m_FacingDirection *= -1;
 			}
