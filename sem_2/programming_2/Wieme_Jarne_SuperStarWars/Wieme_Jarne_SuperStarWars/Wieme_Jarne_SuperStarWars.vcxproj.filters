@@ -188,16 +188,16 @@
     <ClInclude Include="JumpingEnemy.h">
       <Filter>game files</Filter>
     </ClInclude>
-    <ClInclude Include="PowerUp.h">
-      <Filter>framework files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUpManager.h">
-      <Filter>framework files</Filter>
-    </ClInclude>
     <ClInclude Include="Explosion.h">
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="ExplosionManager.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpManager.h">
+      <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
       <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>

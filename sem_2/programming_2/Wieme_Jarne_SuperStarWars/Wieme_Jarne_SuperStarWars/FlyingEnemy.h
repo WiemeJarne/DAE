@@ -5,8 +5,8 @@ class FlyingEnemy final : public Enemy
 {
 public:
 	explicit FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health);
-	FlyingEnemy(const Enemy& other) = delete;
-	FlyingEnemy(Enemy&& other) = delete;
+	FlyingEnemy(const FlyingEnemy& other) = delete;
+	FlyingEnemy(FlyingEnemy&& other) = delete;
 	~FlyingEnemy( );
 
 	FlyingEnemy& operator=(const FlyingEnemy& rhs) = delete;

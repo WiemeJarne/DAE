@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
-#include "PowerUp.h"
+
+class PowerUp;
 
 class PowerUpManager final
 {
@@ -13,10 +14,9 @@ public:
 	PowerUpManager& operator=(const PowerUpManager&) = delete;
 	PowerUpManager& operator=(PowerUpManager&&) = delete;
 
-	void AddItem(const Point2f& bottomLeftPos);
+	void AddPowerUp(const Point2f& bottomLeftPos);
 	void Draw( ) const;
 
-	size_t Size( ) const;
 	bool HitItem(const Rectf& rect);
 
 private:

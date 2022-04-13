@@ -7,9 +7,8 @@
 #include "EnemyBullet.h"
 #include "utils.h"
 
-BulletManager::BulletManager(const float bulletScale)
+BulletManager::BulletManager( )
 	: m_pBullets{ }
-	, m_BulletScale{ bulletScale }
 	, m_pExplosionManager{ new ExplosionManager{} }
 {
 }
@@ -26,7 +25,7 @@ BulletManager::~BulletManager( )
 	delete m_pExplosionManager;
 }
 
-void BulletManager::Update(const float elapsedSec, const Level& level)
+void BulletManager::Update(float elapsedSec, const Level& level)
 {
 	int index{};
 
@@ -72,15 +71,15 @@ void BulletManager::Draw( ) const
 	m_pExplosionManager->Draw( );
 }
 
-void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, bool BlasterPowerUpActive)
+void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, bool BlasterPowerUpActive)
 {
 	if (BlasterPowerUpActive)
 	{
-		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_BulletScale, Bullet::BulletType::heavy });
+		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, scale, Bullet::BulletType::heavy });
 	}
 	else
 	{
-		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_BulletScale, Bullet::BulletType::normal });
+		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, scale, Bullet::BulletType::normal });
 	}
 }
 

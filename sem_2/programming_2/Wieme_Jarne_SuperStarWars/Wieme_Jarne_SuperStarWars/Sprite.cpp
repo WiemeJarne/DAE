@@ -43,7 +43,7 @@ void Sprite::Update( float elapsedSec )
 		{
 			m_AccuSec -= 1.f / m_FramesPerSec;
 
-			if (m_FrameNr == (m_Rows * m_Columns) -1 || m_FrameNr == 0)
+			if (m_FrameNr == (m_Rows * m_Columns) - 1 || m_FrameNr == 0)
 			{
 				m_FrameDirection *= -1;
 			}
@@ -105,7 +105,7 @@ void Sprite::SetAccuSec(const float accuSec)
 	m_AccuSec = accuSec;
 }
 
-int Sprite::GetFrameNr()
+int Sprite::GetFrameNr( )
 {
 	return m_FrameNr;
 }

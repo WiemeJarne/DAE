@@ -2,33 +2,20 @@
 #include "EnemyBullet.h"
 #include "Sprite.h"
 
-Sprite* EnemyBullet::m_pEnemyBullet{ nullptr };
-int EnemyBullet::m_AmountOfEnemyBullets{ };
-Sprite* EnemyBullet::m_pBossBullet{ nullptr };
-int EnemyBullet::m_AmountOfBossBullets{ };
-
-EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, const float scale, BulletType bulletType)
+EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType)
 	: Bullet(pos, velocity, scale)
 	, m_Acceleration{ 0.f, -981.f }
 	, m_BulletType{ bulletType }
+	, m_pEnemyBullet{ }
+	, m_pBossBullet{ }
 {
 	if (m_BulletType == BulletType::Enemy)
 	{
-		++m_AmountOfEnemyBullets;
-
-		if (m_pEnemyBullet == nullptr)
-		{
-			m_pEnemyBullet = new Sprite{ "Resources/Lasers/EnemyLaser.png", Sprite::AnimType::loop, 2, 1, 1.f };
-		}
+		m_pEnemyBullet = new Sprite{ "Resources/Lasers/EnemyLaser.png", Sprite::AnimType::loop, 2, 1, 10.f };
 	}
 	else
 	{
-		++m_AmountOfBossBullets;
-
-		if (m_pBossBullet == nullptr)
-		{
-			m_pBossBullet = new Sprite{ "Resources/PitMonster/AttackRock.png", Sprite::AnimType::loop, 4, 1, 2.f };
-		}
+		m_pBossBullet = new Sprite{ "Resources/PitMonster/AttackRock.png", Sprite::AnimType::loop, 4, 1, 2.f };
 	}
 	
 	m_Boundaries.left = m_StartPos.x - 250.f;
@@ -41,23 +28,11 @@ EnemyBullet::~EnemyBullet( )
 {
 	if (m_BulletType == BulletType::Enemy)
 	{
-		--m_AmountOfEnemyBullets;
-
-		if (m_AmountOfEnemyBullets == 0)
-		{
-			delete m_pEnemyBullet;
-			m_pEnemyBullet = nullptr;
-		}
+		delete m_pEnemyBullet;
 	}
 	else
 	{
-		--m_AmountOfBossBullets;
-
-		if (m_AmountOfBossBullets == 0)
-		{
-			delete m_pBossBullet;
-			m_pBossBullet = nullptr;
-		}
+		delete m_pBossBullet;
 	}
 }
 

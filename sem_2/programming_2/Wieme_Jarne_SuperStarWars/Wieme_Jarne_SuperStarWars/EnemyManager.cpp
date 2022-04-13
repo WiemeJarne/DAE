@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "EnemyManager.h"
-#include "Enemy.h"
 #include "Level.h"
 #include "Avatar.h"
+#include "Enemy.h"
 #include "FlyingEnemy.h"
 #include "WormEnemy.h"
 #include "JumpingEnemy.h"
@@ -20,7 +20,6 @@ EnemyManager::~EnemyManager( )
 		{
 			delete enemy;;
 		}
-		
 	}
 
 	m_pEnemies.clear();
@@ -71,15 +70,15 @@ void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, in
 	}
 }
 
-void EnemyManager::DeleteEnemy(const int index)
+std::vector<Enemy*> EnemyManager::GetEnemies( ) const
+{
+	return m_pEnemies;
+}
+
+void EnemyManager::DeleteEnemy(int index)
 {
 	delete m_pEnemies[index];
 
 	m_pEnemies[index] = m_pEnemies.back();
 	m_pEnemies.pop_back();
-}
-
-std::vector<Enemy*> EnemyManager::GetEnemies( )
-{
-	return m_pEnemies;
 }

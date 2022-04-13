@@ -4,12 +4,12 @@
 #include "ExplosionManager.h"
 #include "utils.h"
 
-EnemyBulletManager::EnemyBulletManager(const float bulletScale)
-	: BulletManager(bulletScale)
+EnemyBulletManager::EnemyBulletManager( )
+	: BulletManager( )
 {
 }
 
-void EnemyBulletManager::Update(const float elapsedSec, Avatar& avatar, const Level& level)
+void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& level)
 {
 	int index{};
 
@@ -33,9 +33,9 @@ void EnemyBulletManager::Update(const float elapsedSec, Avatar& avatar, const Le
 	HandleCollisionWithAvatar(avatar);
 }
 
-void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, EnemyBullet::BulletType bulletType)
+void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, EnemyBullet::BulletType bulletType)
 {
-	m_pBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, m_BulletScale, bulletType });
+	m_pBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, scale, bulletType });
 }
 
 void EnemyBulletManager::HandleCollisionWithAvatar(Avatar& avatar)

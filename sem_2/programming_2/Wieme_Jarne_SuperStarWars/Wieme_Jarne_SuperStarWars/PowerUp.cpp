@@ -2,7 +2,6 @@
 #include "PowerUp.h"
 #include "Texture.h"
 #include "utils.h"
-#include <iostream>
 
 PowerUp::PowerUp(const Point2f& bottomLeftPos)
 	: m_Shape{ bottomLeftPos.x, bottomLeftPos.y, 0.f, 0.f }
@@ -12,12 +11,12 @@ PowerUp::PowerUp(const Point2f& bottomLeftPos)
 	m_Shape.height = m_pTexture->GetHeight( );
 }
 
-PowerUp::~PowerUp()
+PowerUp::~PowerUp( )
 {
 	delete m_pTexture;
 }
 
-void PowerUp::Draw() const
+void PowerUp::Draw( ) const
 {
 	glPushMatrix();
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+
 class JumpingEnemy final : public Enemy
 {
 public:
@@ -12,7 +13,7 @@ public:
 	JumpingEnemy& operator=(JumpingEnemy&& rhs) = delete;
 
 	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar) override;
-	virtual void Draw() const override;
+	virtual void Draw( ) const override;
 
 private:
 	enum class ActionState

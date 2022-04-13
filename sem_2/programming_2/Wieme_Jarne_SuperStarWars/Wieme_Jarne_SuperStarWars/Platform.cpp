@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "Platform.h"
-#include "Texture.h"
 #include "utils.h"
-#include <iostream>
 
 Platform::Platform(const Point2f& beginPoint, const float width)
-	:m_Shape{ beginPoint.x, beginPoint.y, width, 0 }
+	: m_Shape{ beginPoint.x, beginPoint.y, width, 0 }
 {
 }
 

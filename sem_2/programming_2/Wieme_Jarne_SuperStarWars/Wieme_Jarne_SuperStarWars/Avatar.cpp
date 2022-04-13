@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "BulletManager.h"
 #include "Sprite.h"
+#include "utils.h"
 
 Avatar::Avatar()
 	: m_ActionState{ActionState::idle}
@@ -13,7 +14,7 @@ Avatar::Avatar()
 	, m_Velocity{ 0.f, 0.f }
 	, m_Acceleration{ 0.f, -981.f }
 	, m_FacingDirection{1}
-	, m_pBulletManager{ new BulletManager(0.65f) }
+	, m_pBulletManager{ new BulletManager{ } }
 	, m_ShootDelay{ }
 	, m_BulletVelocity{ 300.f }
 	, m_StartHealth{ 20 }
@@ -396,7 +397,7 @@ void Avatar::Shoot(const Vector2f& bulletVelocity)
 	{
 		m_ShootDelay = 0;
 
-		m_pBulletManager->AddBullet( DetermineBulletPos( ), bulletVelocity, m_BlasterPowerUpHit );
+		m_pBulletManager->AddBullet( DetermineBulletPos( ), bulletVelocity, 0.65f, m_BlasterPowerUpHit );
 	}
 }
 

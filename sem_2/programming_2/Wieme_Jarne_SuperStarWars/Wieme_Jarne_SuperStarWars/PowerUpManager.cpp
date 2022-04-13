@@ -13,13 +13,10 @@ PowerUpManager::~PowerUpManager( )
 	for (PowerUp* index : m_pPowerups)
 	{
 		delete index;
-		index = nullptr;
 	}
-
-	m_pPowerups.clear( );
 }
 
-void PowerUpManager::AddItem(const Point2f& bottomLeftPos)
+void PowerUpManager::AddPowerUp(const Point2f& bottomLeftPos)
 {
 	m_pPowerups.push_back(new PowerUp{ bottomLeftPos });
 }
@@ -30,11 +27,6 @@ void PowerUpManager::Draw( ) const
 	{
 		index->Draw( );
 	}
-}
-
-size_t PowerUpManager::Size( ) const
-{
-	return m_pPowerups.size( );
 }
 
 bool PowerUpManager::HitItem(const Rectf& rect)

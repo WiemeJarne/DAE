@@ -1,17 +1,17 @@
 #include "pch.h"
 #include "Level.h"
 #include "Texture.h"
-#include "SVGParser.h"
 #include "Platform.h"
-#include <iostream>
+#include "SVGParser.h"
+#include "utils.h"
 
-Level::Level()
+Level::Level( )
 	:m_LevelTexture{ new Texture{"Resources/Level/Level.png" } }
 	,m_PitTexture{ new Texture{"Resources/Level/Pit.png"} }
 	,m_BossPitTexture{ new Texture{"Resources/Level/PitMonsterPit.png"} }
 	,m_BackgroundTexture{ new Texture{"Resources/Level/Background.png"} }
-	,m_Vertices{}
-	,m_Boundaries{}
+	,m_Vertices{ }
+	,m_Boundaries{ }
 {
 	SVGParser::GetVerticesFromSvgFile("Resources/Level/Level.svg", m_Vertices);
 	
@@ -21,7 +21,7 @@ Level::Level()
 	InitializePlatforms( );
 }
 
-Level::~Level()
+Level::~Level( )
 {
 	delete m_LevelTexture;
 	delete m_PitTexture;
@@ -109,7 +109,7 @@ bool Level::IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) c
 	return false;
 }
 
-Rectf Level::GetBoundaries() const
+Rectf Level::GetBoundaries( ) const
 {
 	return m_Boundaries;
 }

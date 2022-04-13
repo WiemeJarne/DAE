@@ -27,6 +27,7 @@ public:
 
 protected:
 	Rectf m_Shape;
+	const Point2f m_StartPos;
 	Vector2f m_Velocity;
 	Vector2f m_Acceleration;
 	float m_LeftBoundary;
@@ -37,7 +38,6 @@ protected:
 	const int m_StartHealth;
 	std::vector<Sprite*> m_pSprites;
 	float m_SecondsAftherDeath;
-	const Point2f m_StartPos;
 	float m_AttackDelay;
 	int m_FacingDirection;
 	float m_DistanceFromAvatarWhenAttacking;

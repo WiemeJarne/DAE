@@ -7,7 +7,7 @@ public:
 	explicit PowerUp(const Point2f& bottomLeftPos);
 	PowerUp(const PowerUp& powerUp) = delete;
 	PowerUp(PowerUp&& powerUp) = delete;
-	~PowerUp();
+	~PowerUp( );
 
 	PowerUp& operator=(const PowerUp& rhs) = delete;
 	PowerUp& operator=(PowerUp&& rhs) = delete;
@@ -19,5 +19,3 @@ private:
 	const Texture* m_pTexture;
 	Rectf m_Shape;
 };
-
-

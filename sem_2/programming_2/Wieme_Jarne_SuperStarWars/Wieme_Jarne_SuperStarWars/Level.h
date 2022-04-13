@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "utils.h"
+#include "Vector2f.h"
 
 class Texture;
 class Platform;
@@ -8,10 +8,10 @@ class Platform;
 class Level
 {
 public:
-	Level();
+	Level( );
 	Level(const Level& level) = delete;
 	Level(const Level&& level) = delete;
-	~Level();
+	~Level( );
 	
 	Level& operator=(const Level& rhs) = delete;
 	Level& operator=(const Level&& rhs) = delete;
@@ -22,7 +22,7 @@ public:
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	bool IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) const;
 	void DrawBackground(const Point2f& translation) const;
-	Rectf GetBoundaries() const;
+	Rectf GetBoundaries( ) const;
 
 private:
 	std::vector<std::vector<Point2f>> m_Vertices;

@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 
-class Enemy;
 class Level;
 class Avatar;
+class Enemy;
 
 class EnemyManager final
 {
@@ -28,10 +28,10 @@ public:
 	void Update(float elapsecSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
 	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind);
-	std::vector<Enemy*> GetEnemies( );
+	std::vector<Enemy*> GetEnemies( ) const;
 
 private:
 	std::vector<Enemy*> m_pEnemies;
 
-	void DeleteEnemy(const int index);
+	void DeleteEnemy(int index);
 };

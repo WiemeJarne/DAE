@@ -14,8 +14,8 @@ public:
 		heavy
 	};
 
-	explicit Bullet(const Vector2f& velocity, const float scale, const Point2f& startPos); // constructor used in EnemyBullet class
-	explicit Bullet(const Point2f& pos, const Vector2f& velocity, const float scale = 1, BulletType bulletType = BulletType::normal);	
+	explicit Bullet(const Vector2f& velocity, float scale, const Point2f& startPos); // constructor used in EnemyBullet class
+	explicit Bullet(const Point2f& pos, const Vector2f& velocity, float scale = 1, BulletType bulletType = BulletType::normal);	
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;
 	~Bullet( );

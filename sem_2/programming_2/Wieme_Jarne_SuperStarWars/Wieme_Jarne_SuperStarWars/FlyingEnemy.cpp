@@ -19,7 +19,7 @@ FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int h
 	m_RightBoundary = m_Shape.left + m_Shape.width + 60.f;
 }
 
-FlyingEnemy::~FlyingEnemy()
+FlyingEnemy::~FlyingEnemy( )
 {
 	for (Sprite* sprite : m_pSprites)
 	{
@@ -98,7 +98,7 @@ void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	}
 }
 
-void FlyingEnemy::Draw() const
+void FlyingEnemy::Draw( ) const
 {
 	glPushMatrix();
 

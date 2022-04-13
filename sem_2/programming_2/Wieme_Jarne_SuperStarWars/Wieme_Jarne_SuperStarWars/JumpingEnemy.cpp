@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "JumpingEnemy.h"
 #include "Sprite.h"
-#include "Avatar.h"
 #include "Level.h"
+#include "Avatar.h"
 
 JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f)

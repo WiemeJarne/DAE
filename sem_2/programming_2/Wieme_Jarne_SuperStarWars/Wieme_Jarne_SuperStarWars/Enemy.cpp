@@ -8,6 +8,7 @@
 Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking)
 	: m_ActionState{ }
 	, m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
+	, m_StartPos{ bottomLeftStartPoint }
 	, m_Velocity{ velocity }
 	, m_Acceleration{ acceleration }
 	, m_Scale{ scale }
@@ -15,13 +16,12 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const
 	, m_Health{ health }
 	, m_StartHealth{ health }
 	, m_SecondsAftherDeath{ }
-	, m_StartPos{ bottomLeftStartPoint }
 	, m_AttackDelay{ }
 	, m_FacingDirection{ -1 }
 	, m_LeftBoundary{ }
 	, m_RightBoundary{ }
 	, m_DistanceFromAvatarWhenAttacking{ distanceFromAvatarWhenAttacking }
-	, m_pEnemyBulletManager{ new EnemyBulletManager{1.f} }
+	, m_pEnemyBulletManager{ new EnemyBulletManager{ } }
 {
 }
 
@@ -36,8 +36,8 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth( ) * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight( ) * m_Scale;
 
-	m_LeftBoundary = m_Shape.left - 35.f;
-	m_RightBoundary = m_Shape.left + m_Shape.width + 35.f;
+	m_LeftBoundary = m_Shape.left - 40.f;
+	m_RightBoundary = m_Shape.left + m_Shape.width + 40.f;
 }
 
 Enemy::~Enemy( )
@@ -156,7 +156,7 @@ void Enemy::Attack( )
 		velocity.x = 200.f;
 	}
 
-	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity, EnemyBullet::BulletType::Enemy);
+	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity, 1.f, EnemyBullet::BulletType::Enemy);
 }
 
 void Enemy::Respawn( )

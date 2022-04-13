@@ -8,7 +8,7 @@ Texture* Bullet::m_pLaserTexture{ nullptr };
 Texture* Bullet::m_pDiagonalLaserTexture{ nullptr };
 int Bullet::m_AmountOfBullets{};
 
-Bullet::Bullet(const Vector2f& velocity, const float scale, const Point2f& startPos)
+Bullet::Bullet(const Vector2f& velocity, float scale, const Point2f& startPos)
 	: m_Shape{ }
 	, m_Velocity{ velocity }
 	, m_Scale{ scale }
@@ -20,7 +20,7 @@ Bullet::Bullet(const Vector2f& velocity, const float scale, const Point2f& start
 {
 }
 
-Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, const float scale, BulletType bulletType)
+Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType)
 	: Bullet(velocity, scale, pos)
 {
 	m_BulletType = bulletType;

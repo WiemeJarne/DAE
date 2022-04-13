@@ -202,5 +202,5 @@ void Game::AddEnemies( )
 
 void Game::AddPowerups( )
 {
-	m_PowerupManager.AddItem(Point2f{ 2925.f, 100.f });
+	m_PowerupManager.AddPowerUp(Point2f{ 2925.f, 100.f });
 }

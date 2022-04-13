@@ -22,9 +22,9 @@ ExplosionManager::~ExplosionManager( )
 
 void ExplosionManager::Update(float elapsedSec)
 {
-	for (int index{}; index < m_pExplosions.size(); ++index)
+	for (int index{}; index < m_pExplosions.size( ); ++index)
 	{
-		if ( m_pExplosions[index]->GetSprite()->GetFrameNr() == m_pExplosions[index]->GetSprite()->GetAmountOfFrames() - 1 )
+		if ( m_pExplosions[index]->GetSprite( )->GetFrameNr( ) == m_pExplosions[index]->GetSprite( )->GetAmountOfFrames( ) - 1 )
 		{
 			DeleteExplosion(index);
 		}

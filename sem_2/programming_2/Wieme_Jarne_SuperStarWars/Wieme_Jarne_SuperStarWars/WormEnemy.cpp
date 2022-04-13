@@ -1,9 +1,8 @@
 #include "pch.h"
 #include "WormEnemy.h"
 #include "Sprite.h"
-#include "Avatar.h"
 #include "Level.h"
-#include <iostream>
+#include "Avatar.h"
 
 WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{0, -981.f}, 10.f)
@@ -55,7 +54,7 @@ void WormEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	}
 }
 
-void WormEnemy::Draw() const
+void WormEnemy::Draw( ) const
 {
 	glPushMatrix();
 

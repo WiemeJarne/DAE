@@ -1,19 +1,17 @@
 #pragma once
-#include <vector>
 #include "Vector2f.h"
 #include "EnemyBullet.h"
 #include "BulletManager.h"
 
 class Avatar;
-class ExplosionManager;
 
 class EnemyBulletManager final : public BulletManager
 {
 public:
-	explicit EnemyBulletManager(const float bulletScale);
+	explicit EnemyBulletManager( );
 
-	void Update(const float elapsedSec, Avatar& avatar, const Level& level);
-	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, EnemyBullet::BulletType bulletType);
+	void Update(float elapsedSec, Avatar& avatar, const Level& level);
+	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, EnemyBullet::BulletType bulletType);
 	void DeleteAllEnemyBullets( );
 
 private:
