@@ -93,7 +93,7 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, float scale, Bullet
 	}
 }
 
-Bullet::~Bullet()
+Bullet::~Bullet( )
 {
 	if (m_BulletType == BulletType::normal)
 	{

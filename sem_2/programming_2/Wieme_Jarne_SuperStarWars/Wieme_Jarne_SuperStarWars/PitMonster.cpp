@@ -18,14 +18,6 @@ PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int hea
 	m_pSprites.push_back(new Sprite{ "Resources/PitMonster/Attack.png", Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
 }
 
-PitMonster::~PitMonster( )
-{
-	for (Sprite* sprite : m_pSprites)
-	{
-		delete sprite;
-	}
-}
-
 void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
 	if (m_Health > 0)

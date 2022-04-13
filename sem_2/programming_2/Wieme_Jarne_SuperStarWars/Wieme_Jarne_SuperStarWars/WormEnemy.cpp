@@ -17,14 +17,6 @@ WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int healt
 	m_RightBoundary = m_Shape.left + m_Shape.width + 40.f;
 }
 
-WormEnemy::~WormEnemy( )
-{
-	for (Sprite* sprite : m_pSprites)
-	{
-		delete sprite;
-	}
-}
-
 void WormEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
 	if (m_Health > 0)

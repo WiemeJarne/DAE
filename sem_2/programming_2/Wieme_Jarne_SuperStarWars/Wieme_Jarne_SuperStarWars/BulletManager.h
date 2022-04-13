@@ -13,7 +13,7 @@ public:
 	explicit BulletManager( );
 	BulletManager(const BulletManager& bullet) = delete;
 	BulletManager(BulletManager&& bullet) = delete;
-	~BulletManager( );
+	virtual ~BulletManager( );
 
 	BulletManager& operator=(const BulletManager& rhs) = delete;
 	BulletManager& operator=(BulletManager&& rhs) = delete;

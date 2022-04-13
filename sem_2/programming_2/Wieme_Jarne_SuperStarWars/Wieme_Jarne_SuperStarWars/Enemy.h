@@ -14,7 +14,7 @@ public:
 	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health);
 	Enemy(const Enemy& other) = delete;
 	Enemy(Enemy&& other) = delete;
-	~Enemy( );
+	virtual ~Enemy( );
 
 	Enemy& operator=(const Enemy& rhs) = delete;
 	Enemy& operator=(Enemy&& rhs) = delete;

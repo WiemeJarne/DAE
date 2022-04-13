@@ -12,14 +12,6 @@ JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int
 	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy4Jump.png", Sprite::AnimType::dontRepeat, 3, 1, 3.f });
 }
 
-JumpingEnemy::~JumpingEnemy( )
-{
-	for (Sprite* sprite : m_pSprites)
-	{
-		delete sprite;
-	}
-}
-
 void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
 	if (m_Health <= 0)

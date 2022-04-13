@@ -5,12 +5,6 @@ class PitMonster final : public Enemy
 {
 public:
 	explicit PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health);
-	PitMonster(const PitMonster& other) = delete;
-	PitMonster(PitMonster&& other) = delete;
-	~PitMonster( );
-
-	PitMonster& operator=(const PitMonster& rhs) = delete;
-	PitMonster& operator=(const PitMonster&& rhs) = delete;
 
 	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar) override;
 	virtual void Draw( ) const override;

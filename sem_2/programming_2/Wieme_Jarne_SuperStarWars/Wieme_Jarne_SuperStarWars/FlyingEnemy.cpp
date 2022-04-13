@@ -19,14 +19,6 @@ FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int h
 	m_RightBoundary = m_Shape.left + m_Shape.width + 60.f;
 }
 
-FlyingEnemy::~FlyingEnemy( )
-{
-	for (Sprite* sprite : m_pSprites)
-	{
-		delete sprite;
-	}
-}
-
 void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
 	m_AccuSec += elapsedSec;

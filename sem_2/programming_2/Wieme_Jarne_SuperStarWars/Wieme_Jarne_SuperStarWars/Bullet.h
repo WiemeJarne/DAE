@@ -18,7 +18,7 @@ public:
 	explicit Bullet(const Point2f& pos, const Vector2f& velocity, float scale = 1, BulletType bulletType = BulletType::normal);	
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;
-	~Bullet( );
+	virtual ~Bullet( );
 	
 	Bullet& operator=(const Bullet& rhs) = delete;
 	Bullet& operator=(Bullet&& rhs) = delete;

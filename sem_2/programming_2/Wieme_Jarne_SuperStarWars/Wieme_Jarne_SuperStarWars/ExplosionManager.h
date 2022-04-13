@@ -2,7 +2,7 @@
 #include <vector>
 #include "Explosion.h"
 
-class ExplosionManager
+class ExplosionManager final
 {
 public:
 	explicit ExplosionManager( );
