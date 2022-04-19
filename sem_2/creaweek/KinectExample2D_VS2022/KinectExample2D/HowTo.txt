@@ -1,0 +1,12 @@
+1. Install the provide KinectSDK-v1.8-Setup.exe
+   You can also download it from https://www.microsoft.com/en-us/download/confirmation.aspx?id=40278
+
+2. Only if you have installed this SDK in a location different from C:\Program Files\Microsoft SDKs\Kinect\v1.8: 
+   adapt the VC++ directories via project properties:
+   -> include directories
+   -> Library directories
+
+This project contains a Kinect class. 
+It initializes the kinect, gets and draws the skeleton information.
+Have a look at the tutorials on the internet, e.g. 
+https://homes.cs.washington.edu/~edzhang/tutorials/kinect/kinect4.html
