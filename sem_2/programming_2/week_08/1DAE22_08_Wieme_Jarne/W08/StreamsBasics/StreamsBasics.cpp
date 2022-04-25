@@ -7,14 +7,14 @@
 #include <fstream>
 
 void PrintInputFromConsole( );
-void ReadSentenceFromFile( );
-void WriteSentenceToFile(const std::string& sentence);
+void ReadFile( );
+void WriteFile(const std::string& str, const std::string& fileName);
 
 int main()
 {
-	//PrintInputFromConsole( );
+	PrintInputFromConsole( );
 
-	ReadSentenceFromFile( );
+	ReadFile( );
 }
 
 void PrintInputFromConsole( )
@@ -22,55 +22,62 @@ void PrintInputFromConsole( )
 	std::string sentence{ };
 	std::string line{ };
 
-	do
+	while (line.find('.') > line.size())
 	{
 		std::getline(std::cin, line);
-		sentence += ' ' + line;
-	} while (!(line.find('.') < 100000));
+
+		if (line != "")
+		{
+			sentence += line + ' ';
+		}
+	}
 
 	std::cout << sentence;
 }
 
-void ReadSentenceFromFile( )
+void ReadFile( )
 {
 	std::string fileName{ "Resources/SoftwareQuotesInput.txt" };
-	std::fstream inputStream{ fileName };
+	std::ifstream inputStream{ fileName };
 
 	if (!inputStream)
 	{
 		std::cout << "Error opening input file: " << fileName << ".\n";
+		return;
 	}
-	else
+
+	std::string textFromFile{ };
+	
+	while (inputStream)
 	{
 		std::string sentence{ };
 		std::string line{ };
 
-		do
+		while ( line.find('.') > line.size( ) && inputStream)
 		{
-			do
+			std::getline(inputStream, line);
+
+			if (line != "")
 			{
-				std::getline(inputStream, line);
-				sentence += ' ' + line;
-			} while (!(line.find('.') < 100000));
+				sentence += line + ' ';
+			}
+		}
 
-			WriteSentenceToFile(sentence);
-			sentence = "";
+		textFromFile += sentence + "\n\n";
+	} 
 
-		} while (inputStream);
-	}
+	WriteFile(textFromFile, "Resources/SoftwareQuotesOutput.txt");
 }
 
-void WriteSentenceToFile(const std::string& sentence)
+void WriteFile(const std::string& str, const std::string& fileName)
 {
-	std::string fileName{ "Resources/SoftwareQuotesOutput.txt" };
 	std::ofstream outputStream{ fileName };
 
 	if (!outputStream)
 	{
 		std::cout << "Error opening the output file: " << fileName << ".\n";
+		return;
 	}
-	else
-	{
-		outputStream << sentence << '\n';
-	}
+
+	outputStream << str;
 }
