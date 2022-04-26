@@ -9,6 +9,7 @@
 void PrintInputFromConsole( );
 void ReadFile( );
 void WriteFile(const std::string& str, const std::string& fileName);
+void ReadSentence(std::istream& inputStream, std::string& sentence);
 
 int main()
 {
@@ -19,18 +20,11 @@ int main()
 
 void PrintInputFromConsole( )
 {
+	std::cout << "Type a sentence. You can use multiple lanes. End the sentence with a dot.\n";
+
 	std::string sentence{ };
-	std::string line{ };
 
-	while (line.find('.') > line.size())
-	{
-		std::getline(std::cin, line);
-
-		if (line != "")
-		{
-			sentence += line + ' ';
-		}
-	}
+	ReadSentence(std::cin, sentence);
 
 	std::cout << sentence;
 }
@@ -51,17 +45,8 @@ void ReadFile( )
 	while (inputStream)
 	{
 		std::string sentence{ };
-		std::string line{ };
-
-		while ( line.find('.') > line.size( ) && inputStream)
-		{
-			std::getline(inputStream, line);
-
-			if (line != "")
-			{
-				sentence += line + ' ';
-			}
-		}
+		
+		ReadSentence(inputStream, sentence);
 
 		textFromFile += sentence + "\n\n";
 	} 
@@ -80,4 +65,21 @@ void WriteFile(const std::string& str, const std::string& fileName)
 	}
 
 	outputStream << str;
+
+	std::cout << "\nFile generated: " << fileName << '\n';
+}
+
+void ReadSentence(std::istream& inputStream, std::string& sentence)
+{
+	std::string line{ };
+
+	while (line.find('.') > line.size() && inputStream)
+	{
+		std::getline(inputStream, line);
+
+		if (line != "")
+		{
+			sentence += line + ' ';
+		}
+	}
 }
