@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StreamsBasics", "StreamsBas
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StreamedShapes", "StreamedShapes\StreamedShapes.vcxproj", "{63412733-7CB4-4645-BABA-EFC64B4E76DF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParseSvgFile", "ParseSvgFile\ParseSvgFile.vcxproj", "{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{63412733-7CB4-4645-BABA-EFC64B4E76DF}.Release|x64.Build.0 = Release|x64
 		{63412733-7CB4-4645-BABA-EFC64B4E76DF}.Release|x86.ActiveCfg = Release|Win32
 		{63412733-7CB4-4645-BABA-EFC64B4E76DF}.Release|x86.Build.0 = Release|Win32
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Debug|x64.ActiveCfg = Debug|x64
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Debug|x64.Build.0 = Debug|x64
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Debug|x86.ActiveCfg = Debug|Win32
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Debug|x86.Build.0 = Debug|Win32
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Release|x64.ActiveCfg = Release|x64
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Release|x64.Build.0 = Release|x64
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Release|x86.ActiveCfg = Release|Win32
+		{3BD5FBF1-7316-46BC-A766-1525D0DE5E8A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

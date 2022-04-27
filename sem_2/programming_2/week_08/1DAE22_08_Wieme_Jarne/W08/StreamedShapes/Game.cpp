@@ -26,7 +26,7 @@ void Game::Initialize()
 {
 	BasicTesting();
 	CreateLabelFont();
-	CreateShapesFromFile("Resources/Shapes.txt");
+	CreateShapesFromFile("Resources/SavedShapes.txt");
 }
 
 void Game::Cleanup()
