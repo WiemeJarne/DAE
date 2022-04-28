@@ -27,19 +27,17 @@ BulletManager::~BulletManager( )
 
 void BulletManager::Update(float elapsedSec, const Level& level)
 {
-	int index{};
-
-	for (Bullet* bullet : m_pBullets)
+	for (int index{}; index < m_pBullets.size(); ++index)
 	{
-		if (bullet != nullptr)
+		if (m_pBullets[index] != nullptr)
 		{
-			bullet->Update(elapsedSec);
+			m_pBullets[index]->Update(elapsedSec);
 
-			if (bullet->IsBulletOutOfBoundaries( ) || bullet->DidBulletHitGround(level))
+			if (m_pBullets[index]->IsBulletOutOfBoundaries() || m_pBullets[index]->DidBulletHitGround(level))
 			{
 				float explosionScale{};
 
-				if (bullet->GetBulletType() == Bullet::BulletType::normal)
+				if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::normal)
 				{
 					explosionScale = 0.75f;
 				}
@@ -48,11 +46,10 @@ void BulletManager::Update(float elapsedSec, const Level& level)
 					explosionScale = 1.25f;
 				}
 
-				m_pExplosionManager->AddExplosion(Point2f{ bullet->GetShape().left, bullet->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion);
+				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion);
 				DeleteBullet(index);
 			}
 		}
-		++index;
 	}
 
 	m_pExplosionManager->Update(elapsedSec);
@@ -85,14 +82,12 @@ void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVe
 
 void BulletManager::HandleCollisionWithEnemies(std::vector<Enemy*> enemies)
 {
-	for (Enemy* enemy : enemies)
+	for (int index{}; index < enemies.size(); ++index)
 	{
-		int index{};
-
 		for (Bullet* bullet : m_pBullets)
 		{
-			if (utils::IsOverlapping(enemy->GetShape(), bullet->GetShape())
-				&& enemy->GetHeath( ) > 0                                    )
+			if (utils::IsOverlapping(enemies[index]->GetShape(), bullet->GetShape())
+				&& enemies[index]->GetHeath( ) > 0                                    )
 			{
 				int damage{ };
 
@@ -108,10 +103,8 @@ void BulletManager::HandleCollisionWithEnemies(std::vector<Enemy*> enemies)
 					damage = 2;
 				}
 
-				enemy->Hit(damage);
+				enemies[index]->Hit(damage);
 			}
-
-			++index;
 		}
 	}
 }

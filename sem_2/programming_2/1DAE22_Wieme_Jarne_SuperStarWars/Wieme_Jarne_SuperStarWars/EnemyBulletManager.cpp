@@ -13,19 +13,18 @@ void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& l
 {
 	int index{};
 
-	for (Bullet* enemyBullet : m_pBullets)
+	for (int index{}; index < m_pBullets.size(); ++index)
 	{
-		if (enemyBullet != nullptr)
+		if (m_pBullets[index] != nullptr)
 		{
-			enemyBullet->Update(elapsedSec);
+			m_pBullets[index]->Update(elapsedSec);
 
-			if (enemyBullet->IsBulletOutOfBoundaries( ) || enemyBullet->DidBulletHitGround(level))
+			if (m_pBullets[index]->IsBulletOutOfBoundaries( ) || m_pBullets[index]->DidBulletHitGround(level))
 			{
-				m_pExplosionManager->AddExplosion(Point2f{ enemyBullet->GetShape().left, enemyBullet->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion);
+				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion);
 				DeleteBullet(index);
 			}
 		}
-		++index;
 	}
 	
 	m_pExplosionManager->Update(elapsedSec);
@@ -40,18 +39,14 @@ void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bul
 
 void EnemyBulletManager::HandleCollisionWithAvatar(Avatar& avatar)
 {
-	int index{};
-
-	for (Bullet* enemyBullet : m_pBullets)
+	for (int index{}; index < m_pBullets.size(); ++index)
 	{
-		if (utils::IsOverlapping(avatar.GetShape( ), enemyBullet->GetShape( )))
+		if (utils::IsOverlapping(avatar.GetShape( ), m_pBullets[index]->GetShape()))
 		{
 			avatar.Hit( );
-			m_pExplosionManager->AddExplosion(Point2f{ enemyBullet->GetShape().left, enemyBullet->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion);
+			m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion);
 			DeleteBullet(index);
 		}
-
-		++index;
 	}
 }
 

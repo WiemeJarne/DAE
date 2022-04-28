@@ -10,9 +10,9 @@ PowerUpManager::PowerUpManager( )
 
 PowerUpManager::~PowerUpManager( )
 {
-	for (PowerUp* index : m_pPowerups)
+	for (PowerUp* powerUp : m_pPowerups)
 	{
-		delete index;
+		delete powerUp;
 	}
 }
 
@@ -23,9 +23,9 @@ void PowerUpManager::AddPowerUp(const Point2f& bottomLeftPos)
 
 void PowerUpManager::Draw( ) const
 {
-	for (PowerUp* index : m_pPowerups)
+	for (PowerUp* powerUp : m_pPowerups)
 	{
-		index->Draw( );
+		powerUp->Draw( );
 	}
 }
 

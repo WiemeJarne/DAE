@@ -27,13 +27,9 @@ EnemyManager::~EnemyManager( )
 
 void EnemyManager::Update(float elapsecSec, const Level& level, Avatar& avatar)
 {
-	int index{};
-
-	for (Enemy* enemy : m_pEnemies)
+	for (int index{}; index < m_pEnemies.size(); ++index)
 	{
-		enemy->Update(elapsecSec, level, avatar);
-
-		++index;
+		m_pEnemies[index]->Update(elapsecSec, level, avatar);
 	}
 }
 
