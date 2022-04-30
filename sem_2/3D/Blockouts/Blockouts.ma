@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: Blockouts.ma
-//Last modified: Sat, Apr 30, 2022 12:45:05 PM
+//Last modified: Sat, Apr 30, 2022 04:42:04 PM
 //Codeset: 1252
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -13,38 +13,38 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202110272215-ad32f8f1e6";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19043)";
-fileInfo "UUID" "9D93709F-4821-EEBC-FA16-F48D8E1B0D20";
+fileInfo "UUID" "256AFF1C-4D90-1CC6-8B79-15A34421F77D";
 fileInfo "license" "education";
 createNode transform -s -n "persp";
 	rename -uid "CBB20537-40F8-A23F-4B21-26837A14FFF1";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -6432.7013462074028 1415.6931070705655 -1991.0284079146209 ;
-	setAttr ".r" -type "double3" -27.9383553618298 -27141.79999998687 0 ;
+	setAttr ".t" -type "double3" -4501.9112997252842 1497.2610919780341 1521.1111075618639 ;
+	setAttr ".r" -type "double3" -16.538353220120797 -36697.399999992464 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "6CB0EF23-4C47-136F-7BC7-2C89212700F0";
 	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".ncp" 50;
 	setAttr ".fcp" 10000000;
-	setAttr ".coi" 2233.8395867696927;
+	setAttr ".coi" 1765.3349601531932;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -3351.7043580859972 366.138916015625 -53.372963210574881 ;
+	setAttr ".tp" -type "double3" -3351.7043580859972 390.88671875 -53.372963210574881 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 	setAttr ".dgm" no;
 	setAttr ".ai_translator" -type "string" "perspective";
 createNode transform -s -n "top";
 	rename -uid "45E02EF2-4F56-EF12-FDF5-2895A3A150BC";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -6084.5300716415159 1326.2855709947669 -554.43840701499232 ;
+	setAttr ".t" -type "double3" -6073.2781848479281 1326.2855709947669 388.56386938049928 ;
 	setAttr ".r" -type "double3" -90 0 0 ;
 createNode camera -s -n "topShape" -p "top";
 	rename -uid "30CC5B27-4562-DCB1-B432-9BB785A531E9";
 	setAttr -k off ".v";
 	setAttr ".rnd" no;
 	setAttr ".coi" 960.14665497914189;
-	setAttr ".ow" 5622.2261315055894;
+	setAttr ".ow" 40.448703225964259;
 	setAttr ".imn" -type "string" "top";
 	setAttr ".den" -type "string" "top_depth";
 	setAttr ".man" -type "string" "top_mask";
@@ -14576,7 +14576,7 @@ createNode mesh -n "polySurfaceShape79" -p "polySurface165";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
-	setAttr ".pv" -type "double2" 0.328125 0.078125 ;
+	setAttr ".pv" -type "double2" 0.5 0.11576199531555176 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
 	setAttr -s 97 ".uvst[0].uvsp[0:96]" -type "float2" 0.65134108 0.11739215
 		 0.65625 0.15625 0.65134114 0.19510779 0.6369229 0.23152399 0.61390138 0.26321048
@@ -15395,7 +15395,7 @@ createNode mesh -n "landmassShape" -p "landmass";
 createNode transform -n "Character_geo";
 	rename -uid "8304E2F1-4B3C-06A2-91AF-C4ADD417BDB7";
 	addAttr -is true -ci true -k true -sn "currentUVSet" -ln "currentUVSet" -dt "string";
-	setAttr ".t" -type "double3" -4015.6923358156837 750.59121825036459 346.05900401772999 ;
+	setAttr ".t" -type "double3" -6056.5211114932044 693.71312083968257 367.48849172169861 ;
 	setAttr ".r" -type "double3" 0 -44.312922109533233 0 ;
 	setAttr -k on ".currentUVSet" -type "string" "map1";
 createNode mesh -n "Character_geoShape" -p "Character_geo";
@@ -16652,7 +16652,7 @@ createNode transform -n "polySurface167" -p "pier";
 createNode mesh -n "polySurfaceShape81" -p "polySurface167";
 	rename -uid "E0322A93-4424-F4E2-4FBA-23B9BF840D6F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16690,7 +16690,7 @@ createNode transform -n "polySurface168" -p "pier";
 createNode mesh -n "polySurfaceShape82" -p "polySurface168";
 	rename -uid "B22E77A8-45F4-AFAD-7140-17907DEE682F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16728,7 +16728,7 @@ createNode transform -n "polySurface169" -p "pier";
 createNode mesh -n "polySurfaceShape83" -p "polySurface169";
 	rename -uid "7B4D5474-4C4D-DF1F-F0A8-5593F422B313";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16764,7 +16764,7 @@ createNode transform -n "polySurface170" -p "pier";
 createNode mesh -n "polySurfaceShape84" -p "polySurface170";
 	rename -uid "26E96E22-41DC-40F5-2F2F-9CBA053374EE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16800,7 +16800,7 @@ createNode transform -n "polySurface171" -p "pier";
 createNode mesh -n "polySurfaceShape85" -p "polySurface171";
 	rename -uid "0D09D232-4B89-C49E-0F07-8898549CD274";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16836,7 +16836,7 @@ createNode transform -n "polySurface172" -p "pier";
 createNode mesh -n "polySurfaceShape86" -p "polySurface172";
 	rename -uid "8AD9883D-4922-5859-9577-C7AA18BD1B95";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16872,7 +16872,7 @@ createNode transform -n "polySurface173" -p "pier";
 createNode mesh -n "polySurfaceShape87" -p "polySurface173";
 	rename -uid "3B45FE1B-4AAB-198D-CB2D-72BA9D806572";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16910,7 +16910,7 @@ createNode transform -n "polySurface174" -p "pier";
 createNode mesh -n "polySurfaceShape88" -p "polySurface174";
 	rename -uid "6DD0CE84-47D7-A47D-7491-8393A39F8854";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16948,7 +16948,7 @@ createNode transform -n "polySurface175" -p "pier";
 createNode mesh -n "polySurfaceShape89" -p "polySurface175";
 	rename -uid "325C78EF-4CE1-094E-57DB-0DB6CA972E33";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -16986,7 +16986,7 @@ createNode transform -n "polySurface176" -p "pier";
 createNode mesh -n "polySurfaceShape90" -p "polySurface176";
 	rename -uid "2BBBA2AC-47E0-A787-00CB-9CBCC4EBE987";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17024,7 +17024,7 @@ createNode transform -n "polySurface177" -p "pier";
 createNode mesh -n "polySurfaceShape91" -p "polySurface177";
 	rename -uid "A2073A92-40FD-B6F0-95E2-BAB58D968036";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17066,7 +17066,7 @@ createNode transform -n "polySurface178" -p "pier";
 createNode mesh -n "polySurfaceShape92" -p "polySurface178";
 	rename -uid "5D298332-4AC3-9EDD-3AA2-13A6567088BF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17108,7 +17108,7 @@ createNode transform -n "polySurface179" -p "pier";
 createNode mesh -n "polySurfaceShape93" -p "polySurface179";
 	rename -uid "65549AEF-4CD2-CB3E-CDD9-418CB32AB5BA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17149,7 +17149,7 @@ createNode transform -n "polySurface180" -p "pier";
 createNode mesh -n "polySurfaceShape94" -p "polySurface180";
 	rename -uid "FCC11DC6-42C6-AA06-B137-0BAA7A0D5DB3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17191,7 +17191,7 @@ createNode transform -n "polySurface181" -p "pier";
 createNode mesh -n "polySurfaceShape95" -p "polySurface181";
 	rename -uid "0E748CD3-4BEB-E3D8-AF83-F68D52D1A9A2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17233,7 +17233,7 @@ createNode transform -n "polySurface182" -p "pier";
 createNode mesh -n "polySurfaceShape96" -p "polySurface182";
 	rename -uid "179ADC68-4286-4080-07B6-5085496349D7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17273,7 +17273,7 @@ createNode transform -n "polySurface183" -p "pier";
 createNode mesh -n "polySurfaceShape97" -p "polySurface183";
 	rename -uid "7181D004-4053-48F5-C2A6-CB85A32B1669";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17313,7 +17313,7 @@ createNode transform -n "polySurface184" -p "pier";
 createNode mesh -n "polySurfaceShape98" -p "polySurface184";
 	rename -uid "729D66D2-4DD0-B139-2458-84B31BCA78E0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17352,7 +17352,7 @@ createNode transform -n "polySurface185" -p "pier";
 createNode mesh -n "polySurfaceShape99" -p "polySurface185";
 	rename -uid "9FE78890-4C6B-520A-2492-F1AB4F3CB07C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17392,7 +17392,7 @@ createNode transform -n "polySurface186" -p "pier";
 createNode mesh -n "polySurfaceShape100" -p "polySurface186";
 	rename -uid "71A0F5F5-4F76-9AA8-5404-908DB915D5E1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17432,7 +17432,7 @@ createNode transform -n "polySurface187" -p "pier";
 createNode mesh -n "polySurfaceShape101" -p "polySurface187";
 	rename -uid "A9AC86A2-4E63-3CB6-A6D4-5EB6678D0AB4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17472,7 +17472,7 @@ createNode transform -n "polySurface188" -p "pier";
 createNode mesh -n "polySurfaceShape102" -p "polySurface188";
 	rename -uid "C4927E1A-4DFC-A3C9-F775-53A7A95492C1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17512,7 +17512,7 @@ createNode transform -n "polySurface189" -p "pier";
 createNode mesh -n "polySurfaceShape103" -p "polySurface189";
 	rename -uid "DF54630E-48D5-A6BF-6983-8B91E7125735";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17552,7 +17552,7 @@ createNode transform -n "polySurface190" -p "pier";
 createNode mesh -n "polySurfaceShape104" -p "polySurface190";
 	rename -uid "F562FAA8-4680-FA73-7C48-59BA874F542B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17592,7 +17592,7 @@ createNode transform -n "polySurface191" -p "pier";
 createNode mesh -n "polySurfaceShape105" -p "polySurface191";
 	rename -uid "407AF683-4ED8-1E9E-5E8E-3D83152BD726";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17632,7 +17632,7 @@ createNode transform -n "polySurface192" -p "pier";
 createNode mesh -n "polySurfaceShape106" -p "polySurface192";
 	rename -uid "C61FFC3A-4690-AA29-D9E6-0B98B7F99700";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17672,7 +17672,7 @@ createNode transform -n "polySurface193" -p "pier";
 createNode mesh -n "polySurfaceShape107" -p "polySurface193";
 	rename -uid "4003BCB6-4AF3-A625-9119-FFA249BDF379";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17712,7 +17712,7 @@ createNode transform -n "polySurface194" -p "pier";
 createNode mesh -n "polySurfaceShape108" -p "polySurface194";
 	rename -uid "5F24F688-40CE-C3B2-8FD8-D5BBA3CB6FD2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17752,7 +17752,7 @@ createNode transform -n "polySurface195" -p "pier";
 createNode mesh -n "polySurfaceShape109" -p "polySurface195";
 	rename -uid "C751686A-4909-FFC1-CD4F-12B549441655";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17792,7 +17792,7 @@ createNode transform -n "polySurface196" -p "pier";
 createNode mesh -n "polySurfaceShape110" -p "polySurface196";
 	rename -uid "E4CA354A-4C06-02F1-9AAE-C6B414D265BE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17831,7 +17831,7 @@ createNode transform -n "polySurface197" -p "pier";
 createNode mesh -n "polySurfaceShape111" -p "polySurface197";
 	rename -uid "7D62AF3F-4DB2-F51D-8B8A-3991E819AD9D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17868,7 +17868,7 @@ createNode transform -n "polySurface198" -p "pier";
 createNode mesh -n "polySurfaceShape112" -p "polySurface198";
 	rename -uid "DA15D39A-413D-A372-BB83-5FAA8D94EC53";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17905,7 +17905,7 @@ createNode transform -n "polySurface199" -p "pier";
 createNode mesh -n "polySurfaceShape113" -p "polySurface199";
 	rename -uid "2488437D-491F-639D-9A35-A8BE4178AAB6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17942,7 +17942,7 @@ createNode transform -n "polySurface200" -p "pier";
 createNode mesh -n "polySurfaceShape114" -p "polySurface200";
 	rename -uid "5D2F4FDA-43AF-681F-9D36-A6A311CADE74";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -17979,7 +17979,7 @@ createNode transform -n "polySurface201" -p "pier";
 createNode mesh -n "polySurfaceShape115" -p "polySurface201";
 	rename -uid "C65E173A-48E3-DB39-145E-5AB744C8DC62";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18016,7 +18016,7 @@ createNode transform -n "polySurface202" -p "pier";
 createNode mesh -n "polySurfaceShape116" -p "polySurface202";
 	rename -uid "4C818768-485F-32B3-0643-368973702322";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18052,7 +18052,7 @@ createNode transform -n "polySurface203" -p "pier";
 createNode mesh -n "polySurfaceShape117" -p "polySurface203";
 	rename -uid "7C7E39EA-4CDC-4C39-EF51-C7BD264D086B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18089,7 +18089,7 @@ createNode transform -n "polySurface204" -p "pier";
 createNode mesh -n "polySurfaceShape118" -p "polySurface204";
 	rename -uid "9D04DD6D-46EA-2FB2-BC74-43876CB2F68A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18126,7 +18126,7 @@ createNode transform -n "polySurface205" -p "pier";
 createNode mesh -n "polySurfaceShape119" -p "polySurface205";
 	rename -uid "2295CAFA-4BD5-1A3B-71CF-D6AF495AF654";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18163,7 +18163,7 @@ createNode transform -n "polySurface206" -p "pier";
 createNode mesh -n "polySurfaceShape120" -p "polySurface206";
 	rename -uid "F8DD488E-42ED-76DD-80D4-809573886EB9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18199,7 +18199,7 @@ createNode transform -n "polySurface207" -p "pier";
 createNode mesh -n "polySurfaceShape121" -p "polySurface207";
 	rename -uid "CEF98E15-4C47-D61C-0517-C3B849DC90CA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18239,7 +18239,7 @@ createNode transform -n "polySurface208" -p "pier";
 createNode mesh -n "polySurfaceShape122" -p "polySurface208";
 	rename -uid "C19380B5-45F2-9571-3A39-96A13F051894";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18279,7 +18279,7 @@ createNode transform -n "polySurface209" -p "pier";
 createNode mesh -n "polySurfaceShape123" -p "polySurface209";
 	rename -uid "D6B0F878-40C8-C47D-55B2-D682C637A819";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18318,7 +18318,7 @@ createNode transform -n "polySurface210" -p "pier";
 createNode mesh -n "polySurfaceShape124" -p "polySurface210";
 	rename -uid "A31B9652-44EC-BBAE-87F0-D990976CBB22";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18358,7 +18358,7 @@ createNode transform -n "polySurface211" -p "pier";
 createNode mesh -n "polySurfaceShape125" -p "polySurface211";
 	rename -uid "DA3346F2-4B03-6DF9-8269-B3B23373B9AA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18398,7 +18398,7 @@ createNode transform -n "polySurface212" -p "pier";
 createNode mesh -n "polySurfaceShape126" -p "polySurface212";
 	rename -uid "91F2C3E1-46E3-C27A-E9C2-AE99FB594B4D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18438,7 +18438,7 @@ createNode transform -n "polySurface213" -p "pier";
 createNode mesh -n "polySurfaceShape127" -p "polySurface213";
 	rename -uid "ADC6266B-4DB1-8C0D-AF2A-C08FB2937532";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18477,7 +18477,7 @@ createNode transform -n "polySurface214" -p "pier";
 createNode mesh -n "polySurfaceShape128" -p "polySurface214";
 	rename -uid "CE999AFC-41EA-FA16-B294-F589074D02D1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18516,7 +18516,7 @@ createNode transform -n "polySurface215" -p "pier";
 createNode mesh -n "polySurfaceShape129" -p "polySurface215";
 	rename -uid "4417929D-4A96-560E-1BB1-4CAAE23B1AAD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18555,7 +18555,7 @@ createNode transform -n "polySurface216" -p "pier";
 createNode mesh -n "polySurfaceShape130" -p "polySurface216";
 	rename -uid "304BFC9D-4705-8100-3DD3-06B235591C08";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18594,7 +18594,7 @@ createNode transform -n "polySurface217" -p "pier";
 createNode mesh -n "polySurfaceShape131" -p "polySurface217";
 	rename -uid "BC72CE56-4FF2-9022-2D5F-9FAC0E6167B4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18633,7 +18633,7 @@ createNode transform -n "polySurface218" -p "pier";
 createNode mesh -n "polySurfaceShape132" -p "polySurface218";
 	rename -uid "917791BD-47E8-383C-106A-99988137B157";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18672,7 +18672,7 @@ createNode transform -n "polySurface219" -p "pier";
 createNode mesh -n "polySurfaceShape133" -p "polySurface219";
 	rename -uid "6F81817D-44FC-133E-981E-6CB1FD2B91D2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18711,7 +18711,7 @@ createNode transform -n "polySurface220" -p "pier";
 createNode mesh -n "polySurfaceShape134" -p "polySurface220";
 	rename -uid "49B61042-47B6-9DD8-4620-698FA464F20D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18751,7 +18751,7 @@ createNode transform -n "polySurface221" -p "pier";
 createNode mesh -n "polySurfaceShape135" -p "polySurface221";
 	rename -uid "49CC3B89-4C24-0D1B-B2C4-F09D0D218DF0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18791,7 +18791,7 @@ createNode transform -n "polySurface222" -p "pier";
 createNode mesh -n "polySurfaceShape136" -p "polySurface222";
 	rename -uid "0890EDF1-4298-2075-4104-FC8A3C20323C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18831,7 +18831,7 @@ createNode transform -n "polySurface223" -p "pier";
 createNode mesh -n "polySurfaceShape137" -p "polySurface223";
 	rename -uid "C01B05AF-4DD6-2F22-E848-C9A2A4920BD1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18871,7 +18871,7 @@ createNode transform -n "polySurface224" -p "pier";
 createNode mesh -n "polySurfaceShape138" -p "polySurface224";
 	rename -uid "ECED2FD8-4565-B8A6-2849-C2B67DD1E0A5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18910,7 +18910,7 @@ createNode transform -n "polySurface225" -p "pier";
 createNode mesh -n "polySurfaceShape139" -p "polySurface225";
 	rename -uid "57DB95DF-412A-2ED9-7F66-0DBDCC240C6D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18949,7 +18949,7 @@ createNode transform -n "polySurface226" -p "pier";
 createNode mesh -n "polySurfaceShape140" -p "polySurface226";
 	rename -uid "FC46D76A-49A7-0CD7-E49C-BF84D1033BDF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -18988,7 +18988,7 @@ createNode transform -n "polySurface227" -p "pier";
 createNode mesh -n "polySurfaceShape141" -p "polySurface227";
 	rename -uid "5F09DAAE-4AC0-F1C0-C7E8-CBB04A1F63A8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19027,7 +19027,7 @@ createNode transform -n "polySurface228" -p "pier";
 createNode mesh -n "polySurfaceShape142" -p "polySurface228";
 	rename -uid "C46C932C-46FD-C1CE-29CA-AC8682378829";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19066,7 +19066,7 @@ createNode transform -n "polySurface229" -p "pier";
 createNode mesh -n "polySurfaceShape143" -p "polySurface229";
 	rename -uid "5E03D4E5-4BFE-3ECB-EBD9-3889CCAFCF25";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19105,7 +19105,7 @@ createNode transform -n "polySurface230" -p "pier";
 createNode mesh -n "polySurfaceShape144" -p "polySurface230";
 	rename -uid "91F70449-4325-3ACA-CAD0-B099F8A58CBA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19144,7 +19144,7 @@ createNode transform -n "polySurface231" -p "pier";
 createNode mesh -n "polySurfaceShape145" -p "polySurface231";
 	rename -uid "0FF7EA7C-4B61-3EA9-9D6D-9D996C2203DF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19183,7 +19183,7 @@ createNode transform -n "polySurface232" -p "pier";
 createNode mesh -n "polySurfaceShape146" -p "polySurface232";
 	rename -uid "D73ADE7D-49E5-3D4E-51DB-89BDD1C5E456";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19222,7 +19222,7 @@ createNode transform -n "polySurface233" -p "pier";
 createNode mesh -n "polySurfaceShape147" -p "polySurface233";
 	rename -uid "B2E24165-4074-DD70-8F1B-63BAB50AE15B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19261,7 +19261,7 @@ createNode transform -n "polySurface234" -p "pier";
 createNode mesh -n "polySurfaceShape148" -p "polySurface234";
 	rename -uid "289B91A5-4790-7300-1764-E4A406270029";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19300,7 +19300,7 @@ createNode transform -n "polySurface235" -p "pier";
 createNode mesh -n "polySurfaceShape149" -p "polySurface235";
 	rename -uid "D2CD50A9-4CE7-1494-88F6-4DB4909E1B40";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19339,7 +19339,7 @@ createNode transform -n "polySurface236" -p "pier";
 createNode mesh -n "polySurfaceShape150" -p "polySurface236";
 	rename -uid "1535216E-4E40-D82A-8556-45AA858B4FF5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19378,7 +19378,7 @@ createNode transform -n "polySurface237" -p "pier";
 createNode mesh -n "polySurfaceShape151" -p "polySurface237";
 	rename -uid "93058DF2-4A8A-08D9-4679-90A6583C3E35";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19417,7 +19417,7 @@ createNode transform -n "polySurface238" -p "pier";
 createNode mesh -n "polySurfaceShape152" -p "polySurface238";
 	rename -uid "0E6CF6A3-4099-1389-BED2-6181555FF196";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19456,7 +19456,7 @@ createNode transform -n "polySurface239" -p "pier";
 createNode mesh -n "polySurfaceShape153" -p "polySurface239";
 	rename -uid "6BC59D5E-4521-2B8F-FDDC-16B3084B62BA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19496,7 +19496,7 @@ createNode transform -n "polySurface240" -p "pier";
 createNode mesh -n "polySurfaceShape154" -p "polySurface240";
 	rename -uid "8562C781-423C-14FB-9192-7E904BDD06FE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19536,7 +19536,7 @@ createNode transform -n "polySurface241" -p "pier";
 createNode mesh -n "polySurfaceShape155" -p "polySurface241";
 	rename -uid "ABFA7572-4F1F-39AF-E332-3589D7062A27";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19576,7 +19576,7 @@ createNode transform -n "polySurface242" -p "pier";
 createNode mesh -n "polySurfaceShape156" -p "polySurface242";
 	rename -uid "861F07B1-436D-8575-8256-C2AC7580E9DC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19616,7 +19616,7 @@ createNode transform -n "polySurface243" -p "pier";
 createNode mesh -n "polySurfaceShape157" -p "polySurface243";
 	rename -uid "ACA3A5B0-449E-52E2-EA99-FD80C130A1AC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19656,7 +19656,7 @@ createNode transform -n "polySurface244" -p "pier";
 createNode mesh -n "polySurfaceShape158" -p "polySurface244";
 	rename -uid "C5787EC5-4886-ACAF-C095-62A82B1827EC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19696,7 +19696,7 @@ createNode transform -n "polySurface245" -p "pier";
 createNode mesh -n "polySurfaceShape159" -p "polySurface245";
 	rename -uid "A395C89D-4215-DD1C-BEB2-03A24A3AF589";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19736,7 +19736,7 @@ createNode transform -n "polySurface246" -p "pier";
 createNode mesh -n "polySurfaceShape160" -p "polySurface246";
 	rename -uid "9522A491-49B5-BFAA-EB14-5B9097022D62";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19776,7 +19776,7 @@ createNode transform -n "polySurface247" -p "pier";
 createNode mesh -n "polySurfaceShape161" -p "polySurface247";
 	rename -uid "FB3B1301-40F9-7E6B-2140-EB8F184DB1D5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19816,7 +19816,7 @@ createNode transform -n "polySurface248" -p "pier";
 createNode mesh -n "polySurfaceShape162" -p "polySurface248";
 	rename -uid "55E4D4F8-4B3D-4F60-0CDF-C2B326BE09E4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19856,7 +19856,7 @@ createNode transform -n "polySurface249" -p "pier";
 createNode mesh -n "polySurfaceShape163" -p "polySurface249";
 	rename -uid "F15907C7-4F90-0FC3-8AC8-61B5897C34A9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19896,7 +19896,7 @@ createNode transform -n "polySurface250" -p "pier";
 createNode mesh -n "polySurfaceShape164" -p "polySurface250";
 	rename -uid "0A0E1EC4-48A6-5E14-455B-9F9F6AD8014B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19936,7 +19936,7 @@ createNode transform -n "polySurface251" -p "pier";
 createNode mesh -n "polySurfaceShape165" -p "polySurface251";
 	rename -uid "9D899039-4203-A5C7-0A20-7BA59C5944EE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -19976,7 +19976,7 @@ createNode transform -n "polySurface252" -p "pier";
 createNode mesh -n "polySurfaceShape166" -p "polySurface252";
 	rename -uid "EBDB5259-4143-02F9-B7C9-1DA7F985A0FD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20016,7 +20016,7 @@ createNode transform -n "polySurface253" -p "pier";
 createNode mesh -n "polySurfaceShape167" -p "polySurface253";
 	rename -uid "F39BC2D5-4C1B-8AA8-FCD3-8ABDE41A3950";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20056,7 +20056,7 @@ createNode transform -n "polySurface254" -p "pier";
 createNode mesh -n "polySurfaceShape168" -p "polySurface254";
 	rename -uid "E97004D1-4059-D3CA-DE34-CEBF9416DA07";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 26 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]" "f[16]" "f[17]" "f[18]" "f[19]" "f[20]" "f[21]" "f[22]" "f[23]" "f[24]" "f[25]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:25]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20150,7 +20150,7 @@ createNode transform -n "polySurface255" -p "pier";
 createNode mesh -n "polySurfaceShape169" -p "polySurface255";
 	rename -uid "015B8993-4998-F412-65BB-B98F0A81AAEE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20190,7 +20190,7 @@ createNode transform -n "polySurface256" -p "pier";
 createNode mesh -n "polySurfaceShape170" -p "polySurface256";
 	rename -uid "88245ACC-4E24-2199-99FA-31A8BA0841FD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20230,7 +20230,7 @@ createNode transform -n "polySurface257" -p "pier";
 createNode mesh -n "polySurfaceShape171" -p "polySurface257";
 	rename -uid "5F238D1E-43DB-15CC-5324-B8BF056605D6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20270,7 +20270,7 @@ createNode transform -n "polySurface258" -p "pier";
 createNode mesh -n "polySurfaceShape172" -p "polySurface258";
 	rename -uid "A45A09B1-4684-68A9-739C-2FA7ED9EBBB4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20309,7 +20309,7 @@ createNode transform -n "polySurface259" -p "pier";
 createNode mesh -n "polySurfaceShape173" -p "polySurface259";
 	rename -uid "C27441CC-4CBF-8021-0FB6-51B30F5D052F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20389,7 +20389,7 @@ createNode transform -n "polySurface260" -p "pier";
 createNode mesh -n "polySurfaceShape174" -p "polySurface260";
 	rename -uid "43F68927-4406-7C2A-BE48-02878D9D3F10";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20469,7 +20469,7 @@ createNode transform -n "polySurface261" -p "pier";
 createNode mesh -n "polySurfaceShape175" -p "polySurface261";
 	rename -uid "3F4AD3D8-4566-B93B-6FD4-59B9181ABF99";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20549,7 +20549,7 @@ createNode transform -n "polySurface262" -p "pier";
 createNode mesh -n "polySurfaceShape176" -p "polySurface262";
 	rename -uid "37576C57-4766-6C3E-5871-CF84347101C1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -20625,7 +20625,7 @@ createNode transform -n "polySurface263" -p "pier";
 createNode mesh -n "polySurfaceShape177" -p "polySurface263";
 	rename -uid "942BCE6B-487F-A09A-942F-D79A19A0C415";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 152 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]" "f[16]" "f[17]" "f[18]" "f[19]" "f[20]" "f[21]" "f[22]" "f[23]" "f[24]" "f[25]" "f[26]" "f[27]" "f[28]" "f[29]" "f[30]" "f[31]" "f[32]" "f[33]" "f[34]" "f[35]" "f[36]" "f[37]" "f[38]" "f[39]" "f[40]" "f[41]" "f[42]" "f[43]" "f[44]" "f[45]" "f[46]" "f[47]" "f[48]" "f[49]" "f[50]" "f[51]" "f[52]" "f[53]" "f[54]" "f[55]" "f[56]" "f[57]" "f[58]" "f[59]" "f[60]" "f[61]" "f[62]" "f[63]" "f[64]" "f[65]" "f[66]" "f[67]" "f[68]" "f[69]" "f[70]" "f[71]" "f[72]" "f[73]" "f[74]" "f[75]" "f[76]" "f[77]" "f[78]" "f[79]" "f[80]" "f[81]" "f[82]" "f[83]" "f[84]" "f[85]" "f[86]" "f[87]" "f[88]" "f[89]" "f[90]" "f[91]" "f[92]" "f[93]" "f[94]" "f[95]" "f[96]" "f[97]" "f[98]" "f[99]" "f[100]" "f[101]" "f[102]" "f[103]" "f[104]" "f[105]" "f[106]" "f[107]" "f[108]" "f[109]" "f[110]" "f[111]" "f[112]" "f[113]" "f[114]" "f[115]" "f[116]" "f[117]" "f[118]" "f[119]" "f[120]" "f[121]" "f[122]" "f[123]" "f[124]" "f[125]" "f[126]" "f[127]" "f[128]" "f[129]" "f[130]" "f[131]" "f[132]" "f[133]" "f[134]" "f[135]" "f[136]" "f[137]" "f[138]" "f[139]" "f[140]" "f[141]" "f[142]" "f[143]" "f[144]" "f[145]" "f[146]" "f[147]" "f[148]" "f[149]" "f[150]" "f[151]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:151]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -21145,13 +21145,9 @@ createNode mesh -n "polySurfaceShape178" -p "polySurface264";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 7 ".pt";
-	setAttr ".pt[226]" -type "float3" -2.1589763 0.52885926 6.9563437 ;
-	setAttr ".pt[227]" -type "float3" -2.1589763 0.52885926 6.9563437 ;
-	setAttr ".pt[228]" -type "float3" 61.299793 2.8013468 34.674732 ;
-	setAttr ".pt[229]" -type "float3" 60.759922 2.7668557 34.044544 ;
-	setAttr ".pt[230]" -type "float3" 51.221493 3.1399908 36.874107 ;
-	setAttr ".pt[231]" -type "float3" 51.761433 3.1744726 37.504192 ;
+	setAttr -s 6 ".pt[226:231]" -type "float3"  -2.1589763 0.52885926 6.9563437 
+		-2.1589763 0.52885926 6.9563437 61.299793 2.8013468 34.674732 60.759922 2.7668557 
+		34.044544 51.221493 3.1399908 36.874107 51.761433 3.1744726 37.504192;
 	setAttr -s 232 ".vt";
 	setAttr ".vt[0:165]"  -6337.30908203 692.52856445 -432.70220947 -6327.30908203 692.52856445 -432.70220947
 		 -6337.30908203 702.52856445 -432.70220947 -6327.30908203 702.52856445 -432.70220947
@@ -21682,15 +21678,10 @@ createNode mesh -n "polySurfaceShape179" -p "polySurface265";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 9 ".pt";
-	setAttr ".pt[40]" -type "float3" -1.5423664 0.0016404161 7.362092 ;
-	setAttr ".pt[41]" -type "float3" -1.5423664 0.0016404161 7.362092 ;
-	setAttr ".pt[42]" -type "float3" -0.19238 0.00020460978 0.91827667 ;
-	setAttr ".pt[43]" -type "float3" -0.19238 0.00020460978 0.91827667 ;
-	setAttr ".pt[44]" -type "float3" -34.989506 0.12377834 17.649847 ;
-	setAttr ".pt[45]" -type "float3" -34.989506 0.12377834 17.649847 ;
-	setAttr ".pt[46]" -type "float3" -42.289627 0.42376947 7.6816421 ;
-	setAttr ".pt[47]" -type "float3" -42.289627 0.42376947 7.6816421 ;
+	setAttr -s 8 ".pt[40:47]" -type "float3"  -1.5423664 0.0016404161 7.362092 
+		-1.5423664 0.0016404161 7.362092 -0.19238 0.00020460978 0.91827667 -0.19238 0.00020460978 
+		0.91827667 -34.989506 0.12377834 17.649847 -34.989506 0.12377834 17.649847 -42.289627 
+		0.42376947 7.6816421 -42.289627 0.42376947 7.6816421;
 	setAttr -s 80 ".vt[0:79]"  -5124.10351563 701.097229004 370.52349854
 		 -5124.33691406 691.98071289 370.703125 -5117.44433594 701.097229004 365.39245605
 		 -5117.21191406 691.98071289 365.21209717 -5130.42529297 701.097229004 363.26843262
@@ -21869,7 +21860,7 @@ createNode transform -n "polySurface266" -p "pier";
 createNode mesh -n "polySurfaceShape180" -p "polySurface266";
 	rename -uid "0C52EBC0-492D-5D24-46E7-CCA4C90B888B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -21909,7 +21900,7 @@ createNode transform -n "polySurface267" -p "pier";
 createNode mesh -n "polySurfaceShape181" -p "polySurface267";
 	rename -uid "A38F1D28-4FB8-E974-0890-0E90ED57648C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -21949,7 +21940,7 @@ createNode transform -n "polySurface268" -p "pier";
 createNode mesh -n "polySurfaceShape182" -p "polySurface268";
 	rename -uid "9959CE8C-4745-FB79-21A2-8CB6553F316A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -21989,7 +21980,7 @@ createNode transform -n "polySurface269" -p "pier";
 createNode mesh -n "polySurfaceShape183" -p "polySurface269";
 	rename -uid "81B9BBAB-4020-F85B-2553-1691C25A0852";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22029,7 +22020,7 @@ createNode transform -n "polySurface270" -p "pier";
 createNode mesh -n "polySurfaceShape184" -p "polySurface270";
 	rename -uid "A18420FB-4D9C-14BB-B017-05A9EE98CE4E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22069,7 +22060,7 @@ createNode transform -n "polySurface271" -p "pier";
 createNode mesh -n "polySurfaceShape185" -p "polySurface271";
 	rename -uid "1749B766-4DF6-C96F-78B7-07B44AA271FD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22109,7 +22100,7 @@ createNode transform -n "polySurface272" -p "pier";
 createNode mesh -n "polySurfaceShape186" -p "polySurface272";
 	rename -uid "0DAD08AC-4168-6438-705B-50B4399A17BC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22149,7 +22140,7 @@ createNode transform -n "polySurface273" -p "pier";
 createNode mesh -n "polySurfaceShape187" -p "polySurface273";
 	rename -uid "903E19F4-463C-1B71-07AB-9D91632F54A2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22189,7 +22180,7 @@ createNode transform -n "polySurface274" -p "pier";
 createNode mesh -n "polySurfaceShape188" -p "polySurface274";
 	rename -uid "F494492D-42E9-6A4E-9AA4-EBA4B0446BFF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22229,7 +22220,7 @@ createNode transform -n "polySurface275" -p "pier";
 createNode mesh -n "polySurfaceShape189" -p "polySurface275";
 	rename -uid "05886CE5-4A51-933F-A79F-BBA122BD50B4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22269,7 +22260,7 @@ createNode transform -n "polySurface276" -p "pier";
 createNode mesh -n "polySurfaceShape190" -p "polySurface276";
 	rename -uid "E0AC6D2A-4A8B-4C6A-C708-04ACF0A98658";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22309,7 +22300,7 @@ createNode transform -n "polySurface277" -p "pier";
 createNode mesh -n "polySurfaceShape191" -p "polySurface277";
 	rename -uid "28DE14CA-4CAF-35BF-C5BE-1EB8D84C0090";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22349,7 +22340,7 @@ createNode transform -n "polySurface278" -p "pier";
 createNode mesh -n "polySurfaceShape192" -p "polySurface278";
 	rename -uid "AD181C86-4729-06A5-8E49-FF94975E3211";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22389,7 +22380,7 @@ createNode transform -n "polySurface279" -p "pier";
 createNode mesh -n "polySurfaceShape193" -p "polySurface279";
 	rename -uid "E532DCFD-4422-0A4F-A81C-B9B1ED89E360";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22429,7 +22420,7 @@ createNode transform -n "polySurface280" -p "pier";
 createNode mesh -n "polySurfaceShape194" -p "polySurface280";
 	rename -uid "B80EC18A-489D-1EB6-8E9D-1887796086FC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22469,7 +22460,7 @@ createNode transform -n "polySurface281" -p "pier";
 createNode mesh -n "polySurfaceShape195" -p "polySurface281";
 	rename -uid "FC4C97E0-4FF4-3CE9-6D95-28A49A52D3FF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22509,7 +22500,7 @@ createNode transform -n "polySurface282" -p "pier";
 createNode mesh -n "polySurfaceShape196" -p "polySurface282";
 	rename -uid "90F5F9E4-4B50-5577-C8C4-1F817576D3B6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22549,7 +22540,7 @@ createNode transform -n "polySurface283" -p "pier";
 createNode mesh -n "polySurfaceShape197" -p "polySurface283";
 	rename -uid "A201A0D6-4DCF-C19A-CDC8-E89A6487134E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22589,7 +22580,7 @@ createNode transform -n "polySurface284" -p "pier";
 createNode mesh -n "polySurfaceShape198" -p "polySurface284";
 	rename -uid "2DDD1A85-489B-F8C1-581B-02A1DF5BE1EA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22629,7 +22620,7 @@ createNode transform -n "polySurface285" -p "pier";
 createNode mesh -n "polySurfaceShape199" -p "polySurface285";
 	rename -uid "D103A23A-41C5-491A-D16D-3982FF7779E6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22669,7 +22660,7 @@ createNode transform -n "polySurface286" -p "pier";
 createNode mesh -n "polySurfaceShape200" -p "polySurface286";
 	rename -uid "BFD2C321-4432-516E-0749-7AA397B25C79";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22709,7 +22700,7 @@ createNode transform -n "polySurface287" -p "pier";
 createNode mesh -n "polySurfaceShape201" -p "polySurface287";
 	rename -uid "1411846E-4166-3CFC-4380-209FB1E70A0F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22749,7 +22740,7 @@ createNode transform -n "polySurface288" -p "pier";
 createNode mesh -n "polySurfaceShape202" -p "polySurface288";
 	rename -uid "E1EB5404-44AD-348B-96EE-8B944E1BE829";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22789,7 +22780,7 @@ createNode transform -n "polySurface289" -p "pier";
 createNode mesh -n "polySurfaceShape203" -p "polySurface289";
 	rename -uid "A807D16B-4B78-345F-8283-F8898ADB562C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22829,7 +22820,7 @@ createNode transform -n "polySurface290" -p "pier";
 createNode mesh -n "polySurfaceShape204" -p "polySurface290";
 	rename -uid "982EB009-436E-4B93-3465-F59C7D483F5C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22869,7 +22860,7 @@ createNode transform -n "polySurface291" -p "pier";
 createNode mesh -n "polySurfaceShape205" -p "polySurface291";
 	rename -uid "17A05797-41A1-A32A-92AA-6E819943F3FE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22908,7 +22899,7 @@ createNode transform -n "polySurface292" -p "pier";
 createNode mesh -n "polySurfaceShape206" -p "polySurface292";
 	rename -uid "6EA04ED3-4816-44F1-8662-25939896726F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22947,7 +22938,7 @@ createNode transform -n "polySurface293" -p "pier";
 createNode mesh -n "polySurfaceShape207" -p "polySurface293";
 	rename -uid "44708764-4937-A9C3-21E4-659C020E1F0F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -22986,7 +22977,7 @@ createNode transform -n "polySurface294" -p "pier";
 createNode mesh -n "polySurfaceShape208" -p "polySurface294";
 	rename -uid "880DFD75-4B1A-21F4-2078-F495DB091B63";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23025,7 +23016,7 @@ createNode transform -n "polySurface295" -p "pier";
 createNode mesh -n "polySurfaceShape209" -p "polySurface295";
 	rename -uid "D1CEAF3F-4CBC-E408-862C-65A0C3442E5E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23064,7 +23055,7 @@ createNode transform -n "polySurface296" -p "pier";
 createNode mesh -n "polySurfaceShape210" -p "polySurface296";
 	rename -uid "EB9A84B0-4587-1A15-245B-9A9E624E6C87";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23104,7 +23095,7 @@ createNode transform -n "polySurface297" -p "pier";
 createNode mesh -n "polySurfaceShape211" -p "polySurface297";
 	rename -uid "1FFD6D9C-4003-B43B-0ED4-6C8F1B6A5A68";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23144,7 +23135,7 @@ createNode transform -n "polySurface298" -p "pier";
 createNode mesh -n "polySurfaceShape212" -p "polySurface298";
 	rename -uid "51F4096E-439C-6B67-5860-1E9F261E1D36";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23184,7 +23175,7 @@ createNode transform -n "polySurface299" -p "pier";
 createNode mesh -n "polySurfaceShape213" -p "polySurface299";
 	rename -uid "E9CF60C4-4D27-1FEB-5CE7-FAA01387AFB2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23223,7 +23214,7 @@ createNode transform -n "polySurface300" -p "pier";
 createNode mesh -n "polySurfaceShape214" -p "polySurface300";
 	rename -uid "E60C18A7-4CEA-14B3-60F8-F2B171F78ED7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23262,7 +23253,7 @@ createNode transform -n "polySurface301" -p "pier";
 createNode mesh -n "polySurfaceShape215" -p "polySurface301";
 	rename -uid "F46DFEB4-4488-74C8-440C-F69FEA3256CC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23302,7 +23293,7 @@ createNode transform -n "polySurface302" -p "pier";
 createNode mesh -n "polySurfaceShape216" -p "polySurface302";
 	rename -uid "4214AF50-4BCD-A68D-7F9A-DAADB2E05454";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23342,7 +23333,7 @@ createNode transform -n "polySurface303" -p "pier";
 createNode mesh -n "polySurfaceShape217" -p "polySurface303";
 	rename -uid "B714229B-480E-20EF-4550-FE8BA4B70442";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23382,7 +23373,7 @@ createNode transform -n "polySurface304" -p "pier";
 createNode mesh -n "polySurfaceShape218" -p "polySurface304";
 	rename -uid "45BC5037-4A6F-0A00-931D-D09F085EC2E9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23422,7 +23413,7 @@ createNode transform -n "polySurface305" -p "pier";
 createNode mesh -n "polySurfaceShape219" -p "polySurface305";
 	rename -uid "BD20EDE9-4AE1-9FEC-5053-A5A865EE22D8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23462,7 +23453,7 @@ createNode transform -n "polySurface306" -p "pier";
 createNode mesh -n "polySurfaceShape220" -p "polySurface306";
 	rename -uid "8A0A9590-4D3F-E7C6-745D-D98EE0B94B30";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23502,7 +23493,7 @@ createNode transform -n "polySurface307" -p "pier";
 createNode mesh -n "polySurfaceShape221" -p "polySurface307";
 	rename -uid "7CEBE080-48B4-2E26-B65D-658DF2831466";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23542,7 +23533,7 @@ createNode transform -n "polySurface308" -p "pier";
 createNode mesh -n "polySurfaceShape222" -p "polySurface308";
 	rename -uid "48CCD43A-4740-BCBC-7651-50A8EFE23E61";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23582,7 +23573,7 @@ createNode transform -n "polySurface309" -p "pier";
 createNode mesh -n "polySurfaceShape223" -p "polySurface309";
 	rename -uid "1275B681-4CD0-2483-AC69-55ACC16919E9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23622,7 +23613,7 @@ createNode transform -n "polySurface310" -p "pier";
 createNode mesh -n "polySurfaceShape224" -p "polySurface310";
 	rename -uid "C51AFA64-457B-9925-CCC5-EC9108D89607";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23662,7 +23653,7 @@ createNode transform -n "polySurface311" -p "pier";
 createNode mesh -n "polySurfaceShape225" -p "polySurface311";
 	rename -uid "B0207A31-48F0-F904-5C03-74BDA419411D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23702,7 +23693,7 @@ createNode transform -n "polySurface312" -p "pier";
 createNode mesh -n "polySurfaceShape226" -p "polySurface312";
 	rename -uid "1EB9AB04-440F-B385-5CE4-DD9C2D31BDFC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23742,7 +23733,7 @@ createNode transform -n "polySurface313" -p "pier";
 createNode mesh -n "polySurfaceShape227" -p "polySurface313";
 	rename -uid "60D2E033-46E9-AC5C-90E8-8F9E473B977F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23782,7 +23773,7 @@ createNode transform -n "polySurface314" -p "pier";
 createNode mesh -n "polySurfaceShape228" -p "polySurface314";
 	rename -uid "0CE748E9-44CF-AFEB-2457-F5A77EA3A90B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23822,7 +23813,7 @@ createNode transform -n "polySurface315" -p "pier";
 createNode mesh -n "polySurfaceShape229" -p "polySurface315";
 	rename -uid "E716DA73-4FE2-D2F6-D7BA-418023CC0083";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23862,7 +23853,7 @@ createNode transform -n "polySurface316" -p "pier";
 createNode mesh -n "polySurfaceShape230" -p "polySurface316";
 	rename -uid "5B267B89-4EB3-4DE9-F956-CBA43B96019D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23901,7 +23892,7 @@ createNode transform -n "polySurface317" -p "pier";
 createNode mesh -n "polySurfaceShape231" -p "polySurface317";
 	rename -uid "F347E300-4A83-74F2-5F2E-03826830C82F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23940,7 +23931,7 @@ createNode transform -n "polySurface318" -p "pier";
 createNode mesh -n "polySurfaceShape232" -p "polySurface318";
 	rename -uid "50610544-49A0-AB16-7AE2-308F0B2C98BA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23979,7 +23970,7 @@ createNode transform -n "polySurface319" -p "pier";
 createNode mesh -n "polySurfaceShape233" -p "polySurface319";
 	rename -uid "49C666D1-409D-7FBA-C52B-D9A490824487";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24018,7 +24009,7 @@ createNode transform -n "polySurface320" -p "pier";
 createNode mesh -n "polySurfaceShape234" -p "polySurface320";
 	rename -uid "4DDF25B0-4D12-C905-045C-CFBEE57D3C4A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24058,7 +24049,7 @@ createNode transform -n "polySurface321" -p "pier";
 createNode mesh -n "polySurfaceShape235" -p "polySurface321";
 	rename -uid "E3AE66F3-41E2-D201-4386-DC8465130FA9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24097,7 +24088,7 @@ createNode transform -n "polySurface322" -p "pier";
 createNode mesh -n "polySurfaceShape236" -p "polySurface322";
 	rename -uid "59EA2A90-47BD-D43B-B955-AE8DB669E721";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24136,7 +24127,7 @@ createNode transform -n "polySurface323" -p "pier";
 createNode mesh -n "polySurfaceShape237" -p "polySurface323";
 	rename -uid "AA37D935-441D-076B-C837-0190C44FDD57";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24175,7 +24166,7 @@ createNode transform -n "polySurface324" -p "pier";
 createNode mesh -n "polySurfaceShape238" -p "polySurface324";
 	rename -uid "38815FA1-43D4-EDA3-5B9B-5F85DD966590";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24213,7 +24204,7 @@ createNode transform -n "polySurface325" -p "pier";
 createNode mesh -n "polySurfaceShape239" -p "polySurface325";
 	rename -uid "74D1B5E8-4D7C-A489-517A-2983F74B25AD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24252,7 +24243,7 @@ createNode transform -n "polySurface326" -p "pier";
 createNode mesh -n "polySurfaceShape240" -p "polySurface326";
 	rename -uid "42B374D5-4D08-717D-6C09-93936856E2B7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24291,7 +24282,7 @@ createNode transform -n "polySurface327" -p "pier";
 createNode mesh -n "polySurfaceShape241" -p "polySurface327";
 	rename -uid "145323D6-428D-17EA-0908-489B508125B2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24325,7 +24316,7 @@ createNode transform -n "polySurface328" -p "pier";
 createNode mesh -n "polySurfaceShape242" -p "polySurface328";
 	rename -uid "48D595CB-4806-A654-9097-77BFEBAAD7DD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24359,7 +24350,7 @@ createNode transform -n "polySurface329" -p "pier";
 createNode mesh -n "polySurfaceShape243" -p "polySurface329";
 	rename -uid "4ADEBE0A-42B5-8D52-F580-2B8A4C0F04D2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24393,7 +24384,7 @@ createNode transform -n "polySurface330" -p "pier";
 createNode mesh -n "polySurfaceShape244" -p "polySurface330";
 	rename -uid "4215EAF4-49D4-5156-C251-7A964FC47B85";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24427,7 +24418,7 @@ createNode transform -n "polySurface331" -p "pier";
 createNode mesh -n "polySurfaceShape245" -p "polySurface331";
 	rename -uid "319AB3DF-48D2-6BA0-CC18-579DB03514AF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24461,7 +24452,7 @@ createNode transform -n "polySurface332" -p "pier";
 createNode mesh -n "polySurfaceShape246" -p "polySurface332";
 	rename -uid "4C3BD2B9-4EA9-34E9-9859-35B832A25323";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24495,7 +24486,7 @@ createNode transform -n "polySurface333" -p "pier";
 createNode mesh -n "polySurfaceShape247" -p "polySurface333";
 	rename -uid "745C92A6-4CEF-EAAF-EBCF-C4B617A71503";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24529,7 +24520,7 @@ createNode transform -n "polySurface334" -p "pier";
 createNode mesh -n "polySurfaceShape248" -p "polySurface334";
 	rename -uid "D392B7E7-4C2C-864B-0413-B0A02B8389B9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24563,7 +24554,7 @@ createNode transform -n "polySurface335" -p "pier";
 createNode mesh -n "polySurfaceShape249" -p "polySurface335";
 	rename -uid "0A4CFB82-4070-7DA3-99EF-43833C9CA0BF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24597,7 +24588,7 @@ createNode transform -n "polySurface336" -p "pier";
 createNode mesh -n "polySurfaceShape250" -p "polySurface336";
 	rename -uid "C501C24E-471A-06D4-1EBE-CAA321E18F37";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24631,7 +24622,7 @@ createNode transform -n "polySurface337" -p "pier";
 createNode mesh -n "polySurfaceShape251" -p "polySurface337";
 	rename -uid "3F23DEE6-41E5-01DF-5E48-24A40E6190B6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24666,7 +24657,7 @@ createNode transform -n "polySurface338" -p "pier";
 createNode mesh -n "polySurfaceShape252" -p "polySurface338";
 	rename -uid "A2064440-4878-906F-8CA9-62B5FDC10762";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24701,7 +24692,7 @@ createNode transform -n "polySurface339" -p "pier";
 createNode mesh -n "polySurfaceShape253" -p "polySurface339";
 	rename -uid "53B74F9A-427D-8AED-E7DF-E6809A6BA6B4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24736,7 +24727,7 @@ createNode transform -n "polySurface340" -p "pier";
 createNode mesh -n "polySurfaceShape254" -p "polySurface340";
 	rename -uid "30EA08B7-458D-AF4F-4180-6ABBE48E8A05";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24769,7 +24760,7 @@ createNode transform -n "polySurface341" -p "pier";
 createNode mesh -n "polySurfaceShape255" -p "polySurface341";
 	rename -uid "38ECFC65-4A14-B1A3-77C7-47A5C29B9BD3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24804,7 +24795,7 @@ createNode transform -n "polySurface342" -p "pier";
 createNode mesh -n "polySurfaceShape256" -p "polySurface342";
 	rename -uid "6D343BB4-4A66-65A2-8433-5FB83E3C0D24";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24839,7 +24830,7 @@ createNode transform -n "polySurface343" -p "pier";
 createNode mesh -n "polySurfaceShape257" -p "polySurface343";
 	rename -uid "CE780E88-445D-4CF1-5705-579D60EC87FA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24874,7 +24865,7 @@ createNode transform -n "polySurface344" -p "pier";
 createNode mesh -n "polySurfaceShape258" -p "polySurface344";
 	rename -uid "61828DC8-4F8A-ECFD-5223-4AA9D907827C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24909,7 +24900,7 @@ createNode transform -n "polySurface345" -p "pier";
 createNode mesh -n "polySurfaceShape259" -p "polySurface345";
 	rename -uid "461BD96A-42B4-C648-A6EA-059D6377A6F2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24944,7 +24935,7 @@ createNode transform -n "polySurface346" -p "pier";
 createNode mesh -n "polySurfaceShape260" -p "polySurface346";
 	rename -uid "70B62242-4575-717C-86A1-C09A7F475F5D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:3]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -24979,7 +24970,7 @@ createNode transform -n "polySurface347" -p "pier";
 createNode mesh -n "polySurfaceShape261" -p "polySurface347";
 	rename -uid "F403F33B-46F3-98A1-6352-AFA724568862";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25019,7 +25010,7 @@ createNode transform -n "polySurface348" -p "pier";
 createNode mesh -n "polySurfaceShape262" -p "polySurface348";
 	rename -uid "04563F42-480D-CAC8-0933-5F984FB3E532";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25059,7 +25050,7 @@ createNode transform -n "polySurface349" -p "pier";
 createNode mesh -n "polySurfaceShape263" -p "polySurface349";
 	rename -uid "9A004BB6-40D1-4C41-A6D3-82A1E937B873";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25099,7 +25090,7 @@ createNode transform -n "polySurface350" -p "pier";
 createNode mesh -n "polySurfaceShape264" -p "polySurface350";
 	rename -uid "8DA74A04-4E99-C402-774B-E9947ECBDB7E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25137,7 +25128,7 @@ createNode transform -n "polySurface351" -p "pier";
 createNode mesh -n "polySurfaceShape265" -p "polySurface351";
 	rename -uid "14BDD669-4D46-E22F-C928-BF916AD5015D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25177,7 +25168,7 @@ createNode transform -n "polySurface352" -p "pier";
 createNode mesh -n "polySurfaceShape266" -p "polySurface352";
 	rename -uid "774D5724-4A12-830B-9426-EDA525946874";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25217,7 +25208,7 @@ createNode transform -n "polySurface353" -p "pier";
 createNode mesh -n "polySurfaceShape267" -p "polySurface353";
 	rename -uid "5436E6C0-435D-2310-853D-36A8C7D59852";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25257,7 +25248,7 @@ createNode transform -n "polySurface354" -p "pier";
 createNode mesh -n "polySurfaceShape268" -p "polySurface354";
 	rename -uid "AD92A061-4548-C1AD-5948-EDB3AEEAAEF4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25297,7 +25288,7 @@ createNode transform -n "polySurface355" -p "pier";
 createNode mesh -n "polySurfaceShape269" -p "polySurface355";
 	rename -uid "0F2C7F54-4686-EA28-31EA-E1ADF96050D7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25337,7 +25328,7 @@ createNode transform -n "polySurface356" -p "pier";
 createNode mesh -n "polySurfaceShape270" -p "polySurface356";
 	rename -uid "74827E5C-40D0-2B44-568F-82A038BEB3A3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25377,7 +25368,7 @@ createNode transform -n "polySurface357" -p "pier";
 createNode mesh -n "polySurfaceShape271" -p "polySurface357";
 	rename -uid "52B87468-4978-90A9-5A21-BAA1D76F5BE9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25417,7 +25408,7 @@ createNode transform -n "polySurface358" -p "pier";
 createNode mesh -n "polySurfaceShape272" -p "polySurface358";
 	rename -uid "C9CB5528-4B04-67DB-0536-55A7BFADEEAC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25457,7 +25448,7 @@ createNode transform -n "polySurface359" -p "pier";
 createNode mesh -n "polySurfaceShape273" -p "polySurface359";
 	rename -uid "40ACB405-436D-E27C-C301-8EB30B5EF8E2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25497,7 +25488,7 @@ createNode transform -n "polySurface360" -p "pier";
 createNode mesh -n "polySurfaceShape274" -p "polySurface360";
 	rename -uid "2B25F562-4BE3-6F16-7911-FE92CDD9DF1C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25535,7 +25526,7 @@ createNode transform -n "polySurface361" -p "pier";
 createNode mesh -n "polySurfaceShape275" -p "polySurface361";
 	rename -uid "C3DAD049-4F6A-8844-F8B3-B08635778F27";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25575,7 +25566,7 @@ createNode transform -n "polySurface362" -p "pier";
 createNode mesh -n "polySurfaceShape276" -p "polySurface362";
 	rename -uid "3984F583-47EF-ED18-D70D-37A8EFC39710";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25615,7 +25606,7 @@ createNode transform -n "polySurface363" -p "pier";
 createNode mesh -n "polySurfaceShape277" -p "polySurface363";
 	rename -uid "3548181D-4337-C616-21CB-C7886D48A631";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25655,7 +25646,7 @@ createNode transform -n "polySurface364" -p "pier";
 createNode mesh -n "polySurfaceShape278" -p "polySurface364";
 	rename -uid "25BFF64F-414C-B562-53C3-0FB79E143929";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25695,7 +25686,7 @@ createNode transform -n "polySurface365" -p "pier";
 createNode mesh -n "polySurfaceShape279" -p "polySurface365";
 	rename -uid "1E4CFCBE-47A1-121C-17BB-16A5DCBCCF21";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25735,7 +25726,7 @@ createNode transform -n "polySurface366" -p "pier";
 createNode mesh -n "polySurfaceShape280" -p "polySurface366";
 	rename -uid "BAEAFF19-4170-4013-C18B-54A55BEF6DBC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25775,7 +25766,7 @@ createNode transform -n "polySurface367" -p "pier";
 createNode mesh -n "polySurfaceShape281" -p "polySurface367";
 	rename -uid "AAB244C7-4553-08CF-72C1-94A35D652F17";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25815,7 +25806,7 @@ createNode transform -n "polySurface368" -p "pier";
 createNode mesh -n "polySurfaceShape282" -p "polySurface368";
 	rename -uid "CEDEAC28-4D70-1CD4-4A23-D8BC65EC4288";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25855,7 +25846,7 @@ createNode transform -n "polySurface369" -p "pier";
 createNode mesh -n "polySurfaceShape283" -p "polySurface369";
 	rename -uid "383B87E6-40E1-7AF7-93B1-4DA83ADC7FFC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25895,7 +25886,7 @@ createNode transform -n "polySurface370" -p "pier";
 createNode mesh -n "polySurfaceShape284" -p "polySurface370";
 	rename -uid "C92731F6-4217-EF81-0700-93AAA0088E34";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25934,7 +25925,7 @@ createNode transform -n "polySurface371" -p "pier";
 createNode mesh -n "polySurfaceShape285" -p "polySurface371";
 	rename -uid "5B434588-44C2-2BFC-8CB9-EEA74CC462C6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -25974,7 +25965,7 @@ createNode transform -n "polySurface372" -p "pier";
 createNode mesh -n "polySurfaceShape286" -p "polySurface372";
 	rename -uid "DB803D84-4224-D4F7-4ECC-DB835764CB47";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26014,7 +26005,7 @@ createNode transform -n "polySurface373" -p "pier";
 createNode mesh -n "polySurfaceShape287" -p "polySurface373";
 	rename -uid "CF425326-481B-4410-6729-B38970BE5F40";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26054,7 +26045,7 @@ createNode transform -n "polySurface374" -p "pier";
 createNode mesh -n "polySurfaceShape288" -p "polySurface374";
 	rename -uid "E4E9A7E5-4AB6-3B84-5E3D-35B391893B4B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26094,7 +26085,7 @@ createNode transform -n "polySurface375" -p "pier";
 createNode mesh -n "polySurfaceShape289" -p "polySurface375";
 	rename -uid "9F7041D1-4772-2E04-FB99-BFBA2D677174";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26134,7 +26125,7 @@ createNode transform -n "polySurface376" -p "pier";
 createNode mesh -n "polySurfaceShape290" -p "polySurface376";
 	rename -uid "CF157580-48F8-550D-D98C-01AC6387DEA5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26174,7 +26165,7 @@ createNode transform -n "polySurface377" -p "pier";
 createNode mesh -n "polySurfaceShape291" -p "polySurface377";
 	rename -uid "C7C23567-4A6F-136F-878F-B6B57FCF572F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26214,7 +26205,7 @@ createNode transform -n "polySurface378" -p "pier";
 createNode mesh -n "polySurfaceShape292" -p "polySurface378";
 	rename -uid "D7DD5448-44BE-E163-E48F-84BEC9FD148E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26254,7 +26245,7 @@ createNode transform -n "polySurface379" -p "pier";
 createNode mesh -n "polySurfaceShape293" -p "polySurface379";
 	rename -uid "646C3712-4EDF-9573-5E42-1BA97A4DA3D4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26294,7 +26285,7 @@ createNode transform -n "polySurface380" -p "pier";
 createNode mesh -n "polySurfaceShape294" -p "polySurface380";
 	rename -uid "E465D5BE-478A-496B-65A2-DC9332D800E5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26332,7 +26323,7 @@ createNode transform -n "polySurface381" -p "pier";
 createNode mesh -n "polySurfaceShape295" -p "polySurface381";
 	rename -uid "E4A948DF-4070-3E3B-A8F4-ABA233F5A0B6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26372,7 +26363,7 @@ createNode transform -n "polySurface382" -p "pier";
 createNode mesh -n "polySurfaceShape296" -p "polySurface382";
 	rename -uid "0C4AE956-4D3D-C556-FF9E-4BAAA88D7ECE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26412,7 +26403,7 @@ createNode transform -n "polySurface383" -p "pier";
 createNode mesh -n "polySurfaceShape297" -p "polySurface383";
 	rename -uid "E613F7F2-4D13-4F50-942A-37B9914B1189";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26452,7 +26443,7 @@ createNode transform -n "polySurface384" -p "pier";
 createNode mesh -n "polySurfaceShape298" -p "polySurface384";
 	rename -uid "1D4F48BD-4F4A-6489-4FAD-2C968402E5FD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26492,7 +26483,7 @@ createNode transform -n "polySurface385" -p "pier";
 createNode mesh -n "polySurfaceShape299" -p "polySurface385";
 	rename -uid "2048CBFA-4BEF-6E96-84AA-B2ABC5629417";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26532,7 +26523,7 @@ createNode transform -n "polySurface386" -p "pier";
 createNode mesh -n "polySurfaceShape300" -p "polySurface386";
 	rename -uid "3105B37F-4FF3-01A8-7150-F18128DF1570";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26572,7 +26563,7 @@ createNode transform -n "polySurface387" -p "pier";
 createNode mesh -n "polySurfaceShape301" -p "polySurface387";
 	rename -uid "72F700E4-4E0A-4DB3-73D5-47A719F21A46";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26612,7 +26603,7 @@ createNode transform -n "polySurface388" -p "pier";
 createNode mesh -n "polySurfaceShape302" -p "polySurface388";
 	rename -uid "11EC3D18-4FED-B6EE-4D78-85BC92BC2AE0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26652,7 +26643,7 @@ createNode transform -n "polySurface389" -p "pier";
 createNode mesh -n "polySurfaceShape303" -p "polySurface389";
 	rename -uid "94A1ED39-4A65-CDEC-6BE3-F58573269964";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26692,7 +26683,7 @@ createNode transform -n "polySurface390" -p "pier";
 createNode mesh -n "polySurfaceShape304" -p "polySurface390";
 	rename -uid "3C5F85CB-4A11-4EBD-4F7D-ED91E9279454";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26730,7 +26721,7 @@ createNode transform -n "polySurface391" -p "pier";
 createNode mesh -n "polySurfaceShape305" -p "polySurface391";
 	rename -uid "19D033EB-4D6D-846A-C52B-D18FE3ED7E4C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26770,7 +26761,7 @@ createNode transform -n "polySurface392" -p "pier";
 createNode mesh -n "polySurfaceShape306" -p "polySurface392";
 	rename -uid "A38C5094-4779-A969-B859-359E84502942";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26810,7 +26801,7 @@ createNode transform -n "polySurface393" -p "pier";
 createNode mesh -n "polySurfaceShape307" -p "polySurface393";
 	rename -uid "133F327F-4407-B8F8-1261-0D8E461EEE9E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26850,7 +26841,7 @@ createNode transform -n "polySurface394" -p "pier";
 createNode mesh -n "polySurfaceShape308" -p "polySurface394";
 	rename -uid "29F821E2-407B-E674-BF0A-A196611A66BC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26890,7 +26881,7 @@ createNode transform -n "polySurface395" -p "pier";
 createNode mesh -n "polySurfaceShape309" -p "polySurface395";
 	rename -uid "8BC345C2-43AE-CE82-AA2B-948F4EFAC1E5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26930,7 +26921,7 @@ createNode transform -n "polySurface396" -p "pier";
 createNode mesh -n "polySurfaceShape310" -p "polySurface396";
 	rename -uid "12442C9A-49BD-FF22-B969-609945120C1F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -26970,7 +26961,7 @@ createNode transform -n "polySurface397" -p "pier";
 createNode mesh -n "polySurfaceShape311" -p "polySurface397";
 	rename -uid "79F06170-4478-6BF1-DD83-009350F3CC29";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27050,7 +27041,7 @@ createNode transform -n "polySurface398" -p "pier";
 createNode mesh -n "polySurfaceShape312" -p "polySurface398";
 	rename -uid "8BB0343D-427D-37E6-2FBC-3BB28A475FDB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27126,7 +27117,7 @@ createNode transform -n "polySurface399" -p "pier";
 createNode mesh -n "polySurfaceShape313" -p "polySurface399";
 	rename -uid "06CEE8DF-475E-528D-F8C4-73BCABC2E267";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27206,7 +27197,7 @@ createNode transform -n "polySurface400" -p "pier";
 createNode mesh -n "polySurfaceShape314" -p "polySurface400";
 	rename -uid "AA511F7C-4465-E80A-9A5A-319811493AAB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27286,7 +27277,7 @@ createNode transform -n "polySurface401" -p "pier";
 createNode mesh -n "polySurfaceShape315" -p "polySurface401";
 	rename -uid "1FAA2E4E-4327-6A58-C3AC-59857B88AA44";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27365,7 +27356,7 @@ createNode transform -n "polySurface402" -p "pier";
 createNode mesh -n "polySurfaceShape316" -p "polySurface402";
 	rename -uid "297D27DF-496F-D92D-F873-AF9CF6A23FFA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27445,7 +27436,7 @@ createNode transform -n "polySurface403" -p "pier";
 createNode mesh -n "polySurfaceShape317" -p "polySurface403";
 	rename -uid "E1FB95C3-492A-0369-0053-4B982FF6306E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27525,7 +27516,7 @@ createNode transform -n "polySurface404" -p "pier";
 createNode mesh -n "polySurfaceShape318" -p "polySurface404";
 	rename -uid "40CFD9A0-493E-3A4D-6DC4-BEAE6C4DFC21";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27605,7 +27596,7 @@ createNode transform -n "polySurface405" -p "pier";
 createNode mesh -n "polySurfaceShape319" -p "polySurface405";
 	rename -uid "2E13B09D-4419-36B2-C833-99837A9014B2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27644,7 +27635,7 @@ createNode transform -n "polySurface406" -p "pier";
 createNode mesh -n "polySurfaceShape320" -p "polySurface406";
 	rename -uid "2AB052F2-432D-D8A7-C9A1-AF8A98DB28C4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27684,7 +27675,7 @@ createNode transform -n "polySurface407" -p "pier";
 createNode mesh -n "polySurfaceShape321" -p "polySurface407";
 	rename -uid "E8AB7E8E-44EB-7B50-1354-5DA13C3159A2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27724,7 +27715,7 @@ createNode transform -n "polySurface408" -p "pier";
 createNode mesh -n "polySurfaceShape322" -p "polySurface408";
 	rename -uid "553F3F69-498E-00A3-066C-739A4FF16CA7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27763,7 +27754,7 @@ createNode transform -n "polySurface409" -p "pier";
 createNode mesh -n "polySurfaceShape323" -p "polySurface409";
 	rename -uid "E01AE565-4DA3-A642-BDE1-15AD4A089F8B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27803,7 +27794,7 @@ createNode transform -n "polySurface410" -p "pier";
 createNode mesh -n "polySurfaceShape324" -p "polySurface410";
 	rename -uid "2993207F-445D-248E-2577-F48635A48733";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27843,7 +27834,7 @@ createNode transform -n "polySurface411" -p "pier";
 createNode mesh -n "polySurfaceShape325" -p "polySurface411";
 	rename -uid "8D356A89-494C-1DEB-B37B-278EB4BC89AF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27883,7 +27874,7 @@ createNode transform -n "polySurface412" -p "pier";
 createNode mesh -n "polySurfaceShape326" -p "polySurface412";
 	rename -uid "927182C7-4EC6-A4C6-70E1-679A9E0330BC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27922,7 +27913,7 @@ createNode transform -n "polySurface413" -p "pier";
 createNode mesh -n "polySurfaceShape327" -p "polySurface413";
 	rename -uid "4963FD5C-4278-5F63-4CA1-E490141E70CF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27962,7 +27953,7 @@ createNode transform -n "polySurface414" -p "pier";
 createNode mesh -n "polySurfaceShape328" -p "polySurface414";
 	rename -uid "C0017687-4B65-1E41-8318-3ABB8395D4B8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28002,7 +27993,7 @@ createNode transform -n "polySurface415" -p "pier";
 createNode mesh -n "polySurfaceShape329" -p "polySurface415";
 	rename -uid "66F80425-4E75-34B5-869C-EABB1603D037";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28042,7 +28033,7 @@ createNode transform -n "polySurface416" -p "pier";
 createNode mesh -n "polySurfaceShape330" -p "polySurface416";
 	rename -uid "7FEAC1DC-4986-9FB0-3ADA-99ACF78AB33C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28082,7 +28073,7 @@ createNode transform -n "polySurface417" -p "pier";
 createNode mesh -n "polySurfaceShape331" -p "polySurface417";
 	rename -uid "BAC2341F-44F7-1851-B64A-B9B1DEC935AA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28122,7 +28113,7 @@ createNode transform -n "polySurface418" -p "pier";
 createNode mesh -n "polySurfaceShape332" -p "polySurface418";
 	rename -uid "9768825D-4A6A-0E94-9987-C8B018FC656D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28162,7 +28153,7 @@ createNode transform -n "polySurface419" -p "pier";
 createNode mesh -n "polySurfaceShape333" -p "polySurface419";
 	rename -uid "F6691B13-4595-A343-5771-329571D078B0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28201,7 +28192,7 @@ createNode transform -n "polySurface420" -p "pier";
 createNode mesh -n "polySurfaceShape334" -p "polySurface420";
 	rename -uid "9025EAC6-4378-9CF6-7FE4-018BF85A8B88";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28239,7 +28230,7 @@ createNode transform -n "polySurface421" -p "pier";
 createNode mesh -n "polySurfaceShape335" -p "polySurface421";
 	rename -uid "A17D85CB-49CA-197C-F182-779DB2FECDFE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28279,7 +28270,7 @@ createNode transform -n "polySurface422" -p "pier";
 createNode mesh -n "polySurfaceShape336" -p "polySurface422";
 	rename -uid "B4958E64-48EC-13D4-83AB-A8907E74930E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28319,7 +28310,7 @@ createNode transform -n "polySurface423" -p "pier";
 createNode mesh -n "polySurfaceShape337" -p "polySurface423";
 	rename -uid "4555B977-438A-6A4F-EE3E-1B8F85FD1396";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28358,7 +28349,7 @@ createNode transform -n "polySurface424" -p "pier";
 createNode mesh -n "polySurfaceShape338" -p "polySurface424";
 	rename -uid "BFB43EC7-4F33-7EBD-68A9-2CBE2DBA17F9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28398,7 +28389,7 @@ createNode transform -n "polySurface425" -p "pier";
 createNode mesh -n "polySurfaceShape339" -p "polySurface425";
 	rename -uid "37BD2FC0-4628-D025-EC5A-18BA59886774";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28438,7 +28429,7 @@ createNode transform -n "polySurface426" -p "pier";
 createNode mesh -n "polySurfaceShape340" -p "polySurface426";
 	rename -uid "E4BFB831-4AC4-8DFE-F3A1-21BA3D903F8D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28478,7 +28469,7 @@ createNode transform -n "polySurface427" -p "pier";
 createNode mesh -n "polySurfaceShape341" -p "polySurface427";
 	rename -uid "B63F7845-4361-A05E-1620-7E98DECB721A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28517,7 +28508,7 @@ createNode transform -n "polySurface428" -p "pier";
 createNode mesh -n "polySurfaceShape342" -p "polySurface428";
 	rename -uid "F3AC4D6F-4789-7D57-669B-8A916E945117";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28557,7 +28548,7 @@ createNode transform -n "polySurface429" -p "pier";
 createNode mesh -n "polySurfaceShape343" -p "polySurface429";
 	rename -uid "D9B30090-4A6F-628F-EC64-549980EF3541";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28597,7 +28588,7 @@ createNode transform -n "polySurface430" -p "pier";
 createNode mesh -n "polySurfaceShape344" -p "polySurface430";
 	rename -uid "10BB3A1F-479E-E73F-2916-FB814D059547";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28637,7 +28628,7 @@ createNode transform -n "polySurface431" -p "pier";
 createNode mesh -n "polySurfaceShape345" -p "polySurface431";
 	rename -uid "B1D42F52-47E1-8D1B-CEB4-E687F18A5255";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28677,7 +28668,7 @@ createNode transform -n "polySurface432" -p "pier";
 createNode mesh -n "polySurfaceShape346" -p "polySurface432";
 	rename -uid "24893EF2-4216-5C78-8F29-2AA48E4F179D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28717,7 +28708,7 @@ createNode transform -n "polySurface433" -p "pier";
 createNode mesh -n "polySurfaceShape347" -p "polySurface433";
 	rename -uid "D1F315EF-4C88-CC01-F40E-BB8633CD06EC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28757,7 +28748,7 @@ createNode transform -n "polySurface434" -p "pier";
 createNode mesh -n "polySurfaceShape348" -p "polySurface434";
 	rename -uid "B43D8D94-4B1B-8E98-F547-47BE8A1DB766";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28797,7 +28788,7 @@ createNode transform -n "polySurface435" -p "pier";
 createNode mesh -n "polySurfaceShape349" -p "polySurface435";
 	rename -uid "9EB4FCB8-46E3-7846-F393-D9993B03B3AB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28836,7 +28827,7 @@ createNode transform -n "polySurface436" -p "pier";
 createNode mesh -n "polySurfaceShape350" -p "polySurface436";
 	rename -uid "7C74FC6E-4985-CE8E-44AF-B98406E204AA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28875,7 +28866,7 @@ createNode transform -n "polySurface437" -p "pier";
 createNode mesh -n "polySurfaceShape351" -p "polySurface437";
 	rename -uid "B6F3FE98-476C-F468-4D58-E7BDD3F2CA00";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28915,7 +28906,7 @@ createNode transform -n "polySurface438" -p "pier";
 createNode mesh -n "polySurfaceShape352" -p "polySurface438";
 	rename -uid "4237949D-465C-14F4-74B6-158C0CF8826B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28955,7 +28946,7 @@ createNode transform -n "polySurface439" -p "pier";
 createNode mesh -n "polySurfaceShape353" -p "polySurface439";
 	rename -uid "57EE0AD6-477C-6ED6-9C62-2698B580E99D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -28995,7 +28986,7 @@ createNode transform -n "polySurface440" -p "pier";
 createNode mesh -n "polySurfaceShape354" -p "polySurface440";
 	rename -uid "117436A9-402C-428D-4480-8FB60975C8C9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29034,7 +29025,7 @@ createNode transform -n "polySurface441" -p "pier";
 createNode mesh -n "polySurfaceShape355" -p "polySurface441";
 	rename -uid "1D0B6A6D-4827-0CDA-8A31-44B44A4946C3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29074,7 +29065,7 @@ createNode transform -n "polySurface442" -p "pier";
 createNode mesh -n "polySurfaceShape356" -p "polySurface442";
 	rename -uid "0ADA1E3D-4930-DCDB-A043-86859D2A1AFA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29114,7 +29105,7 @@ createNode transform -n "polySurface443" -p "pier";
 createNode mesh -n "polySurfaceShape357" -p "polySurface443";
 	rename -uid "BD58FAA1-49BF-C8EE-2C67-389AB41E16E1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29154,7 +29145,7 @@ createNode transform -n "polySurface444" -p "pier";
 createNode mesh -n "polySurfaceShape358" -p "polySurface444";
 	rename -uid "4B0E3061-429F-20DD-489D-31A13512010F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29193,7 +29184,7 @@ createNode transform -n "polySurface445" -p "pier";
 createNode mesh -n "polySurfaceShape359" -p "polySurface445";
 	rename -uid "0E64AE7D-4D7B-7578-DB13-24AE0D86EFCD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29233,7 +29224,7 @@ createNode transform -n "polySurface446" -p "pier";
 createNode mesh -n "polySurfaceShape360" -p "polySurface446";
 	rename -uid "21244879-40DF-5B4E-D496-E9B81427E04B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29272,7 +29263,7 @@ createNode transform -n "polySurface447" -p "pier";
 createNode mesh -n "polySurfaceShape361" -p "polySurface447";
 	rename -uid "CA75583D-4C66-CD07-62BC-CAA32C4FC850";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29312,7 +29303,7 @@ createNode transform -n "polySurface448" -p "pier";
 createNode mesh -n "polySurfaceShape362" -p "polySurface448";
 	rename -uid "D2F649B1-4AED-E2BB-D45E-A7AB9153EDC4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29352,7 +29343,7 @@ createNode transform -n "polySurface449" -p "pier";
 createNode mesh -n "polySurfaceShape363" -p "polySurface449";
 	rename -uid "2910B9A1-4711-AEB5-9AA3-258347AC653B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29391,7 +29382,7 @@ createNode transform -n "polySurface450" -p "pier";
 createNode mesh -n "polySurfaceShape364" -p "polySurface450";
 	rename -uid "467D6016-4103-9E2F-7AA2-BCAF55E2C248";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29431,7 +29422,7 @@ createNode transform -n "polySurface451" -p "pier";
 createNode mesh -n "polySurfaceShape365" -p "polySurface451";
 	rename -uid "7D533F7E-4F38-14CF-EA67-2997893EF964";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29471,7 +29462,7 @@ createNode transform -n "polySurface452" -p "pier";
 createNode mesh -n "polySurfaceShape366" -p "polySurface452";
 	rename -uid "FAD1716C-45C3-2845-135D-159BC9247DC3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29511,7 +29502,7 @@ createNode transform -n "polySurface453" -p "pier";
 createNode mesh -n "polySurfaceShape367" -p "polySurface453";
 	rename -uid "E6509C7D-4941-87BA-D811-8E82C0099508";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29551,7 +29542,7 @@ createNode transform -n "polySurface454" -p "pier";
 createNode mesh -n "polySurfaceShape368" -p "polySurface454";
 	rename -uid "1689B864-4D60-B5C7-0832-4E925D7D9F5A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29591,7 +29582,7 @@ createNode transform -n "polySurface455" -p "pier";
 createNode mesh -n "polySurfaceShape369" -p "polySurface455";
 	rename -uid "A1276742-45D1-941A-FBAE-F9BDD6781BF5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29631,7 +29622,7 @@ createNode transform -n "polySurface456" -p "pier";
 createNode mesh -n "polySurfaceShape370" -p "polySurface456";
 	rename -uid "FE2ED137-4433-CD9F-A6C7-C6806C044EF2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29671,7 +29662,7 @@ createNode transform -n "polySurface457" -p "pier";
 createNode mesh -n "polySurfaceShape371" -p "polySurface457";
 	rename -uid "AE3FD32A-4295-131F-2E9E-90B0E58BCB29";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29710,7 +29701,7 @@ createNode transform -n "polySurface458" -p "pier";
 createNode mesh -n "polySurfaceShape372" -p "polySurface458";
 	rename -uid "F790CF59-4D9C-522A-067E-5A96374A16FC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29750,7 +29741,7 @@ createNode transform -n "polySurface459" -p "pier";
 createNode mesh -n "polySurfaceShape373" -p "polySurface459";
 	rename -uid "F3FAB28D-41C0-374D-F0A3-8A88675A0FEE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29790,7 +29781,7 @@ createNode transform -n "polySurface460" -p "pier";
 createNode mesh -n "polySurfaceShape374" -p "polySurface460";
 	rename -uid "6BB74166-45A0-2939-3593-F595D7F323E0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29830,7 +29821,7 @@ createNode transform -n "polySurface461" -p "pier";
 createNode mesh -n "polySurfaceShape375" -p "polySurface461";
 	rename -uid "AFF28AE1-45D2-5C18-2D80-FA90D0CE3476";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29870,7 +29861,7 @@ createNode transform -n "polySurface462" -p "pier";
 createNode mesh -n "polySurfaceShape376" -p "polySurface462";
 	rename -uid "3B479466-4692-DE79-1C33-4083CCD4DA93";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29910,7 +29901,7 @@ createNode transform -n "polySurface463" -p "pier";
 createNode mesh -n "polySurfaceShape377" -p "polySurface463";
 	rename -uid "60A76AAE-4878-ACC0-6217-5DA5BA540063";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29949,7 +29940,7 @@ createNode transform -n "polySurface464" -p "pier";
 createNode mesh -n "polySurfaceShape378" -p "polySurface464";
 	rename -uid "EE38082C-4384-0F95-3117-939BBCC6C66D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -29989,7 +29980,7 @@ createNode transform -n "polySurface465" -p "pier";
 createNode mesh -n "polySurfaceShape379" -p "polySurface465";
 	rename -uid "8469787B-43B1-D494-44B7-FBAB1F54472B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30029,7 +30020,7 @@ createNode transform -n "polySurface466" -p "pier";
 createNode mesh -n "polySurfaceShape380" -p "polySurface466";
 	rename -uid "40ADFCC4-4D5A-4A01-93E8-7F89A1073B13";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30069,7 +30060,7 @@ createNode transform -n "polySurface467" -p "pier";
 createNode mesh -n "polySurfaceShape381" -p "polySurface467";
 	rename -uid "708A7825-43CB-D187-F6C5-A4BD59FB2C19";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30108,7 +30099,7 @@ createNode transform -n "polySurface468" -p "pier";
 createNode mesh -n "polySurfaceShape382" -p "polySurface468";
 	rename -uid "8D5188D9-427F-7293-B877-CABBDCB76E3A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30148,7 +30139,7 @@ createNode transform -n "polySurface469" -p "pier";
 createNode mesh -n "polySurfaceShape383" -p "polySurface469";
 	rename -uid "0F9CB801-4842-6AD5-749A-92933494B1ED";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30188,7 +30179,7 @@ createNode transform -n "polySurface470" -p "pier";
 createNode mesh -n "polySurfaceShape384" -p "polySurface470";
 	rename -uid "15602D05-4401-AE8C-6302-09B01A69C5BA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30228,7 +30219,7 @@ createNode transform -n "polySurface471" -p "pier";
 createNode mesh -n "polySurfaceShape385" -p "polySurface471";
 	rename -uid "84A19B3D-4914-A8AB-CB5C-D5BFCCCB45C8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30268,7 +30259,7 @@ createNode transform -n "polySurface472" -p "pier";
 createNode mesh -n "polySurfaceShape386" -p "polySurface472";
 	rename -uid "9887EB6A-4859-9AB5-1108-A8ABF5C8A671";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30308,7 +30299,7 @@ createNode transform -n "polySurface473" -p "pier";
 createNode mesh -n "polySurfaceShape387" -p "polySurface473";
 	rename -uid "93A278BD-472C-78ED-E387-5C912165F694";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30348,7 +30339,7 @@ createNode transform -n "polySurface474" -p "pier";
 createNode mesh -n "polySurfaceShape388" -p "polySurface474";
 	rename -uid "470DADEA-41B5-6851-9CCB-7CB4437DA20C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30388,7 +30379,7 @@ createNode transform -n "polySurface475" -p "pier";
 createNode mesh -n "polySurfaceShape389" -p "polySurface475";
 	rename -uid "E6C33F87-43C0-8314-75C9-918ACC1DA32B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30428,7 +30419,7 @@ createNode transform -n "polySurface476" -p "pier";
 createNode mesh -n "polySurfaceShape390" -p "polySurface476";
 	rename -uid "B1A8D92A-46EF-EE79-0688-E5A9BDEAD129";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30468,7 +30459,7 @@ createNode transform -n "polySurface477" -p "pier";
 createNode mesh -n "polySurfaceShape391" -p "polySurface477";
 	rename -uid "E5009727-4068-F9CF-5FE7-3B83B5C562E7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30508,7 +30499,7 @@ createNode transform -n "polySurface478" -p "pier";
 createNode mesh -n "polySurfaceShape392" -p "polySurface478";
 	rename -uid "2E2397A5-4EC9-F8D7-7E5A-D492CC876854";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30547,7 +30538,7 @@ createNode transform -n "polySurface479" -p "pier";
 createNode mesh -n "polySurfaceShape393" -p "polySurface479";
 	rename -uid "DC0F3EB2-4011-B326-F313-D89E46D8E9B0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30587,7 +30578,7 @@ createNode transform -n "polySurface480" -p "pier";
 createNode mesh -n "polySurfaceShape394" -p "polySurface480";
 	rename -uid "A23C1DF7-402A-A1C8-D58B-A2A1290030B9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30627,7 +30618,7 @@ createNode transform -n "polySurface481" -p "pier";
 createNode mesh -n "polySurfaceShape395" -p "polySurface481";
 	rename -uid "98E8DEB2-4FC3-0F78-9BD3-6FAAA54B6A28";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30667,7 +30658,7 @@ createNode transform -n "polySurface482" -p "pier";
 createNode mesh -n "polySurfaceShape396" -p "polySurface482";
 	rename -uid "94C05B40-4245-7B7F-F977-66A602C2DDBE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30707,7 +30698,7 @@ createNode transform -n "polySurface483" -p "pier";
 createNode mesh -n "polySurfaceShape397" -p "polySurface483";
 	rename -uid "949A0120-4AB7-7E87-8B93-15848DB59398";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30747,7 +30738,7 @@ createNode transform -n "polySurface484" -p "pier";
 createNode mesh -n "polySurfaceShape398" -p "polySurface484";
 	rename -uid "FAABA9CB-4AA5-02FF-327C-02844AD754B8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30786,7 +30777,7 @@ createNode transform -n "polySurface485" -p "pier";
 createNode mesh -n "polySurfaceShape399" -p "polySurface485";
 	rename -uid "CEC5A293-423F-54EB-F0F6-F29FD0779A23";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30825,7 +30816,7 @@ createNode transform -n "polySurface486" -p "pier";
 createNode mesh -n "polySurfaceShape400" -p "polySurface486";
 	rename -uid "AAF2E1A0-4132-64DE-A1C2-4FBD925C9EAF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30865,7 +30856,7 @@ createNode transform -n "polySurface487" -p "pier";
 createNode mesh -n "polySurfaceShape401" -p "polySurface487";
 	rename -uid "285851FD-4758-5D25-5D2B-76AD7A891AF6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30905,7 +30896,7 @@ createNode transform -n "polySurface488" -p "pier";
 createNode mesh -n "polySurfaceShape402" -p "polySurface488";
 	rename -uid "629A29AD-40A3-2E0D-1483-A2BA3846E76B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30945,7 +30936,7 @@ createNode transform -n "polySurface489" -p "pier";
 createNode mesh -n "polySurfaceShape403" -p "polySurface489";
 	rename -uid "0A4AA091-44AE-2511-9FAA-A58A74DD1C10";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -30985,7 +30976,7 @@ createNode transform -n "polySurface490" -p "pier";
 createNode mesh -n "polySurfaceShape404" -p "polySurface490";
 	rename -uid "E4BAEE3D-4275-B354-998F-688D4E113F15";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31025,7 +31016,7 @@ createNode transform -n "polySurface491" -p "pier";
 createNode mesh -n "polySurfaceShape405" -p "polySurface491";
 	rename -uid "BE5065E9-415B-BA6F-1E21-4DB503FF428E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31065,7 +31056,7 @@ createNode transform -n "polySurface492" -p "pier";
 createNode mesh -n "polySurfaceShape406" -p "polySurface492";
 	rename -uid "5FAF5647-4BFD-3591-7B51-7FA3FE5C5AFD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31104,7 +31095,7 @@ createNode transform -n "polySurface493" -p "pier";
 createNode mesh -n "polySurfaceShape407" -p "polySurface493";
 	rename -uid "46942BC1-4A25-44DA-5401-BAA81E5E33AD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31144,7 +31135,7 @@ createNode transform -n "polySurface494" -p "pier";
 createNode mesh -n "polySurfaceShape408" -p "polySurface494";
 	rename -uid "34631B16-4499-E5B4-B65E-49ADAF36C8B2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31184,7 +31175,7 @@ createNode transform -n "polySurface495" -p "pier";
 createNode mesh -n "polySurfaceShape409" -p "polySurface495";
 	rename -uid "9B6A962E-4B6F-6418-7A53-5CA0FF25B727";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31223,7 +31214,7 @@ createNode transform -n "polySurface496" -p "pier";
 createNode mesh -n "polySurfaceShape410" -p "polySurface496";
 	rename -uid "F80ACB71-4CE9-334D-8FE4-B1B504F1F11F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31262,7 +31253,7 @@ createNode transform -n "polySurface497" -p "pier";
 createNode mesh -n "polySurfaceShape411" -p "polySurface497";
 	rename -uid "E8F59E81-4A4A-4A4E-79D2-20ADC6036CBF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31302,7 +31293,7 @@ createNode transform -n "polySurface498" -p "pier";
 createNode mesh -n "polySurfaceShape412" -p "polySurface498";
 	rename -uid "3F2C5511-480F-9D48-A9EB-39862F374421";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31342,7 +31333,7 @@ createNode transform -n "polySurface499" -p "pier";
 createNode mesh -n "polySurfaceShape413" -p "polySurface499";
 	rename -uid "E385D736-4012-2CEA-BFE1-1EA7BFC1AE63";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31382,7 +31373,7 @@ createNode transform -n "polySurface500" -p "pier";
 createNode mesh -n "polySurfaceShape414" -p "polySurface500";
 	rename -uid "D93963CB-4F68-9A8F-4DA1-E2BF61C3620F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31422,7 +31413,7 @@ createNode transform -n "polySurface501" -p "pier";
 createNode mesh -n "polySurfaceShape415" -p "polySurface501";
 	rename -uid "CFB4C6DA-4A66-9665-16DD-C786C7AECEFA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31462,7 +31453,7 @@ createNode transform -n "polySurface502" -p "pier";
 createNode mesh -n "polySurfaceShape416" -p "polySurface502";
 	rename -uid "76AFCAC9-40FA-F053-9068-CF9BE17D2992";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31502,7 +31493,7 @@ createNode transform -n "polySurface503" -p "pier";
 createNode mesh -n "polySurfaceShape417" -p "polySurface503";
 	rename -uid "F0CA1B0F-4AC7-3E1A-311D-2E8152B24103";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31542,7 +31533,7 @@ createNode transform -n "polySurface504" -p "pier";
 createNode mesh -n "polySurfaceShape418" -p "polySurface504";
 	rename -uid "2ED04190-4E16-24E0-F2FE-F7B8ED154B9B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31581,7 +31572,7 @@ createNode transform -n "polySurface505" -p "pier";
 createNode mesh -n "polySurfaceShape419" -p "polySurface505";
 	rename -uid "6048362D-4321-B737-66BD-40B407044807";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31620,7 +31611,7 @@ createNode transform -n "polySurface506" -p "pier";
 createNode mesh -n "polySurfaceShape420" -p "polySurface506";
 	rename -uid "6771C04D-4582-8049-868D-ECB7B588E565";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31659,7 +31650,7 @@ createNode transform -n "polySurface507" -p "pier";
 createNode mesh -n "polySurfaceShape421" -p "polySurface507";
 	rename -uid "D6DF03FE-49B5-3886-0B3D-B48A16AB89E6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31698,7 +31689,7 @@ createNode transform -n "polySurface508" -p "pier";
 createNode mesh -n "polySurfaceShape422" -p "polySurface508";
 	rename -uid "A166C369-4628-B05B-AF7D-8693B89D2648";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31737,7 +31728,7 @@ createNode transform -n "polySurface509" -p "pier";
 createNode mesh -n "polySurfaceShape423" -p "polySurface509";
 	rename -uid "49E37D93-4729-7416-0496-5B85288E41E1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31776,7 +31767,7 @@ createNode transform -n "polySurface510" -p "pier";
 createNode mesh -n "polySurfaceShape424" -p "polySurface510";
 	rename -uid "C5EF55FA-4245-C404-2CCC-77802091611C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31815,7 +31806,7 @@ createNode transform -n "polySurface511" -p "pier";
 createNode mesh -n "polySurfaceShape425" -p "polySurface511";
 	rename -uid "5B6363F1-4E1E-42B8-0597-0F8F4E790BC7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31854,7 +31845,7 @@ createNode transform -n "polySurface512" -p "pier";
 createNode mesh -n "polySurfaceShape426" -p "polySurface512";
 	rename -uid "D22A9268-47D4-B052-5E79-F0861E340E81";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31893,7 +31884,7 @@ createNode transform -n "polySurface513" -p "pier";
 createNode mesh -n "polySurfaceShape427" -p "polySurface513";
 	rename -uid "D0ADDE83-4A0F-099D-4202-398135E60409";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31932,7 +31923,7 @@ createNode transform -n "polySurface514" -p "pier";
 createNode mesh -n "polySurfaceShape428" -p "polySurface514";
 	rename -uid "F621D2D7-45BD-B560-7869-84BC5B28B113";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -31971,7 +31962,7 @@ createNode transform -n "polySurface515" -p "pier";
 createNode mesh -n "polySurfaceShape429" -p "polySurface515";
 	rename -uid "18F87693-458C-8A70-4C72-72A103ACECC2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32011,7 +32002,7 @@ createNode transform -n "polySurface516" -p "pier";
 createNode mesh -n "polySurfaceShape430" -p "polySurface516";
 	rename -uid "ADF77927-4900-9F85-5597-18AE861E0B23";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32051,7 +32042,7 @@ createNode transform -n "polySurface517" -p "pier";
 createNode mesh -n "polySurfaceShape431" -p "polySurface517";
 	rename -uid "2C3257D8-4865-2041-0F0B-F5A314CBDD9B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32090,7 +32081,7 @@ createNode transform -n "polySurface518" -p "pier";
 createNode mesh -n "polySurfaceShape432" -p "polySurface518";
 	rename -uid "C83521F8-460A-1EA6-0B79-2AB1725CE27A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32129,7 +32120,7 @@ createNode transform -n "polySurface519" -p "pier";
 createNode mesh -n "polySurfaceShape433" -p "polySurface519";
 	rename -uid "E5018AFB-4C07-60F0-C655-C885A75EBE45";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32168,7 +32159,7 @@ createNode transform -n "polySurface520" -p "pier";
 createNode mesh -n "polySurfaceShape434" -p "polySurface520";
 	rename -uid "786CD92F-4C8D-B68D-FA20-E4A7C0167DF9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32207,7 +32198,7 @@ createNode transform -n "polySurface521" -p "pier";
 createNode mesh -n "polySurfaceShape435" -p "polySurface521";
 	rename -uid "CE30E49E-41D1-7B2F-7552-98AD5ED1CD10";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32247,7 +32238,7 @@ createNode transform -n "polySurface522" -p "pier";
 createNode mesh -n "polySurfaceShape436" -p "polySurface522";
 	rename -uid "398E9CEE-4B02-EA60-75F6-EE8757CC0A4A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32287,7 +32278,7 @@ createNode transform -n "polySurface523" -p "pier";
 createNode mesh -n "polySurfaceShape437" -p "polySurface523";
 	rename -uid "2C2E26BE-4781-872D-D7DE-53980C89638C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32326,7 +32317,7 @@ createNode transform -n "polySurface524" -p "pier";
 createNode mesh -n "polySurfaceShape438" -p "polySurface524";
 	rename -uid "CD9F313C-477E-8ED8-0D5A-BBB6719B191B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32366,7 +32357,7 @@ createNode transform -n "polySurface525" -p "pier";
 createNode mesh -n "polySurfaceShape439" -p "polySurface525";
 	rename -uid "A30D9DF9-4AD9-6158-A9BB-718999E251AA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32406,7 +32397,7 @@ createNode transform -n "polySurface527" -p "pier";
 createNode mesh -n "polySurfaceShape441" -p "polySurface527";
 	rename -uid "62097F1B-4E3B-E94B-7BE4-1CA378B9FBFD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32443,7 +32434,7 @@ createNode transform -n "polySurface528" -p "pier";
 createNode mesh -n "polySurfaceShape442" -p "polySurface528";
 	rename -uid "7DDDF6BE-44B1-046D-53E3-50887D1A157C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32480,7 +32471,7 @@ createNode transform -n "polySurface529" -p "pier";
 createNode mesh -n "polySurfaceShape443" -p "polySurface529";
 	rename -uid "692C4D6A-449C-2DF7-67B7-A38E48616C3E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32516,7 +32507,7 @@ createNode transform -n "polySurface530" -p "pier";
 createNode mesh -n "polySurfaceShape444" -p "polySurface530";
 	rename -uid "5D4C6E49-4E89-3BB4-1E24-E492B54B4560";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32553,7 +32544,7 @@ createNode transform -n "polySurface531" -p "pier";
 createNode mesh -n "polySurfaceShape445" -p "polySurface531";
 	rename -uid "5CABE5FB-4361-14A5-147D-DE8FFB00891B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32590,7 +32581,7 @@ createNode transform -n "polySurface532" -p "pier";
 createNode mesh -n "polySurfaceShape446" -p "polySurface532";
 	rename -uid "2EAA866C-461D-1DB6-B499-A1B53E7C04B9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32627,7 +32618,7 @@ createNode transform -n "polySurface533" -p "pier";
 createNode mesh -n "polySurfaceShape447" -p "polySurface533";
 	rename -uid "944C0AAA-4DB8-5E2F-6C72-298AEFE3A527";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32663,7 +32654,7 @@ createNode transform -n "polySurface534" -p "pier";
 createNode mesh -n "polySurfaceShape448" -p "polySurface534";
 	rename -uid "CB17F87E-4F95-18BD-B183-22A1B49B34FD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32699,7 +32690,7 @@ createNode transform -n "polySurface535" -p "pier";
 createNode mesh -n "polySurfaceShape449" -p "polySurface535";
 	rename -uid "7FF3B915-4117-FEBC-CA73-8B9EEF70BC3A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32735,7 +32726,7 @@ createNode transform -n "polySurface536" -p "pier";
 createNode mesh -n "polySurfaceShape450" -p "polySurface536";
 	rename -uid "FA65B71B-4E7B-5211-8924-56B5C02F514E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32771,7 +32762,7 @@ createNode transform -n "polySurface537" -p "pier";
 createNode mesh -n "polySurfaceShape451" -p "polySurface537";
 	rename -uid "9807B828-40AC-2EA8-63E6-19A7EC2C13B2";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32808,7 +32799,7 @@ createNode transform -n "polySurface538" -p "pier";
 createNode mesh -n "polySurfaceShape452" -p "polySurface538";
 	rename -uid "CD0F6C51-4E7C-E67E-5CA4-B2AC7D84CDFB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32845,7 +32836,7 @@ createNode transform -n "polySurface539" -p "pier";
 createNode mesh -n "polySurfaceShape453" -p "polySurface539";
 	rename -uid "D83F779C-470F-6087-BD05-1AADEB079F73";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32882,7 +32873,7 @@ createNode transform -n "polySurface540" -p "pier";
 createNode mesh -n "polySurfaceShape454" -p "polySurface540";
 	rename -uid "8149B967-4FC3-1135-C2E6-A78C6C1D1497";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32919,7 +32910,7 @@ createNode transform -n "polySurface541" -p "pier";
 createNode mesh -n "polySurfaceShape455" -p "polySurface541";
 	rename -uid "5106C587-41EB-7E9D-00DA-009944B9ABA3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32955,7 +32946,7 @@ createNode transform -n "polySurface542" -p "pier";
 createNode mesh -n "polySurfaceShape456" -p "polySurface542";
 	rename -uid "AA81A683-4541-66BE-2E95-C49479219FE9";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -32991,7 +32982,7 @@ createNode transform -n "polySurface543" -p "pier";
 createNode mesh -n "polySurfaceShape457" -p "polySurface543";
 	rename -uid "2A03F1CE-4D40-1ADE-7AC1-688907ADB9E1";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33028,7 +33019,7 @@ createNode transform -n "polySurface544" -p "pier";
 createNode mesh -n "polySurfaceShape458" -p "polySurface544";
 	rename -uid "C8239203-4793-57BD-A620-3DAB55E283C7";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33064,7 +33055,7 @@ createNode transform -n "polySurface545" -p "pier";
 createNode mesh -n "polySurfaceShape459" -p "polySurface545";
 	rename -uid "20466E1F-4960-1056-A43C-8088E7549C87";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33100,7 +33091,7 @@ createNode transform -n "polySurface546" -p "pier";
 createNode mesh -n "polySurfaceShape460" -p "polySurface546";
 	rename -uid "6F4F3BDA-4776-B615-6729-349C90DD093D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33137,7 +33128,7 @@ createNode transform -n "polySurface547" -p "pier";
 createNode mesh -n "polySurfaceShape461" -p "polySurface547";
 	rename -uid "17CA7510-41F9-C009-AFB2-6CAD39135793";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33173,7 +33164,7 @@ createNode transform -n "polySurface548" -p "pier";
 createNode mesh -n "polySurfaceShape462" -p "polySurface548";
 	rename -uid "E406BB76-4887-B9D7-4448-C8A9F353DBAA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33210,7 +33201,7 @@ createNode transform -n "polySurface549" -p "pier";
 createNode mesh -n "polySurfaceShape463" -p "polySurface549";
 	rename -uid "778250DE-4112-58D5-C1B2-67A40A516D83";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33247,7 +33238,7 @@ createNode transform -n "polySurface550" -p "pier";
 createNode mesh -n "polySurfaceShape464" -p "polySurface550";
 	rename -uid "EFBE6AAE-4302-662D-649D-78A6BADC7200";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33283,7 +33274,7 @@ createNode transform -n "polySurface551" -p "pier";
 createNode mesh -n "polySurfaceShape465" -p "polySurface551";
 	rename -uid "D6A8AB5B-4026-1C28-A216-BBAC5BE86C45";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33320,7 +33311,7 @@ createNode transform -n "polySurface552" -p "pier";
 createNode mesh -n "polySurfaceShape466" -p "polySurface552";
 	rename -uid "AB30DF84-4028-A35A-0718-D7900F82D525";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33357,7 +33348,7 @@ createNode transform -n "polySurface553" -p "pier";
 createNode mesh -n "polySurfaceShape467" -p "polySurface553";
 	rename -uid "17B0E38D-4C22-EB37-68B4-B2AE75499A35";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33393,7 +33384,7 @@ createNode transform -n "polySurface554" -p "pier";
 createNode mesh -n "polySurfaceShape468" -p "polySurface554";
 	rename -uid "9B7B011F-4F09-5079-A8AB-E08A88CB081A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33430,7 +33421,7 @@ createNode transform -n "polySurface555" -p "pier";
 createNode mesh -n "polySurfaceShape469" -p "polySurface555";
 	rename -uid "99B8D638-4BC5-C8F9-423B-1C8650641E4E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33467,7 +33458,7 @@ createNode transform -n "polySurface556" -p "pier";
 createNode mesh -n "polySurfaceShape470" -p "polySurface556";
 	rename -uid "AC8C7CAC-4A39-BF65-66B4-7FA39CD0E710";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33504,7 +33495,7 @@ createNode transform -n "polySurface557" -p "pier";
 createNode mesh -n "polySurfaceShape471" -p "polySurface557";
 	rename -uid "EADD4597-41EE-27E5-0DC1-168E9D13EECF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33541,7 +33532,7 @@ createNode transform -n "polySurface558" -p "pier";
 createNode mesh -n "polySurfaceShape472" -p "polySurface558";
 	rename -uid "0B477129-4437-30CA-2E79-9299E92BFD16";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33578,7 +33569,7 @@ createNode transform -n "polySurface559" -p "pier";
 createNode mesh -n "polySurfaceShape473" -p "polySurface559";
 	rename -uid "5BAA8814-42B0-E1ED-79E6-BB816ED958C6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33615,7 +33606,7 @@ createNode transform -n "polySurface560" -p "pier";
 createNode mesh -n "polySurfaceShape474" -p "polySurface560";
 	rename -uid "C3AA1043-4E26-4A4E-0DED-2AA51A8A795F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33651,7 +33642,7 @@ createNode transform -n "polySurface561" -p "pier";
 createNode mesh -n "polySurfaceShape475" -p "polySurface561";
 	rename -uid "9AEC9E2A-46AC-4470-9AB4-6E90C9B7D89A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33687,7 +33678,7 @@ createNode transform -n "polySurface562" -p "pier";
 createNode mesh -n "polySurfaceShape476" -p "polySurface562";
 	rename -uid "952BB64E-4BFA-538E-1998-19955694F62D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33723,7 +33714,7 @@ createNode transform -n "polySurface563" -p "pier";
 createNode mesh -n "polySurfaceShape477" -p "polySurface563";
 	rename -uid "36E61012-4020-8D78-4439-DEA7E399A4FD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33759,7 +33750,7 @@ createNode transform -n "polySurface564" -p "pier";
 createNode mesh -n "polySurfaceShape478" -p "polySurface564";
 	rename -uid "5FB591B5-4D09-0C4F-4D03-C3BB34BFEF91";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33795,7 +33786,7 @@ createNode transform -n "polySurface565" -p "pier";
 createNode mesh -n "polySurfaceShape479" -p "polySurface565";
 	rename -uid "ADC4483A-483E-A7A6-6F2D-86BCA78B0FB3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33831,7 +33822,7 @@ createNode transform -n "polySurface566" -p "pier";
 createNode mesh -n "polySurfaceShape480" -p "polySurface566";
 	rename -uid "52BD0792-4D7F-7F99-B40F-DF847D8AB667";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33867,7 +33858,7 @@ createNode transform -n "polySurface567" -p "pier";
 createNode mesh -n "polySurfaceShape481" -p "polySurface567";
 	rename -uid "7716C63F-42CA-9F73-6C69-DAB98D33A3BA";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33903,7 +33894,7 @@ createNode transform -n "polySurface568" -p "pier";
 createNode mesh -n "polySurfaceShape482" -p "polySurface568";
 	rename -uid "14B303BA-4036-F00B-FC41-FC8486E8550A";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33939,7 +33930,7 @@ createNode transform -n "polySurface569" -p "pier";
 createNode mesh -n "polySurfaceShape483" -p "polySurface569";
 	rename -uid "09FE0CD6-4DD2-162D-33E2-518D960B401C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -33976,7 +33967,7 @@ createNode transform -n "polySurface570" -p "pier";
 createNode mesh -n "polySurfaceShape484" -p "polySurface570";
 	rename -uid "797AC275-4DF7-BF3A-01B0-949D1AD42C7B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34012,7 +34003,7 @@ createNode transform -n "polySurface571" -p "pier";
 createNode mesh -n "polySurfaceShape485" -p "polySurface571";
 	rename -uid "66280FE3-4612-C2BA-F3B7-8F8AF390B046";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34049,7 +34040,7 @@ createNode transform -n "polySurface572" -p "pier";
 createNode mesh -n "polySurfaceShape486" -p "polySurface572";
 	rename -uid "7244DF5E-4238-0744-0125-42972CE7AF6F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34086,7 +34077,7 @@ createNode transform -n "polySurface573" -p "pier";
 createNode mesh -n "polySurfaceShape487" -p "polySurface573";
 	rename -uid "576A6045-478F-1ED8-3DE7-37A155B1001E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34123,7 +34114,7 @@ createNode transform -n "polySurface574" -p "pier";
 createNode mesh -n "polySurfaceShape488" -p "polySurface574";
 	rename -uid "43072471-4FBE-FA15-1BF9-3D9E04C2E698";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34160,7 +34151,7 @@ createNode transform -n "polySurface575" -p "pier";
 createNode mesh -n "polySurfaceShape489" -p "polySurface575";
 	rename -uid "3141DF8A-4069-0662-FBB1-7CA3D77C3964";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34196,7 +34187,7 @@ createNode transform -n "polySurface576" -p "pier";
 createNode mesh -n "polySurfaceShape490" -p "polySurface576";
 	rename -uid "B32C955D-4157-5B89-85D6-D6B18B61C26C";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34276,7 +34267,7 @@ createNode transform -n "polySurface577" -p "pier";
 createNode mesh -n "polySurfaceShape491" -p "polySurface577";
 	rename -uid "3439B018-43BB-F0D8-7C0C-F9BEF52B3060";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34316,7 +34307,7 @@ createNode transform -n "polySurface578" -p "pier";
 createNode mesh -n "polySurfaceShape492" -p "polySurface578";
 	rename -uid "9E155594-4EF7-256A-A897-8FA69EED40B8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34394,7 +34385,7 @@ createNode transform -n "polySurface579" -p "pier";
 createNode mesh -n "polySurfaceShape493" -p "polySurface579";
 	rename -uid "A284AB13-4A1E-D257-5060-389ADCA5A2CB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34433,7 +34424,7 @@ createNode transform -n "polySurface580" -p "pier";
 createNode mesh -n "polySurfaceShape494" -p "polySurface580";
 	rename -uid "397EAEC0-4A71-3FB6-F4C8-62A1510D4BE6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34512,7 +34503,7 @@ createNode transform -n "polySurface581" -p "pier";
 createNode mesh -n "polySurfaceShape495" -p "polySurface581";
 	rename -uid "729BC18D-4277-A6E7-F385-D8883F7F2D37";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34551,7 +34542,7 @@ createNode transform -n "polySurface582" -p "pier";
 createNode mesh -n "polySurfaceShape496" -p "polySurface582";
 	rename -uid "DF9CF154-4AAA-2E73-3B06-C0B8C55B8DB3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34629,7 +34620,7 @@ createNode transform -n "polySurface583" -p "pier";
 createNode mesh -n "polySurfaceShape497" -p "polySurface583";
 	rename -uid "067D5A40-45B7-4EBF-4B02-059294724B23";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34669,7 +34660,7 @@ createNode transform -n "polySurface584" -p "pier";
 createNode mesh -n "polySurfaceShape498" -p "polySurface584";
 	rename -uid "1B2D2311-4A55-E7EB-EAEC-5E8C63883D61";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34747,7 +34738,7 @@ createNode transform -n "polySurface585" -p "pier";
 createNode mesh -n "polySurfaceShape499" -p "polySurface585";
 	rename -uid "3D874A27-4B7E-E1EF-39B1-55958E54BA9E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34786,7 +34777,7 @@ createNode transform -n "polySurface586" -p "pier";
 createNode mesh -n "polySurfaceShape500" -p "polySurface586";
 	rename -uid "6E4D986E-458C-7C60-6789-5791572157EE";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34866,7 +34857,7 @@ createNode transform -n "polySurface587" -p "pier";
 createNode mesh -n "polySurfaceShape501" -p "polySurface587";
 	rename -uid "F538B55B-41B7-7FD7-8B55-35B75954E9D5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34905,7 +34896,7 @@ createNode transform -n "polySurface588" -p "pier";
 createNode mesh -n "polySurfaceShape502" -p "polySurface588";
 	rename -uid "7A25CDF6-45AC-9897-8FDA-CD856CD0881F";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34984,7 +34975,7 @@ createNode transform -n "polySurface589" -p "pier";
 createNode mesh -n "polySurfaceShape503" -p "polySurface589";
 	rename -uid "0D4B719D-428D-9F3B-65B0-D281CA6502EF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35023,7 +35014,7 @@ createNode transform -n "polySurface590" -p "pier";
 createNode mesh -n "polySurfaceShape504" -p "polySurface590";
 	rename -uid "4CBA7F4E-48A7-4867-22B8-6782B26B28D5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35102,7 +35093,7 @@ createNode transform -n "polySurface591" -p "pier";
 createNode mesh -n "polySurfaceShape505" -p "polySurface591";
 	rename -uid "4C497613-465F-EAEA-969E-66A1B9B37957";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35141,7 +35132,7 @@ createNode transform -n "polySurface592" -p "pier";
 createNode mesh -n "polySurfaceShape506" -p "polySurface592";
 	rename -uid "603C4356-48E0-ACFD-F25E-72B470A17733";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35218,7 +35209,7 @@ createNode transform -n "polySurface593" -p "pier";
 createNode mesh -n "polySurfaceShape507" -p "polySurface593";
 	rename -uid "D772A536-4537-78B9-99E7-1299191612DD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35259,7 +35250,7 @@ createNode transform -n "polySurface594" -p "pier";
 createNode mesh -n "polySurfaceShape508" -p "polySurface594";
 	rename -uid "FA326C37-4294-0423-6B72-1295AF94635D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35338,7 +35329,7 @@ createNode transform -n "polySurface595" -p "pier";
 createNode mesh -n "polySurfaceShape509" -p "polySurface595";
 	rename -uid "E2847495-43BE-CACC-8670-A6B1FD4DC979";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35377,7 +35368,7 @@ createNode transform -n "polySurface596" -p "pier";
 createNode mesh -n "polySurfaceShape510" -p "polySurface596";
 	rename -uid "B37123FA-4205-37D2-C87C-2ABC6D590AF0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35456,7 +35447,7 @@ createNode transform -n "polySurface597" -p "pier";
 createNode mesh -n "polySurfaceShape511" -p "polySurface597";
 	rename -uid "D47D2238-4093-271E-4106-DF83063BAEEB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35495,7 +35486,7 @@ createNode transform -n "polySurface598" -p "pier";
 createNode mesh -n "polySurfaceShape512" -p "polySurface598";
 	rename -uid "DBF01F24-46CF-39A9-2F8E-12B94AA951DD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35573,7 +35564,7 @@ createNode transform -n "polySurface599" -p "pier";
 createNode mesh -n "polySurfaceShape513" -p "polySurface599";
 	rename -uid "3FAAEBCD-44D6-545F-E7ED-03B6087C19BC";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35613,7 +35604,7 @@ createNode transform -n "polySurface600" -p "pier";
 createNode mesh -n "polySurfaceShape514" -p "polySurface600";
 	rename -uid "EEFC4B2A-4137-0E7E-699B-0BA17EC53079";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 98 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]" "f[16]" "f[17]" "f[18]" "f[19]" "f[20]" "f[21]" "f[22]" "f[23]" "f[24]" "f[25]" "f[26]" "f[27]" "f[28]" "f[29]" "f[30]" "f[31]" "f[32]" "f[33]" "f[34]" "f[35]" "f[36]" "f[37]" "f[38]" "f[39]" "f[40]" "f[41]" "f[42]" "f[43]" "f[44]" "f[45]" "f[46]" "f[47]" "f[48]" "f[49]" "f[50]" "f[51]" "f[52]" "f[53]" "f[54]" "f[55]" "f[56]" "f[57]" "f[58]" "f[59]" "f[60]" "f[61]" "f[62]" "f[63]" "f[64]" "f[65]" "f[66]" "f[67]" "f[68]" "f[69]" "f[70]" "f[71]" "f[72]" "f[73]" "f[74]" "f[75]" "f[76]" "f[77]" "f[78]" "f[79]" "f[80]" "f[81]" "f[82]" "f[83]" "f[84]" "f[85]" "f[86]" "f[87]" "f[88]" "f[89]" "f[90]" "f[91]" "f[92]" "f[93]" "f[94]" "f[95]" "f[96]" "f[97]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:97]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35911,7 +35902,7 @@ createNode transform -n "polySurface601" -p "pier";
 createNode mesh -n "polySurfaceShape515" -p "polySurface601";
 	rename -uid "C3B56444-4D1B-A9BA-D9E5-C3AB4ECF5BA5";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:5]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -35953,7 +35944,7 @@ createNode transform -n "polySurface602" -p "pier";
 createNode mesh -n "polySurfaceShape602" -p "polySurface602";
 	rename -uid "30B80981-4787-3E91-7D38-779A57924CD4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36035,7 +36026,7 @@ createNode transform -n "polySurface603" -p "pier";
 createNode mesh -n "polySurfaceShape603" -p "polySurface603";
 	rename -uid "7FC6DE58-4ACF-33EC-803D-A7A7168C78D8";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36117,7 +36108,7 @@ createNode transform -n "polySurface604" -p "pier";
 createNode mesh -n "polySurfaceShape604" -p "polySurface604";
 	rename -uid "1A87D61E-4585-2499-E970-A6BC17C13BC4";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36199,7 +36190,7 @@ createNode transform -n "polySurface605" -p "pier";
 createNode mesh -n "polySurfaceShape605" -p "polySurface605";
 	rename -uid "70680E07-477E-09F4-1148-7680B446E375";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36281,7 +36272,7 @@ createNode transform -n "polySurface606" -p "pier";
 createNode mesh -n "polySurfaceShape606" -p "polySurface606";
 	rename -uid "476F7A5B-4090-DACA-BA83-45B5D08D9DEF";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36363,7 +36354,7 @@ createNode transform -n "polySurface607" -p "pier";
 createNode mesh -n "polySurfaceShape607" -p "polySurface607";
 	rename -uid "8796EF0C-463E-D28D-13F0-898C2AAD164E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36445,7 +36436,7 @@ createNode transform -n "polySurface608" -p "pier";
 createNode mesh -n "polySurfaceShape608" -p "polySurface608";
 	rename -uid "F38DDB2E-44AD-1535-A7AC-B2854DA64E74";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36527,7 +36518,7 @@ createNode transform -n "polySurface609" -p "pier";
 createNode mesh -n "polySurfaceShape609" -p "polySurface609";
 	rename -uid "3EED021C-4ADD-8BDF-3DF5-BDAACA4F20D0";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36609,7 +36600,7 @@ createNode transform -n "polySurface610" -p "pier";
 createNode mesh -n "polySurfaceShape610" -p "polySurface610";
 	rename -uid "A3D27272-4DAB-58DD-BB91-63892DA1A793";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36691,7 +36682,7 @@ createNode transform -n "polySurface611" -p "pier";
 createNode mesh -n "polySurfaceShape611" -p "polySurface611";
 	rename -uid "52003774-458B-C714-F00D-2AA419E99A7E";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36773,7 +36764,7 @@ createNode transform -n "polySurface612" -p "pier";
 createNode mesh -n "polySurfaceShape612" -p "polySurface612";
 	rename -uid "62899C60-4126-49F1-8D93-A0A21AE08068";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36855,7 +36846,7 @@ createNode transform -n "polySurface613" -p "pier";
 createNode mesh -n "polySurfaceShape613" -p "polySurface613";
 	rename -uid "AA1FD69C-41AC-551F-D8AF-A9B4A17E7ED6";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -36937,7 +36928,7 @@ createNode transform -n "polySurface614" -p "pier";
 createNode mesh -n "polySurfaceShape614" -p "polySurface614";
 	rename -uid "EDCE7982-4627-926B-A463-70BEECEBB98B";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37019,7 +37010,7 @@ createNode transform -n "polySurface615" -p "pier";
 createNode mesh -n "polySurfaceShape615" -p "polySurface615";
 	rename -uid "550445B4-4A56-E881-B804-F08BACF42003";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37101,7 +37092,7 @@ createNode transform -n "polySurface616" -p "pier";
 createNode mesh -n "polySurfaceShape616" -p "polySurface616";
 	rename -uid "91009A00-42BA-0F99-F9F3-7B88DA020436";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37183,7 +37174,7 @@ createNode transform -n "polySurface617" -p "pier";
 createNode mesh -n "polySurfaceShape617" -p "polySurface617";
 	rename -uid "AA4BC265-4162-375A-0455-7481EC270DCD";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37265,7 +37256,7 @@ createNode transform -n "polySurface618" -p "pier";
 createNode mesh -n "polySurfaceShape618" -p "polySurface618";
 	rename -uid "13B6248F-47E4-C8C6-ABF0-BDAE4B7726D3";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37347,7 +37338,7 @@ createNode transform -n "polySurface619" -p "pier";
 createNode mesh -n "polySurfaceShape619" -p "polySurface619";
 	rename -uid "0C69E6C7-4FC1-B54C-6CCD-04BED4C48206";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37429,7 +37420,7 @@ createNode transform -n "polySurface620" -p "pier";
 createNode mesh -n "polySurfaceShape620" -p "polySurface620";
 	rename -uid "5F54DCAB-4DD2-E4A2-5F09-AB87FE5FBC97";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37511,7 +37502,7 @@ createNode transform -n "polySurface621" -p "pier";
 createNode mesh -n "polySurfaceShape621" -p "polySurface621";
 	rename -uid "E5E791AA-4831-D55D-B99F-A487F6394EFB";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37593,7 +37584,7 @@ createNode transform -n "polySurface622" -p "pier";
 createNode mesh -n "polySurfaceShape622" -p "polySurface622";
 	rename -uid "D813A879-4E3E-AE45-1E41-ED81B54BFA50";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37675,7 +37666,7 @@ createNode transform -n "polySurface623" -p "pier";
 createNode mesh -n "polySurfaceShape623" -p "polySurface623";
 	rename -uid "04247F40-4037-6555-D5A5-BFAF83CCF56D";
 	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 16 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]" "f[15]";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:15]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -37774,7 +37765,7 @@ createNode mesh -n "terrasShape" -p "terras";
 	setAttr ".gtag[4].gtagcmp" -type "componentList" 1 "f[4]";
 	setAttr ".gtag[5].gtagnm" -type "string" "top";
 	setAttr ".gtag[5].gtagcmp" -type "componentList" 1 "f[1]";
-	setAttr ".pv" -type "double2" 0.75 0.375 ;
+	setAttr ".pv" -type "double2" 0.49690890312194824 0.875 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
 	setAttr -s 21 ".uvst[0].uvsp[0:20]" -type "float2" 0.375 0 0.625 0 0.375
 		 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0 0.125 0 0.125
@@ -37784,6 +37775,15 @@ createNode mesh -n "terrasShape" -p "terras";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 8 ".pt";
+	setAttr ".pt[0]" -type "float3" 0.03723773 -17.165609 -0.0073966943 ;
+	setAttr ".pt[2]" -type "float3" 0.048566505 -22.387878 -0.0096469792 ;
+	setAttr ".pt[3]" -type "float3" 0.048566505 -22.387878 -0.0096469792 ;
+	setAttr ".pt[5]" -type "float3" 0.03723773 -17.165609 -0.0073966943 ;
+	setAttr ".pt[7]" -type "float3" 0.048566505 -22.387878 -0.0096469792 ;
+	setAttr ".pt[8]" -type "float3" 0.048566505 -22.387878 -0.0096469792 ;
+	setAttr ".pt[9]" -type "float3" 0.03723773 -17.165609 -0.0073966943 ;
+	setAttr ".pt[10]" -type "float3" 0.03723773 -17.165609 -0.0073966943 ;
 	setAttr -s 15 ".vt[0:14]"  -300 -15.000061035156 199.99990845 300 -15 199.99984741
 		 -300.00048828125 15 199.99984741 -300.00048828125 15 -200.00015258789 300.00048828125 15.000061035156 -200.000091552734
 		 -300 -15.000061035156 -200.00015258789 300.00048828125 -15 -200.00015258789 285.16308594 15 -200.00021362305
@@ -37843,9 +37843,8 @@ createNode mesh -n "doorShape" -p "|door|door";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 6 ".pt";
-	setAttr ".pt[10]" -type "float3" 0.9448036 0.026922222 0.25928357 ;
-	setAttr ".pt[11]" -type "float3" 0.94480348 0.026922226 0.25928363 ;
+	setAttr -s 2 ".pt[10:11]" -type "float3"  0.9448036 0.026922222 0.25928357 
+		0.94480348 0.026922226 0.25928363;
 	setAttr -s 15 ".vt[0:14]"  -5206.71191406 906.25073242 22.00034141541
 		 -5295.48193359 906.25073242 -2.19845629 -5293.51611328 906.25073242 -9.83596992 -5204.41992188 906.25073242 13.096002579
 		 -5293.51611328 706.25073242 -9.83596992 -5204.41992188 706.25073242 13.096002579
@@ -37882,170 +37881,6 @@ createNode mesh -n "doorShape" -p "|door|door";
 		3 0 
 		6 0 
 		7 0 ;
-	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "house";
-	rename -uid "2E4214C4-408E-55E3-4CF2-1BA01DE55B35";
-	setAttr ".rp" -type "double3" -4830.78955078125 934.2972412109375 -701.5950927734375 ;
-	setAttr ".sp" -type "double3" -4830.78955078125 934.2972412109375 -701.5950927734375 ;
-createNode mesh -n "houseShape" -p "house";
-	rename -uid "4EFDFBFC-45A2-A290-D0E4-91AF9479410E";
-	setAttr -k off ".v";
-	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:37]";
-	setAttr ".vir" yes;
-	setAttr ".vif" yes;
-	setAttr -s 6 ".gtag";
-	setAttr ".gtag[0].gtagnm" -type "string" "back";
-	setAttr ".gtag[0].gtagcmp" -type "componentList" 1 "f[9:11]";
-	setAttr ".gtag[1].gtagnm" -type "string" "bottom";
-	setAttr ".gtag[1].gtagcmp" -type "componentList" 1 "f[12:17]";
-	setAttr ".gtag[2].gtagnm" -type "string" "front";
-	setAttr ".gtag[2].gtagcmp" -type "componentList" 1 "f[0:2]";
-	setAttr ".gtag[3].gtagnm" -type "string" "left";
-	setAttr ".gtag[3].gtagcmp" -type "componentList" 1 "f[20:21]";
-	setAttr ".gtag[4].gtagnm" -type "string" "right";
-	setAttr ".gtag[4].gtagcmp" -type "componentList" 1 "f[18:19]";
-	setAttr ".gtag[5].gtagnm" -type "string" "top";
-	setAttr ".gtag[5].gtagcmp" -type "componentList" 1 "f[3:8]";
-	setAttr ".pv" -type "double2" 0.50384178757667542 0.18140525557100773 ;
-	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr -s 71 ".uvst[0].uvsp[0:70]" -type "float2" 0.36822444 -0.034634914
-		 0.62864316 0.054175038 0.45833334 0.375 0.54166669 0.375 0.42520943 1.34409153 0.62499535
-		 0.74994528 0.87499976 -8.4912131e-07 0.12777916 0.11164423 0.12534726 0.25754076
-		 0.40811619 0.12729675 0.61336672 0.24561989 0.41403043 1.43854451 0.6263566 0.56730318
-		 0.88102722 -0.29859972 0.60940838 -0.32378826 0.8496263 2.9164803 0.49074322 0.16158025
-		 0.44524309 0.29292008 0.47607577 0.22311588 0.44524309 0.29292008 0.41345513 0.20782307
-		 0.56370974 0.27599534 -0.1107078 -3.35557032 2.035823822 35.91322327 2.40249205 52.69377899
-		 -0.16534968 8.30845356 -4.18301487 84.72309875 -1.82585943 56.9609375 0.46362466
-		 4.39917231 -0.49586058 9.039287567 7.090698242 70.21444702 1.36846566 4.012157917
-		 5.50192499 53.7943306 0.37904042 0.30863547 0.375 0.5 0.625 0 0.62435216 0.14408708
-		 0.875 0 0.87499744 0.24999836 0.375 0.75 0.37407836 0.49917579 0.62481672 0.49978143
-		 0.625 0.75 0.625 1 0.38212794 0.63657367 0.38282835 0.6901015 0.36877373 0.43361306
-		 0.50040531 0.33048701 0.50403172 0.32841131 0.375 0.63713294 0.375 0.6098218 0.41853735
-		 0.46653727 0.31113741 0.3701641 0.30597514 0.36657164 0.375 0.68630797 0.375 0.70843065
-		 0.43364727 0.42240006 0.13803816 6.27230597 2.78791618 21.10760498 0.34898114 0.41182438
-		 0.42250153 0.010001689 0.60615754 0.7681005 0.54406583 0.98977375 0.55247724 0.04639475
-		 0.56966269 0.55190885 0.56525469 0.86932361 0.56966269 0.55190885 0.5992946 0.73453933
-		 0.67264456 0.16449326 0.58650208 0.86442095 0.5869748 0.86301529;
-	setAttr ".cuvs" -type "string" "map1";
-	setAttr ".dcc" -type "string" "Ambient+Diffuse";
-	setAttr ".covm[0]"  0 1 1;
-	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 6 ".pt";
-	setAttr ".pt[1]" -type "float3" 0 5.3906155 0 ;
-	setAttr ".pt[16]" -type "float3" 0 1.958967 0 ;
-	setAttr ".pt[17]" -type "float3" 0 -7.773725 0 ;
-	setAttr ".pt[18]" -type "float3" 0 -6.9050422 0 ;
-	setAttr ".pt[32]" -type "float3" 0 -2.3399882 0 ;
-	setAttr ".pt[33]" -type "float3" 0 -1.7401215 0 ;
-	setAttr -s 42 ".vt[0:41]"  -5464.65087891 930.18450928 -48.30337524
-		 -4885.77587891 931.48602295 109.49905396 -5099.98535156 1123.089599609 -362.84329224
-		 -5044.064941406 1123.21118164 -348.66229248 -5254.24804688 930.52966309 -820.13916016
-		 -4677.90771484 935.65740967 -658.79711914 -5278.36376953 908.30957031 -887.005065918
-		 -5526.29541016 903.91064453 5.0066223145 -4855.46875 907.47857666 187.97869873 -4625.058105469 914.45758057 -701.70129395
-		 -5383.42138672 903.20251465 43.68121338 -5144.23339844 908.92114258 109.5262146 -5221.66552734 978.69421387 -70.5057373
-		 -5263.93457031 983.13970947 83.053894043 -5186.70068359 912.54290771 264.32989502
-		 -5425.88818359 906.82434082 198.48486328 -5151.5703125 937.28387451 36.56616592 -5202.27099609 923.71337891 226.77738953
-		 -5384.49462891 925.044250488 170.49324036 -5320.81542969 932.7689209 -13.19699097
-		 -4885.25927734 697.51641846 109.53512573 -4674.85644531 697.8616333 -662.30065918
-		 -5253.73193359 696.56011963 -820.10314941 -5464.13476563 696.21490479 -48.26730347
-		 -5324.28662109 696.1965332 -13.81910133 -5149.59179688 696.94470215 41.043617249
-		 -5247.79101563 697.26849365 204.61471558 -5198.61425781 697.41070557 221.64758301
-		 -5351.28857422 697.012512207 176.24327087 -5386.15136719 696.66253662 166.78486633
-		 -5345.89013672 911.3614502 177.68467712 -5251.69433594 912.080444336 203.77235413
-		 -5165.38378906 918.27209473 81.8600235 -5354.85058594 914.2711792 45.13171387 -4708.87451172 913.66882324 -725.47503662
-		 -5032.87841797 914.75616455 -815.52593994 -4968.15527344 1057.74194336 -495.20001221
-		 -4867.81201172 1057.74194336 -797.55834961 -4940.31445313 914.75616455 -1125.76513672
-		 -4616.31103516 913.66882324 -1035.71435547 -4887.7265625 1046.68737793 -731.2210083
-		 -4873.83398438 1052.067382813 -785.65179443;
-	setAttr -s 79 ".ed[0:78]"  2 3 0 4 35 0 4 0 0 5 1 0 4 6 0 2 6 0 0 7 0
-		 6 7 0 2 7 0 1 8 0 7 10 0 3 8 0 3 9 0 5 9 0 6 35 0 9 8 0 11 8 0 10 12 0 12 11 0 12 13 0
-		 11 14 0 13 14 0 10 15 0 15 13 0 15 14 0 16 1 0 16 11 0 14 17 0 16 32 0 15 18 0 18 17 0
-		 10 19 0 19 33 0 20 21 0 1 20 0 21 5 0 21 22 0 23 0 0 22 4 0 22 23 0 20 25 0 25 24 0
-		 25 16 0 24 23 0 24 19 0 25 26 0 25 27 0 27 26 0 27 17 0 24 28 0 24 29 0 28 29 0 29 18 0
-		 26 28 0 30 28 0 18 30 1 31 26 0 17 31 1 31 30 0 32 17 0 11 32 1 0 19 0 33 18 0 10 33 1
-		 34 5 0 34 9 0 35 40 0 34 36 0 36 35 0 36 37 0 35 38 0 37 38 0 39 37 0 38 39 0 34 39 0
-		 38 41 0 40 34 0 41 39 0 40 41 0;
-	setAttr -s 38 -ch 154 ".fc[0:37]" -type "polyFaces" 
-		f 7 -1 8 10 17 18 16 -12
-		mu 0 7 3 2 9 15 17 16 10
-		f 3 11 -16 -13
-		mu 0 3 3 14 13
-		f 4 -5 2 6 -8
-		mu 0 4 8 7 0 9
-		f 3 5 7 -9
-		mu 0 3 2 8 9
-		f 7 12 -66 67 68 -15 -6 0
-		mu 0 7 3 12 61 64 62 11 2
-		f 3 65 -14 -65
-		mu 0 3 61 12 5
-		f 4 15 -10 -4 13
-		mu 0 4 13 14 1 6
-		f 3 -22 -24 24
-		mu 0 3 18 19 20
-		f 4 -19 19 21 -21
-		mu 0 4 16 17 19 18
-		f 4 -18 22 23 -20
-		mu 0 4 17 15 20 19
-		f 4 -27 25 9 -17
-		mu 0 4 16 21 1 10
-		f 3 60 -29 26
-		mu 0 3 22 57 25
-		f 4 -25 29 30 -28
-		mu 0 4 26 27 28 29
-		f 4 -23 63 62 -30
-		mu 0 4 30 15 58 32
-		f 4 34 33 35 3
-		mu 0 4 33 34 35 36
-		f 7 -36 36 38 1 66 76 64
-		mu 0 7 36 35 37 38 63 68 60
-		f 4 37 -3 -39 39
-		mu 0 4 39 40 41 42
-		f 6 -40 -37 -34 40 41 43
-		mu 0 6 39 42 43 34 44 45
-		f 4 44 -62 -38 -44
-		mu 0 4 45 46 40 39
-		f 4 57 56 -48 48
-		mu 0 4 47 48 49 50
-		f 4 -41 -35 -26 -43
-		mu 0 4 44 34 33 51
-		f 3 46 47 -46
-		mu 0 3 44 50 49
-		f 5 42 28 59 -49 -47
-		mu 0 5 44 51 56 47 50
-		f 3 49 51 -51
-		mu 0 3 45 54 55
-		f 5 52 -63 -33 -45 50
-		mu 0 5 55 52 59 46 45
-		f 4 45 53 -50 -42
-		mu 0 4 44 49 54 45
-		f 4 -56 -53 -52 -55
-		mu 0 4 53 52 55 54
-		f 4 -58 -31 55 -59
-		mu 0 4 48 47 52 53
-		f 4 20 27 -60 -61
-		mu 0 4 22 23 24 57
-		f 4 -7 61 -32 -11
-		mu 0 4 9 0 31 15
-		f 3 -64 31 32
-		mu 0 3 58 15 31
-		f 3 14 -2 4
-		mu 0 3 11 62 4
-		f 3 -72 -73 -74
-		mu 0 3 65 66 67
-		f 3 73 -78 -76
-		mu 0 3 65 67 70
-		f 4 -69 69 71 -71
-		mu 0 4 62 64 66 65
-		f 4 -68 74 72 -70
-		mu 0 4 64 61 67 66
-		f 4 -77 78 77 -75
-		mu 0 4 61 69 70 67
-		f 4 -79 -67 70 75
-		mu 0 4 70 69 62 65;
-	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
-	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
-	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 1 
-		9 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "stairs";
 	rename -uid "3BBE6AF9-4FAF-956D-B341-B8B537AA18B2";
@@ -38948,20 +38783,875 @@ createNode mesh -n "stairsShape" -p "stairs";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube1";
+	rename -uid "6AA5B42B-4F45-1499-DB31-568B013F0C20";
+	setAttr ".t" -type "double3" -6204.9539962896324 789.93492799405499 463.92379018759721 ;
+	setAttr ".r" -type "double3" 0 -58.140467990443227 0 ;
+createNode mesh -n "pCubeShape1" -p "pCube1";
+	rename -uid "826638D8-41D1-9D55-B941-C28D7F3B7055";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr -s 6 ".gtag";
+	setAttr ".gtag[0].gtagnm" -type "string" "back";
+	setAttr ".gtag[0].gtagcmp" -type "componentList" 1 "f[2]";
+	setAttr ".gtag[1].gtagnm" -type "string" "bottom";
+	setAttr ".gtag[1].gtagcmp" -type "componentList" 1 "f[3]";
+	setAttr ".gtag[2].gtagnm" -type "string" "front";
+	setAttr ".gtag[2].gtagcmp" -type "componentList" 1 "f[0]";
+	setAttr ".gtag[3].gtagnm" -type "string" "left";
+	setAttr ".gtag[3].gtagcmp" -type "componentList" 1 "f[5]";
+	setAttr ".gtag[4].gtagnm" -type "string" "right";
+	setAttr ".gtag[4].gtagcmp" -type "componentList" 1 "f[4]";
+	setAttr ".gtag[5].gtagnm" -type "string" "top";
+	setAttr ".gtag[5].gtagcmp" -type "componentList" 1 "f[1]";
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube2";
+	rename -uid "D907D9A0-45F9-2E5B-1344-E491A005EABE";
+	setAttr ".t" -type "double3" -6323.0408510788302 789.93492799405499 273.91030790252705 ;
+	setAttr ".r" -type "double3" 0 -58.140467990443227 0 ;
+createNode mesh -n "pCubeShape2" -p "pCube2";
+	rename -uid "54A7A863-4C29-A06E-CB78-0E8945466E96";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube3";
+	rename -uid "C9708552-4317-4CD6-F872-C8BDA59E5C87";
+	setAttr ".t" -type "double3" -6066.4297041864165 788.33587445938906 114.43529130916593 ;
+	setAttr ".r" -type "double3" 0 -58.140467990443227 0 ;
+createNode mesh -n "pCubeShape3" -p "pCube3";
+	rename -uid "F6637C25-449F-67AB-1C83-A7BD53468B2B";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube4";
+	rename -uid "1E73D263-4DEF-4D9F-A6B0-309DB520AA66";
+	setAttr ".t" -type "double3" -5948.3428493972187 788.33587445938906 304.44877359423617 ;
+	setAttr ".r" -type "double3" 0 -58.140467990443227 0 ;
+createNode mesh -n "pCubeShape4" -p "pCube4";
+	rename -uid "3F941299-426F-0C94-7B6B-1A941C2AB646";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube5";
+	rename -uid "101ADD69-44A9-DEB8-EF75-9FB69982F6A6";
+	setAttr ".t" -type "double3" -5856.2255629722895 788.33587436825246 55.73312291792196 ;
+	setAttr ".r" -type "double3" 0 -58.140467990443227 0 ;
+createNode mesh -n "pCubeShape5" -p "pCube5";
+	rename -uid "3BFF724A-4A8C-22DC-D1D1-658BBC49697A";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube6";
+	rename -uid "139C736D-40FC-0D98-D425-E8B1271A5A62";
+	setAttr ".t" -type "double3" -5798.8367378568091 788.33587436825246 148.0774445946038 ;
+	setAttr ".r" -type "double3" 0 -58.140467990443227 0 ;
+createNode mesh -n "pCubeShape6" -p "pCube6";
+	rename -uid "C0C52C7E-4186-627A-C2C4-30832185F518";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube9";
+	rename -uid "E14F87CF-4AEF-8E24-9222-289455A7515C";
+	setAttr ".t" -type "double3" -6133.9949155712802 957.47335620156957 286.7961070966756 ;
+	setAttr ".r" -type "double3" 0 30.434848867323907 0 ;
+createNode mesh -n "pCubeShape9" -p "pCube9";
+	rename -uid "3E3B8608-4201-D7CA-05F1-FDB98D746FB0";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr -s 6 ".gtag";
+	setAttr ".gtag[0].gtagnm" -type "string" "back";
+	setAttr ".gtag[0].gtagcmp" -type "componentList" 1 "f[12:15]";
+	setAttr ".gtag[1].gtagnm" -type "string" "bottom";
+	setAttr ".gtag[1].gtagcmp" -type "componentList" 1 "f[16:23]";
+	setAttr ".gtag[2].gtagnm" -type "string" "front";
+	setAttr ".gtag[2].gtagcmp" -type "componentList" 1 "f[0:3]";
+	setAttr ".gtag[3].gtagnm" -type "string" "left";
+	setAttr ".gtag[3].gtagcmp" -type "componentList" 1 "f[26:27]";
+	setAttr ".gtag[4].gtagnm" -type "string" "right";
+	setAttr ".gtag[4].gtagcmp" -type "componentList" 1 "f[24:25]";
+	setAttr ".gtag[5].gtagnm" -type "string" "top";
+	setAttr ".gtag[5].gtagcmp" -type "componentList" 1 "f[4:11]";
+	setAttr ".pv" -type "double2" 0.49999892711639404 8.6283680200576782 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 79 ".uvst[0].uvsp[0:78]" -type "float2" 0.375 0 0.4375 0
+		 0.5625 0 0.625 0 0.375 0.25 0.4375 0.25 0.5 0.25 0.56244254 0.22206953 0.625 0.25
+		 0.4375 0.375 0.5 0.375 0.5625 0.375 0.375 0.5 0.4375 0.5 0.5625 0.5 0.625 0.5 0.375
+		 0.75 0.4375 0.75 0.5625 0.75 0.625 0.75 0.875 0 0.875 0.25 0.125 0 0.125 0.25 0.43913925
+		 -0.046722986 0.49982169 0.27642232 0.57157946 0.812823 0.4375 0.75 0.4375 0.5 0.5625
+		 0.5 0.5625 0 0.56244254 0.22206953 0.5 0.5 -1.1842283e-06 -9.1974625e-06 1 0 1.50768173
+		 16.31442642 0.32856658 16.34150887 0.44317979 0.030820284 0.44317979 0.030820284
+		 0 0 1 1.7308287e-06 0.49773473 11.34062481 0 0 1 0 -3.073194027 19.58946228 -0.00075157802
+		 1.0033639669 0 0 1 0 0.99997807 0.99999964 -0.2444337 0.99228913 0 0 1 0 0.79079562
+		 12.5246706 0 0 1 0 1.94926929 6.089612961 0.85616839 6.073756218 0 0 1 0 1.000000715256
+		 0.99999523 -0.38415563 0.94230962 0 0 1 0 0.50169063 8.93267727 0 0 1 0 1.99844241
+		 5.49456549 0.60582268 5.44338608 0 0 1 0 0.99995959 1.00018751621 -1.0015523434 3.8556335
+		 0 0 1 0 0.49992487 5.69128513 0 0 1 0 2.0015501976 4.66806078 0.6013115 4.69694614;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 5 ".pt";
+	setAttr ".pt[28]" -type "float3" 0 2.9608381 0 ;
+	setAttr ".pt[29]" -type "float3" 0.31186002 0.65949661 0.54409188 ;
+	setAttr ".pt[31]" -type "float3" 0 1.3807203 0 ;
+	setAttr ".pt[32]" -type "float3" 0 4.0832944 0 ;
+	setAttr ".pt[33]" -type "float3" 0 -0.57543182 0 ;
+	setAttr -s 34 ".vt[0:33]"  -400.0014648438 -5 99.99902344 -200 -5 100
+		 199.99853516 -5 99.99902344 399.99755859 -5 99.99804688 -400.0014648438 5 99.99902344
+		 -200 5 100 199.99853516 5 99.99902344 399.99755859 5 99.99804688 -279.75683594 89.43389893 -0.0034179688
+		 -0.0063476563 89.43389893 -0.0024414063 279.75 89.43389893 -0.0012207031 -400.0053710938 5 -100.0034179688
+		 -200.0014648438 5 -100.0009765625 200 5 -100.00073242188 399.99560547 5 -100.0034179688
+		 -400.0053710938 -5 -100.0034179688 -200.0014648438 -5 -100.0009765625 200 -5 -100.00073242188
+		 399.99560547 -5 -100.0034179688 -198.63085938 -5.000007629395 198.095703125 -0.56445313 88.50494385 115.62158203
+		 199.99755859 -5 205.97314453 199.99755859 5 205.97314453 -200.0009765625 5 -205.97607422
+		 -200.0009765625 -5 -205.97607422 199.99755859 5 -205.9765625 199.99755859 -5 -205.9765625
+		 -0.00048828125 89.43389893 -116.26220703 -0.0040329695 86.37750244 -0.013907135 -0.87255859 87.76498413 115.19458008
+		 -198.30712891 3.45159912 198.076660156 0.039831609 87.89141846 -116.28992462 -279.75976563 85.11798096 -0.0012544096
+		 279.73583984 89.1756897 -0.017578125;
+	setAttr -s 72 ".ed[0:71]"  0 1 0 2 3 0 4 5 0 6 7 0 8 9 0 9 10 0 13 14 0
+		 15 16 0 17 18 0 0 4 0 1 5 0 3 7 0 5 8 1 6 10 1 7 14 0 4 11 0 8 12 1 10 13 1 11 15 0
+		 12 16 0 13 17 0 14 18 0 18 3 0 15 0 0 11 8 0 8 4 0 11 12 0 12 9 0 9 13 0 10 14 0
+		 10 7 0 2 6 0 9 6 0 9 5 0 1 19 0 19 30 0 2 21 0 19 21 0 6 22 0 21 22 0 22 20 0 9 20 0
+		 12 23 0 23 25 1 16 24 0 23 24 0 13 25 0 17 26 0 25 26 0 24 26 0 9 27 0 23 27 0 27 25 0
+		 1 28 0 19 29 0 28 29 0 30 20 0 5 30 0 30 22 0 21 29 0 2 28 0 16 28 0 24 31 0 28 31 0
+		 31 26 0 17 28 0 0 32 0 32 28 0 15 32 0 18 33 0 28 33 0 33 3 0;
+	setAttr -s 40 -ch 144 ".fc[0:39]" -type "polyFaces" 
+		f 4 0 10 -3 -10
+		mu 0 4 0 1 5 4
+		f 3 -57 58 40
+		mu 0 3 25 38 31
+		f 4 1 11 -4 -32
+		mu 0 4 2 3 8 7
+		f 3 2 12 25
+		mu 0 3 4 5 9
+		f 4 -42 33 57 56
+		mu 0 4 26 10 5 37
+		f 3 32 13 -6
+		mu 0 3 10 7 11
+		f 3 24 16 -27
+		mu 0 3 12 9 13
+		f 3 29 -7 -18
+		mu 0 3 11 15 14
+		f 4 26 19 -8 -19
+		mu 0 4 12 13 17 16
+		f 4 -46 43 48 -50
+		mu 0 4 27 28 29 26
+		f 4 6 21 -9 -21
+		mu 0 4 14 15 19 18
+		f 4 -15 -12 -23 -22
+		mu 0 4 21 8 3 20
+		f 4 15 18 23 9
+		mu 0 4 4 23 22 0
+		f 3 -25 -16 -26
+		mu 0 3 9 12 4
+		f 3 4 -28 -17
+		mu 0 3 9 10 13
+		f 3 5 17 -29
+		mu 0 3 10 11 14
+		f 3 -30 30 14
+		mu 0 3 15 11 8
+		f 3 3 -31 -14
+		mu 0 3 7 8 11
+		f 4 -33 41 -41 -39
+		mu 0 4 7 10 26 29
+		f 3 -34 -5 -13
+		mu 0 3 5 10 9
+		f 3 -44 51 52
+		mu 0 3 29 28 32
+		f 4 31 38 -40 -37
+		mu 0 4 17 13 28 27
+		f 4 -20 42 45 -45
+		mu 0 4 2 7 31 30
+		f 4 20 47 -49 -47
+		mu 0 4 7 6 25 31
+		f 4 50 -52 -43 27
+		mu 0 4 10 32 28 13
+		f 4 46 -53 -51 28
+		mu 0 4 14 29 32 10
+		f 4 -35 53 55 -55
+		mu 0 4 33 34 35 36
+		f 4 -11 34 35 -58
+		mu 0 4 5 1 24 37
+		f 4 -59 -36 37 39
+		mu 0 4 31 38 24 30
+		f 3 -38 54 -60
+		mu 0 3 39 40 41
+		f 4 36 59 -56 -61
+		mu 0 4 42 43 44 45
+		f 4 44 62 -64 -62
+		mu 0 4 46 47 48 49
+		f 3 49 -65 -63
+		mu 0 3 50 51 52
+		f 4 -48 65 63 64
+		mu 0 4 53 54 55 56
+		f 4 -1 66 67 -54
+		mu 0 4 57 58 59 60
+		f 3 -24 68 -67
+		mu 0 3 61 62 63
+		f 4 7 61 -68 -69
+		mu 0 4 64 65 66 67
+		f 4 8 69 -71 -66
+		mu 0 4 68 69 70 71
+		f 3 22 -72 -70
+		mu 0 3 72 73 74
+		f 4 -2 60 70 71
+		mu 0 4 75 76 77 78;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube10";
+	rename -uid "41FA6D57-4B2F-CB5E-A4C4-BC9039ACBE02";
+	setAttr ".t" -type "double3" -6394.2989580568174 788.33587445938906 501.43773055480386 ;
+	setAttr ".r" -type "double3" 0 -58.548617872240634 0 ;
+	setAttr ".rp" -type "double3" -108.7246854794148 62.236297607421989 12.499999999998181 ;
+	setAttr ".rpt" -type "double3" 40.718793583177167 0 -98.246754457498866 ;
+	setAttr ".sp" -type "double3" -108.7246854794148 62.236297607421989 12.499999999998181 ;
+createNode mesh -n "pCubeShape10" -p "pCube10";
+	rename -uid "3ED7D6C3-4BA8-9D69-D458-07A583696C33";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube11";
+	rename -uid "EBFE4529-458F-F48C-5FB1-89A9ADC975A2";
+	setAttr ".t" -type "double3" -6451.6877831722977 788.33587445938906 409.09340887812181 ;
+	setAttr ".r" -type "double3" 0 -58.548617872240634 0 ;
+	setAttr ".rp" -type "double3" -0.00048856786361284321 62.236297607421989 12.499999999998181 ;
+	setAttr ".rpt" -type "double3" -10.616578212893645 0 -5.9024327808161647 ;
+	setAttr ".sp" -type "double3" -0.00048856786361284321 62.236297607421989 12.499999999998181 ;
+createNode mesh -n "pCubeShape11" -p "pCube11";
+	rename -uid "21DEF734-4726-3A09-BB02-298E43689808";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5 0.5 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.375 0.25 0.625
+		 0.25 0.375 0.5 0.625 0.5 0.875 0.25 0.125 0.25 0.375 0.053913001 0.625 0.053913001
+		 0.625 0.696087 0.875 0.053912997 0.125 0.053912997 0.375 0.696087 0.375 0 0.625 0
+		 0.625 0.053913001 0.375 0.053913001 0.875 0 0.875 0.053912997 0.375 0.696087 0.625
+		 0.696087 0.625 0.75 0.375 0.75 0.125 0 0.125 0.053912997;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  4.7961635e-13 67.645508 -7.7271523e-13 
+		4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 67.645508 -7.7271523e-13 4.7961635e-13 
+		67.645508 -7.7271523e-13;
+	setAttr -s 16 ".vt[0:15]"  -12.50048828 102.7699585 12.5 12.49951172 102.7699585 12.5
+		 -12.5 102.7699585 -12.50048828 12.49975586 102.7699585 -12.5 -12.50048733 -45.94287109 12.49999905
+		 12.49951077 -45.94287109 12.49999905 12.49975491 -45.94287109 -12.49999905 -12.49999905 -45.94287109 -12.50048733
+		 -21.16159058 -98.69467163 21.16076088 21.15993881 -98.69467163 21.16076088 21.15993881 -50.018146515 21.16076088
+		 -21.16159058 -50.018146515 21.16076088 21.16034889 -98.69467163 -21.16076088 21.16034889 -50.018146515 -21.16076088
+		 -21.16076088 -50.018146515 -21.16159058 -21.16076088 -98.69467163 -21.16159058;
+	setAttr -s 28 ".ed[0:27]"  0 1 0 2 3 0 0 2 0 1 3 0 2 7 0 3 6 0 4 0 0
+		 5 1 0 4 5 0 5 6 0 6 7 0 7 4 0 8 9 0 5 10 0 9 10 0 4 11 0 11 10 0 8 11 0 12 9 0 6 13 0
+		 13 12 0 10 13 0 7 14 0 13 14 0 15 12 0 14 15 0 15 8 0 14 11 0;
+	setAttr -s 13 -ch 52 ".fc[0:12]" -type "polyFaces" 
+		f 4 8 7 -1 -7
+		mu 0 4 6 7 1 0
+		f 4 0 3 -2 -3
+		mu 0 4 0 1 3 2
+		f 4 1 5 10 -5
+		mu 0 4 2 3 8 11
+		f 4 9 -6 -4 -8
+		mu 0 4 7 9 4 1
+		f 4 11 6 2 4
+		mu 0 4 10 6 0 5
+		f 4 12 14 -17 -18
+		mu 0 4 12 13 14 15
+		f 4 -19 -21 -22 -15
+		mu 0 4 13 16 17 14
+		f 4 -24 20 -25 -26
+		mu 0 4 18 19 20 21
+		f 4 26 17 -28 25
+		mu 0 4 22 12 15 23
+		f 4 -9 15 16 -14
+		mu 0 4 7 6 15 14
+		f 4 -10 13 21 -20
+		mu 0 4 9 7 14 17
+		f 4 -11 19 23 -23
+		mu 0 4 11 8 19 18
+		f 4 -12 22 27 -16
+		mu 0 4 6 10 23 15;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "door1";
+	rename -uid "CA0BC8F7-4863-2D42-56F3-D8A4A65F1C42";
+	setAttr ".rp" -type "double3" -5071.30322265625 909.703857421875 -430.71762084960938 ;
+	setAttr ".sp" -type "double3" -5071.30322265625 909.703857421875 -430.71762084960938 ;
+createNode transform -n "polySurface624" -p "door1";
+	rename -uid "9AF8EB87-4655-D459-D431-31AE717F9AC1";
+	setAttr ".rp" -type "double3" -4953.55322265625 806.8070068359375 -726.72064208984375 ;
+	setAttr ".sp" -type "double3" -4953.55322265625 806.8070068359375 -726.72064208984375 ;
+createNode mesh -n "polySurfaceShape624" -p "polySurface624";
+	rename -uid "544DB225-4579-D664-BBA2-39B110727EC1";
+	setAttr -k off ".v";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 9 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 12 ".uvst[0].uvsp[0:11]" -type "float2" 0.6768648 0.30186477
+		 0.29043236 0.33456761 0.25 0.375 0.75 0.375 0.28827453 0.41327453 0.67902315 0.44597685
+		 0.75 0.375 0.25 0.375 0.30537757 0.36380365 0.27421314 0.59446061 0.50300831 0.3050811
+		 0.50530869 0.60139811;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 12 ".vt[0:11]"  -4995.80957031 906.80706787 -747.091003418
+		 -4907.039550781 906.80706787 -722.89215088 -4909.0053710938 906.80706787 -715.25463867
+		 -4998.1015625 906.80706787 -738.18664551 -4909.0053710938 706.80706787 -715.25463867
+		 -4998.1015625 706.80706787 -738.18664551 -4907.061035156 706.80706787 -722.80859375
+		 -4995.83105469 706.80706787 -747.0073852539 -4901.056152344 911.39318848 -720.89910889
+		 -4900.25537109 697.10284424 -720.72998047 -5000.79736328 912.062988281 -748.51904297
+		 -5003.75292969 697.35882568 -749.10137939;
+	setAttr -s 20 ".ed[0:19]"  0 1 0 1 2 0 2 3 0 3 0 0 2 4 0 4 5 0 5 3 0
+		 6 7 0 7 5 0 4 6 0 7 0 0 1 6 0 8 1 0 9 6 0 10 0 0 11 7 0 8 9 0 8 10 0 10 11 0 11 9 0;
+	setAttr -s 9 -ch 36 ".fc[0:8]" -type "polyFaces" 
+		f 4 0 1 2 3
+		mu 0 4 0 1 2 3
+		f 4 7 8 -6 9
+		mu 0 4 4 5 6 7
+		f 4 10 -4 -7 -9
+		mu 0 4 5 0 3 6
+		f 4 -5 -2 11 -10
+		mu 0 4 7 2 1 4
+		f 4 16 13 -12 -13
+		mu 0 4 8 9 4 1
+		f 4 -18 12 -1 -15
+		mu 0 4 10 8 1 0
+		f 4 -19 14 -11 -16
+		mu 0 4 11 10 0 5
+		f 4 -8 -14 -20 15
+		mu 0 4 5 4 9 11
+		f 4 4 5 6 -3
+		mu 0 4 2 7 6 3;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "polySurface625" -p "door1";
+	rename -uid "93172D7C-4859-C319-968D-928BAA48657F";
+createNode mesh -n "polySurfaceShape625" -p "polySurface625";
+	rename -uid "C9760163-4A02-8697-1173-558B90F2B6A8";
+	setAttr -k off ".v";
+	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:28]";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0 1 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 76 ".uvst[0].uvsp[0:75]" -type "float2" 0.37904042 0.30863547
+		 0.375 0.5 0.625 0.5 0.62435216 0.14408708 0.375 0.75 0.37407836 0.49917579 0.62481672
+		 0.49978143 0.625 0.75 0.38212794 0.63657367 0.38282835 0.6901015 0.36877373 0.43361306
+		 0.50040531 0.33048701 0.50403172 0.32841131 0.375 0.63713294 0.375 0.6098218 0.41853735
+		 0.46653727 0.375 0.68630797 0.375 0.70843065 0.31113741 0.3701641 0.30597514 0.36657164
+		 0.50300831 0.3050811 0.50530869 0.60139811 0.27421314 0.59446061 0.30537757 0.36380365
+		 1 0 0 0 0 0 0 0 0 0 1 0 1 1 -2.9401485e-07 1.000000834465 -5.4722653e-07 -1.8835743e-06
+		 1 0 1 1 -4.22926e-06 0.99999803 -7.3651097e-07 -1.6355807e-07 1 0 1 1 -1.7653906e-07
+		 1.000000834465 0 0 1 0 1.090116382 0.15462911 -2.6612934e-11 0.99999964 -8.0581088e-08
+		 3.2207299e-06 1.089209557 -0.4376556 1.089180231 0.53773129 -2.5822459e-07 0.9999966
+		 -1.4645376e-09 8.1891867e-06 1.090017676 0.88602459 1.017255664 1.054930329 4.5961546e-10
+		 0.99999112 0 0 1 0 1.24201798 0.061756968 1.150201e-07 0.99999934 6.7143411e-09 9.3724523e-08
+		 1.23916793 -1.69986486 1.246032 -0.18783748 -0.013810745 0.85826093 -0.0055751042
+		 0.011465644 1.24853671 1.15952599 1.038557768 1.64887428 -1.0800238e-07 0.99999821
+		 0 0 1 0 0.88841242 1.40749836 0 1 0 0 1.050112963 -0.058203176 1.000039577484 0.99998534
+		 0 1 0 0 0.99997538 8.4913399e-06 1.20725727 0.52885258 0 1;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 5 ".pt";
+	setAttr ".pt[33]" -type "float3" -7.2384243 0 3.2432878 ;
+	setAttr ".pt[34]" -type "float3" 0 4.5866966 0 ;
+	setAttr ".pt[35]" -type "float3" -30.149609 0 -20.101345 ;
+	setAttr ".pt[37]" -type "float3" -4.6768041 6.8130579 -1.2037396 ;
+	setAttr ".pt[38]" -type "float3" -0.19276758 21.029068 -0.049615461 ;
+	setAttr -s 39 ".vt[0:38]"  -4901.056152344 911.39318848 -720.89910889
+		 -4900.25537109 697.10284424 -720.72998047 -5000.79736328 912.062988281 -748.51904297
+		 -5003.75292969 697.35882568 -749.10137939 -5464.65087891 930.18450928 -48.30337524
+		 -4885.77587891 936.87664795 109.49905396 -5254.24804688 930.52966309 -820.13916016
+		 -4677.90771484 935.65740967 -658.79711914 -5151.5703125 939.24285889 36.56616592
+		 -5202.27099609 932.52508545 226.77738953 -5384.49462891 931.84680176 170.49324036
+		 -5320.81542969 932.7689209 -13.19699097 -4885.25927734 697.51641846 109.53512573
+		 -4674.85644531 685.94287109 -662.30065918 -5253.73193359 684.64135742 -820.10314941
+		 -5464.13476563 696.21490479 -48.26730347 -5324.28662109 696.1965332 -13.81910133
+		 -5149.59179688 696.94470215 41.043617249 -5247.79101563 697.26849365 204.61471558
+		 -5198.61425781 697.41070557 221.64758301 -5351.28857422 697.012512207 176.24327087
+		 -5386.15136719 696.66253662 166.78486633 -5345.89013672 911.1385498 177.68467712
+		 -5251.69433594 911.82196045 203.77235413 -4613.93701172 903.66461182 -716.48760986
+		 -5236.34716797 898.53686523 -889.68737793 -4612.46533203 927.2354126 -716.10888672
+		 -5236.34716797 922.10766602 -889.68737793 -4674.46630859 951.94720459 -672.1673584
+		 -5250.80664063 946.81945801 -833.50939941 -4841.98535156 910.087585449 152.046539307
+		 -4840.094238281 934.094360352 152.53335571 -4875.48583984 965.49523926 112.14765167
+		 -5132.94091797 920.29754639 81.58792877 -5138.55175781 932.76202393 88.090026855
+		 -5127.44921875 967.75720215 60.25227356 -5182.0063476563 919.59747314 231.99317932
+		 -5177.62353516 926.044250488 233.12121582 -5198.025878906 937.13916016 227.86993408;
+	setAttr -s 69 ".ed[0:68]"  0 1 0 0 2 0 2 3 0 3 1 0 6 4 0 7 5 0 8 5 0
+		 10 9 0 11 10 0 12 13 0 5 12 0 13 7 0 13 14 0 15 4 0 14 6 0 14 15 0 12 17 0 17 16 0
+		 17 8 0 16 15 0 16 11 0 17 18 0 17 19 0 19 18 0 19 9 0 16 20 0 16 21 0 20 21 0 21 10 0
+		 18 20 0 22 20 0 10 22 1 23 18 0 9 23 1 23 22 0 8 9 0 4 11 0 3 14 0 2 6 0 0 7 0 1 13 0
+		 7 6 0 7 24 0 6 25 0 24 25 0 24 26 0 25 27 0 26 27 0 26 28 0 27 29 0 28 29 0 5 30 0
+		 24 30 0 30 31 0 26 31 0 31 32 0 28 32 0 8 33 0 33 30 0 33 34 0 34 31 0 34 35 0 35 32 0
+		 9 36 0 33 36 0 36 37 0 34 37 0 37 38 0 35 38 0;
+	setAttr -s 29 -ch 116 ".fc[0:28]" -type "polyFaces" 
+		f 4 10 9 11 5
+		mu 0 4 0 1 2 3
+		f 4 13 -5 -15 15
+		mu 0 4 4 5 6 7
+		f 6 -16 -13 -10 16 17 19
+		mu 0 6 4 7 2 1 8 9
+		f 4 20 -37 -14 -20
+		mu 0 4 9 10 5 4
+		f 4 33 32 -24 24
+		mu 0 4 11 12 13 14
+		f 4 -17 -11 -7 -19
+		mu 0 4 8 1 0 15
+		f 3 22 23 -22
+		mu 0 3 8 14 13
+		f 4 18 35 -25 -23
+		mu 0 4 8 15 11 14
+		f 3 25 27 -27
+		mu 0 3 9 16 17
+		f 4 28 -9 -21 26
+		mu 0 4 17 18 10 9
+		f 4 21 29 -26 -18
+		mu 0 4 8 13 16 9
+		f 4 -32 -29 -28 -31
+		mu 0 4 19 18 17 16
+		f 4 -34 -8 31 -35
+		mu 0 4 12 11 18 19
+		f 4 2 37 14 -39
+		mu 0 4 20 21 7 6
+		f 4 -1 39 -12 -41
+		mu 0 4 22 23 3 2
+		f 4 -42 -40 1 38
+		mu 0 4 24 25 26 27
+		f 4 -38 3 40 12
+		mu 0 4 7 21 22 2
+		f 4 41 43 -45 -43
+		mu 0 4 28 29 30 31
+		f 4 44 46 -48 -46
+		mu 0 4 32 33 34 35
+		f 4 47 49 -51 -49
+		mu 0 4 36 37 38 39
+		f 4 -6 42 52 -52
+		mu 0 4 40 41 42 43
+		f 4 -53 45 54 -54
+		mu 0 4 44 45 46 47
+		f 4 -55 48 56 -56
+		mu 0 4 48 49 50 51
+		f 4 6 51 -59 -58
+		mu 0 4 52 53 54 55
+		f 4 58 53 -61 -60
+		mu 0 4 56 57 58 59
+		f 4 60 55 -63 -62
+		mu 0 4 60 61 62 63
+		f 4 -36 57 64 -64
+		mu 0 4 64 65 66 67
+		f 4 -65 59 66 -66
+		mu 0 4 68 69 70 71
+		f 4 -67 61 68 -68
+		mu 0 4 72 73 74 75;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "AE04F114-448F-0132-5C78-7CA31348D70F";
+	rename -uid "360F733B-4238-C981-6DCC-8FA8436D52E6";
 	setAttr -s 6 ".lnk";
 	setAttr -s 6 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "74E35834-4B62-5881-BD18-618A52403466";
+	rename -uid "1892D940-4707-574D-B5C9-358214C00F00";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "7AE6FEAF-4048-AA9B-B70E-D684A4683FB3";
+	rename -uid "1C912A14-481F-4699-AC5B-83BFC55CE3F7";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "1C06D2AD-4F58-5CF5-440F-D4BCB0C8ACC3";
+	rename -uid "B3728A95-4F6A-7911-3C79-DB9430F7E071";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "45D86949-4101-3F2D-C3A0-C8B00BB0C9F2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "C219FFC6-44CC-B7EB-610B-F2B6BC9D22DE";
+	rename -uid "BFAC7B37-4EE2-4328-7F03-41A9582D81AB";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "2BAB7981-4BD2-8476-69FE-50B8CB25C14A";
 	setAttr ".g" yes;
@@ -40914,8 +41604,11 @@ createNode groupId -n "groupId1977";
 createNode groupId -n "groupId1894";
 	rename -uid "2E3B9779-4FE0-B8BF-640B-DA8F624FAE3F";
 	setAttr ".ihi" 0;
-createNode groupId -n "groupId1976";
-	rename -uid "FC18C886-414D-4A7B-7167-5D996B730EA3";
+createNode groupId -n "groupId1983";
+	rename -uid "C1BE7408-4C41-1449-5315-94AF0016F92E";
+	setAttr ".ihi" 0;
+createNode groupId -n "groupId1984";
+	rename -uid "FCB1E929-4E02-1576-6BE3-B095FF5D9051";
 	setAttr ".ihi" 0;
 select -ne :time1;
 	setAttr ".o" 1;
@@ -40940,9 +41633,9 @@ select -ne :defaultTextureList1;
 select -ne :standardSurface1;
 	setAttr ".s" 0;
 select -ne :initialShadingGroup;
-	setAttr -s 536 ".dsm";
+	setAttr -s 546 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 534 ".gn";
+	setAttr -s 535 ".gn";
 select -ne :initialParticleSE;
 	setAttr ".ro" yes;
 select -ne :defaultRenderGlobals;
@@ -40971,8 +41664,6 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr "groupId943.id" "blockout2Shape.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "blockout2Shape.iog.og[0].gco";
 connectAttr "groupId944.id" "blockout2Shape.iog.og[1].gid";
@@ -42073,10 +42764,12 @@ connectAttr "groupId1922.id" "polySurfaceShape623.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape623.iog.og[0].gco";
 connectAttr "groupId1894.id" "doorShape.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "doorShape.iog.og[0].gco";
-connectAttr "groupId1976.id" "houseShape.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "houseShape.iog.og[0].gco";
 connectAttr "groupId1977.id" "stairsShape.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "stairsShape.iog.og[0].gco";
+connectAttr "groupId1983.id" "polySurfaceShape624.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "polySurfaceShape624.iog.og[0].gco";
+connectAttr "groupId1984.id" "polySurfaceShape625.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "polySurfaceShape625.iog.og[0].gco";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "aiStandardSurface1SG.message" ":defaultLightSet.message";
@@ -42781,8 +43474,18 @@ connectAttr "polySurfaceShape620.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape621.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape622.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape623.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "houseShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "stairsShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape1.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape2.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape3.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape4.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape5.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape6.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape9.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape10.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape11.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "polySurfaceShape624.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "polySurfaceShape625.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "groupId292.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId305.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId306.msg" ":initialShadingGroup.gn" -na;
@@ -43315,8 +44018,9 @@ connectAttr "groupId1919.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId1920.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId1921.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId1922.msg" ":initialShadingGroup.gn" -na;
-connectAttr "groupId1976.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId1977.msg" ":initialShadingGroup.gn" -na;
+connectAttr "groupId1983.msg" ":initialShadingGroup.gn" -na;
+connectAttr "groupId1984.msg" ":initialShadingGroup.gn" -na;
 connectAttr "Skydome_l.iog" ":defaultLightSet.dsm" -na;
 connectAttr "groupId991.msg" ":defaultLastHiddenSet.gn" -na;
 connectAttr "polySurfaceShape3.iog.og[6]" ":defaultLastHiddenSet.dsm" -na;
