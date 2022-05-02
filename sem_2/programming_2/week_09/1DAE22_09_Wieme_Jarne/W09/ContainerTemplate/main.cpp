@@ -4,9 +4,10 @@
 #include <windows.h>
 #include <ctime>
 #include "Container.h"
+#include "Vector2f.h"
 // TODO: 1. Uncomment these include directives
-//#include "TestContainerTemplate.h"
-//#include "Fraction.h"
+#include "TestContainerTemplate.h"
+#include "Fraction.h"
 
 void TestInitializerList();
 void TestVector2fContainer();
@@ -18,35 +19,35 @@ int main()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 	{
-		StartHeapControl();
+		StartHeapControl( );
 		
 		// Test the constructor with initializer list parameter
-		TestInitializerList();
+		//TestInitializerList();
 
 		// TODO: 2. Uncomment these 3 code lines to test a container of int type elements
-		//std::cout << "\n-->Start of Container<int> test <--\n";
-		//TestContainer<int>( );
-		//std::cout << "-->End of Container<int> test <--\n\n";
+		std::cout << "\n-->Start of Container<int> test <--\n";
+		TestContainer<int>( );
+		std::cout << "-->End of Container<int> test <--\n\n";
 
 		// TODO: 3. Uncomment these 3 code lines to test a container of float type elements
-		//std::cout << "-->Start of Container<float> test <--\n";
-		//TestContainer<float>( );
-		//std::cout << "-->End of Container<float> test <--\n\n";
+		std::cout << "-->Start of Container<float> test <--\n";
+		TestContainer<float>( );
+		std::cout << "-->End of Container<float> test <--\n\n";
 
 		// TODO: 4. Uncomment these 3 code lines to test a container of string type elements
-		//std::cout << "-->Start of Container<string> test <--\n";
-		//TestContainer<std::string>( );
-		//std::cout << "-->End of Container<string> test <--\n\n";
+		std::cout << "-->Start of Container<string> test <--\n";
+		TestContainer<std::string>( );
+		std::cout << "-->End of Container<string> test <--\n\n";
 
 		// TODO: 5. Uncomment these 3 code lines to test a container of Fraction type elements
-		//std::cout << "-->Start of Container<Fraction> test <--\n";
-		//TestContainer<Fraction>( );
-		//std::cout << "-->End of Container<Fraction> test <--\n\n";
+		std::cout << "-->Start of Container<Fraction> test <--\n";
+		TestContainer<Fraction>( );
+		std::cout << "-->End of Container<Fraction> test <--\n\n";
 
 		// TODO: 6. Uncomment these 3 code lines to test a constainer of Vector2f types
-		//std::cout << "-->Start of Container<Vector2f> test <--\n";
-		//TestVector2fContainer();
-		//std::cout << "-->End of Container<Vector2f> test <--\n";
+		std::cout << "-->Start of Container<Vector2f> test <--\n";
+		TestVector2fContainer( );
+		std::cout << "-->End of Container<Vector2f> test <--\n";
 	}
 	DumpMemoryLeaks();
 
@@ -86,17 +87,38 @@ void TestVector2fContainer()
 {
 	// TODO: 7. Create a Container 'velocities' of Vector2f elements 
 	// using the constructor with std::initializer_list parameter
+	Container<Vector2f>velocities{ Vector2f{10, 4}, Vector2f{39, 49} };
 
 	// TODO: 8. Add some elements, enough to expand the container
+	for (int index{}; index < 15; ++index)
+	{
+		velocities.PushBack(Vector2f{ float(rand() % 100), float(rand() % 100) });
+	}
 
 	// TODO: 9. Print the elements using a for loop and the operator[] of the container
+	for (int index{}; index < velocities.Size(); ++index)
+	{
+		std::cout << velocities[index] << std::endl;
+	}
+	std::cout << std::endl;
 
 	// TODO: 10. Add value 10 to x-part of all the elements using the operator[] of the container
+	for (int index{}; index < velocities.Size(); ++index)
+	{
+		velocities[index].x += 10;
+	}
 
 	// TODO: 11. Add value 5 to y-part of all the elements using the operator[] of the container
+	for (int index{}; index < velocities.Size(); ++index)
+	{
+		velocities[index].y += 5;
+	}
 
 	// TODO: 12. Print the elements using a for loop and the method Get of the container
-
+	for (int index{}; index < velocities.Size(); ++index)
+	{
+		std::cout << velocities.Get(index) << std::endl;
+	}
 }
 
 

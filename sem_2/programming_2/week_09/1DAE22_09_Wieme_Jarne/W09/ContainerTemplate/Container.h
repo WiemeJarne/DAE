@@ -10,31 +10,26 @@ class Container
 public:
 	explicit Container(int capacity = 10);
 	Container(const std::initializer_list<T>& list);
+
+	~Container( );
 	Container(const Container& other);
-	Container& operator=(const Container& other);
-	Container(Container&& other) noexcept;
-	Container& operator=(Container&& other) noexcept;
+	Container<T>& operator=(const Container<T>& other);
+	Container(Container<T>&& other) noexcept;
+	Container<T>& operator=(Container<T>&& other) noexcept;
 
-	~Container();
-
-	int Size() const;
-
-	int Capacity() const;
-
+	int Size( ) const;
+	int Capacity( ) const;
 	T Get(int index) const;
-
-	void Set(int index, int value);
-
+	void Set(int index, T value);
 	void PushBack(T value);
 
 	T& operator[](int index);
-
 	const T& operator[](int index) const;
 
 private:
 	int m_Size;
 	int m_Capacity;
-	int *m_pElements;
+	T *m_pElements;
 
 	void Reserve(int newCapacity);
 };
@@ -49,7 +44,7 @@ Container<T>::Container(int capacity)
 
 template<typename T>
 Container<T>::Container(const std::initializer_list<T>& list)
-	: Container(int(list.size()))
+	: Container(int(list.size( )))
 {
 	for (T element : list)
 	{
@@ -119,20 +114,20 @@ Container<T>& Container<T>::operator=(Container<T>&& other) noexcept
 }
 
 template<typename T>
-Container<T>::~Container()
+Container<T>::~Container( )
 {
 	delete[] m_pElements;
 	m_pElements = nullptr;
 }
 
 template<typename T>
-int Container<T>::Size() const
+int Container<T>::Size( ) const
 {
 	return m_Size;
 }
 
 template<typename T>
-int Container<T>::Capacity() const
+int Container<T>::Capacity( ) const
 {
 	return m_Capacity;
 }
@@ -145,7 +140,7 @@ T Container<T>::Get(int index) const
 }
 
 template<typename T>
-void Container<T>::Set(int index, int value)
+void Container<T>::Set(int index, T value)
 {
 	assert(index >= 0 && index < m_Size);
 	m_pElements[index] = value;
