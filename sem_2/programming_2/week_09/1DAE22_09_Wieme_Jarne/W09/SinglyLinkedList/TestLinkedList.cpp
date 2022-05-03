@@ -43,21 +43,21 @@ void TestList( )
 	TestConstructor(  );
 	{
 		// TODO: 2. Define PushFront, then uncomment next 3 lines
-		//std::list<int> refList;
-		//LinkedList  testList;
-		//TestPushFront( testList, refList );
+		std::list<int> refList;
+		LinkedList  testList;
+		TestPushFront( testList, refList );
 
 		// TODO: 3. Define destructor and uncomment next line
-		//TestDestructor( );
+		TestDestructor( );
 
 		// TODO: 4. Define InsertAfter and uncomment next line
-		//TestInsertAfter( testList, refList, 20 );
+		TestInsertAfter( testList, refList, 20 );
 
 		// TODO: 5. Define PopFront and uncomment next line
-		//TestPopFront( testList, refList );
+		TestPopFront( testList, refList );
 
 		// TODO: 6. Define Remove and uncomment next line
-		//TestRemove( testList, refList, 20 );
+		TestRemove( testList, refList, 20 );
 	}
 }
 

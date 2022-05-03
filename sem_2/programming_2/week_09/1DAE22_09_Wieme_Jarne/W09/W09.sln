@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ContainerTemplate", "Contai
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SinglyLinkedList", "SinglyLinkedList\SinglyLinkedList.vcxproj", "{B2F46B20-4EA2-4082-A5DF-0783F346386C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrailingCircles", "TrailingCircles\TrailingCircles.vcxproj", "{C0B32FCE-B543-48D9-9409-739E676079F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{B2F46B20-4EA2-4082-A5DF-0783F346386C}.Release|x64.Build.0 = Release|x64
 		{B2F46B20-4EA2-4082-A5DF-0783F346386C}.Release|x86.ActiveCfg = Release|Win32
 		{B2F46B20-4EA2-4082-A5DF-0783F346386C}.Release|x86.Build.0 = Release|Win32
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Debug|x64.ActiveCfg = Debug|x64
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Debug|x64.Build.0 = Debug|x64
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Debug|x86.ActiveCfg = Debug|Win32
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Debug|x86.Build.0 = Debug|Win32
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Release|x64.ActiveCfg = Release|x64
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Release|x64.Build.0 = Release|x64
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Release|x86.ActiveCfg = Release|Win32
+		{C0B32FCE-B543-48D9-9409-739E676079F5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
