@@ -1,0 +1,82 @@
+TEXTURE MAPS
+
+T_Chimney_01_BC   (PS)
+T_Chimney_UV	  (PNG)
+T_Chimney_BC_01   (PNG)
+
+T_Decals_01_BC   (PS)
+T_Decals_UV	  (PNG)
+T_Decals_BC_01   (PNG)
+
+T_DoorsWindowsProps_01_BC   (PS)
+T_DoorsWindowsProps_UV	  (PNG)
+T_DoorsWindowsProps_BC_01   (PNG)
+
+T_Frames_01_BC   (PS)
+T_Frames_UV	  (PNG)
+T_Frames_BC_01   (PNG)
+
+T_RidgeGutterFascia_01_BC   (PS)
+T_RidgeGutterFascia_UV	  (PNG)
+T_RidgeGutterFascia_BC_01   (PNG)
+
+T_Roof_01_BC   (PS)
+T_Roof_BC_01   (PNG)
+
+T_Walls_01_BC   (PS)
+T_Walls_BC_01   (PNG)
+
+
+CHIMNEY
+Support Bars
+Steps
+RoundChimney Element 
+Small Chimney Element
+Large  Chimney Element
+
+DECALS
+Decal Roof Var01
+Decal Roof Var02
+Decal Wall Var01
+Decal Wall Var02
+
+DOORS_WINDOWS_PROPS
+Small support Beams
+Oudoor Lamp
+	Drainpipe Details
+	GutterDetails
+Parabolic Antenna Edge
+Parabolic Antenna
+	Doorstep
+	Doorstep Hight
+Triple Window Right
+Triple Window Middle
+Triple Window Left
+	Double Window Left Right
+	Small Window Back
+Side Entrance
+Main Entrance
+
+FRAMES
+Small beams
+Window sill
+Large horizontal beams
+Large Vertical beams
+
+
+RIDGE_GUTTER_FASCIA
+Support Beam
+Drainpipe
+Fascia
+Ridge
+Gutter
+
+ROOF
+Roof
+
+WALLS
+Wall
+
+
+
+
