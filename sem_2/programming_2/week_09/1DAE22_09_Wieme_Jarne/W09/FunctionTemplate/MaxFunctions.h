@@ -3,7 +3,7 @@
 #include "Fraction.h"
 
 template <typename T>
-T Max(T a, T b)
+T Max(const T& a, const T& b)
 {
 	return a < b ? b : a;
 }

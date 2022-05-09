@@ -54,9 +54,7 @@ Container<T>::Container(const std::initializer_list<T>& list)
 
 template<typename T>
 Container<T>::Container(const Container<T>& other)
-	: m_Size{ 0 }
-	, m_Capacity{ other.m_Capacity }
-	, m_pElements{ new T[other.m_Capacity] }
+	: Container(other.Capacity)
 {
 	// Copy the elements
 	for (int idx{}; idx < other.m_Size; ++idx)
