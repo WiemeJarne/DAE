@@ -3,9 +3,10 @@
 #include "Avatar.h"
 #include "ExplosionManager.h"
 #include "utils.h"
+#include "TextureManager.h"
 
-EnemyBulletManager::EnemyBulletManager( )
-	: BulletManager( )
+EnemyBulletManager::EnemyBulletManager(TextureManager* pTextureManager)
+	: BulletManager(pTextureManager)
 {
 }
 
@@ -21,7 +22,7 @@ void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& l
 
 			if (m_pBullets[index]->IsBulletOutOfBoundaries( ) || m_pBullets[index]->DidBulletHitGround(level))
 			{
-				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion);
+				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
 				DeleteBullet(index);
 			}
 		}
@@ -34,7 +35,7 @@ void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& l
 
 void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, EnemyBullet::BulletType bulletType)
 {
-	m_pBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, scale, bulletType });
+	m_pBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, scale, bulletType, m_pTextureManager });
 }
 
 void EnemyBulletManager::HandleCollisionWithAvatar(Avatar& avatar)
@@ -44,7 +45,7 @@ void EnemyBulletManager::HandleCollisionWithAvatar(Avatar& avatar)
 		if (utils::IsOverlapping(avatar.GetShape( ), m_pBullets[index]->GetShape()))
 		{
 			avatar.Hit( );
-			m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion);
+			m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
 			DeleteBullet(index);
 		}
 	}

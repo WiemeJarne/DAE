@@ -6,10 +6,12 @@
 #include "ExplosionManager.h"
 #include "EnemyBullet.h"
 #include "utils.h"
+#include "TextureManager.h"
 
-BulletManager::BulletManager( )
+BulletManager::BulletManager(TextureManager* pTextureManager)
 	: m_pBullets{ }
 	, m_pExplosionManager{ new ExplosionManager{} }
+	, m_pTextureManager{ pTextureManager }
 {
 }
 
@@ -46,7 +48,7 @@ void BulletManager::Update(float elapsedSec, const Level& level)
 					explosionScale = 1.25f;
 				}
 
-				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion);
+				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
 				DeleteBullet(index);
 			}
 		}
@@ -72,11 +74,11 @@ void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVe
 {
 	if (BlasterPowerUpActive)
 	{
-		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, scale, Bullet::BulletType::heavy });
+		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::heavy });
 	}
 	else
 	{
-		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, scale, Bullet::BulletType::normal });
+		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::normal });
 	}
 }
 
@@ -91,7 +93,7 @@ void BulletManager::HandleCollisionWithEnemies(std::vector<Enemy*> enemies)
 			{
 				int damage{ };
 
-				m_pExplosionManager->AddExplosion(Point2f{ bullet->GetShape().left, bullet->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion);
+				m_pExplosionManager->AddExplosion(Point2f{ bullet->GetShape().left, bullet->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
 				DeleteBullet(index);
 
 				if (bullet->GetBulletType() == Bullet::BulletType::normal)

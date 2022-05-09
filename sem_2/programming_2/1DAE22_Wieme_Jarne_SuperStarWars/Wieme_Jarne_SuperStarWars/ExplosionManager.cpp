@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ExplosionManager.h"
 #include "Sprite.h"
+#include "TextureManager.h"
 
 ExplosionManager::ExplosionManager( )
 	: m_pExplosions{ }
@@ -44,9 +45,9 @@ void ExplosionManager::Draw( ) const
 	}
 }
 
-void ExplosionManager::AddExplosion(const Point2f& bottomLeftPos, float scale, Explosion::ExplosionType explosionType)
+void ExplosionManager::AddExplosion(const Point2f& bottomLeftPos, float scale, Explosion::ExplosionType explosionType, TextureManager* pTextureManager)
 {
-	m_pExplosions.push_back(new Explosion{ bottomLeftPos, scale, explosionType });
+	m_pExplosions.push_back(new Explosion{ bottomLeftPos, scale, explosionType, pTextureManager });
 }
 
 void ExplosionManager::DeleteExplosion(int index)

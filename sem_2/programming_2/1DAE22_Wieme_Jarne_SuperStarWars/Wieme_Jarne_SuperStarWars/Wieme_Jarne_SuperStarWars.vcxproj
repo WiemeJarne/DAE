@@ -184,6 +184,7 @@
     <ClCompile Include="structs.cpp" />
     <ClCompile Include="SVGParser.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Vector2f.cpp" />
     <ClCompile Include="WormEnemy.cpp" />
@@ -210,12 +211,14 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="PowerUpManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SoundStream.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="SVGParser.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Vector2f.h" />
     <ClInclude Include="WormEnemy.h" />

@@ -3,10 +3,7 @@
 #include "Texture.h"
 #include "Level.h"
 #include "Sprite.h"
-
-Texture* Bullet::m_pLaserTexture{ nullptr };
-Texture* Bullet::m_pDiagonalLaserTexture{ nullptr };
-int Bullet::m_AmountOfBullets{};
+#include "TextureManager.h"
 
 Bullet::Bullet(const Vector2f& velocity, float scale, const Point2f& startPos)
 	: m_Shape{ }
@@ -20,33 +17,21 @@ Bullet::Bullet(const Vector2f& velocity, float scale, const Point2f& startPos)
 {
 }
 
-Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType)
+Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTextureManager, float scale, BulletType bulletType)
 	: Bullet(velocity, scale, pos)
 {
 	m_BulletType = bulletType;
 
 	if (m_BulletType == BulletType::normal)
 	{
-		++m_AmountOfBullets;
-
-		if (m_pLaserTexture == nullptr)
-		{
-			m_pLaserTexture = new Texture{ "Resources/Lasers/LaserRight.png" };
-		}
-
-		if (m_pDiagonalLaserTexture == nullptr)
-		{
-			m_pDiagonalLaserTexture = new Texture{ "Resources/Lasers/LaserUpRight.png" };
-		}
-
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
-			m_pTexture = m_pLaserTexture;
+			m_pTexture = pTextureManager->GetTexture("Resources/Lasers/LaserRight.png");
 		}
 		else
 		{
-			m_pTexture = m_pDiagonalLaserTexture;
+			m_pTexture = pTextureManager->GetTexture("Resources/Lasers/LaserUpRight.png");
 		}
 	}
 	else
@@ -56,11 +41,11 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, float scale, Bullet
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
-			m_pHeavyLaser = new Sprite{ "Resources/Lasers/HeavyLaserRight.png", Sprite::AnimType::dontRepeat, 2, 1, 7.f };
+			m_pHeavyLaser = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
 		}
 		else
 		{
-			m_pHeavyLaserDiagonal = new Sprite{ "Resources/Lasers/HeavyLaserUpRight.png", Sprite::AnimType::dontRepeat, 2, 1, 7.f };
+			m_pHeavyLaserDiagonal = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserUpRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
 		}
 	}
 		
@@ -95,27 +80,9 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, float scale, Bullet
 
 Bullet::~Bullet( )
 {
-	if (m_BulletType == BulletType::normal)
-	{
-		--m_AmountOfBullets;
-
-		if (m_AmountOfBullets == 0)
-		{
-			if (m_pLaserTexture != nullptr)
-			{
-				delete m_pLaserTexture;
-				m_pLaserTexture = nullptr;
-			}
-
-			if (m_pDiagonalLaserTexture)
-			{
-				delete m_pDiagonalLaserTexture;
-				m_pDiagonalLaserTexture = nullptr;
-			}
-		}
-	}
-	else if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
-		     || ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
+	if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
+		|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0
+		&& m_BulletType == BulletType::heavy							 )
 	{
 		delete m_pHeavyLaser;
 	}

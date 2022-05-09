@@ -41,27 +41,27 @@ void EnemyManager::Draw( ) const
 	}
 }
 
-void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind)
+void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager* pTextureManager)
 {
 	switch (enemyKind)
 	{
 	case EnemyKind::Enemy:
-		m_pEnemies.push_back(new Enemy{ bottomLeftStartPoint, scale, health });
+		m_pEnemies.push_back(new Enemy{ bottomLeftStartPoint, scale, health, pTextureManager });
 		break;
 
 	case EnemyKind::flying:
-		m_pEnemies.push_back(new FlyingEnemy{ bottomLeftStartPoint, scale, health });
+		m_pEnemies.push_back(new FlyingEnemy{ bottomLeftStartPoint, scale, health, pTextureManager });
 		break;
 
 	case EnemyKind::worm:
-		m_pEnemies.push_back(new WormEnemy{ bottomLeftStartPoint, scale, health });
+		m_pEnemies.push_back(new WormEnemy{ bottomLeftStartPoint, scale, health, pTextureManager });
 		break;
 
 	case EnemyKind::jumping:
-		m_pEnemies.push_back(new JumpingEnemy{ bottomLeftStartPoint, scale, health });
+		m_pEnemies.push_back(new JumpingEnemy{ bottomLeftStartPoint, scale, health, pTextureManager });
 
 	case EnemyKind::boss:
-		m_pEnemies.push_back(new PitMonster{ bottomLeftStartPoint, scale, health });
+		m_pEnemies.push_back(new PitMonster{ bottomLeftStartPoint, scale, health, pTextureManager });
 		break;
 	}
 }

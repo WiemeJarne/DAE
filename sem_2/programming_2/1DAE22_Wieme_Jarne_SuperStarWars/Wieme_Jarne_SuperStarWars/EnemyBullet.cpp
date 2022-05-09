@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "EnemyBullet.h"
 #include "Sprite.h"
+#include "TextureManager.h"
 
-EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType)
-	: Bullet(pos, velocity, scale)
+EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType, TextureManager* pTextureManager)
+	: Bullet(velocity, scale, pos)
 	, m_Acceleration{ 0.f, -981.f }
 	, m_BulletType{ bulletType }
 	, m_pEnemyBullet{ }
@@ -11,11 +12,11 @@ EnemyBullet::EnemyBullet(const Point2f& pos, const Vector2f& velocity, float sca
 {
 	if (m_BulletType == BulletType::Enemy)
 	{
-		m_pEnemyBullet = new Sprite{ "Resources/Lasers/EnemyLaser.png", Sprite::AnimType::loop, 2, 1, 10.f };
+		m_pEnemyBullet = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/EnemyLaser.png"), Sprite::AnimType::loop, 2, 1, 10.f };
 	}
 	else
 	{
-		m_pBossBullet = new Sprite{ "Resources/PitMonster/AttackRock.png", Sprite::AnimType::loop, 4, 1, 2.f };
+		m_pBossBullet = new Sprite{ pTextureManager->GetTexture("Resources/PitMonster/AttackRock.png"), Sprite::AnimType::loop, 4, 1, 2.f };
 	}
 	
 	m_Boundaries.left = m_StartPos.x - 250.f;

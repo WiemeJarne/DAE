@@ -6,11 +6,12 @@ class Level;
 class Enemy;
 class BulletManager;
 class Sprite;
+class TextureManager;
 
 class Avatar final
 {
 public:
-	explicit Avatar();
+	explicit Avatar(TextureManager* pTextureManager);
 	Avatar(const Avatar& avatar) = delete;
 	Avatar(Avatar&& avatar) = delete;
 	~Avatar( );
@@ -58,8 +59,9 @@ private:
 	const int m_StartHealth;
 	float m_AccuHitSec;
 	bool m_BlasterPowerUpHit;
+	TextureManager* m_pTextureManager;
 
-	void InitializeSprites( );
+	void InitializeSprites(TextureManager* pTextureManager);
 	void UpdateXPos(float elapsedSec);
 	void UpdateYPos(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);

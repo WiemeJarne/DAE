@@ -4,6 +4,7 @@
 class Texture;
 class Level;
 class Sprite;
+class TextureManager;
 
 class Bullet
 {
@@ -15,7 +16,7 @@ public:
 	};
 
 	explicit Bullet(const Vector2f& velocity, float scale, const Point2f& startPos); // constructor used in EnemyBullet class
-	explicit Bullet(const Point2f& pos, const Vector2f& velocity, float scale = 1, BulletType bulletType = BulletType::normal);	
+	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTextureManager, float scale = 1, BulletType bulletType = BulletType::normal);
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;
 	virtual ~Bullet( );
@@ -42,8 +43,4 @@ private:
 	Sprite* m_pHeavyLaser;
 	Sprite* m_pHeavyLaserDiagonal;
 	BulletType m_BulletType;
-
-	static Texture* m_pLaserTexture;
-	static Texture* m_pDiagonalLaserTexture;
-	static int m_AmountOfBullets;
 };

@@ -4,7 +4,7 @@
 class FlyingEnemy final : public Enemy
 {
 public:
-	explicit FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health);
+	explicit FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager* pTextureManager);
 
 	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar) override;
 	virtual void Draw( ) const override;

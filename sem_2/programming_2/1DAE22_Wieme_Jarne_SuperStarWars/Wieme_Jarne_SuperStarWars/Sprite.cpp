@@ -2,8 +2,8 @@
 #include "Sprite.h"
 #include "Texture.h"
 
-Sprite::Sprite( const std::string& path, AnimType animType, int cols, int rows, float frameSec )
-	: m_TexturePath{ path }
+Sprite::Sprite( const Texture* pTexture, AnimType animType, int cols, int rows, float frameSec )
+	: m_pTexture{ pTexture }
 	, m_AnimType{ animType }
 	, m_Columns{ cols }
 	, m_Rows{ rows }
@@ -12,12 +12,6 @@ Sprite::Sprite( const std::string& path, AnimType animType, int cols, int rows, 
 	, m_FrameNr{ }
 	, m_FrameDirection{ -1 }
 {
-	m_pTexture = new Texture( m_TexturePath );
-}
-
-Sprite::~Sprite( )
-{
-	delete m_pTexture;
 }
 
 void Sprite::Update( float elapsedSec )

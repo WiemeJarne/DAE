@@ -12,7 +12,7 @@ public:
 		boss
 	};
 
-	explicit EnemyBullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType);
+	explicit EnemyBullet(const Point2f& pos, const Vector2f& velocity, float scale, BulletType bulletType, TextureManager* pTextureManager);
 	EnemyBullet(const EnemyBullet& other) = delete;
 	EnemyBullet(EnemyBullet&& other) = delete;
 	~EnemyBullet( );

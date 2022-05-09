@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "EnemyManager.h"
 #include "PowerUpManager.h"
+#include "TextureManager.h"
 
 class Game final
 {
@@ -30,6 +31,7 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
+	TextureManager* m_pTextureManager;
 	Camera m_Camera;
 	Level m_Level;
 	Avatar m_Avatar;

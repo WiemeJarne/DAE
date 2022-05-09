@@ -3,20 +3,21 @@
 #include "Sprite.h"
 #include "Level.h"
 #include "Avatar.h"
+#include "TextureManager.h"
 
-FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{175.f, 0.f}, Vector2f{ 0.f, 0.f }, 40.f)
+FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager* pTextureManager)
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{175.f, 0.f}, Vector2f{ 0.f, 0.f }, 60.f, pTextureManager)
 	, m_ActionState{ ActionState::flying }
 	, m_BottomBoundary{ 50.f }
 {
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy2Fly.png", Sprite::AnimType::loop, 4, 1, 5.f });
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy2Attack.png", Sprite::AnimType::dontRepeat, 3, 1, 0.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager->GetTexture("Resources/Enemies/Enemy2Fly.png"), Sprite::AnimType::loop, 4, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager->GetTexture("Resources/Enemies/Enemy2Attack.png"), Sprite::AnimType::dontRepeat, 3, 1, 0.f });
 
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
 
-	m_LeftBoundary = m_Shape.left - 60.f;
-	m_RightBoundary = m_Shape.left + m_Shape.width + 60.f;
+	m_LeftBoundary = m_Shape.left - m_DistanceFromAvatarWhenAttacking;
+	m_RightBoundary = m_Shape.left + m_Shape.width + m_DistanceFromAvatarWhenAttacking;
 }
 
 void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)

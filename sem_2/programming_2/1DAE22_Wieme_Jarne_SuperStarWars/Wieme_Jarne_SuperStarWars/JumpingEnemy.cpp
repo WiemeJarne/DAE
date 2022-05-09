@@ -3,13 +3,14 @@
 #include "Sprite.h"
 #include "Level.h"
 #include "Avatar.h"
+#include "TextureManager.h"
 
-JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f)
+JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager* pTextureManager)
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f, pTextureManager)
 	, m_ActionState{ ActionState::idle }
 {
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy4Idle.png", Sprite::AnimType::loop, 3, 1, 3.f });
-	m_pSprites.push_back(new Sprite{ "Resources/Enemies/Enemy4Jump.png", Sprite::AnimType::dontRepeat, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager->GetTexture("Resources/Enemies/Enemy4Idle.png"), Sprite::AnimType::loop, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager->GetTexture("Resources/Enemies/Enemy4Jump.png"), Sprite::AnimType::dontRepeat, 3, 1, 3.f });
 }
 
 void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)

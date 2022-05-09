@@ -6,11 +6,12 @@ class Level;
 class Enemy;
 class Bullet;
 class ExplosionManager;
+class TextureManager;
 
 class BulletManager
 {
 public:
-	explicit BulletManager( );
+	explicit BulletManager(TextureManager* pTextureManager);
 	BulletManager(const BulletManager& bullet) = delete;
 	BulletManager(BulletManager&& bullet) = delete;
 	virtual ~BulletManager( );
@@ -26,6 +27,7 @@ public:
 protected:
 	std::vector<Bullet*> m_pBullets;
 	ExplosionManager* m_pExplosionManager;
+	TextureManager* m_pTextureManager;
 
 	virtual void DeleteBullet(int index);
 	

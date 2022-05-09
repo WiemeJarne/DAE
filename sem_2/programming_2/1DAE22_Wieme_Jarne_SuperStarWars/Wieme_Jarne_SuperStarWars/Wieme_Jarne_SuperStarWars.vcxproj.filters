@@ -13,6 +13,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="game files\Managers">
+      <UniqueIdentifier>{e0a1996e-f93b-4687-bd86-9936995ab0c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game files\Enemies">
+      <UniqueIdentifier>{1a14d4b1-2326-40c3-bf41-49c7440392b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -63,50 +69,53 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>game files</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>game files</Filter>
     </ClCompile>
     <ClCompile Include="Platform.cpp">
       <Filter>game files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyBullet.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBulletManager.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyingEnemy.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
-    <ClCompile Include="WormEnemy.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
-    <ClCompile Include="PitMonster.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
-    <ClCompile Include="JumpingEnemy.cpp">
       <Filter>game files</Filter>
     </ClCompile>
     <ClCompile Include="PowerUp.cpp">
       <Filter>game files</Filter>
     </ClCompile>
-    <ClCompile Include="PowerUpManager.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
     <ClCompile Include="Explosion.cpp">
       <Filter>game files</Filter>
     </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>game files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletManager.cpp">
+      <Filter>game files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>game files\Managers</Filter>
+    </ClCompile>
     <ClCompile Include="ExplosionManager.cpp">
-      <Filter>game files</Filter>
+      <Filter>game files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpManager.cpp">
+      <Filter>game files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>game files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingEnemy.cpp">
+      <Filter>game files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpingEnemy.cpp">
+      <Filter>game files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PitMonster.cpp">
+      <Filter>game files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="WormEnemy.cpp">
+      <Filter>game files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>game files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,50 +164,56 @@
     <ClInclude Include="Bullet.h">
       <Filter>game files</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
-      <Filter>game files</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
       <Filter>game files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>game files</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyBullet.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBulletManager.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="FlyingEnemy.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="WormEnemy.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="PitMonster.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpingEnemy.h">
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
       <Filter>game files</Filter>
     </ClInclude>
-    <ClInclude Include="ExplosionManager.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUpManager.h">
-      <Filter>game files</Filter>
-    </ClInclude>
     <ClInclude Include="PowerUp.h">
       <Filter>game files</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>game files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBulletManager.h">
+      <Filter>game files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>game files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionManager.h">
+      <Filter>game files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpManager.h">
+      <Filter>game files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>framework files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>game files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingEnemy.h">
+      <Filter>game files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpingEnemy.h">
+      <Filter>game files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PitMonster.h">
+      <Filter>game files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="WormEnemy.h">
+      <Filter>game files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>game files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

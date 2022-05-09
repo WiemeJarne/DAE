@@ -1,5 +1,6 @@
 #pragma once
 class Sprite;
+class TextureManager;
 
 class Explosion final
 {
@@ -10,7 +11,7 @@ public:
 		EnemyBulletExplosion
 	};
 
-	explicit Explosion(const Point2f& bottomLeftPos, float scale, ExplosionType explosionType);
+	explicit Explosion(const Point2f& bottomLeftPos, float scale, ExplosionType explosionType, TextureManager* pTextureManager);
 	Explosion(const Explosion& other) = delete;
 	Explosion(Explosion&& other) = delete;
 	~Explosion( );
