@@ -4,7 +4,6 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "ExplosionManager.h"
-#include "EnemyBullet.h"
 #include "utils.h"
 #include "TextureManager.h"
 
@@ -39,7 +38,7 @@ void BulletManager::Update(float elapsedSec, const Level& level)
 			{
 				float explosionScale{};
 
-				if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::normal)
+				if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal)
 				{
 					explosionScale = 0.75f;
 				}
@@ -74,11 +73,11 @@ void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVe
 {
 	if (BlasterPowerUpActive)
 	{
-		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::heavy });
+		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::playerHeavy });
 	}
 	else
 	{
-		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::normal });
+		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::playerNormal });
 	}
 }
 
@@ -96,7 +95,7 @@ void BulletManager::HandleCollisionWithEnemies(std::vector<Enemy*> enemies)
 				m_pExplosionManager->AddExplosion(Point2f{ bullet->GetShape().left, bullet->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
 				DeleteBullet(index);
 
-				if (bullet->GetBulletType() == Bullet::BulletType::normal)
+				if (bullet->GetBulletType() == Bullet::BulletType::playerNormal)
 				{
 					damage = 1;
 				}
@@ -115,15 +114,7 @@ void BulletManager::DeleteBullet(int index)
 {
 	if (index < m_pBullets.size() && m_pBullets[index] != nullptr)
 	{
-		EnemyBullet* pEnemyBullet{ dynamic_cast<EnemyBullet*>(m_pBullets[index]) };
-		if (pEnemyBullet != nullptr)
-		{
-			delete pEnemyBullet;
-		}
-		else
-		{
-			delete m_pBullets[index];
-		}
+		delete m_pBullets[index];
 
 		m_pBullets[index] = m_pBullets.back();
 		m_pBullets.pop_back();
@@ -136,7 +127,7 @@ float BulletManager::DetermineExplosionSize(int index) const
 
 	if (index < m_pBullets.size( ))
 	{
-		if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::normal)
+		if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal)
 		{
 			explosionScale = 0.75f;
 		}

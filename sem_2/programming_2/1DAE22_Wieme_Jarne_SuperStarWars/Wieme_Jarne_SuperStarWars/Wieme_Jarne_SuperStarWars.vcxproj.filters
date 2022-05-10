@@ -75,9 +75,6 @@
     <ClCompile Include="Platform.cpp">
       <Filter>game files</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
-      <Filter>game files</Filter>
-    </ClCompile>
     <ClCompile Include="PowerUp.cpp">
       <Filter>game files</Filter>
     </ClCompile>
@@ -168,9 +165,6 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
-      <Filter>game files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">

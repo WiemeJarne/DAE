@@ -158,7 +158,7 @@ void Enemy::Attack( )
 		velocity.x = 200.f;
 	}
 
-	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity, 1.f, EnemyBullet::BulletType::Enemy);
+	m_pEnemyBulletManager->AddBullet(Point2f{m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f}, velocity, 1.f, Bullet::BulletType::Enemy);
 }
 
 void Enemy::Respawn( )

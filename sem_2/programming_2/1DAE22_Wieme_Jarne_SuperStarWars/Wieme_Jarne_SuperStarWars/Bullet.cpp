@@ -11,9 +11,9 @@ Bullet::Bullet(const Vector2f& velocity, float scale, const Point2f& startPos)
 	, m_Scale{ scale }
 	, m_StartPos{ startPos }
 	, m_pTexture{ }
-	, m_pHeavyLaser{ }
-	, m_pHeavyLaserDiagonal{ }
 	, m_BulletType{ }
+	, m_Acceleration{ }
+	, m_pSprite{ }
 {
 }
 
@@ -22,8 +22,17 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTe
 {
 	m_BulletType = bulletType;
 
-	if (m_BulletType == BulletType::normal)
+	m_Boundaries.left = m_StartPos.x - 250.f;
+	m_Boundaries.bottom = m_StartPos.y - 250.f;
+	m_Boundaries.width = 500.f;
+	m_Boundaries.height = 500.f;
+
+	m_Shape.left = pos.x;
+	m_Shape.bottom = pos.y;
+
+	switch (m_BulletType)
 	{
+	case Bullet::BulletType::playerNormal:
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
@@ -33,62 +42,49 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTe
 		{
 			m_pTexture = pTextureManager->GetTexture("Resources/Lasers/LaserUpRight.png");
 		}
-	}
-	else
-	{
+		break;
+
+	case Bullet::BulletType::playerHeavy:
 		m_Scale = scale * 1.5f;
 
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
-			m_pHeavyLaser = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
+			m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
 		}
 		else
 		{
-			m_pHeavyLaserDiagonal = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserUpRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
+			m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserUpRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
 		}
+		break;
+
+	case Bullet::BulletType::Enemy:
+		m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/EnemyLaser.png"), Sprite::AnimType::loop, 2, 1, 10.f };
+		m_Acceleration.y = -981.f;
+		break;
+
+	case Bullet::BulletType::boss:
+		m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/PitMonster/AttackRock.png"), Sprite::AnimType::loop, 4, 1, 2.f };
+		break;
 	}
-		
-	m_Boundaries.left = m_StartPos.x - 250.f;
-	m_Boundaries.bottom = m_StartPos.y - 250.f;
-	m_Boundaries.width = 500.f;
-	m_Boundaries.height = 500.f;
 
-	m_Shape.left = pos.x;
-	m_Shape.bottom = pos.y;
-
-	if (m_BulletType == BulletType::normal)
+	if (m_BulletType == BulletType::playerNormal)
 	{
-		m_Shape.width = m_pTexture->GetWidth() * m_Scale;
-		m_Shape.height = m_pTexture->GetHeight() * m_Scale;
+		m_Shape.width = m_pTexture->GetWidth();
+		m_Shape.height = m_pTexture->GetHeight();
 	}
 	else
 	{
-		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
-			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
-		{
-			m_Shape.width = m_pHeavyLaser->GetFrameWidth( );
-			m_Shape.height = m_pHeavyLaser->GetFrameHeight( );
-		}
-		else
-		{
-			m_Shape.width = m_pHeavyLaserDiagonal->GetFrameWidth( );
-			m_Shape.height = m_pHeavyLaserDiagonal->GetFrameHeight( );
-		}
+		m_Shape.width = m_pSprite->GetFrameWidth();
+		m_Shape.height = m_pSprite->GetFrameHeight();
 	}
 }
 
 Bullet::~Bullet( )
 {
-	if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
-		|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0
-		&& m_BulletType == BulletType::heavy							 )
+	if (m_BulletType != BulletType::playerNormal)
 	{
-		delete m_pHeavyLaser;
-	}
-	else
-	{
-		delete m_pHeavyLaserDiagonal;
+		delete m_pSprite;
 	}
 }
 
@@ -97,17 +93,11 @@ void Bullet::Update(float elapsedSec)
 	m_Shape.left += elapsedSec * m_Velocity.x;
 	m_Shape.bottom += elapsedSec * m_Velocity.y;
 
-	if (m_BulletType == BulletType::heavy)
+	m_Velocity.y += elapsedSec * m_Acceleration.y;
+
+	if (m_BulletType != BulletType::playerNormal)
 	{
-		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
-			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
-		{
-			m_pHeavyLaser->Update(elapsedSec);
-		}
-		else
-		{
-			m_pHeavyLaserDiagonal->Update(elapsedSec);
-		}
+		m_pSprite->Update(elapsedSec);
 	}
 }
 
@@ -148,21 +138,13 @@ void Bullet::Draw( ) const
 			glScalef(m_Scale, m_Scale, 1.f);
 		}
 		
-		if (m_BulletType == BulletType::normal)
+		if (m_BulletType == BulletType::playerNormal)
 		{
 			m_pTexture->Draw( );
 		}
-		else if (m_BulletType == BulletType::heavy)
+		else
 		{
-			if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
-				|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
-			{
-				m_pHeavyLaser->Draw( );
-			}
-			else
-			{
-				m_pHeavyLaserDiagonal->Draw( );
-			}
+			m_pSprite->Draw( );
 		}
 
 	glPopMatrix( );

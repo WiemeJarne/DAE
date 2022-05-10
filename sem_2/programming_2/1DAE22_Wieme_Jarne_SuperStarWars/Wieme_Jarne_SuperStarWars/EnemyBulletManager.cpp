@@ -33,9 +33,9 @@ void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& l
 	HandleCollisionWithAvatar(avatar);
 }
 
-void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, EnemyBullet::BulletType bulletType)
+void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::BulletType bulletType)
 {
-	m_pBullets.push_back(new EnemyBullet{ bulletPos, bulletVelocity, scale, bulletType, m_pTextureManager });
+	m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, bulletType });
 }
 
 void EnemyBulletManager::HandleCollisionWithAvatar(Avatar& avatar)

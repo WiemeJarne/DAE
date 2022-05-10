@@ -143,5 +143,5 @@ void PitMonster::Attack( )
 		velocity.x = float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
 	}
 
-	m_pEnemyBulletManager->AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, EnemyBullet::BulletType::boss);
+	m_pEnemyBulletManager->AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, Bullet::BulletType::boss);
 }

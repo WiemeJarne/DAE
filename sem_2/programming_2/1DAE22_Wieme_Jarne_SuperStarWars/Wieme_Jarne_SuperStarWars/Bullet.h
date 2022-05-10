@@ -11,12 +11,14 @@ class Bullet
 public:
 	enum class BulletType
 	{
-		normal,
-		heavy
+		playerNormal,
+		playerHeavy,
+		Enemy,
+		boss
 	};
 
 	explicit Bullet(const Vector2f& velocity, float scale, const Point2f& startPos); // constructor used in EnemyBullet class
-	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTextureManager, float scale = 1, BulletType bulletType = BulletType::normal);
+	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTextureManager, float scale = 1, BulletType bulletType = BulletType::playerNormal);
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;
 	virtual ~Bullet( );
@@ -40,7 +42,7 @@ protected:
 
 private:
 	const Texture* m_pTexture;
-	Sprite* m_pHeavyLaser;
-	Sprite* m_pHeavyLaserDiagonal;
+	Sprite* m_pSprite;
 	BulletType m_BulletType;
+	Vector2f m_Acceleration;
 };
