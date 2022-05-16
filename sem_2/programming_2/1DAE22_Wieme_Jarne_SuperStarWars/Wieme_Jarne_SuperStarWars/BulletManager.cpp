@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "TextureManager.h"
 #include "Avatar.h"
+#include <iostream>
 
 BulletManager::BulletManager(TextureManager& pTextureManager)
 	: m_pBullets{ }
@@ -115,38 +116,30 @@ void BulletManager::HandleCollision(const Level& level, std::vector<Enemy*>& ene
 		if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal
 			|| m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerHeavy)
 		{
-			HandleCollisionWithAvatar(index, avatar);
+			HandleCollisionWithEnemies(index, enemies);
 		}
 		else
 		{
-			HandleCollisionWithEnemies(index, enemies);
-		}
-
-		if (m_pBullets[index]->DidBulletHitGround(level))
-		{
-			Point2f bulletPos{ m_pBullets[index]->GetShape().left,
-							   m_pBullets[index]->GetShape().bottom };
-
-			m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
+			HandleCollisionWithAvatar(index, avatar);
 		}
 	}
+
+	HandleCollisionWithLevel(level);
 }
 
 void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enemy*>& enemies)
 {
 	for (int index{}; index < enemies.size(); ++index)
 	{
-		if ( utils::IsOverlapping(enemies[index]->GetShape(), m_pBullets[index]->GetShape())
-			 && enemies[index]->GetHeath() > 0                                               )
+		if ( utils::IsOverlapping(enemies[index]->GetShape(), m_pBullets[bulletIndex]->GetShape())
+			 && enemies[index]->GetHeath() > 0                                                     )
 		{
 			int damage{ };
 			Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
 							   m_pBullets[bulletIndex]->GetShape().bottom };
 
-			m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
-			DeleteBullet(index);
-
-			if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal)
+			
+			if (m_pBullets[bulletIndex]->GetBulletType() == Bullet::BulletType::playerNormal)
 			{
 				damage = 1;
 			}
@@ -155,7 +148,11 @@ void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enem
 				damage = 2;
 			}
 
+			m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
+			DeleteBullet(bulletIndex);
+
 			enemies[index]->Hit(damage);
+			return;
 		}
 	}
 }
@@ -164,9 +161,24 @@ void BulletManager::HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar)
 {
 	if (utils::IsOverlapping(avatar.GetShape(), m_pBullets[bulletIndex]->GetShape( )))
 	{
-		Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
-						   m_pBullets[bulletIndex]->GetShape().bottom };
+		Point2f explosionPos{ m_pBullets[bulletIndex]->GetShape().left + m_pBullets[bulletIndex]->GetShape().width / 2.f,
+						      m_pBullets[bulletIndex]->GetShape().bottom };
 		avatar.Hit( );
-		m_pExplosionManager->AddExplosion(bulletPos, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
+		m_pExplosionManager->AddExplosion(explosionPos, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
+	}
+}
+
+void BulletManager::HandleCollisionWithLevel(const Level& level)
+{
+	for (int index{}; index < m_pBullets.size(); ++index)
+	{
+		if (m_pBullets[index]->DidBulletHitGround(level))
+		{
+			Point2f explosionPos{ m_pBullets[index]->GetShape().left + m_pBullets[index]->GetShape().width / 2.f,
+							      m_pBullets[index]->GetShape().bottom - m_pBullets[index]->GetShape().height};
+			
+			m_pExplosionManager->AddExplosion(explosionPos, DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
+			DeleteBullet(index);
+		}
 	}
 }

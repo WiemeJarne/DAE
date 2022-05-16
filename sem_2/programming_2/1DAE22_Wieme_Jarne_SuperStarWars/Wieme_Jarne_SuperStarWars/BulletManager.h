@@ -40,4 +40,5 @@ private:
 	void HandleCollision(const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar);
 	void HandleCollisionWithEnemies(int bulletIndex, std::vector<Enemy*>& enemies);
 	void HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar);
+	void HandleCollisionWithLevel(const Level& level);
 };

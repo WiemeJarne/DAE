@@ -61,6 +61,7 @@ void Game::Draw( ) const
 		m_Avatar.Draw( );
 		m_EnemyManager.Draw( );
 		m_PowerupManager.Draw( );
+		m_BulletManager.Draw( );
 		m_Level.DrawPitTexture(Point2f{ 571, 14 });
 		m_Level.DrawPitTexture(Point2f{ 6966, 6 });
 		m_Level.DrawPitMonsterPitTexture(Point2f{ 7828, 0 });

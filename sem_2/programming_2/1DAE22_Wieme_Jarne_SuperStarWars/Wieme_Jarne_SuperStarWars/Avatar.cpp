@@ -398,9 +398,12 @@ void Avatar::Shoot(const Vector2f& bulletVelocity)
 
 		if (m_BlasterPowerUpActive)
 		{
-			m_pBulletManager.AddBullet(DetermineBulletPos(), bulletVelocity, 0.65f, Bullet::BulletType::playerHeavy);
+			m_pBulletManager.AddBullet(DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::BulletType::playerHeavy);
 		}
-		m_pBulletManager.AddBullet( DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::BulletType::playerNormal);
+		else
+		{
+			m_pBulletManager.AddBullet( DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::BulletType::playerNormal);
+		}
 	}
 }
 

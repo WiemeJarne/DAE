@@ -5,23 +5,16 @@
 #include "Sprite.h"
 #include "TextureManager.h"
 
-Bullet::Bullet(const Vector2f& velocity, float scale, const Point2f& startPos)
+Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale, BulletType bulletType)
 	: m_Shape{ }
 	, m_Velocity{ velocity }
 	, m_Scale{ scale }
-	, m_StartPos{ startPos }
+	, m_StartPos{ pos }
 	, m_pTexture{ }
-	, m_BulletType{ }
+	, m_BulletType{ bulletType }
 	, m_Acceleration{ }
 	, m_pSprite{ }
 {
-}
-
-Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale, BulletType bulletType)
-	: Bullet(velocity, scale, pos)
-{
-	m_BulletType = bulletType;
-
 	m_Boundaries.left = m_StartPos.x - 250.f;
 	m_Boundaries.bottom = m_StartPos.y - 250.f;
 	m_Boundaries.width = 500.f;
@@ -152,7 +145,7 @@ void Bullet::Draw( ) const
 
 bool Bullet::IsBulletOutOfBoundaries() const
 {
-	if ( m_Shape.left + m_Shape.width < m_Boundaries.left 
+	if (    m_Shape.left + m_Shape.width < m_Boundaries.left 
 		 || m_Shape.left > m_Boundaries.left + m_Boundaries.width
 		 || m_Shape.bottom + m_Shape.height < m_Boundaries.bottom
 		 || m_Shape.bottom > m_Boundaries.bottom + m_Boundaries.height )
