@@ -17,7 +17,7 @@ Bullet::Bullet(const Vector2f& velocity, float scale, const Point2f& startPos)
 {
 }
 
-Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTextureManager, float scale, BulletType bulletType)
+Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale, BulletType bulletType)
 	: Bullet(velocity, scale, pos)
 {
 	m_BulletType = bulletType;
@@ -36,11 +36,11 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTe
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
-			m_pTexture = pTextureManager->GetTexture("Resources/Lasers/LaserRight.png");
+			m_pTexture = pTextureManager.GetTexture("Resources/Lasers/LaserRight.png");
 		}
 		else
 		{
-			m_pTexture = pTextureManager->GetTexture("Resources/Lasers/LaserUpRight.png");
+			m_pTexture = pTextureManager.GetTexture("Resources/Lasers/LaserUpRight.png");
 		}
 		break;
 
@@ -50,21 +50,21 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTe
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
-			m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
+			m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/Lasers/HeavyLaserRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
 		}
 		else
 		{
-			m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/HeavyLaserUpRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
+			m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/Lasers/HeavyLaserUpRight.png"), Sprite::AnimType::dontRepeat, 2, 1, 7.f };
 		}
 		break;
 
 	case Bullet::BulletType::Enemy:
-		m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Lasers/EnemyLaser.png"), Sprite::AnimType::loop, 2, 1, 10.f };
+		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/Lasers/EnemyLaser.png"), Sprite::AnimType::loop, 2, 1, 10.f };
 		m_Acceleration.y = -981.f;
 		break;
 
 	case Bullet::BulletType::boss:
-		m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/PitMonster/AttackRock.png"), Sprite::AnimType::loop, 4, 1, 2.f };
+		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/AttackRock.png"), Sprite::AnimType::loop, 4, 1, 2.f };
 		break;
 	}
 

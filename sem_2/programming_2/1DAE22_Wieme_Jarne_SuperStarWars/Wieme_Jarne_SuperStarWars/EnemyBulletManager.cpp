@@ -5,7 +5,7 @@
 #include "utils.h"
 #include "TextureManager.h"
 
-EnemyBulletManager::EnemyBulletManager(TextureManager* pTextureManager)
+EnemyBulletManager::EnemyBulletManager(TextureManager& pTextureManager)
 	: BulletManager(pTextureManager)
 {
 }

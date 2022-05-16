@@ -17,7 +17,7 @@ public:
 
 	void Update(float elapsedSec);
 	void Draw( ) const;
-	void AddExplosion(const Point2f& bottomLeftPos, float scale, Explosion::ExplosionType explosionType, TextureManager* pTextureManager);
+	void AddExplosion(const Point2f& bottomLeftPos, float scale, Explosion::ExplosionType explosionType, TextureManager& pTextureManager);
 
 private:
 	std::vector<Explosion*> m_pExplosions;

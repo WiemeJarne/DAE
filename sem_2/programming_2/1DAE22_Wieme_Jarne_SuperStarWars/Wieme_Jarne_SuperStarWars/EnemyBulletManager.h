@@ -8,7 +8,7 @@ class Avatar;
 class EnemyBulletManager final : public BulletManager
 {
 public:
-	explicit EnemyBulletManager(TextureManager* pTextureManager);
+	explicit EnemyBulletManager(TextureManager& pTextureManager);
 
 	void Update(float elapsedSec, Avatar& avatar, const Level& level);
 	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::BulletType bulletType);

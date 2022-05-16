@@ -28,8 +28,8 @@ public:
 
 	void Update(float elapsecSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
-	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager* pTextureManager);
-	std::vector<Enemy*> GetEnemies( ) const;
+	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& pTextureManager);
+	std::vector<Enemy*>& GetEnemies( );
 
 private:
 	std::vector<Enemy*> m_pEnemies;

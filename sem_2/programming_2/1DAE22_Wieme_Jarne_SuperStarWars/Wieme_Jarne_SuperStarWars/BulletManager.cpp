@@ -2,12 +2,12 @@
 #include "BulletManager.h"
 #include "Level.h"
 #include "Enemy.h"
-#include "Bullet.h"
 #include "ExplosionManager.h"
 #include "utils.h"
 #include "TextureManager.h"
+#include "Avatar.h"
 
-BulletManager::BulletManager(TextureManager* pTextureManager)
+BulletManager::BulletManager(TextureManager& pTextureManager)
 	: m_pBullets{ }
 	, m_pExplosionManager{ new ExplosionManager{} }
 	, m_pTextureManager{ pTextureManager }
@@ -26,7 +26,7 @@ BulletManager::~BulletManager( )
 	delete m_pExplosionManager;
 }
 
-void BulletManager::Update(float elapsedSec, const Level& level)
+void BulletManager::Update(float elapsedSec, const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar)
 {
 	for (int index{}; index < m_pBullets.size(); ++index)
 	{
@@ -34,26 +34,15 @@ void BulletManager::Update(float elapsedSec, const Level& level)
 		{
 			m_pBullets[index]->Update(elapsedSec);
 
-			if (m_pBullets[index]->IsBulletOutOfBoundaries() || m_pBullets[index]->DidBulletHitGround(level))
+			if (m_pBullets[index]->IsBulletOutOfBoundaries())
 			{
-				float explosionScale{};
-
-				if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal)
-				{
-					explosionScale = 0.75f;
-				}
-				else
-				{
-					explosionScale = 1.25f;
-				}
-
-				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
-				DeleteBullet(index);
+				BulletIsOutOfBoundaries(index);
 			}
 		}
 	}
 
 	m_pExplosionManager->Update(elapsedSec);
+	HandleCollision(level, enemies, avatar);
 }
 
 void BulletManager::Draw( ) const
@@ -69,45 +58,9 @@ void BulletManager::Draw( ) const
 	m_pExplosionManager->Draw( );
 }
 
-void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, bool BlasterPowerUpActive)
+void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::BulletType bulletType)
 {
-	if (BlasterPowerUpActive)
-	{
-		m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::playerHeavy });
-	}
-	else
-	{
-		m_pBullets.push_back(new Bullet{bulletPos, bulletVelocity, m_pTextureManager, scale, Bullet::BulletType::playerNormal });
-	}
-}
-
-void BulletManager::HandleCollisionWithEnemies(std::vector<Enemy*> enemies)
-{
-	for (int index{}; index < enemies.size(); ++index)
-	{
-		for (Bullet* bullet : m_pBullets)
-		{
-			if (utils::IsOverlapping(enemies[index]->GetShape(), bullet->GetShape())
-				&& enemies[index]->GetHeath( ) > 0                                    )
-			{
-				int damage{ };
-
-				m_pExplosionManager->AddExplosion(Point2f{ bullet->GetShape().left, bullet->GetShape().bottom }, DetermineExplosionSize(index), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
-				DeleteBullet(index);
-
-				if (bullet->GetBulletType() == Bullet::BulletType::playerNormal)
-				{
-					damage = 1;
-				}
-				else
-				{
-					damage = 2;
-				}
-
-				enemies[index]->Hit(damage);
-			}
-		}
-	}
+	m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, bulletType });
 }
 
 void BulletManager::DeleteBullet(int index)
@@ -121,21 +74,99 @@ void BulletManager::DeleteBullet(int index)
 	}
 }
 
-float BulletManager::DetermineExplosionSize(int index) const
+void BulletManager::BulletIsOutOfBoundaries(int bulletIndex)
 {
-	float explosionScale{};
+	Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
+					   m_pBullets[bulletIndex]->GetShape().bottom };
 
-	if (index < m_pBullets.size( ))
+	m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), DetermineExplosionType(bulletIndex), m_pTextureManager);
+	DeleteBullet(bulletIndex);
+}
+
+float BulletManager::DetermineExplosionSize(int bulletIndex) const
+{
+	if (m_pBullets[bulletIndex]->GetBulletType( ) == Bullet::BulletType::playerNormal)
 	{
-		if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal)
+		return 0.75f;
+	}
+	else if (m_pBullets[bulletIndex]->GetBulletType( ) == Bullet::BulletType::playerHeavy)
+	{
+		return 1.25f;
+	}
+
+	return 1.f;
+}
+
+Explosion::ExplosionType BulletManager::DetermineExplosionType(int bulletIndex) const
+{
+	if (m_pBullets[bulletIndex]->GetBulletType() == Bullet::BulletType::playerNormal
+		|| m_pBullets[bulletIndex]->GetBulletType() == Bullet::BulletType::playerHeavy)
+	{
+		return Explosion::ExplosionType::AvatarBulletExplosion;
+	}
+
+	return Explosion::ExplosionType::EnemyBulletExplosion;
+}
+
+void BulletManager::HandleCollision(const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar)
+{
+	for (int index{}; index < m_pBullets.size(); ++index)
+	{
+		if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal
+			|| m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerHeavy)
 		{
-			explosionScale = 0.75f;
+			HandleCollisionWithAvatar(index, avatar);
 		}
 		else
 		{
-			explosionScale = 1.25f;
+			HandleCollisionWithEnemies(index, enemies);
+		}
+
+		if (m_pBullets[index]->DidBulletHitGround(level))
+		{
+			Point2f bulletPos{ m_pBullets[index]->GetShape().left,
+							   m_pBullets[index]->GetShape().bottom };
+
+			m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
 		}
 	}
+}
 
-	return explosionScale;
+void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enemy*>& enemies)
+{
+	for (int index{}; index < enemies.size(); ++index)
+	{
+		if ( utils::IsOverlapping(enemies[index]->GetShape(), m_pBullets[index]->GetShape())
+			 && enemies[index]->GetHeath() > 0                                               )
+		{
+			int damage{ };
+			Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
+							   m_pBullets[bulletIndex]->GetShape().bottom };
+
+			m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
+			DeleteBullet(index);
+
+			if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal)
+			{
+				damage = 1;
+			}
+			else
+			{
+				damage = 2;
+			}
+
+			enemies[index]->Hit(damage);
+		}
+	}
+}
+
+void BulletManager::HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar)
+{
+	if (utils::IsOverlapping(avatar.GetShape(), m_pBullets[bulletIndex]->GetShape( )))
+	{
+		Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
+						   m_pBullets[bulletIndex]->GetShape().bottom };
+		avatar.Hit( );
+		m_pExplosionManager->AddExplosion(bulletPos, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
+	}
 }

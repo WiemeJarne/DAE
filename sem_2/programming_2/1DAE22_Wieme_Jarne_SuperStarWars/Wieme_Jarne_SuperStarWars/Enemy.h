@@ -11,8 +11,8 @@ class TextureManager;
 class Enemy
 {
 public:
-	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking, TextureManager* pTextureManager);
-	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager* pTextureManager);
+	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking, TextureManager& pTextureManager);
+	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager);
 	Enemy(const Enemy& other) = delete;
 	Enemy(Enemy&& other) = delete;
 	virtual ~Enemy( );
@@ -43,7 +43,7 @@ protected:
 	int m_FacingDirection;
 	float m_DistanceFromAvatarWhenAttacking;
 	EnemyBulletManager* m_pEnemyBulletManager;
-	TextureManager* m_pTextureManager;
+	TextureManager& m_pTextureManager;
 
 	virtual void Attack( );
 	void Respawn( );

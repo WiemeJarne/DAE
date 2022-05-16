@@ -41,7 +41,7 @@ void EnemyManager::Draw( ) const
 	}
 }
 
-void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager* pTextureManager)
+void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& pTextureManager)
 {
 	switch (enemyKind)
 	{
@@ -66,7 +66,7 @@ void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, in
 	}
 }
 
-std::vector<Enemy*> EnemyManager::GetEnemies( ) const
+std::vector<Enemy*>& EnemyManager::GetEnemies( )
 {
 	return m_pEnemies;
 }

@@ -3,7 +3,7 @@
 #include "Sprite.h"
 #include "TextureManager.h"
 
-Explosion::Explosion(const Point2f& bottomLeftPos, float scale, ExplosionType explosionType, TextureManager* pTextureManager)
+Explosion::Explosion(const Point2f& bottomLeftPos, float scale, ExplosionType explosionType, TextureManager& pTextureManager)
 	: m_bottomLeftPos{ bottomLeftPos }
 	, m_Scale{ scale }
 	, m_ExplosionType{ explosionType }
@@ -11,11 +11,11 @@ Explosion::Explosion(const Point2f& bottomLeftPos, float scale, ExplosionType ex
 {
 	if (m_ExplosionType == ExplosionType::AvatarBulletExplosion)
 	{
-		m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Explosions/Explosion3.png"), Sprite::AnimType::dontRepeat, 6, 1, 7.f };
+		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/Explosions/Explosion3.png"), Sprite::AnimType::dontRepeat, 6, 1, 7.f };
 	}
 	else if (m_ExplosionType == ExplosionType::EnemyBulletExplosion)
 	{
-		m_pSprite = new Sprite{ pTextureManager->GetTexture("Resources/Explosions/Explosion1.png"), Sprite::AnimType::dontRepeat, 5, 1, 7.f };
+		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/Explosions/Explosion1.png"), Sprite::AnimType::dontRepeat, 5, 1, 7.f };
 	}
 }
 

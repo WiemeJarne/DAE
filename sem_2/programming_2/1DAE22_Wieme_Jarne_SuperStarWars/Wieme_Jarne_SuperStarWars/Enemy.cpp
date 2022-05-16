@@ -6,7 +6,7 @@
 #include "EnemyBulletManager.h"
 #include "TextureManager.h"
 
-Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking, TextureManager* pTextureManager)
+Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking, TextureManager& pTextureManager)
 	: m_ActionState{ }
 	, m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
 	, m_StartPos{ bottomLeftStartPoint }
@@ -27,13 +27,13 @@ Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const
 {
 }
 
-Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager* pTextureManager)
+Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 25.f, 0.f }, Vector2f{ 0.f, -981.f }, 60.f, pTextureManager)
 {
 	m_ActionState = ActionState::moving;
 
-	m_pSprites.push_back(new Sprite{ m_pTextureManager->GetTexture("Resources/Enemies/Enemy1Walk.png"), Sprite::AnimType::loop, 4, 1, 10});
-	m_pSprites.push_back(new Sprite{ m_pTextureManager->GetTexture("Resources/Enemies/Enemy1Attack.png"), Sprite::AnimType::loop, 4, 1, 5 });
+	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/Enemies/Enemy1Walk.png"), Sprite::AnimType::loop, 4, 1, 10});
+	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/Enemies/Enemy1Attack.png"), Sprite::AnimType::loop, 4, 1, 5 });
 
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth( ) * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight( ) * m_Scale;

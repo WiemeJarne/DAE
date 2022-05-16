@@ -6,6 +6,7 @@
 #include "EnemyManager.h"
 #include "PowerUpManager.h"
 #include "TextureManager.h"
+#include "BulletManager.h"
 
 class Game final
 {
@@ -31,10 +32,11 @@ private:
 	// DATA MEMBERS
 	const Window m_Window;
 
-	TextureManager* m_pTextureManager;
+	TextureManager m_TextureManager;
+	BulletManager m_BulletManager;
+	Avatar m_Avatar;
 	Camera m_Camera;
 	Level m_Level;
-	Avatar m_Avatar;
 	EnemyManager m_EnemyManager;
 	PowerUpManager m_PowerupManager;
 

@@ -18,7 +18,7 @@ public:
 	};
 
 	explicit Bullet(const Vector2f& velocity, float scale, const Point2f& startPos); // constructor used in EnemyBullet class
-	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager* pTextureManager, float scale = 1, BulletType bulletType = BulletType::playerNormal);
+	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale = 1, BulletType bulletType = BulletType::playerNormal);
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;
 	virtual ~Bullet( );

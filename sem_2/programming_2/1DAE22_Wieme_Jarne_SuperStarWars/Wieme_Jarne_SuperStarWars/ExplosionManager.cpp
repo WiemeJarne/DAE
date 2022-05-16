@@ -45,7 +45,7 @@ void ExplosionManager::Draw( ) const
 	}
 }
 
-void ExplosionManager::AddExplosion(const Point2f& bottomLeftPos, float scale, Explosion::ExplosionType explosionType, TextureManager* pTextureManager)
+void ExplosionManager::AddExplosion(const Point2f& bottomLeftPos, float scale, Explosion::ExplosionType explosionType, TextureManager& pTextureManager)
 {
 	m_pExplosions.push_back(new Explosion{ bottomLeftPos, scale, explosionType, pTextureManager });
 }

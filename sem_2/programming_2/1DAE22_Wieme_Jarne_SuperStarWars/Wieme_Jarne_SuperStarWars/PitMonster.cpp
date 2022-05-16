@@ -7,16 +7,16 @@
 #include "Vector2f.h"
 #include "TextureManager.h"
 
-PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager* pTextureManager)
+PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{ 0.f, -981.f }, 0.f, pTextureManager) /*distanceFromAvatarWhenAttacking is 0 because the pitmonster
 																									   always attacks when it is alive no matter the possition of the avatar*/
 	, m_ActionState{ ActionState::inground }
 	, m_HasBeenSummoned{false}
 	, m_TentaclesDelay{ }
 {
-	m_pSprites.push_back(new Sprite{ m_pTextureManager->GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
-	m_pSprites.push_back(new Sprite{ m_pTextureManager->GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
-	m_pSprites.push_back(new Sprite{ m_pTextureManager->GetTexture("Resources/PitMonster/Attack.png"), Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/PitMonster/Attack.png"), Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
 }
 
 void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)

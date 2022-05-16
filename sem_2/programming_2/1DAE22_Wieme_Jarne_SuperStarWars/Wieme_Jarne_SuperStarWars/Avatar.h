@@ -11,7 +11,7 @@ class TextureManager;
 class Avatar final
 {
 public:
-	explicit Avatar(TextureManager* pTextureManager);
+	explicit Avatar(TextureManager& pTextureManager, BulletManager& pBulletManager);
 	Avatar(const Avatar& avatar) = delete;
 	Avatar(Avatar&& avatar) = delete;
 	~Avatar( );
@@ -51,17 +51,16 @@ private:
 	Vector2f m_Velocity;
 	const Vector2f m_Acceleration;
 	int m_FacingDirection;
-	BulletManager* m_pBulletManager;
+	BulletManager& m_pBulletManager;
 	float m_ShootDelay;
 	const float m_BulletVelocity;
 	std::vector<Sprite*> m_sprites;
 	int m_Health;
 	const int m_StartHealth;
 	float m_AccuHitSec;
-	bool m_BlasterPowerUpHit;
-	TextureManager* m_pTextureManager;
+	bool m_BlasterPowerUpActive;
 
-	void InitializeSprites(TextureManager* pTextureManager);
+	void InitializeSprites(TextureManager& pTextureManager);
 	void UpdateXPos(float elapsedSec);
 	void UpdateYPos(float elapsedSec);
 	void StayInLevelBoundaries(const Level& level);
