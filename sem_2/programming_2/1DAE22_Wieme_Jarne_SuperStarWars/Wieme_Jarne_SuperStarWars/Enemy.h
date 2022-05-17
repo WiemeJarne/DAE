@@ -5,20 +5,19 @@
 class Level;
 class Avatar;
 class Sprite;
-class EnemyBulletManager;
 class TextureManager;
 
 class Enemy
 {
 public:
-	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking, TextureManager& pTextureManager);
-	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager);
+	explicit Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking);
+	
+	virtual ~Enemy( );
 	Enemy(const Enemy& other) = delete;
 	Enemy(Enemy&& other) = delete;
-	virtual ~Enemy( );
-
 	Enemy& operator=(const Enemy& rhs) = delete;
 	Enemy& operator=(Enemy&& rhs) = delete;
+
 
 	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar);
 	virtual void Draw( ) const;
@@ -42,22 +41,11 @@ protected:
 	float m_AttackDelay;
 	int m_FacingDirection;
 	float m_DistanceFromAvatarWhenAttacking;
-	EnemyBulletManager* m_pEnemyBulletManager;
-	TextureManager& m_pTextureManager;
 
-	virtual void Attack( );
 	void Respawn( );
 	bool IsAvatarInAttackZone(const Point2f& avatarPos);
+	void Moving(float elapsedSec);
+	virtual void Attack( );
 	virtual void CheckActionState(const Avatar& avatar);
-	void Moving(const float elapsedSec);
 	virtual void ChangeShapeDimensions( );
-
-private:
-	enum class ActionState
-	{
-		moving,
-		attacking
-	};
-
-	ActionState m_ActionState;	
 };

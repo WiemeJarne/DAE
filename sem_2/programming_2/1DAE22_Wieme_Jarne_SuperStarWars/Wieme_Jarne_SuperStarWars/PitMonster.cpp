@@ -6,17 +6,19 @@
 #include "EnemyBulletManager.h"
 #include "Vector2f.h"
 #include "TextureManager.h"
+#include "BulletManager.h"
 
-PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{ 0.f, -981.f }, 0.f, pTextureManager) /*distanceFromAvatarWhenAttacking is 0 because the pitmonster
+PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager, BulletManager& bulletManager)
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{ 0.f, -981.f }, 0.f) /*distanceFromAvatarWhenAttacking is 0 because the pitmonster
 																									   always attacks when it is alive no matter the possition of the avatar*/
 	, m_ActionState{ ActionState::inground }
 	, m_HasBeenSummoned{false}
 	, m_TentaclesDelay{ }
+	, m_BulletManager{ bulletManager }
 {
-	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
-	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
-	m_pSprites.push_back(new Sprite{ m_pTextureManager.GetTexture("Resources/PitMonster/Attack.png"), Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/Attack.png"), Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
 }
 
 void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
@@ -24,8 +26,6 @@ void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	if (m_Health > 0)
 	{
 		m_AttackDelay += elapsedSec;
-
-		m_pEnemyBulletManager->Update(elapsedSec, avatar, level);
 
 		CheckActionState(avatar);
 
@@ -68,8 +68,6 @@ void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 void PitMonster::Draw( ) const
 {
-	m_pEnemyBulletManager->Draw();
-
 	glPushMatrix( );
 
 	glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
@@ -143,5 +141,5 @@ void PitMonster::Attack( )
 		velocity.x = float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
 	}
 
-	m_pEnemyBulletManager->AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, Bullet::BulletType::boss);
+	m_BulletManager.AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, Bullet::Type::boss);
 }

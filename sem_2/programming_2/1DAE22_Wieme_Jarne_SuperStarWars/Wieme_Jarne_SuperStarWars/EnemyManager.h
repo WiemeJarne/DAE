@@ -5,6 +5,7 @@ class Level;
 class Avatar;
 class Enemy;
 class TextureManager;
+class BulletManager;
 
 class EnemyManager final
 {
@@ -19,7 +20,7 @@ public:
 
 	enum class EnemyKind
 	{
-		Enemy,
+		Scorpion,
 		flying,
 		worm,
 		jumping,
@@ -28,7 +29,7 @@ public:
 
 	void Update(float elapsecSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
-	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& pTextureManager);
+	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& pTextureManager, BulletManager& BulletManager);
 	std::vector<Enemy*>& GetEnemies( );
 
 private:

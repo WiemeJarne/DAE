@@ -10,6 +10,7 @@ public:
 	virtual void Draw( ) const override;
 
 private:
+
 	enum class ActionState
 	{
 		flying,

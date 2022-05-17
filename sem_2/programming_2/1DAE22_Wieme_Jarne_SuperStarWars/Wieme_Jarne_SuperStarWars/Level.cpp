@@ -34,24 +34,19 @@ Level::~Level( )
 	}
 }
 
-void Level::DrawLevel( ) const
-{
-	m_LevelTexture->Draw();
-}
-
-void Level::DrawPitTexture(Point2f bottomLeftPoint) const
+void Level::DrawForeground() const
 {
 	glPushMatrix();
-		glTranslatef(bottomLeftPoint.x, bottomLeftPoint.y, 0);
+
+		glTranslatef(571.f, 14.f, 0);
 		m_PitTexture->Draw();
-	glPopMatrix();
-}
 
-void Level::DrawPitMonsterPitTexture(Point2f bottomLeftPoint) const
-{
-	glPushMatrix();
-	glTranslatef(bottomLeftPoint.x, bottomLeftPoint.y, 0);
-	m_BossPitTexture->Draw();
+		glTranslatef(6966.f, 6.f, 0.f);
+		m_PitTexture->Draw();
+
+		glTranslatef(7828.f, 0.f, 0);
+		m_BossPitTexture->Draw();
+
 	glPopMatrix();
 }
 
@@ -61,6 +56,8 @@ void Level::DrawBackground(const Point2f& translation) const
 	glTranslatef(translation.x, translation.y, 0);
 	m_BackgroundTexture->Draw();
 	glPopMatrix();
+
+	m_LevelTexture->Draw();
 }
 
 void Level::HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const

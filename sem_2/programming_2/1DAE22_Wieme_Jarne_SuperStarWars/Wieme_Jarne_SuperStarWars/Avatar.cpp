@@ -7,7 +7,7 @@
 #include "utils.h"
 #include "TextureManager.h"
 
-Avatar::Avatar(TextureManager& pTextureManager, BulletManager& pBulletManager)
+Avatar::Avatar(TextureManager& textureManager)
 	: m_ActionState{ActionState::idle}
 	, m_Shape{ }
 	, m_HorizontalSpeed{ 150.f }
@@ -15,7 +15,6 @@ Avatar::Avatar(TextureManager& pTextureManager, BulletManager& pBulletManager)
 	, m_Velocity{ 0.f, 0.f }
 	, m_Acceleration{ 0.f, -981.f }
 	, m_FacingDirection{1}
-	, m_pBulletManager{ pBulletManager }
 	, m_ShootDelay{ }
 	, m_BulletVelocity{ 300.f }
 	, m_StartHealth{ 25 }
@@ -24,7 +23,7 @@ Avatar::Avatar(TextureManager& pTextureManager, BulletManager& pBulletManager)
 {
 	m_Health = m_StartHealth;
 
-	InitializeSprites(pTextureManager);
+	InitializeSprites(textureManager);
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
 }
 
@@ -36,7 +35,7 @@ Avatar::~Avatar( )
 	}
 }
 
-void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies)
+void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies, BulletManager& bulletManager)
 {
 	UpdateYPos(elapsedSec);
 
@@ -44,13 +43,9 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 
 	m_ShootDelay += elapsedSec;
 
-	//m_pBulletManager->HandleCollisionWithEnemies(enemies);
-
 	HandleCollision(enemies);
 
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames( ));
-
-	//m_pBulletManager->Update(elapsedSec, level);
 
 	m_sprites[int(m_ActionState)]->Update(elapsedSec);
 
@@ -80,39 +75,39 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 		break;
 
 	case ActionState::shoot:
-		Shoot(Vector2f{m_BulletVelocity * m_FacingDirection, 0.f});
+		Shoot(Vector2f{m_BulletVelocity * m_FacingDirection, 0.f}, bulletManager);
 		break;
 
 	case ActionState::shootDown:
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, -m_BulletVelocity * 0.5f });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, -m_BulletVelocity * 0.5f }, bulletManager);
 		break;
 
 	case ActionState::shootUp:
-		Shoot(Vector2f{ 0.f, m_BulletVelocity });
+		Shoot(Vector2f{ 0.f, m_BulletVelocity }, bulletManager);
 		break;
 
 	case ActionState::shootUpDiagonal:
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f }, bulletManager);
 		break;
 
 	case ActionState::jumpShoot:
 		UpdateXPos(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, 0.f });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection, 0.f }, bulletManager);
 		break;
 
 	case ActionState::jumpShootDown:
 		UpdateXPos(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, -m_BulletVelocity * 0.5f });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, -m_BulletVelocity * 0.5f }, bulletManager);
 		break;
 
 	case ActionState::jumpShootUp:
 		UpdateXPos(elapsedSec);
-		Shoot(Vector2f{ 0.f, m_BulletVelocity });
+		Shoot(Vector2f{ 0.f, m_BulletVelocity }, bulletManager);
 		break;
 
 	case ActionState::jumpShootUpDiagonal:
 		UpdateXPos(elapsedSec);
-		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f });
+		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f }, bulletManager);
 		break;
 	}
 	
@@ -159,43 +154,43 @@ Rectf Avatar::GetShape( ) const
 	return m_Shape;
 }
 
-void Avatar::InitializeSprites(TextureManager& pTextureManager)
+void Avatar::InitializeSprites(TextureManager& textureManager)
 {
 	float framesPerSec{ 3 };
 
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/Idle.png"), Sprite::AnimType::repeatBackwards, 3, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/Idle.png"), Sprite::AnimType::repeatBackwards, 3, 1, framesPerSec });
 												   
 	framesPerSec = 10.f;						   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/Walk.png"), Sprite::AnimType::loop, 8, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/Walk.png"), Sprite::AnimType::loop, 8, 1, framesPerSec });
 												   
 	framesPerSec = 15.f;						   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/Slide.png"), Sprite::AnimType::dontRepeat, 5, 1,  framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/Slide.png"), Sprite::AnimType::dontRepeat, 5, 1,  framesPerSec });
 												   
 	framesPerSec = 7.f;							   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/Jump.png"), Sprite::AnimType::dontRepeat, 3, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/Jump.png"), Sprite::AnimType::dontRepeat, 3, 1, framesPerSec });
 												   
 	framesPerSec = 10.f;						   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/ShootRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/ShootRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/ShootDownRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/ShootDownRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/ShootUp.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/ShootUp.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/ShootUpRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/ShootUpRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/JumpShootRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/JumpShootRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/JumpShootDownRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/JumpShootDownRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/JumpShootUp.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/JumpShootUp.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/JumpShootUpRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/JumpShootUpRight.png"), Sprite::AnimType::loop, 2, 1, framesPerSec });
 												   
 	framesPerSec = 1.f;							   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/Hit.png"), Sprite::AnimType::loop, 1, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/Hit.png"), Sprite::AnimType::loop, 1, 1, framesPerSec });
 												   
 	framesPerSec = 3.f;							   
-	m_sprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Luke/Die.png"), Sprite::AnimType::dontRepeat, 2, 1, framesPerSec });
+	m_sprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Luke/Die.png"), Sprite::AnimType::dontRepeat, 2, 1, framesPerSec });
 }
 
 void Avatar::UpdateXPos(float elapsedSec)
@@ -390,7 +385,7 @@ void Avatar::DrawAvatar( ) const
 	m_sprites[int(m_ActionState)]->Draw( );
 }
 
-void Avatar::Shoot(const Vector2f& bulletVelocity)
+void Avatar::Shoot(const Vector2f& bulletVelocity, BulletManager& bulletManager)
 {
 	if (m_ShootDelay > 0.1f)
 	{
@@ -398,11 +393,11 @@ void Avatar::Shoot(const Vector2f& bulletVelocity)
 
 		if (m_BlasterPowerUpActive)
 		{
-			m_pBulletManager.AddBullet(DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::BulletType::playerHeavy);
+			bulletManager.AddBullet(DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::Type::playerHeavy);
 		}
 		else
 		{
-			m_pBulletManager.AddBullet( DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::BulletType::playerNormal);
+			bulletManager.AddBullet( DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::Type::playerNormal);
 		}
 	}
 }

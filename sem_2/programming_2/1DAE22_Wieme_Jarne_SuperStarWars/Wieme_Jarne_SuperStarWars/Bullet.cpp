@@ -5,13 +5,13 @@
 #include "Sprite.h"
 #include "TextureManager.h"
 
-Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale, BulletType bulletType)
+Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale, Type bulletType)
 	: m_Shape{ }
 	, m_Velocity{ velocity }
 	, m_Scale{ scale }
 	, m_StartPos{ pos }
 	, m_pTexture{ }
-	, m_BulletType{ bulletType }
+	, m_Type{ bulletType }
 	, m_Acceleration{ }
 	, m_pSprite{ }
 {
@@ -23,9 +23,9 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTe
 	m_Shape.left = pos.x;
 	m_Shape.bottom = pos.y;
 
-	switch (m_BulletType)
+	switch (m_Type)
 	{
-	case Bullet::BulletType::playerNormal:
+	case Bullet::Type::playerNormal:
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
 			|| ((m_Velocity.x > 0 || m_Velocity.x < 0)) && m_Velocity.y == 0)
 		{
@@ -37,7 +37,7 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTe
 		}
 		break;
 
-	case Bullet::BulletType::playerHeavy:
+	case Bullet::Type::playerHeavy:
 		m_Scale = scale * 1.5f;
 
 		if ((m_Velocity.x == 0 && (m_Velocity.y < 0 || m_Velocity.y > 0))
@@ -51,31 +51,31 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTe
 		}
 		break;
 
-	case Bullet::BulletType::Enemy:
+	case Bullet::Type::Enemy:
 		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/Lasers/EnemyLaser.png"), Sprite::AnimType::loop, 2, 1, 10.f };
 		m_Acceleration.y = -981.f;
 		break;
 
-	case Bullet::BulletType::boss:
+	case Bullet::Type::boss:
 		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/AttackRock.png"), Sprite::AnimType::loop, 4, 1, 2.f };
 		break;
 	}
 
-	if (m_BulletType == BulletType::playerNormal)
+	if (m_Type == Type::playerNormal)
 	{
-		m_Shape.width = m_pTexture->GetWidth();
-		m_Shape.height = m_pTexture->GetHeight();
+		m_Shape.width = m_pTexture->GetWidth( ) * m_Scale;
+		m_Shape.height = m_pTexture->GetHeight( ) * m_Scale;
 	}
 	else
 	{
-		m_Shape.width = m_pSprite->GetFrameWidth();
-		m_Shape.height = m_pSprite->GetFrameHeight();
+		m_Shape.width = m_pSprite->GetFrameWidth( ) * m_Scale;
+		m_Shape.height = m_pSprite->GetFrameHeight( ) * m_Scale;
 	}
 }
 
 Bullet::~Bullet( )
 {
-	if (m_BulletType != BulletType::playerNormal)
+	if (m_Type != Type::playerNormal)
 	{
 		delete m_pSprite;
 	}
@@ -88,7 +88,7 @@ void Bullet::Update(float elapsedSec)
 
 	m_Velocity.y += elapsedSec * m_Acceleration.y;
 
-	if (m_BulletType != BulletType::playerNormal)
+	if (m_Type != Type::playerNormal)
 	{
 		m_pSprite->Update(elapsedSec);
 	}
@@ -131,7 +131,7 @@ void Bullet::Draw( ) const
 			glScalef(m_Scale, m_Scale, 1.f);
 		}
 		
-		if (m_BulletType == BulletType::playerNormal)
+		if (m_Type == Type::playerNormal)
 		{
 			m_pTexture->Draw( );
 		}
@@ -143,7 +143,7 @@ void Bullet::Draw( ) const
 	glPopMatrix( );
 }
 
-bool Bullet::IsBulletOutOfBoundaries() const
+bool Bullet::IsOutOfBoundaries() const
 {
 	if (    m_Shape.left + m_Shape.width < m_Boundaries.left 
 		 || m_Shape.left > m_Boundaries.left + m_Boundaries.width
@@ -155,7 +155,7 @@ bool Bullet::IsBulletOutOfBoundaries() const
 	return false;
 }
 
-bool Bullet::DidBulletHitGround(const Level& level) const
+bool Bullet::HitGround(const Level& level) const
 {
 	if (level.IsOnGround(m_Shape, m_Velocity))
 	{
@@ -170,7 +170,12 @@ Rectf Bullet::GetShape( ) const
 	return m_Shape;
 }
 
-Bullet::BulletType Bullet::GetBulletType( ) const
+Bullet::Type Bullet::GetType( ) const
 {
-	return m_BulletType;
+	return m_Type;
+}
+
+Vector2f Bullet::GetVelocity( ) const
+{
+	return m_Velocity;
 }

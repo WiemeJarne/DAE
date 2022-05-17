@@ -20,7 +20,7 @@ void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& l
 		{
 			m_pBullets[index]->Update(elapsedSec);
 
-			if (m_pBullets[index]->IsBulletOutOfBoundaries( ) || m_pBullets[index]->DidBulletHitGround(level))
+			if (m_pBullets[index]->IsOutOfBoundaries( ) || m_pBullets[index]->HitGround(level))
 			{
 				m_pExplosionManager->AddExplosion(Point2f{ m_pBullets[index]->GetShape().left, m_pBullets[index]->GetShape().bottom }, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
 				DeleteBullet(index);
@@ -33,7 +33,7 @@ void EnemyBulletManager::Update(float elapsedSec, Avatar& avatar, const Level& l
 	HandleCollisionWithAvatar(avatar);
 }
 
-void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::BulletType bulletType)
+void EnemyBulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::Type bulletType)
 {
 	m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, bulletType });
 }

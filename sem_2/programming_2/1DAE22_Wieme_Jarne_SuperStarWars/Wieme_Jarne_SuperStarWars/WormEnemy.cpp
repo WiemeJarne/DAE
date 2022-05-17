@@ -6,7 +6,7 @@
 #include "TextureManager.h"
 
 WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{0, -981.f}, 10.f, pTextureManager)
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{0, -981.f}, 10.f)
 	, m_ActionState{ ActionState::inGround }
 {
 	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy5InGround.png"), Sprite::AnimType::dontRepeat });

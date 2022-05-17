@@ -16,9 +16,8 @@ public:
 	Level& operator=(const Level& rhs) = delete;
 	Level& operator=(const Level&& rhs) = delete;
 
-	void DrawLevel( ) const;
-	void DrawPitTexture(Point2f bottomLeftPoint) const;
-	void DrawPitMonsterPitTexture(Point2f bottomLeftPoint) const;
+	void DrawForeground( ) const;
+
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	bool IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) const;
 	void DrawBackground(const Point2f& translation) const;

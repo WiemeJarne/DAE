@@ -11,7 +11,7 @@ class TextureManager;
 class Avatar final
 {
 public:
-	explicit Avatar(TextureManager& pTextureManager, BulletManager& pBulletManager);
+	explicit Avatar(TextureManager& pTextureManager);
 	Avatar(const Avatar& avatar) = delete;
 	Avatar(Avatar&& avatar) = delete;
 	~Avatar( );
@@ -19,7 +19,7 @@ public:
 	Avatar& operator=(const Avatar& rhs) = delete;
 	Avatar& operator=(Avatar&& rhs) = delete;
 
-	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies);
+	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies, BulletManager& BulletManager);
 	void Draw( ) const;
 	void Hit( );
 	void PowerupHit( );
@@ -51,7 +51,6 @@ private:
 	Vector2f m_Velocity;
 	const Vector2f m_Acceleration;
 	int m_FacingDirection;
-	BulletManager& m_pBulletManager;
 	float m_ShootDelay;
 	const float m_BulletVelocity;
 	std::vector<Sprite*> m_sprites;
@@ -67,7 +66,7 @@ private:
 	void ChangeShapeDimensions(int nrOfFrames);
 	void HandleInput(const Level& level);
 	void DrawAvatar( ) const;
-	void Shoot(const Vector2f& bulletVelocity);
+	void Shoot(const Vector2f& bulletVelocity, BulletManager& BulletManager);
 	Point2f DetermineBulletPos() const;
 	void HandleCollision(std::vector<Enemy*> enemies);
 };

@@ -9,7 +9,7 @@ class TextureManager;
 class Bullet
 {
 public:
-	enum class BulletType
+	enum class Type
 	{
 		playerNormal,
 		playerHeavy,
@@ -17,7 +17,7 @@ public:
 		boss
 	};
 
-	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale = 1, BulletType bulletType = BulletType::playerNormal);
+	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale = 1, Type bulletType = Type::playerNormal);
 	Bullet(const Bullet& bullet) = delete;
 	Bullet(Bullet&& bullet) = delete;
 	virtual ~Bullet( );
@@ -27,10 +27,11 @@ public:
 
 	virtual void Update(float elapsedSec);
 	virtual void Draw( ) const;
-	bool IsBulletOutOfBoundaries( ) const;
-	bool DidBulletHitGround(const Level& level) const;
+	bool IsOutOfBoundaries( ) const;
+	bool HitGround(const Level& level) const;
 	Rectf GetShape( ) const;
-	BulletType GetBulletType( ) const;
+	Type GetType( ) const;
+	Vector2f GetVelocity( )const;
 
 private:
 	Rectf m_Shape;
@@ -38,7 +39,7 @@ private:
 	float m_Scale;
 	const Point2f m_StartPos;
 	const Texture* m_pTexture;
-	BulletType m_BulletType;
+	Type m_Type;
 	Vector2f m_Acceleration;
 	Sprite* m_pSprite;
 	Rectf m_Boundaries;

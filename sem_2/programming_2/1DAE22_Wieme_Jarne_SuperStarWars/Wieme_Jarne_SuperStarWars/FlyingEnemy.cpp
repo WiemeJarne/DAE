@@ -6,7 +6,7 @@
 #include "TextureManager.h"
 
 FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{175.f, 0.f}, Vector2f{ 0.f, 0.f }, 60.f, pTextureManager)
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{175.f, 0.f}, Vector2f{ 0.f, 0.f }, 60.f)
 	, m_ActionState{ ActionState::flying }
 	, m_BottomBoundary{ 50.f }
 {
@@ -22,10 +22,6 @@ FlyingEnemy::FlyingEnemy(const Point2f& bottomLeftStartPoint, float scale, int h
 
 void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 {
-	m_AccuSec += elapsedSec;
-
-	m_AttackDelay += elapsedSec;
-	
 	if (m_Health <= 0)
 	{
 		m_SecondsAftherDeath += elapsedSec;
@@ -52,10 +48,8 @@ void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		case ActionState::flying:
 			m_pSprites[int(m_ActionState)]->Update(elapsedSec);
 
-			if ((m_Shape.left <= m_LeftBoundary || m_Shape.left + m_Shape.width >= m_RightBoundary) && m_AccuSec >= 1.f)
-			{
-				m_FacingDirection *= -1;
-			}
+			m_AttackDelay += elapsedSec;
+
 			break;
 
 		case ActionState::attacking:
@@ -91,7 +85,7 @@ void FlyingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	}
 }
 
-void FlyingEnemy::Draw( ) const
+void FlyingEnemy::Draw() const
 {
 	glPushMatrix();
 
@@ -135,6 +129,6 @@ void FlyingEnemy::CheckActionState(const Avatar& avatar)
 
 void FlyingEnemy::ChangeShapeDimensions( )
 {
-	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
-	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
+	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth( ) * m_Scale;
+	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight( ) * m_Scale;
 }

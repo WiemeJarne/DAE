@@ -177,6 +177,7 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="PowerUpManager.cpp" />
+    <ClCompile Include="Scorpion.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="SoundStream.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="PowerUpManager.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Scorpion.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SoundStream.h" />
     <ClInclude Include="Sprite.h" />

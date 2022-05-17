@@ -23,7 +23,7 @@ public:
 
 	void Update(float elapsedSec, const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar);
 	virtual void Draw( ) const;
-	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::BulletType bulletType);
+	void AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::Type bulletType);
 	
 	
 protected:
@@ -41,4 +41,5 @@ private:
 	void HandleCollisionWithEnemies(int bulletIndex, std::vector<Enemy*>& enemies);
 	void HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar);
 	void HandleCollisionWithLevel(const Level& level);
+	Point2f DetermineExplosionPos(int bulletIndex);
 };

@@ -2,7 +2,7 @@
 #include "EnemyManager.h"
 #include "Level.h"
 #include "Avatar.h"
-#include "Enemy.h"
+#include "Scorpion.h"
 #include "FlyingEnemy.h"
 #include "WormEnemy.h"
 #include "JumpingEnemy.h"
@@ -41,27 +41,27 @@ void EnemyManager::Draw( ) const
 	}
 }
 
-void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& pTextureManager)
+void EnemyManager::AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& textureManager, BulletManager& bulletManager)
 {
 	switch (enemyKind)
 	{
-	case EnemyKind::Enemy:
-		m_pEnemies.push_back(new Enemy{ bottomLeftStartPoint, scale, health, pTextureManager });
+	case EnemyKind::Scorpion:
+		m_pEnemies.push_back(new Scorpion{ bottomLeftStartPoint, scale, health, textureManager, bulletManager });
 		break;
 
 	case EnemyKind::flying:
-		m_pEnemies.push_back(new FlyingEnemy{ bottomLeftStartPoint, scale, health, pTextureManager });
+		m_pEnemies.push_back(new FlyingEnemy{ bottomLeftStartPoint, scale, health, textureManager });
 		break;
 
 	case EnemyKind::worm:
-		m_pEnemies.push_back(new WormEnemy{ bottomLeftStartPoint, scale, health, pTextureManager });
+		m_pEnemies.push_back(new WormEnemy{ bottomLeftStartPoint, scale, health, textureManager });
 		break;
 
 	case EnemyKind::jumping:
-		m_pEnemies.push_back(new JumpingEnemy{ bottomLeftStartPoint, scale, health, pTextureManager });
+		m_pEnemies.push_back(new JumpingEnemy{ bottomLeftStartPoint, scale, health, textureManager });
 
 	case EnemyKind::boss:
-		m_pEnemies.push_back(new PitMonster{ bottomLeftStartPoint, scale, health, pTextureManager });
+		m_pEnemies.push_back(new PitMonster{ bottomLeftStartPoint, scale, health, textureManager, bulletManager });
 		break;
 	}
 }

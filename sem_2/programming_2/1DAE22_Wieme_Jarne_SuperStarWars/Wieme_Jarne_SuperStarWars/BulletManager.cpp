@@ -35,7 +35,7 @@ void BulletManager::Update(float elapsedSec, const Level& level, std::vector<Ene
 		{
 			m_pBullets[index]->Update(elapsedSec);
 
-			if (m_pBullets[index]->IsBulletOutOfBoundaries())
+			if (m_pBullets[index]->IsOutOfBoundaries())
 			{
 				BulletIsOutOfBoundaries(index);
 			}
@@ -59,7 +59,7 @@ void BulletManager::Draw( ) const
 	m_pExplosionManager->Draw( );
 }
 
-void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::BulletType bulletType)
+void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::Type bulletType)
 {
 	m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, bulletType });
 }
@@ -86,11 +86,11 @@ void BulletManager::BulletIsOutOfBoundaries(int bulletIndex)
 
 float BulletManager::DetermineExplosionSize(int bulletIndex) const
 {
-	if (m_pBullets[bulletIndex]->GetBulletType( ) == Bullet::BulletType::playerNormal)
+	if (m_pBullets[bulletIndex]->GetType( ) == Bullet::Type::playerNormal)
 	{
 		return 0.75f;
 	}
-	else if (m_pBullets[bulletIndex]->GetBulletType( ) == Bullet::BulletType::playerHeavy)
+	else if (m_pBullets[bulletIndex]->GetType( ) == Bullet::Type::playerHeavy)
 	{
 		return 1.25f;
 	}
@@ -100,8 +100,8 @@ float BulletManager::DetermineExplosionSize(int bulletIndex) const
 
 Explosion::ExplosionType BulletManager::DetermineExplosionType(int bulletIndex) const
 {
-	if (m_pBullets[bulletIndex]->GetBulletType() == Bullet::BulletType::playerNormal
-		|| m_pBullets[bulletIndex]->GetBulletType() == Bullet::BulletType::playerHeavy)
+	if (m_pBullets[bulletIndex]->GetType() == Bullet::Type::playerNormal
+		|| m_pBullets[bulletIndex]->GetType() == Bullet::Type::playerHeavy)
 	{
 		return Explosion::ExplosionType::AvatarBulletExplosion;
 	}
@@ -113,8 +113,8 @@ void BulletManager::HandleCollision(const Level& level, std::vector<Enemy*>& ene
 {
 	for (int index{}; index < m_pBullets.size(); ++index)
 	{
-		if (m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerNormal
-			|| m_pBullets[index]->GetBulletType() == Bullet::BulletType::playerHeavy)
+		if (m_pBullets[index]->GetType() == Bullet::Type::playerNormal
+			|| m_pBullets[index]->GetType() == Bullet::Type::playerHeavy)
 		{
 			HandleCollisionWithEnemies(index, enemies);
 		}
@@ -135,11 +135,8 @@ void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enem
 			 && enemies[index]->GetHeath() > 0                                                     )
 		{
 			int damage{ };
-			Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
-							   m_pBullets[bulletIndex]->GetShape().bottom };
-
 			
-			if (m_pBullets[bulletIndex]->GetBulletType() == Bullet::BulletType::playerNormal)
+			if (m_pBullets[bulletIndex]->GetType() == Bullet::Type::playerNormal)
 			{
 				damage = 1;
 			}
@@ -148,7 +145,7 @@ void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enem
 				damage = 2;
 			}
 
-			m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
+			m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
 			DeleteBullet(bulletIndex);
 
 			enemies[index]->Hit(damage);
@@ -161,10 +158,9 @@ void BulletManager::HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar)
 {
 	if (utils::IsOverlapping(avatar.GetShape(), m_pBullets[bulletIndex]->GetShape( )))
 	{
-		Point2f explosionPos{ m_pBullets[bulletIndex]->GetShape().left + m_pBullets[bulletIndex]->GetShape().width / 2.f,
-						      m_pBullets[bulletIndex]->GetShape().bottom };
 		avatar.Hit( );
-		m_pExplosionManager->AddExplosion(explosionPos, 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
+		m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
+		DeleteBullet(bulletIndex);
 	}
 }
 
@@ -172,13 +168,55 @@ void BulletManager::HandleCollisionWithLevel(const Level& level)
 {
 	for (int index{}; index < m_pBullets.size(); ++index)
 	{
-		if (m_pBullets[index]->DidBulletHitGround(level))
-		{
-			Point2f explosionPos{ m_pBullets[index]->GetShape().left + m_pBullets[index]->GetShape().width / 2.f,
-							      m_pBullets[index]->GetShape().bottom - m_pBullets[index]->GetShape().height};
-			
-			m_pExplosionManager->AddExplosion(explosionPos, DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
+		if (m_pBullets[index]->HitGround(level))
+		{			
+			m_pExplosionManager->AddExplosion(DetermineExplosionPos(index), DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
 			DeleteBullet(index);
 		}
 	}
+}
+
+Point2f BulletManager::DetermineExplosionPos(int bulletIndex)
+{
+	if (m_pBullets[bulletIndex]->GetVelocity().x > 0)
+	{
+		if (m_pBullets[bulletIndex]->GetVelocity().y > 0)
+		{
+			return Point2f{ m_pBullets[bulletIndex]->GetShape().left + m_pBullets[bulletIndex]->GetShape().width,
+							m_pBullets[bulletIndex]->GetShape().bottom + m_pBullets[bulletIndex]->GetShape().height };
+		}
+		else if (m_pBullets[bulletIndex]->GetVelocity().y < 0)
+		{
+			return Point2f{ m_pBullets[bulletIndex]->GetShape().left + m_pBullets[bulletIndex]->GetShape().width / 2.f,
+							m_pBullets[bulletIndex]->GetShape().bottom - m_pBullets[bulletIndex]->GetShape().height };
+		}
+		
+		return Point2f{ m_pBullets[bulletIndex]->GetShape().left,
+						m_pBullets[bulletIndex]->GetShape().bottom };
+	}
+
+	if (m_pBullets[bulletIndex]->GetVelocity().x < 0)
+	{
+		if (m_pBullets[bulletIndex]->GetVelocity().y > 0)
+		{
+			return Point2f{ m_pBullets[bulletIndex]->GetShape().left - m_pBullets[bulletIndex]->GetShape().width,
+							m_pBullets[bulletIndex]->GetShape().bottom };
+		}
+		else if (m_pBullets[bulletIndex]->GetVelocity().y < 0)
+		{
+			return Point2f{ m_pBullets[bulletIndex]->GetShape().left - m_pBullets[bulletIndex]->GetShape().width,
+							m_pBullets[bulletIndex]->GetShape().bottom - m_pBullets[bulletIndex]->GetShape().height };
+		}
+
+		return Point2f{ m_pBullets[bulletIndex]->GetShape().left,
+						m_pBullets[bulletIndex]->GetShape().bottom };
+	}
+
+	if (m_pBullets[bulletIndex]->GetVelocity().y > 0)
+	{
+		return Point2f{ m_pBullets[bulletIndex]->GetShape().left - m_pBullets[bulletIndex]->GetShape().height * 2,
+						m_pBullets[bulletIndex]->GetShape().bottom + m_pBullets[bulletIndex]->GetShape().width };
+	}
+
+	return Point2f{};
 }

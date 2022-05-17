@@ -6,7 +6,7 @@
 #include "TextureManager.h"
 
 JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
-	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f, pTextureManager)
+	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f)
 	, m_ActionState{ ActionState::idle }
 {
 	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy4Idle.png"), Sprite::AnimType::loop, 3, 1, 3.f });
@@ -36,8 +36,6 @@ void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 			m_FacingDirection = 1;
 		}
 
-		m_AttackDelay += elapsedSec;
-
 		m_Velocity.y += m_Acceleration.y * elapsedSec;
 
 		m_Shape.left += m_Velocity.x * elapsedSec;
@@ -52,6 +50,11 @@ void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		}
 
 		CheckActionState(avatar);
+
+		if (m_ActionState == ActionState::idle)
+		{
+			m_AttackDelay += elapsedSec;
+		}
 
 		if ( m_ActionState == ActionState::jumping
 			 && level.IsOnGround(m_Shape, m_Velocity)
@@ -71,8 +74,6 @@ void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		ChangeShapeDimensions( );
 
 		m_pSprites[int(m_ActionState)]->Update(elapsedSec);
-
-		
 	}
 }
 
