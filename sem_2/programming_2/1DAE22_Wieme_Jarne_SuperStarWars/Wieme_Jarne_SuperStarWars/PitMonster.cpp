@@ -70,17 +70,7 @@ void PitMonster::Draw( ) const
 {
 	glPushMatrix( );
 
-	glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
-
-	if (m_FacingDirection == -1)
-	{
-		glTranslatef(m_Shape.width, 0.f, 0.f);
-		glScalef(-m_Scale, m_Scale, 1);
-	}
-	else
-	{
-		glScalef(m_Scale, m_Scale, 1);
-	}
+	Enemy::Draw();
 
 	if (m_Health > 0 && int(m_ActionState) >= 0)
 	{

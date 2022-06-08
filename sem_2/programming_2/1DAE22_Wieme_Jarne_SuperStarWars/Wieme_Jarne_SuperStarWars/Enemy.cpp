@@ -37,6 +37,17 @@ void Enemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 void Enemy::Draw( ) const
 {
+	glTranslatef(m_Shape.left, m_Shape.bottom, 0.f);
+
+	if (m_FacingDirection == 1)
+	{
+		glTranslatef(m_Shape.width, 0.f, 0.f);
+		glScalef(-m_Scale, m_Scale, 1);
+	}
+	else
+	{
+		glScalef(m_Scale, m_Scale, 1);
+	}
 }
 
 void Enemy::Hit(int damage)

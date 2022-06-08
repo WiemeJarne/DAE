@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: 1GD22_WiemeJarne_Parasol.ma
-//Last modified: Wed, May 18, 2022 12:39:48 PM
+//Last modified: Wed, Jun 08, 2022 06:09:47 PM
 //Codeset: 1252
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -13,7 +13,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202110272215-ad32f8f1e6";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19043)";
-fileInfo "UUID" "7DEC8878-43A5-A0B0-07EA-1387B0C259AC";
+fileInfo "UUID" "DBFBD788-4009-FA8A-C84B-14BA5C4A232E";
 fileInfo "license" "education";
 createNode transform -s -n "persp";
 	rename -uid "CBB20537-40F8-A23F-4B21-26837A14FFF1";
@@ -706,19 +706,19 @@ createNode mesh -n "ParasolShape" -p "Parasol";
 	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "A03A6CBD-4CB1-BB28-39E4-F4913AF7637D";
+	rename -uid "41853BEA-4524-94C1-0645-40A13A12A0EC";
 	setAttr -s 4 ".lnk";
 	setAttr -s 4 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "8C4D6FC3-4936-8D39-B12B-5B8B6ED462C8";
+	rename -uid "AA18B1D7-4DBB-65B7-916E-F698D67F54B2";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "EF5E1584-4E6C-610A-FACE-B181CCD967D5";
+	rename -uid "043EFD2A-4EB8-FCA0-4364-11AD5F277A23";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "E62E3B7A-48F9-53A7-FC74-9F9CB459DA1F";
+	rename -uid "7F525EFD-4C5B-28C0-4D2A-A5A1B928616B";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "45D86949-4101-3F2D-C3A0-C8B00BB0C9F2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "3DD29736-4E2F-EB7C-9409-BAA339158618";
+	rename -uid "C581BF92-4D82-81D3-F0D1-5FA1E9382BA8";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "2BAB7981-4BD2-8476-69FE-50B8CB25C14A";
 	setAttr ".g" yes;
@@ -820,7 +820,7 @@ createNode materialInfo -n "materialInfo4";
 	rename -uid "20FA1839-407A-4CB8-A74F-5DB13A38B5D1";
 createNode file -n "file1";
 	rename -uid "34BA6A7D-475D-A62D-FD95-9B8C66F718D8";
-	setAttr ".ftn" -type "string" "C:/Users/jarne/Documents/DAE/sem_2/3D/1GD22_WiemeJarne_Props/Prop_Parasol/sourceimages/T_Parasol_BC.png";
+	setAttr ".ftn" -type "string" "C:/Users/jarne/Documents/DAE/sem_2/3D/1GD22_WiemeJarne_Diorama/Prop_Parasol/sourceimages/T_Parasol_BC.png";
 	setAttr ".cs" -type "string" "sRGB";
 createNode place2dTexture -n "place2dTexture3";
 	rename -uid "D8BDEEF5-434B-7B14-50E6-859CBE1B8483";

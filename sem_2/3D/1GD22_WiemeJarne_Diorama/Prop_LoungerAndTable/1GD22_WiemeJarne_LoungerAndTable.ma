@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: 1GD22_WiemeJarne_LoungerAndTable.ma
-//Last modified: Wed, May 18, 2022 12:31:34 PM
+//Last modified: Wed, Jun 08, 2022 06:09:03 PM
 //Codeset: 1252
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -13,7 +13,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202110272215-ad32f8f1e6";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19043)";
-fileInfo "UUID" "6A8E29C4-4834-7837-8BA9-6B8814888DC8";
+fileInfo "UUID" "4EC86D17-4579-FEFB-E9B7-A490D0212951";
 fileInfo "license" "education";
 createNode transform -s -n "persp";
 	rename -uid "CBB20537-40F8-A23F-4B21-26837A14FFF1";
@@ -826,19 +826,19 @@ createNode mesh -n "LoungerAndTableShape" -p "LoungerAndTable";
 	setAttr ".dr" 1;
 	setAttr ".ai_translator" -type "string" "polymesh";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "15CF7E55-4357-26FC-972C-888C98630E5F";
+	rename -uid "0198A140-4814-97B4-5B7A-598B5D3666A0";
 	setAttr -s 4 ".lnk";
 	setAttr -s 4 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "0CE222B5-4A8E-3782-8428-0384F55EF97C";
+	rename -uid "38CC678C-49E6-6B8E-378D-D8868823E3C3";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "84577645-442E-50DE-DD1F-C49F0A6FF84D";
+	rename -uid "4F3CEA77-4800-D767-AE32-2EAA814E9A40";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "1A5626BF-466B-7BF0-2FA8-21AFED3B2C7D";
+	rename -uid "097FDFE5-4888-182F-8B2A-B7A03E451E2F";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "45D86949-4101-3F2D-C3A0-C8B00BB0C9F2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "795C899A-4D79-36C4-E011-61BBECF7BBB5";
+	rename -uid "1DE65A15-4A4D-A5C3-BE41-A0A8A2F65A5B";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "2BAB7981-4BD2-8476-69FE-50B8CB25C14A";
 	setAttr ".g" yes;
@@ -955,7 +955,7 @@ createNode nodeGraphEditorInfo -n "hyperShadePrimaryNodeEditorSavedTabsInfo";
 	setAttr ".tgi[0].ni[3].nvs" 1923;
 createNode file -n "file1";
 	rename -uid "420374EB-4CE3-D6D6-5D9A-E7A6136F66AC";
-	setAttr ".ftn" -type "string" "C:/Users/jarne/Documents/DAE/sem_2/3D/1GD22_WiemeJarne_Props/Prop_LoungerAndTable/sourceimages/T_LoungerAndTable_BC.png";
+	setAttr ".ftn" -type "string" "C:/Users/jarne/Documents/DAE/sem_2/3D/1GD22_WiemeJarne_Diorama/Prop_LoungerAndTable/sourceimages/T_LoungerAndTable_BC.png";
 	setAttr ".cs" -type "string" "sRGB";
 createNode place2dTexture -n "place2dTexture2";
 	rename -uid "AED805EE-4E30-8313-6838-8DB7AFD7FA77";

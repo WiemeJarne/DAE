@@ -51,13 +51,11 @@ start:
 stop:
 	HLT
 
-//print numbers between 9 - 256
+//print numbers between 0 - 256
 JMP start
 
 start:
-	MOV A, 255 ; steek een waarde (tussen 9 en 256) in A
-	CMP A, 10 ; als waarde in A kleiner is als 10 dan stop
-	JB stop ; jump if smaller then
+	MOV A, 0 ; steek een waarde (tussen 9 en 256) in A
 	PUSH A ; bewaar waarde op de stack
 	JMP honderdtallen
 	
@@ -79,10 +77,12 @@ eenheden:
 	SUB A, B ; bereken aantal eenheden
 	ADD A, '0' ; maakt dat er een cijfer op het scherm komt
 	MOV [0xff], A ; print aantal eenheden
+	POP A ; haal waarde van de stack en plaats in A
+	CMP A, 10 
+	JB stop jump als A kleiner is dan 10
 	JMP tientallen
 
 tientallen:
-	POP A ; haal waarde van de stack en plaats in A
 	DIV 10
 	MOV B, A ; kopieer waarde in A naar B
 	DIV 10
