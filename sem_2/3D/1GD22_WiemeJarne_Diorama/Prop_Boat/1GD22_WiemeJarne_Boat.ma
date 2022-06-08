@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: 1GD22_WiemeJarne_Boat.ma
-//Last modified: Wed, May 18, 2022 12:39:06 PM
+//Last modified: Wed, Jun 08, 2022 06:07:53 PM
 //Codeset: 1252
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -13,7 +13,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202110272215-ad32f8f1e6";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19043)";
-fileInfo "UUID" "A0D46736-41B3-C23F-24A8-81A4E342F66B";
+fileInfo "UUID" "08226B14-4740-3C84-32BF-D1B50D88070B";
 fileInfo "license" "education";
 createNode transform -s -n "persp";
 	rename -uid "CBB20537-40F8-A23F-4B21-26837A14FFF1";
@@ -2757,19 +2757,19 @@ createNode greasePlaneRenderShape -n "greasePencilPerspArtDrawPlaneShape" -p "gr
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 	setAttr ".de" 2;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "41FFDF56-4F62-360A-BF75-7C9E85141DCF";
+	rename -uid "1D5EBE7F-4FB3-C923-9C16-45B47170608D";
 	setAttr -s 5 ".lnk";
 	setAttr -s 5 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "C120AACC-4DDC-60E1-B3EA-F58FA37192D1";
+	rename -uid "FA123D31-4B78-C3E4-BBC6-72AB650A8E53";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "8FA4433A-4799-B11B-2DA3-E4AB319F4831";
+	rename -uid "B697FFEB-428C-8F29-9535-839E613F7FD9";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "F2947556-4931-0A55-B1D3-DE94402D6B68";
+	rename -uid "9CF26CCE-459A-0DAE-2FEE-EBB5ABA2450E";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "45D86949-4101-3F2D-C3A0-C8B00BB0C9F2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "EB4F34DC-4BFA-64F1-70F6-D9A9C4E7A880";
+	rename -uid "D6390DF8-4BA2-D3FE-FFA3-559E334FD8D1";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "2BAB7981-4BD2-8476-69FE-50B8CB25C14A";
 	setAttr ".g" yes;
@@ -2893,7 +2893,7 @@ createNode materialInfo -n "materialInfo7";
 	rename -uid "5B697B15-41E5-7CBE-7A40-C3BAD33AF379";
 createNode file -n "file1";
 	rename -uid "F87E7CF5-426D-9441-B7A5-BE9208AB35EF";
-	setAttr ".ftn" -type "string" "C:/Users/jarne/Documents/DAE/sem_2/3D/1GD22_WiemeJarne_Props/Prop_Boat/sourceimages/T_Boat_BC.png";
+	setAttr ".ftn" -type "string" "C:/Users/jarne/Documents/DAE/sem_2/3D/1GD22_WiemeJarne_Diorama/Prop_Boat/sourceimages/T_Boat_BC.png";
 	setAttr ".cs" -type "string" "sRGB";
 createNode place2dTexture -n "place2dTexture3";
 	rename -uid "5306F3B5-4E75-A123-3A1C-F98952534B4A";

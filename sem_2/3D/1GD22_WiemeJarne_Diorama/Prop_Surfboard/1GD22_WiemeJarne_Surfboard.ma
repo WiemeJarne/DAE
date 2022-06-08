@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: 1GD22_WiemeJarne_Surfboard.ma
-//Last modified: Thu, May 19, 2022 10:45:23 AM
+//Last modified: Wed, Jun 08, 2022 06:10:34 PM
 //Codeset: 1252
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -13,7 +13,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202110272215-ad32f8f1e6";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19043)";
-fileInfo "UUID" "59E78C5E-4212-610E-902E-0C93D1E87187";
+fileInfo "UUID" "8568C848-454A-439D-8FCF-C8902114E521";
 fileInfo "license" "education";
 createNode transform -s -n "persp";
 	rename -uid "CBB20537-40F8-A23F-4B21-26837A14FFF1";
@@ -801,19 +801,19 @@ createNode camera -n "leftShape" -p "left";
 	setAttr ".o" yes;
 	setAttr ".ai_translator" -type "string" "orthographic";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "AD24EBEF-4592-B46E-34B6-F5824C377D2C";
+	rename -uid "2EC480B5-4916-FA79-FFE1-B7AC8B3F56F0";
 	setAttr -s 4 ".lnk";
 	setAttr -s 4 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "7F8CD0BD-4715-BC87-EC67-FFBE21562ACF";
+	rename -uid "75D30A72-4F6A-C9EE-A208-FC918E8E8991";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "D2F7F567-4701-00C2-8DE6-449C683FFC30";
+	rename -uid "F3011A97-4B1E-6240-B6CA-19A4DDC6FAB4";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "8EB1F70C-44F7-88C4-6BA9-DB97B62F0652";
+	rename -uid "DFB78598-4806-89B9-6BE4-10B6CA055C2F";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "45D86949-4101-3F2D-C3A0-C8B00BB0C9F2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "099FBF90-402D-F3C3-E399-8381B48969B0";
+	rename -uid "3BB34CD1-4547-11E8-F490-5B9EBAE9A20B";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "2BAB7981-4BD2-8476-69FE-50B8CB25C14A";
 	setAttr ".g" yes;

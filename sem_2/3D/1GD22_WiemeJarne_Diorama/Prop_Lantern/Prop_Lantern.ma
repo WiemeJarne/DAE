@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: Prop_Lantern.ma
-//Last modified: Sat, May 21, 2022 12:39:26 PM
+//Last modified: Wed, Jun 08, 2022 04:55:27 PM
 //Codeset: 1252
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -14,7 +14,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202110272215-ad32f8f1e6";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19043)";
-fileInfo "UUID" "F399969F-4710-18A1-4B92-9BA2DA46D39C";
+fileInfo "UUID" "712B406B-41EB-4764-12A9-CA85D443BB96";
 fileInfo "license" "education";
 createNode transform -s -n "persp";
 	rename -uid "CBB20537-40F8-A23F-4B21-26837A14FFF1";
@@ -1723,19 +1723,19 @@ createNode camera -n "leftShape" -p "left";
 	setAttr ".o" yes;
 	setAttr ".ai_translator" -type "string" "orthographic";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "C8013B3B-4E68-74F1-F374-169F153259FD";
+	rename -uid "BF047D1C-4A36-EAA5-CD38-94913E138CDB";
 	setAttr -s 6 ".lnk";
 	setAttr -s 6 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "5AD14F56-4437-E205-E12D-E2B30FC81A44";
+	rename -uid "29C49330-46C5-D4E2-9C6E-B19AF8E9A663";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "AB0BA3CE-47ED-2EE4-6789-DDB4931CE04C";
+	rename -uid "DE5918D0-4467-6802-20A3-48AA3C892A90";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "FE513925-4F2F-E14F-6E14-568170FE7A3A";
+	rename -uid "D08B6C94-4B46-B417-814C-439500A92511";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "45D86949-4101-3F2D-C3A0-C8B00BB0C9F2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "3B2A9077-4C19-B1D0-7D6E-388E0F836122";
+	rename -uid "D4A710A4-4D83-E1DE-C037-7EA461E23ACC";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "2BAB7981-4BD2-8476-69FE-50B8CB25C14A";
 	setAttr ".g" yes;
@@ -1953,8 +1953,6 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "aiStandardSurface1SG.message" ":defaultLightSet.message";
