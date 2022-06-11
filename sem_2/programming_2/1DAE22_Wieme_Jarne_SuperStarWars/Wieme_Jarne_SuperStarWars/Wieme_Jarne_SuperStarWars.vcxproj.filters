@@ -117,6 +117,9 @@
     <ClCompile Include="Scorpion.cpp">
       <Filter>game files\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>game files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="Scorpion.h">
       <Filter>game files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>game files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

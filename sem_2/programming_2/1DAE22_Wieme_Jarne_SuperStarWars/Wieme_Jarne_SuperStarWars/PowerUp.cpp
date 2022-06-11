@@ -20,7 +20,10 @@ void PowerUp::Draw( ) const
 {
 	glPushMatrix();
 		glTranslatef(m_Shape.left, m_Shape.bottom, 0);
-		m_pTexture->Draw( );
+		if (m_pTexture)
+		{
+			m_pTexture->Draw( );
+		}
 	glPopMatrix();
 }
 

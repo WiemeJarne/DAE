@@ -6,6 +6,8 @@
 PowerUpManager::PowerUpManager( )
 	:m_pPowerups{ }
 {
+	InitializePowerUps( );
+	
 }
 
 PowerUpManager::~PowerUpManager( )
@@ -16,9 +18,9 @@ PowerUpManager::~PowerUpManager( )
 	}
 }
 
-void PowerUpManager::AddPowerUp(const Point2f& bottomLeftPos)
+void PowerUpManager::InitializePowerUps( )
 {
-	m_pPowerups.push_back(new PowerUp{ bottomLeftPos });
+	m_pPowerups.push_back(new PowerUp{ Point2f{2925.f, 100.f} });
 }
 
 void PowerUpManager::Draw( ) const
@@ -47,7 +49,10 @@ bool PowerUpManager::HitItem(const Rectf& rect)
 	return false;
 }
 
-size_t PowerUpManager::GetAmountOfPowerUps( ) const
+void PowerUpManager::Reset( )
 {
-	return m_pPowerups.size( );
+	if (m_pPowerups.size() == 0)
+	{
+		InitializePowerUps( );
+	}
 }

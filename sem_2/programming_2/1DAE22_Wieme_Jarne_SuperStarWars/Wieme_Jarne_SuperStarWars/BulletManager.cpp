@@ -6,13 +6,15 @@
 #include "utils.h"
 #include "TextureManager.h"
 #include "Avatar.h"
-#include <iostream>
+#include "SoundEffect.h"
 
 BulletManager::BulletManager(TextureManager& pTextureManager)
 	: m_pBullets{ }
 	, m_pExplosionManager{ new ExplosionManager{} }
 	, m_pTextureManager{ pTextureManager }
+	, m_ExplosionSound{ new SoundEffect{"Resources/Sound/Explosion.mp3"} }
 {
+	m_ExplosionSound->SetVolume(15);
 }
 
 BulletManager::~BulletManager( )
@@ -25,6 +27,7 @@ BulletManager::~BulletManager( )
 	m_pBullets.clear();
 
 	delete m_pExplosionManager;
+	delete m_ExplosionSound;
 }
 
 void BulletManager::Update(float elapsedSec, const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar)
@@ -145,6 +148,7 @@ void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enem
 				damage = 2;
 			}
 
+			m_ExplosionSound->Play(0);
 			m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
 			DeleteBullet(bulletIndex);
 
@@ -159,6 +163,7 @@ void BulletManager::HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar)
 	if (utils::IsOverlapping(avatar.GetShape(), m_pBullets[bulletIndex]->GetShape( )))
 	{
 		avatar.Hit( );
+		m_ExplosionSound->Play(0);
 		m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
 		DeleteBullet(bulletIndex);
 	}
@@ -170,6 +175,7 @@ void BulletManager::HandleCollisionWithLevel(const Level& level)
 	{
 		if (m_pBullets[index]->HitGround(level))
 		{			
+			m_ExplosionSound->Play(0);
 			m_pExplosionManager->AddExplosion(DetermineExplosionPos(index), DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
 			DeleteBullet(index);
 		}

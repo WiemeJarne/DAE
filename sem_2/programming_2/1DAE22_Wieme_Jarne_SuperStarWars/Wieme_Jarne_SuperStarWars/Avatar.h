@@ -7,11 +7,12 @@ class Enemy;
 class BulletManager;
 class Sprite;
 class TextureManager;
+class SoundEffect;
 
 class Avatar final
 {
 public:
-	explicit Avatar(TextureManager& pTextureManager);
+	explicit Avatar(TextureManager& TextureManager);
 	Avatar(const Avatar& avatar) = delete;
 	Avatar(Avatar&& avatar) = delete;
 	~Avatar( );
@@ -23,7 +24,10 @@ public:
 	void Draw( ) const;
 	void Hit( );
 	void PowerupHit( );
+	void Restart( );
 	Rectf GetShape( ) const;
+	int GetHealth( ) const;
+	int GetAmountOfLives( ) const;
 
 private:
 	enum class ActionState
@@ -58,6 +62,11 @@ private:
 	const int m_StartHealth;
 	float m_AccuHitSec;
 	bool m_BlasterPowerUpActive;
+	int m_AmountOfLives;
+	const int m_StartAmountOfLives;
+	float m_SecondsAfterDeath;
+	SoundEffect* m_LostLifeSound;
+	SoundEffect* m_ShootSound;
 
 	void InitializeSprites(TextureManager& pTextureManager);
 	void UpdateXPos(float elapsedSec);

@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "utils.h"
 #include "TextureManager.h"
+#include "SoundEffect.h"
 
 Avatar::Avatar(TextureManager& textureManager)
 	: m_ActionState{ActionState::idle}
@@ -17,11 +18,19 @@ Avatar::Avatar(TextureManager& textureManager)
 	, m_FacingDirection{1}
 	, m_ShootDelay{ }
 	, m_BulletVelocity{ 300.f }
-	, m_StartHealth{ 25 }
+	, m_StartHealth{ 5 }
 	, m_AccuHitSec{ }
 	, m_BlasterPowerUpActive{ }
+	, m_StartAmountOfLives{ 0 }
+	, m_SecondsAfterDeath{ }
+	, m_LostLifeSound{ new SoundEffect{"Resources/Sound/LoseLife.mp3"} }
+	, m_ShootSound { new SoundEffect{"Resources/Sound/Blaster.mp3"} }
 {
 	m_Health = m_StartHealth;
+	m_AmountOfLives = m_StartAmountOfLives;
+	
+	m_LostLifeSound->SetVolume(20);
+	m_ShootSound->SetVolume(15);
 
 	InitializeSprites(textureManager);
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
@@ -33,6 +42,9 @@ Avatar::~Avatar( )
 	{
 		delete sprite;
 	}
+
+	delete m_LostLifeSound;
+	delete m_ShootSound;
 }
 
 void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies, BulletManager& bulletManager)
@@ -54,16 +66,12 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 		HandleInput(level);
 	}
 
-	if (m_Health == 0)
+	if (m_AmountOfLives != 0 && m_SecondsAfterDeath >= 2.f)
 	{
-		if (m_ActionState != ActionState::dead)
-		{
-			m_sprites[int(ActionState::dead)]->SetFrameNr(0);
-			m_sprites[int(ActionState::dead)]->SetAccuSec(0.f);
-		}
-
-		m_ActionState = ActionState::dead;
-		m_Velocity.x = 0.f;
+		--m_AmountOfLives;
+		m_Shape.left = 0.f;
+		m_Health = m_StartHealth;
+		m_SecondsAfterDeath = 0.f;
 	}
 
 	switch (m_ActionState)
@@ -108,6 +116,9 @@ void Avatar::Update(float elapsedSec, const Level& level, std::vector<Enemy*> en
 	case ActionState::jumpShootUpDiagonal:
 		UpdateXPos(elapsedSec);
 		Shoot(Vector2f{ m_BulletVelocity * m_FacingDirection * 0.5f, m_BulletVelocity * 0.5f }, bulletManager);
+		break;
+	case ActionState::dead:
+		m_SecondsAfterDeath += elapsedSec;
 		break;
 	}
 	
@@ -237,17 +248,23 @@ void Avatar::HandleInput(const Level& level)
 {
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 
-	SDL_Scancode reset{ SDL_Scancode::SDL_SCANCODE_R };
-
-	if (pStates[reset])
+	if (m_Health == 0)
 	{
-		m_Health = m_StartHealth;
-		m_Shape.left = 0.f;
-		m_BlasterPowerUpActive = false;
-		m_ActionState = ActionState::idle;
-	}
+		if (m_AmountOfLives == 0)
+		{
+			m_ActionState = ActionState::dead;
+		}
 
-	if (m_Health > 0)
+		if (m_ActionState != ActionState::dead)
+		{
+			m_LostLifeSound->Play(0);
+			m_sprites[int(ActionState::dead)]->SetFrameNr(0);
+			m_sprites[int(ActionState::dead)]->SetAccuSec(0.f);
+			m_ActionState = ActionState::dead;
+		}
+		m_Velocity.x = 0.f;
+	}
+	else if (m_Health > 0)
 	{
 		SDL_Scancode left{ SDL_Scancode::SDL_SCANCODE_A };
 		SDL_Scancode right{ SDL_Scancode::SDL_SCANCODE_D };
@@ -394,10 +411,12 @@ void Avatar::Shoot(const Vector2f& bulletVelocity, BulletManager& bulletManager)
 		if (m_BlasterPowerUpActive)
 		{
 			bulletManager.AddBullet(DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::Type::playerHeavy);
+			m_ShootSound->Play(0);
 		}
 		else
 		{
 			bulletManager.AddBullet( DetermineBulletPos( ), bulletVelocity, 0.65f, Bullet::Type::playerNormal);
+			m_ShootSound->Play(0);
 		}
 	}
 }
@@ -478,4 +497,23 @@ void Avatar::HandleCollision(std::vector<Enemy*> enemies)
 			Hit( );
 		}
 	}
+}
+
+void Avatar::Restart( )
+{
+	m_Health = m_StartHealth;
+	m_AmountOfLives = m_StartAmountOfLives;
+	m_Shape.left = 0.f;
+	m_BlasterPowerUpActive = false;
+	m_ActionState = ActionState::idle;
+}
+
+int Avatar::GetHealth( ) const
+{
+	return m_Health;
+}
+
+int Avatar::GetAmountOfLives( ) const
+{
+	return m_AmountOfLives;
 }

@@ -9,6 +9,7 @@ class Enemy;
 class ExplosionManager;
 class TextureManager;
 class Avatar;
+class SoundEffect;
 
 class BulletManager
 {
@@ -30,6 +31,7 @@ protected:
 	std::vector<Bullet*> m_pBullets;
 	ExplosionManager* m_pExplosionManager;
 	TextureManager& m_pTextureManager;
+	SoundEffect* m_ExplosionSound;
 
 	virtual void DeleteBullet(int index);
 	

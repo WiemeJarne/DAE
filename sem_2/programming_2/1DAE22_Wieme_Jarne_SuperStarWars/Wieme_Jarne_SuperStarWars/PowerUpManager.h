@@ -14,10 +14,10 @@ public:
 	PowerUpManager& operator=(const PowerUpManager&) = delete;
 	PowerUpManager& operator=(PowerUpManager&&) = delete;
 
-	void AddPowerUp(const Point2f& bottomLeftPos);
+	void InitializePowerUps( );
 	void Draw( ) const;
 	bool HitItem(const Rectf& rect);
-	size_t GetAmountOfPowerUps( ) const;
+	void Reset( );
 
 private:
 	std::vector<PowerUp*> m_pPowerups;

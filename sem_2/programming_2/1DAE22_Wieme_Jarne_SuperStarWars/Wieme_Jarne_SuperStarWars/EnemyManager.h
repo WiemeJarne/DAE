@@ -10,7 +10,7 @@ class BulletManager;
 class EnemyManager final
 {
 public:
-	explicit EnemyManager( );
+	explicit EnemyManager(TextureManager& textureManager, BulletManager& bulletManager);
 	EnemyManager(const EnemyManager& other) = delete;
 	EnemyManager(EnemyManager&& other) = delete;
 	~EnemyManager( );
@@ -18,18 +18,9 @@ public:
 	EnemyManager& operator=(const EnemyManager& rhs) = delete;
 	EnemyManager& operator=(EnemyManager&& rhs) = delete;
 
-	enum class EnemyKind
-	{
-		Scorpion,
-		flying,
-		worm,
-		jumping,
-		boss
-	};
-
+	void InitializeEnemies(TextureManager& textureManager, BulletManager& bulletManager);
 	void Update(float elapsecSec, const Level& level, Avatar& avatar);
 	void Draw( ) const;
-	void AddEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, EnemyKind enemyKind, TextureManager& pTextureManager, BulletManager& BulletManager);
 	std::vector<Enemy*>& GetEnemies( );
 
 private:

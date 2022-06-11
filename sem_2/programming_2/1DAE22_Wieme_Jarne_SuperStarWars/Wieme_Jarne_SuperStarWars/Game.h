@@ -7,6 +7,11 @@
 #include "PowerUpManager.h"
 #include "TextureManager.h"
 #include "BulletManager.h"
+#include "HUD.h"
+#include "SoundStream.h"
+#include "SoundEffect.h"
+
+class Texture;
 
 class Game final
 {
@@ -39,12 +44,18 @@ private:
 	Level m_Level;
 	EnemyManager m_EnemyManager;
 	PowerUpManager m_PowerupManager;
+	HUD m_HUD;
+	const SoundStream m_StartScreenMusic;
+	const SoundStream m_BackgroundMusic;
+	SoundEffect m_GameOverMusic;
+	bool m_GameHasStarted;
+	Texture* m_StartScreen;
+	bool m_GameOver;
+	Texture* m_GameOverScreen;
 
 	// FUNCTIONS
 	void Initialize( );
 	void Cleanup( );
 	void ClearBackground( ) const;
-	void AddEnemies( );
-	void AddPowerups( );
 	void PrintInfo( ) const;
 };
