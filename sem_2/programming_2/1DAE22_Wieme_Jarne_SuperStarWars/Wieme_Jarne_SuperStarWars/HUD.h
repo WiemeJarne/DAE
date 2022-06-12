@@ -6,14 +6,13 @@ class HUD final
 {
 public:
 	explicit HUD(const Point2f& topLeft, int totalAvatarHearts, int totalAvatarHealth, TextureManager& textureManager);
+	
 	HUD(const HUD& HUD) = delete;
-	HUD(HUD&& HUD) = delete;
-	~HUD( );
-
 	HUD& operator=(const HUD& rhs) = delete;
+	HUD(HUD&& HUD) = delete;
 	HUD& operator=(HUD&& rhs) = delete;
 
-	void Update(int avatarHealth, int amountOfHearts);
+	void Update(int avatarHealth, int amountOfHearts, bool gameOver, bool gameHasStarted);
 	void Draw( ) const;
 	void LostHeart( );
 	void LostHealth( );
@@ -28,6 +27,14 @@ private:
 	const Texture* m_pNumberOne;
 	const Texture* m_pNumberTwo;
 	const Texture* m_pNumberThree;
+	const Texture* m_pStartScreen;
+	const Texture* m_pGameOverScreen;
 	const Point2f m_BottomLeft;
+	bool m_GameOver;
+	bool m_GameHasStarted;
+	TextureManager& m_TextureManager;
+
+	void DrawAmountOfLives( ) const;
+	void DrawAmountOfHealth( ) const;
 };
 

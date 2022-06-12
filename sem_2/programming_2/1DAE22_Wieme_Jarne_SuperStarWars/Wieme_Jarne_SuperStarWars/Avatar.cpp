@@ -30,7 +30,7 @@ Avatar::Avatar(TextureManager& textureManager)
 	m_AmountOfLives = m_StartAmountOfLives;
 	
 	m_LostLifeSound->SetVolume(20);
-	m_ShootSound->SetVolume(15);
+	m_ShootSound->SetVolume(10);
 
 	InitializeSprites(textureManager);
 	ChangeShapeDimensions(m_sprites[int(m_ActionState)]->GetAmountOfFrames());
@@ -155,9 +155,16 @@ void Avatar::Hit( )
 	}
 }
 
-void Avatar::PowerupHit( )
+void Avatar::PowerupHit(PowerUp::Type powerUpType)
 {
-	m_BlasterPowerUpActive = true;
+	if (powerUpType == PowerUp::Type::blaster)
+	{
+		m_BlasterPowerUpActive = true;
+	}
+	else
+	{
+		AddHealth(1);
+	}
 }
 
 Rectf Avatar::GetShape( ) const
@@ -516,4 +523,12 @@ int Avatar::GetHealth( ) const
 int Avatar::GetAmountOfLives( ) const
 {
 	return m_AmountOfLives;
+}
+
+void Avatar::AddHealth(int amountOfHealth)
+{
+	if (!((m_Health + amountOfHealth) > m_StartHealth))
+	{
+		m_Health += amountOfHealth;
+	}
 }

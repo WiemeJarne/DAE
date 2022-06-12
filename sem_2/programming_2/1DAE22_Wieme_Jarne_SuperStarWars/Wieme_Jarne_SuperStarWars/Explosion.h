@@ -12,11 +12,11 @@ public:
 	};
 
 	explicit Explosion(const Point2f& bottomLeftPos, float scale, ExplosionType explosionType, TextureManager& pTextureManager);
-	Explosion(const Explosion& other) = delete;
-	Explosion(Explosion&& other) = delete;
+	
 	~Explosion( );
-
+	Explosion(const Explosion& other) = delete;
 	Explosion& operator=(const Explosion& rhs) = delete;
+	Explosion(Explosion&& other) = delete;
 	Explosion& operator=(Explosion&& rhs) = delete;
 
 	void Update(float elapsedSec);

@@ -5,6 +5,7 @@ Camera::Camera(float width, float height)
 	: m_Width{ width }
 	, m_Height{ height }
 	, m_LevelBoundaries{ }
+	, m_BottomLeftPoint{ }
 {
 }
 

@@ -5,7 +5,6 @@
 class Level;
 class Avatar;
 class Sprite;
-class TextureManager;
 
 class Enemy
 {
@@ -14,12 +13,11 @@ public:
 	
 	virtual ~Enemy( );
 	Enemy(const Enemy& other) = delete;
-	Enemy(Enemy&& other) = delete;
 	Enemy& operator=(const Enemy& rhs) = delete;
+	Enemy(Enemy&& other) = delete;
 	Enemy& operator=(Enemy&& rhs) = delete;
 
-
-	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar);
+	virtual void Update(float elapsedSec, const Level& level, const Avatar& avatar) = 0;
 	virtual void Draw( ) const;
 	void Hit(int damage);
 	Rectf GetShape( ) const;
@@ -28,24 +26,23 @@ public:
 protected:
 	Rectf m_Shape;
 	const Point2f m_StartPos;
-	Vector2f m_Velocity;
-	Vector2f m_Acceleration;
-	float m_LeftBoundary;
-	float m_RightBoundary;
 	const float m_Scale;
-	float m_AccuSec;
 	int m_Health;
 	const int m_StartHealth;
-	std::vector<Sprite*> m_pSprites;
-	float m_SecondsAftherDeath;
-	float m_AttackDelay;
-	int m_FacingDirection;
+	Vector2f m_Velocity;
+	Vector2f m_Acceleration;
 	float m_DistanceFromAvatarWhenAttacking;
+	float m_AccuSec;
+	float m_SecondsAftherDeath;
+	float m_SecondsAfterAttack;
+	int m_FacingDirection;
+	float m_LeftBoundary;
+	float m_RightBoundary;
+	std::vector<Sprite*> m_pSprites;
 
 	void Respawn( );
 	bool IsAvatarInAttackZone(const Point2f& avatarPos);
 	void Moving(float elapsedSec);
-	virtual void Attack( );
-	virtual void CheckActionState(const Avatar& avatar);
-	virtual void ChangeShapeDimensions( );
+	virtual void CheckActionState(const Avatar& avatar) = 0;
+	virtual void ChangeShapeDimensions( ) = 0;
 };

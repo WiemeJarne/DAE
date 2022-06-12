@@ -15,6 +15,11 @@ public:
 
 	explicit Sprite( const Texture* pTexture, AnimType animType, int nrCols = 1, int nrRows = 1, float frameSec = 0 );
 
+	Sprite(const Sprite& other) = delete;
+	Sprite& operator=(const Sprite& rhs) = delete;
+	Sprite(Sprite&& other) = delete;
+	Sprite& operator=(Sprite&& rhs) = delete;
+
 	void Update( float elapsedSec );
 	void Draw( ) const;
 

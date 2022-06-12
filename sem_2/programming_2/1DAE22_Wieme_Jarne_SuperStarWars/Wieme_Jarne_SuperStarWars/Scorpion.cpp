@@ -1,20 +1,20 @@
 #include "pch.h"
 #include "Scorpion.h"
-#include "Sprite.h"
-#include "TextureManager.h"
 #include "Level.h"
 #include "Avatar.h"
+#include "Sprite.h"
+#include "TextureManager.h"
 #include "BulletManager.h"
 
-Scorpion::Scorpion(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager, BulletManager& pBulletManager)
+Scorpion::Scorpion(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& textureManager, BulletManager& bulletManager)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 25.f, 0.f }, Vector2f{ 0.f, -981.f }, 60.f)
 	, m_ActionState{ }
-	, m_pBulletManager{ pBulletManager }
+	, m_BulletManager{ bulletManager }
 {
 	m_ActionState = ActionState::moving;
 
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy1Walk.png"), Sprite::AnimType::loop, 4, 1, 10 });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy1Attack.png"), Sprite::AnimType::loop, 4, 1, 5 });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy1Walk.png"), Sprite::AnimType::loop, 4, 1, 10 });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy1Attack.png"), Sprite::AnimType::loop, 4, 1, 5 });
 
 	m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth( ) * m_Scale;
 	m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight( ) * m_Scale;
@@ -23,7 +23,7 @@ Scorpion::Scorpion(const Point2f& bottomLeftStartPoint, float scale, int health,
 	m_RightBoundary = m_Shape.left + m_Shape.width + 40.f;
 }
 
-void Scorpion::Update(float elapsedSec, const Level& level, Avatar& avatar)
+void Scorpion::Update(float elapsedSec, const Level& level, const Avatar& avatar)
 {
 	if (m_Health <= 0)
 	{
@@ -37,7 +37,7 @@ void Scorpion::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 	if (m_Health > 0)
 	{
-		m_AttackDelay += elapsedSec;
+		m_SecondsAfterAttack += elapsedSec;
 
 		CheckActionState(avatar);
 
@@ -50,11 +50,11 @@ void Scorpion::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		case Scorpion::ActionState::attacking:
 
 			if (m_Health > 0
-				&& m_AttackDelay >= 0.3f                                                                                                     
+				&& m_SecondsAfterAttack >= 0.3f                                                                                                     
 				&& m_pSprites[int(ActionState::attacking)]->GetFrameNr() == m_pSprites[int(ActionState::attacking)]->GetAmountOfFrames() - 1)
 			{
-				m_AttackDelay = 0.f;
-				Attack();
+				m_SecondsAfterAttack = 0.f;
+				Attack( );
 			}
 			break;
 		}
@@ -65,11 +65,11 @@ void Scorpion::Update(float elapsedSec, const Level& level, Avatar& avatar)
 	}	
 }
 
-void Scorpion::Draw() const
+void Scorpion::Draw( ) const
 {
-	glPushMatrix();
+	glPushMatrix( );
 
-	Enemy::Draw();
+	Enemy::Draw( );
 
 	if (m_Health > 0)
 	{
@@ -79,7 +79,7 @@ void Scorpion::Draw() const
 	glPopMatrix( );
 }
 
-void Scorpion::Attack()
+void Scorpion::Attack( )
 {
 	Vector2f velocity{ 0, 100.f };
 
@@ -92,7 +92,7 @@ void Scorpion::Attack()
 		velocity.x = 200.f;
 	}
 
-	m_pBulletManager.AddBullet(Point2f{ m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f }, velocity, 1.f, Bullet::Type::Enemy);
+	m_BulletManager.AddBullet(Point2f{ m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.7f }, velocity, 1.f, Bullet::Type::Enemy);
 }
 
 void Scorpion::CheckActionState(const Avatar& avatar)

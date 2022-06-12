@@ -1,31 +1,29 @@
 #include "pch.h"
 #include "PitMonster.h"
-#include "Sprite.h"
 #include "Level.h"
 #include "Avatar.h"
-#include "EnemyBulletManager.h"
-#include "Vector2f.h"
+#include "Sprite.h"
 #include "TextureManager.h"
 #include "BulletManager.h"
 
-PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager, BulletManager& bulletManager)
+PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& textureManager, BulletManager& bulletManager)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{ 0.f, -981.f }, 0.f) /*distanceFromAvatarWhenAttacking is 0 because the pitmonster
 																									   always attacks when it is alive no matter the possition of the avatar*/
 	, m_ActionState{ ActionState::inground }
-	, m_HasBeenSummoned{false}
-	, m_TentaclesDelay{ }
+	, m_HasBeenSummoned{ }
+	, m_SecondsSinceLastTentacle{ }
 	, m_BulletManager{ bulletManager }
 {
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/Attack.png"), Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/PitMonster/Attack.png"), Sprite::AnimType::repeatBackwards, 6, 1, 3.f });
 }
 
-void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
+void PitMonster::Update(float elapsedSec, const Level& level, const Avatar& avatar)
 {
 	if (m_Health > 0)
 	{
-		m_AttackDelay += elapsedSec;
+		m_SecondsAfterAttack += elapsedSec;
 
 		CheckActionState(avatar);
 
@@ -46,7 +44,7 @@ void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
 		if (m_ActionState == ActionState::tentacles
 			&& m_HasBeenSummoned == true)
 		{
-			m_TentaclesDelay += elapsedSec;
+			m_SecondsSinceLastTentacle += elapsedSec;
 		}
 
 		if (int(m_ActionState) >= 0)
@@ -54,11 +52,11 @@ void PitMonster::Update(float elapsedSec, const Level& level, Avatar& avatar)
 			m_pSprites[int(m_ActionState)]->Update(elapsedSec);
 		}
 
-		if (m_AttackDelay >= 1.f
+		if (m_SecondsAfterAttack >= 1.f
 			&& m_ActionState == ActionState::attack
 			&& m_pSprites[int(ActionState::attack)]->GetFrameNr() == m_pSprites[int(ActionState::attack)]->GetAmountOfFrames() - 3)
 		{
-			m_AttackDelay = 0.f;
+			m_SecondsAfterAttack = 0.f;
 			Attack();
 		}
 
@@ -70,7 +68,7 @@ void PitMonster::Draw( ) const
 {
 	glPushMatrix( );
 
-	Enemy::Draw();
+	Enemy::Draw( );
 
 	if (m_Health > 0 && int(m_ActionState) >= 0)
 	{
@@ -78,6 +76,34 @@ void PitMonster::Draw( ) const
 	}
 
 	glPopMatrix( );	
+}
+
+void PitMonster::Attack( )
+{
+	Vector2f velocity{ 0.f, 75.f };
+
+	const int minXVelocity{ 100 };
+	const int maxXVelocity{ 250 };
+
+	if (m_FacingDirection == -1)
+	{
+		velocity.x = -float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
+	}
+	else
+	{
+		velocity.x = float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
+	}
+
+	m_BulletManager.AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, Bullet::Type::boss);
+}
+
+void PitMonster::ChangeShapeDimensions( )
+{
+	if (int(m_ActionState) >= 0)
+	{
+		m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
+		m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
+	}
 }
 
 void PitMonster::CheckActionState(const Avatar& avatar)
@@ -88,7 +114,7 @@ void PitMonster::CheckActionState(const Avatar& avatar)
 		m_ActionState = ActionState::tentacles;
 	}
 
-	if (m_ActionState == ActionState::tentacles && m_TentaclesDelay >= 1.f && m_pSprites[int(ActionState::tentacles)]->GetFrameNr() == 0)
+	if (m_ActionState == ActionState::tentacles && m_SecondsSinceLastTentacle >= 1.f && m_pSprites[int(ActionState::tentacles)]->GetFrameNr() == 0)
 	{
 		m_ActionState = ActionState::inground;
 	}
@@ -104,32 +130,4 @@ void PitMonster::CheckActionState(const Avatar& avatar)
 	{
 		m_ActionState = ActionState::attack;
 	}
-}
-
-void PitMonster::ChangeShapeDimensions( )
-{
-	if (int(m_ActionState) >= 0)
-	{
-		m_Shape.width = m_pSprites[int(m_ActionState)]->GetFrameWidth() * m_Scale;
-		m_Shape.height = m_pSprites[int(m_ActionState)]->GetFrameHeight() * m_Scale;
-	}
-}
-
-void PitMonster::Attack( )
-{
-	Vector2f velocity{ 0.f, 75.f };
-
-	const int minXVelocity{ 100 };
-	const int maxXVelocity{ 250 };
-
-	if (m_FacingDirection == -1)
-	{
-		velocity.x = - float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
-	}
-	else
-	{
-		velocity.x = float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
-	}
-
-	m_BulletManager.AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, Bullet::Type::boss);
 }

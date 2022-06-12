@@ -1,24 +1,24 @@
 #include "pch.h"
 #include "WormEnemy.h"
-#include "Sprite.h"
 #include "Level.h"
 #include "Avatar.h"
+#include "Sprite.h"
 #include "TextureManager.h"
 
-WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
+WormEnemy::WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& textureManager)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{ 0.f, 0.f }, Vector2f{0, -981.f}, 10.f)
 	, m_ActionState{ ActionState::inGround }
 {
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy5InGround.png"), Sprite::AnimType::dontRepeat });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy5RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 4, 1, 5.f });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy5Idle.png"), Sprite::AnimType::loop, 2, 1, 5.f });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy5Attack.png"), Sprite::AnimType::dontRepeat });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy5InGround.png"), Sprite::AnimType::dontRepeat });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy5RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 4, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy5Idle.png"), Sprite::AnimType::loop, 2, 1, 5.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy5Attack.png"), Sprite::AnimType::dontRepeat });
 
 	m_LeftBoundary = m_Shape.left - 40.f;
 	m_RightBoundary = m_Shape.left + m_Shape.width + 40.f;
 }
 
-void WormEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
+void WormEnemy::Update(float elapsedSec, const Level& level, const Avatar& avatar)
 {
 	if (m_Health > 0)
 	{
@@ -31,7 +31,7 @@ void WormEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 			m_FacingDirection = 1;
 		}
 
-		m_AttackDelay += elapsedSec;
+		m_SecondsAfterAttack += elapsedSec;
 
 		m_Velocity.y += m_Acceleration.y * elapsedSec;
 
@@ -49,16 +49,16 @@ void WormEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 void WormEnemy::Draw( ) const
 {
-	glPushMatrix();
+	glPushMatrix( );
 
-	Enemy::Draw();
+	Enemy::Draw( );
 
 	if (m_Health > 0)
 	{
-		m_pSprites[int(m_ActionState)]->Draw();
+		m_pSprites[int(m_ActionState)]->Draw( );
 	}
 
-	glPopMatrix();
+	glPopMatrix( );
 }
 
 void WormEnemy::CheckActionState(const Avatar& avatar)
@@ -78,12 +78,12 @@ void WormEnemy::CheckActionState(const Avatar& avatar)
 	}
 	else if (IsAvatarInAttackZone(Point2f{ avatar.GetShape().left, avatar.GetShape().bottom }))
 	{
-		if (m_AttackDelay >= 1.f)
+		if (m_SecondsAfterAttack >= 1.f)
 		{
-			m_AttackDelay = 0.f;
+			m_SecondsAfterAttack = 0.f;
 			m_ActionState = ActionState::attacking;
 		}
-		else if(m_AttackDelay >= 0.5f)
+		else if(m_SecondsAfterAttack >= 0.5f)
 		{
 			m_ActionState = ActionState::idle;
 		}

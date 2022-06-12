@@ -1,29 +1,30 @@
 #pragma once
 #include <vector>
 #include "Vector2f.h"
+#include "PowerUp.h"
 
+class TextureManager;
 class Level;
 class Enemy;
 class BulletManager;
 class Sprite;
-class TextureManager;
 class SoundEffect;
 
 class Avatar final
 {
 public:
 	explicit Avatar(TextureManager& TextureManager);
-	Avatar(const Avatar& avatar) = delete;
-	Avatar(Avatar&& avatar) = delete;
+	
 	~Avatar( );
-
+	Avatar(const Avatar& avatar) = delete;
 	Avatar& operator=(const Avatar& rhs) = delete;
+	Avatar(Avatar&& avatar) = delete;
 	Avatar& operator=(Avatar&& rhs) = delete;
 
 	void Update(float elapsedSec, const Level& level, std::vector<Enemy*> enemies, BulletManager& BulletManager);
 	void Draw( ) const;
 	void Hit( );
-	void PowerupHit( );
+	void PowerupHit(PowerUp::Type powerUpType);
 	void Restart( );
 	Rectf GetShape( ) const;
 	int GetHealth( ) const;
@@ -78,4 +79,5 @@ private:
 	void Shoot(const Vector2f& bulletVelocity, BulletManager& BulletManager);
 	Point2f DetermineBulletPos() const;
 	void HandleCollision(std::vector<Enemy*> enemies);
+	void AddHealth(int amountOfHealth);
 };

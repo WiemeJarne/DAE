@@ -6,7 +6,7 @@ class Level;
 class Sprite;
 class TextureManager;
 
-class Bullet
+class Bullet final
 {
 public:
 	enum class Type
@@ -18,15 +18,15 @@ public:
 	};
 
 	explicit Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTextureManager, float scale = 1, Type bulletType = Type::playerNormal);
-	Bullet(const Bullet& bullet) = delete;
-	Bullet(Bullet&& bullet) = delete;
-	virtual ~Bullet( );
 	
+	~Bullet( );
+	Bullet(const Bullet& bullet) = delete;
 	Bullet& operator=(const Bullet& rhs) = delete;
+	Bullet(Bullet&& bullet) = delete;
 	Bullet& operator=(Bullet&& rhs) = delete;
-
-	virtual void Update(float elapsedSec);
-	virtual void Draw( ) const;
+	
+	void Update(float elapsedSec);
+	void Draw( ) const;
 	bool IsOutOfBoundaries( ) const;
 	bool HitGround(const Level& level) const;
 	Rectf GetShape( ) const;

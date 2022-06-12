@@ -1,20 +1,21 @@
 #include "pch.h"
 #include "BulletManager.h"
+#include "TextureManager.h"
 #include "Level.h"
+#include "Avatar.h"
+#include "PowerUpManager.h"
 #include "Enemy.h"
 #include "ExplosionManager.h"
-#include "utils.h"
-#include "TextureManager.h"
-#include "Avatar.h"
 #include "SoundEffect.h"
+#include "utils.h"
 
-BulletManager::BulletManager(TextureManager& pTextureManager)
-	: m_pBullets{ }
+BulletManager::BulletManager(TextureManager& textureManager)
+	: m_TextureManager{ textureManager }
+	, m_pBullets{ }
 	, m_pExplosionManager{ new ExplosionManager{} }
-	, m_pTextureManager{ pTextureManager }
 	, m_ExplosionSound{ new SoundEffect{"Resources/Sound/Explosion.mp3"} }
 {
-	m_ExplosionSound->SetVolume(15);
+	m_ExplosionSound->SetVolume(10);
 }
 
 BulletManager::~BulletManager( )
@@ -30,7 +31,7 @@ BulletManager::~BulletManager( )
 	delete m_ExplosionSound;
 }
 
-void BulletManager::Update(float elapsedSec, const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar)
+void BulletManager::Update(float elapsedSec, const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar, PowerUpManager& powerUpManager)
 {
 	for (int index{}; index < m_pBullets.size(); ++index)
 	{
@@ -46,7 +47,7 @@ void BulletManager::Update(float elapsedSec, const Level& level, std::vector<Ene
 	}
 
 	m_pExplosionManager->Update(elapsedSec);
-	HandleCollision(level, enemies, avatar);
+	HandleCollision(level, enemies, avatar, powerUpManager);
 }
 
 void BulletManager::Draw( ) const
@@ -64,7 +65,7 @@ void BulletManager::Draw( ) const
 
 void BulletManager::AddBullet(const Point2f& bulletPos, const Vector2f& bulletVelocity, float scale, Bullet::Type bulletType)
 {
-	m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_pTextureManager, scale, bulletType });
+	m_pBullets.push_back(new Bullet{ bulletPos, bulletVelocity, m_TextureManager, scale, bulletType });
 }
 
 void BulletManager::DeleteBullet(int index)
@@ -83,7 +84,7 @@ void BulletManager::BulletIsOutOfBoundaries(int bulletIndex)
 	Point2f bulletPos{ m_pBullets[bulletIndex]->GetShape().left,
 					   m_pBullets[bulletIndex]->GetShape().bottom };
 
-	m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), DetermineExplosionType(bulletIndex), m_pTextureManager);
+	m_pExplosionManager->AddExplosion(bulletPos, DetermineExplosionSize(bulletIndex), DetermineExplosionType(bulletIndex), m_TextureManager);
 	DeleteBullet(bulletIndex);
 }
 
@@ -112,14 +113,14 @@ Explosion::ExplosionType BulletManager::DetermineExplosionType(int bulletIndex) 
 	return Explosion::ExplosionType::EnemyBulletExplosion;
 }
 
-void BulletManager::HandleCollision(const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar)
+void BulletManager::HandleCollision(const Level& level, std::vector<Enemy*>& enemies, Avatar& avatar, PowerUpManager& powerUpManager)
 {
 	for (int index{}; index < m_pBullets.size(); ++index)
 	{
 		if (m_pBullets[index]->GetType() == Bullet::Type::playerNormal
 			|| m_pBullets[index]->GetType() == Bullet::Type::playerHeavy)
 		{
-			HandleCollisionWithEnemies(index, enemies);
+			HandleCollisionWithEnemies(index, enemies, powerUpManager);
 		}
 		else
 		{
@@ -130,7 +131,7 @@ void BulletManager::HandleCollision(const Level& level, std::vector<Enemy*>& ene
 	HandleCollisionWithLevel(level);
 }
 
-void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enemy*>& enemies)
+void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enemy*>& enemies, PowerUpManager& powerUpManager)
 {
 	for (int index{}; index < enemies.size(); ++index)
 	{
@@ -149,10 +150,15 @@ void BulletManager::HandleCollisionWithEnemies(int bulletIndex, std::vector<Enem
 			}
 
 			m_ExplosionSound->Play(0);
-			m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_pTextureManager);
+			m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), DetermineExplosionSize(bulletIndex), Explosion::ExplosionType::AvatarBulletExplosion, m_TextureManager);
 			DeleteBullet(bulletIndex);
 
 			enemies[index]->Hit(damage);
+
+			if (enemies[index]->GetHeath() == 0)
+			{
+				powerUpManager.AddPowerUp(Point2f{ enemies[index]->GetShape().left, enemies[index]->GetShape().bottom }, PowerUp::Type::heart);
+			}
 			return;
 		}
 	}
@@ -164,7 +170,7 @@ void BulletManager::HandleCollisionWithAvatar(int bulletIndex, Avatar& avatar)
 	{
 		avatar.Hit( );
 		m_ExplosionSound->Play(0);
-		m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_pTextureManager);
+		m_pExplosionManager->AddExplosion(DetermineExplosionPos(bulletIndex), 1.f, Explosion::ExplosionType::EnemyBulletExplosion, m_TextureManager);
 		DeleteBullet(bulletIndex);
 	}
 }
@@ -176,7 +182,7 @@ void BulletManager::HandleCollisionWithLevel(const Level& level)
 		if (m_pBullets[index]->HitGround(level))
 		{			
 			m_ExplosionSound->Play(0);
-			m_pExplosionManager->AddExplosion(DetermineExplosionPos(index), DetermineExplosionSize(index), DetermineExplosionType(index), m_pTextureManager);
+			m_pExplosionManager->AddExplosion(DetermineExplosionPos(index), DetermineExplosionSize(index), DetermineExplosionType(index), m_TextureManager);
 			DeleteBullet(index);
 		}
 	}

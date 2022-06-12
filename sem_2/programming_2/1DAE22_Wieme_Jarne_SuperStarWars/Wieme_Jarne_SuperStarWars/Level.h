@@ -5,22 +5,21 @@
 class Texture;
 class Platform;
 
-class Level
+class Level final
 {
 public:
 	Level( );
-	Level(const Level& level) = delete;
-	Level(const Level&& level) = delete;
-	~Level( );
 	
+	~Level( );
+	Level(const Level& level) = delete;
 	Level& operator=(const Level& rhs) = delete;
+	Level(const Level&& level) = delete;
 	Level& operator=(const Level&& rhs) = delete;
 
 	void DrawForeground( ) const;
-
+	void DrawBackground(const Point2f& translation) const;
 	void HandleCollision(Rectf& actorShape, Vector2f& actorVelocity) const;
 	bool IsOnGround(const Rectf& actorShape, const Vector2f& actorVelocity) const;
-	void DrawBackground(const Point2f& translation) const;
 	Rectf GetBoundaries( ) const;
 
 private:

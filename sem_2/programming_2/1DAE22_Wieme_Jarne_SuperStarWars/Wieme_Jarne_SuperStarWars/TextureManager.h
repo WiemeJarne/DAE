@@ -16,7 +16,8 @@ public:
 	TextureManager(TextureManager&& other) = delete;
 	TextureManager& operator=(TextureManager&& other) = delete;
 
-	Texture* GetTexture(const std::string& filename);
+	Texture* GetTexture(const std::string& fileName);
+	void DeleteTexture(const std::string& fileName);
 
 private:
 	unorderedMap m_TexturesMap;

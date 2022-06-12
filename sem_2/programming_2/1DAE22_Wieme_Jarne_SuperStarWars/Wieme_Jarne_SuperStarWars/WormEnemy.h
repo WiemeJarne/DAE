@@ -1,12 +1,14 @@
 #pragma once
 #include "Enemy.h"
 
+class TextureManager;
+
 class WormEnemy final : public Enemy
 {
 public:
-	explicit WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager);
+	explicit WormEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& textureManager);
 
-	virtual void Update(float elapsedSec, const Level& level, Avatar& avatar) override;
+	virtual void Update(float elapsedSec, const Level& level, const Avatar& avatar) override;
 	virtual void Draw( ) const override;
 
 private:

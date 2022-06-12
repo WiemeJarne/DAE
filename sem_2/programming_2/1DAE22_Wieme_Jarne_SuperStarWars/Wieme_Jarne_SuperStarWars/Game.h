@@ -49,9 +49,7 @@ private:
 	const SoundStream m_BackgroundMusic;
 	SoundEffect m_GameOverMusic;
 	bool m_GameHasStarted;
-	Texture* m_StartScreen;
 	bool m_GameOver;
-	Texture* m_GameOverScreen;
 
 	// FUNCTIONS
 	void Initialize( );

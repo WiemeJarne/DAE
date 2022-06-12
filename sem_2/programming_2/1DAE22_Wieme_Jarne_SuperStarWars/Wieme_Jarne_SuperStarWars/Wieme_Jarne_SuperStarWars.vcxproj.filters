@@ -84,9 +84,6 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>game files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBulletManager.cpp">
-      <Filter>game files\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>game files\Managers</Filter>
     </ClCompile>
@@ -180,9 +177,6 @@
       <Filter>game files</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
-      <Filter>game files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBulletManager.h">
       <Filter>game files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">

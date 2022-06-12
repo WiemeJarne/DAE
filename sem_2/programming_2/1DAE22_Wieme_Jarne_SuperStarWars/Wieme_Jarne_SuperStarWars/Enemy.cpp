@@ -3,23 +3,23 @@
 #include "Level.h"
 #include "Avatar.h"
 #include "Sprite.h"
-#include "TextureManager.h"
 
 Enemy::Enemy(const Point2f& bottomLeftStartPoint, float scale, int health, const Vector2f& velocity, const Vector2f& acceleration, const float distanceFromAvatarWhenAttacking)
 	: m_Shape{ bottomLeftStartPoint.x, bottomLeftStartPoint.y, 0.f, 0.f }
 	, m_StartPos{ bottomLeftStartPoint }
-	, m_Velocity{ velocity }
-	, m_Acceleration{ acceleration }
 	, m_Scale{ scale }
-	, m_AccuSec{ }
 	, m_Health{ health }
 	, m_StartHealth{ health }
+	, m_Velocity{ velocity }
+	, m_Acceleration{ acceleration }
+	, m_DistanceFromAvatarWhenAttacking{ distanceFromAvatarWhenAttacking }
+	, m_AccuSec{ }
 	, m_SecondsAftherDeath{ }
-	, m_AttackDelay{ }
+	, m_SecondsAfterAttack{ }
 	, m_FacingDirection{ -1 }
 	, m_LeftBoundary{ }
 	, m_RightBoundary{ }
-	, m_DistanceFromAvatarWhenAttacking{ distanceFromAvatarWhenAttacking }
+	, m_pSprites{ }
 {
 }
 
@@ -29,10 +29,6 @@ Enemy::~Enemy( )
 	{
 		delete sprite;
 	}
-}
-
-void Enemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
-{ 
 }
 
 void Enemy::Draw( ) const
@@ -111,16 +107,4 @@ void Enemy::Moving(float elapsedSec)
 		m_Shape.left += m_Velocity.x * m_FacingDirection * elapsedSec;
 		m_Shape.bottom += m_Velocity.y * elapsedSec;
 	}
-}
-
-void Enemy::Attack( )
-{
-}
-
-void Enemy::CheckActionState(const Avatar& avatar)
-{
-}
-
-void Enemy::ChangeShapeDimensions( )
-{
 }

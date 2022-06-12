@@ -9,6 +9,7 @@
 #include "PitMonster.h"
 
 EnemyManager::EnemyManager(TextureManager& textureManager, BulletManager& bulletManager)
+	: m_pEnemies{ }
 {
 	InitializeEnemies(textureManager, bulletManager);
 }
@@ -139,7 +140,7 @@ void EnemyManager::InitializeEnemies(TextureManager& textureManager, BulletManag
 	m_pEnemies.push_back(new PitMonster{ PitMonsterSpawnPos, pitMonsterSize, 100, textureManager, bulletManager });
 }
 
-void EnemyManager::Update(float elapsecSec, const Level& level, Avatar& avatar)
+void EnemyManager::Update(float elapsecSec, const Level& level, const Avatar& avatar)
 {
 	for (int index{}; index < m_pEnemies.size(); ++index)
 	{

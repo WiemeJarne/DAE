@@ -161,7 +161,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -201,7 +200,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="Game.h" />

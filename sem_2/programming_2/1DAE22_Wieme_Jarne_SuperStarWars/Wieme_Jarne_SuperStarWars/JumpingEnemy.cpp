@@ -1,19 +1,19 @@
 #include "pch.h"
 #include "JumpingEnemy.h"
-#include "Sprite.h"
 #include "Level.h"
 #include "Avatar.h"
+#include "Sprite.h"
 #include "TextureManager.h"
 
-JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& pTextureManager)
+JumpingEnemy::JumpingEnemy(const Point2f& bottomLeftStartPoint, float scale, int health, TextureManager& textureManager)
 	: Enemy(bottomLeftStartPoint, scale, health, Vector2f{0.f, 0.f}, Vector2f{0.f, -981.f}, 125.f)
 	, m_ActionState{ ActionState::idle }
 {
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy4Idle.png"), Sprite::AnimType::loop, 3, 1, 3.f });
-	m_pSprites.push_back(new Sprite{ pTextureManager.GetTexture("Resources/Enemies/Enemy4Jump.png"), Sprite::AnimType::dontRepeat, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy4Idle.png"), Sprite::AnimType::loop, 3, 1, 3.f });
+	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/Enemies/Enemy4Jump.png"), Sprite::AnimType::dontRepeat, 3, 1, 3.f });
 }
 
-void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
+void JumpingEnemy::Update(float elapsedSec, const Level& level, const Avatar& avatar)
 {
 	if (m_Health <= 0)
 	{
@@ -53,7 +53,7 @@ void JumpingEnemy::Update(float elapsedSec, const Level& level, Avatar& avatar)
 
 		if (m_ActionState == ActionState::idle)
 		{
-			m_AttackDelay += elapsedSec;
+			m_SecondsAfterAttack += elapsedSec;
 		}
 
 		if ( m_ActionState == ActionState::jumping
@@ -93,11 +93,11 @@ void JumpingEnemy::Draw( ) const
 
 void JumpingEnemy::CheckActionState(const Avatar& avatar)
 {
-	if ( m_AttackDelay >= 1.f
+	if ( m_SecondsAfterAttack >= 1.f
 		 && m_ActionState != ActionState::jumping
 		 && IsAvatarInAttackZone( Point2f{ avatar.GetShape( ).left, avatar.GetShape( ).bottom } ))
 	{
-		m_AttackDelay = 0.f;
+		m_SecondsAfterAttack = 0.f;
 		
 		m_Velocity.y = 400.f;
 

@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "TextureManager.h"
 #include "BulletManager.h"
+#include "PowerUp.h"
 #include <iostream>
 
 Game::Game( const Window& window )
@@ -20,9 +21,7 @@ Game::Game( const Window& window )
 	, m_BackgroundMusic{ "Resources/Sound/DesertJourney.mp3" }
 	, m_GameOverMusic{ "Resources/Sound/GameOver.mp3" }
 	, m_GameHasStarted{ }
-	, m_StartScreen{ new Texture{"Resources/StartScreen.png"} }
 	, m_GameOver{ }
-	, m_GameOverScreen{ }
 {	
 	std::cout << "Press space to start the game\n";
 	std::cout << "Press i for more info\n";
@@ -44,8 +43,6 @@ void Game::Initialize( )
 
 void Game::Cleanup( )
 {
-	delete m_StartScreen;
-	delete m_GameOverScreen;
 }
 
 void Game::Update( float elapsedSec )
@@ -57,69 +54,52 @@ void Game::Update( float elapsedSec )
 		m_BackgroundMusic.Stop();
 		m_GameOverMusic.Play(0);
 		m_GameOver = true;
-		m_GameOverScreen = new Texture{ "Resources/GameOverScreen.png" };
 	}
 
 	if (m_GameHasStarted && !m_GameOver)
 	{
 		m_Avatar.Update(elapsedSec, m_Level, m_EnemyManager.GetEnemies(), m_BulletManager);
 		m_EnemyManager.Update(elapsedSec, m_Level, m_Avatar);
-		m_BulletManager.Update(elapsedSec, m_Level, m_EnemyManager.GetEnemies(), m_Avatar);
-		m_HUD.Update(m_Avatar.GetHealth(), m_Avatar.GetAmountOfLives());
+		m_BulletManager.Update(elapsedSec, m_Level, m_EnemyManager.GetEnemies(), m_Avatar, m_PowerupManager);
+		m_PowerupManager.Update(elapsedSec, m_Level);
 
-		if (m_PowerupManager.HitItem(m_Avatar.GetShape()))
+		PowerUp::Type powerUpType{};
+
+		if (m_PowerupManager.HitItem(m_Avatar.GetShape(), powerUpType))
 		{
-			m_Avatar.PowerupHit();
+			m_Avatar.PowerupHit(powerUpType);
 		}
 	}
+
+	m_HUD.Update(m_Avatar.GetHealth(), m_Avatar.GetAmountOfLives(), m_GameOver, m_GameHasStarted);
 }
 
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	float scale{ 2.f };
 	Point2f cameraTransformation{};
 
-	if (!m_GameHasStarted)
+	if(m_GameHasStarted && !m_GameOver)
 	{
-		glPushMatrix();
-		glScalef(0.35f, 0.47f, 1.f);
-		m_StartScreen->Draw();
-		glPopMatrix();
-	}
-	else if (m_GameOver)
-	{
-		glPushMatrix();
-		glScalef(0.35f, 0.6f, 1.f);
-		m_GameOverScreen->Draw();
-		glPopMatrix();
-	}
-	else
-	{
-		glPushMatrix();
-		m_Camera.Transform(m_Avatar.GetShape(), scale, cameraTransformation);
-		m_Level.DrawBackground(cameraTransformation);
-		m_Avatar.Draw();
-		m_EnemyManager.Draw();
-		m_PowerupManager.Draw();
-		m_BulletManager.Draw();
-		m_Level.DrawForeground();
-		glPopMatrix();
+		float scale{ 2.f };
 
-		m_HUD.Draw();
+		glPushMatrix();
+			m_Camera.Transform(m_Avatar.GetShape(), scale, cameraTransformation);
+			m_Level.DrawBackground(cameraTransformation);
+			m_Avatar.Draw();
+			m_EnemyManager.Draw();
+			m_PowerupManager.Draw();
+			m_BulletManager.Draw();
+			m_Level.DrawForeground();
+		glPopMatrix();
 	}
-	
-	
+		m_HUD.Draw();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_r:
-		m_PowerupManager.Reset( );
-		break;
-
 	case SDLK_i:
 		PrintInfo( );
 		break;
@@ -129,17 +109,14 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 			m_GameHasStarted = true;
 			m_StartScreenMusic.Stop();
 			m_BackgroundMusic.Play(true);
-			delete m_StartScreen;
-			m_StartScreen = nullptr;
 		}
 		if (m_GameOver)
 		{
 			m_GameOver = false;
-			delete m_GameOverScreen;
-			m_GameOverScreen = nullptr;
-			m_GameOverMusic.StopAll();
+			m_GameOverMusic.StopAll( );
 			m_BackgroundMusic.Play(true);
-			m_Avatar.Restart();
+			m_Avatar.Restart( );
+			m_PowerupManager.Reset( );
 		}
 	}
 }
