@@ -151,13 +151,13 @@ void Game::ClearBackground( ) const
 
 void Game::PrintInfo( ) const
 {
-	std::cout << "A: walk to the left\n D: walk to the right\n";
+	std::cout << "A: walk to the left\nD: walk to the right\n";
 	std::cout << "Space: jump\n";
-	std::cout << "S: slide\n";
+	std::cout << "S: slide (keep pressed)\n";
 	std::cout << "left shift: shoot in the direction the avatar is facing\n";
 	std::cout << "left shift + W: shoot up\n";
 	std::cout << "left shift + S: shoot diagonally down in the direction the avatar is facing\n";
 	std::cout << "left shift + W + D: shoot diagonally up to the right\n";
 	std::cout << "left shift + W + A: shoot diagonally up to the left\n";
-	std::cout << "It is also possible to shoot while in the air using the same shoot controls.\n";
+	std::cout << "It is also possible to shoot while in the air using the same controls.\n";
 }
