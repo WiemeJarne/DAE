@@ -5,6 +5,7 @@ class TextureManager;
 class BulletManager;
 class Level;
 class Avatar;
+class PitMonster;
 class Enemy;
 
 class EnemyManager final
@@ -22,6 +23,7 @@ public:
 	void Update(float elapsecSec, const Level& level, const Avatar& avatar);
 	void Draw( ) const;
 	std::vector<Enemy*>& GetEnemies( );
+	const PitMonster* GetPitMonster( ) const;
 
 private:
 	std::vector<Enemy*> m_pEnemies;

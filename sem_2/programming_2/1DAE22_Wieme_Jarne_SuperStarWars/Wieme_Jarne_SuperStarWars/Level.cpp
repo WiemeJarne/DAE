@@ -38,14 +38,17 @@ void Level::DrawForeground() const
 {
 	glPushMatrix();
 
-		glTranslatef(571.f, 14.f, 0);
+		glTranslatef(571.f, 14.f, 0.f);
 		m_PitTexture->Draw();
+		glTranslatef(-571.f, -14.f, 0.f);
 
-		glTranslatef(6966.f, 6.f, 0.f);
+		glTranslatef(6967.f, 7.f, 0.f);
 		m_PitTexture->Draw();
+		glTranslatef(-6967.f, -7.f, 0.f);
 
-		glTranslatef(7828.f, 0.f, 0);
+		glTranslatef(7829.f, 0.f, 0.f);
 		m_BossPitTexture->Draw();
+		glTranslatef(-7829.f, 0.f, 0.f);
 
 	glPopMatrix();
 }

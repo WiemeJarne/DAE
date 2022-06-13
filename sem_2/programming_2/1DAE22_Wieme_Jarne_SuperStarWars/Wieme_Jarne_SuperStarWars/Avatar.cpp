@@ -18,10 +18,10 @@ Avatar::Avatar(TextureManager& textureManager)
 	, m_FacingDirection{1}
 	, m_ShootDelay{ }
 	, m_BulletVelocity{ 300.f }
-	, m_StartHealth{ 5 }
+	, m_StartHealth{ 25 }
 	, m_AccuHitSec{ }
 	, m_BlasterPowerUpActive{ }
-	, m_StartAmountOfLives{ 0 }
+	, m_StartAmountOfLives{ 3 }
 	, m_SecondsAfterDeath{ }
 	, m_LostLifeSound{ new SoundEffect{"Resources/Sound/LoseLife.mp3"} }
 	, m_ShootSound { new SoundEffect{"Resources/Sound/Blaster.mp3"} }

@@ -7,6 +7,7 @@
 #include "TextureManager.h"
 #include "BulletManager.h"
 #include "PowerUp.h"
+#include "PitMonster.h"
 #include <iostream>
 
 Game::Game( const Window& window )
@@ -16,7 +17,7 @@ Game::Game( const Window& window )
 	, m_BulletManager{ m_TextureManager }
 	, m_Avatar{ m_TextureManager }
 	, m_EnemyManager{ m_TextureManager, m_BulletManager }
-	, m_HUD{ Point2f{0.f, m_Window.height}, m_Avatar.GetAmountOfLives(), m_Avatar.GetHealth(), m_TextureManager }
+	, m_HUD{ Point2f{0.f, m_Window.height}, m_Avatar.GetAmountOfLives(), m_Avatar.GetHealth(), m_EnemyManager.GetPitMonster()->GetHeath(), m_TextureManager}
 	, m_StartScreenMusic{ "Resources/Sound/StartScreen.mp3" }
 	, m_BackgroundMusic{ "Resources/Sound/DesertJourney.mp3" }
 	, m_GameOverMusic{ "Resources/Sound/GameOver.mp3" }
@@ -56,6 +57,11 @@ void Game::Update( float elapsedSec )
 		m_GameOver = true;
 	}
 
+	if (m_Avatar.GetAmountOfLives() > 0 && m_Avatar.GetHealth() == 0)
+	{
+		m_PowerupManager.Reset();
+	}
+
 	if (m_GameHasStarted && !m_GameOver)
 	{
 		m_Avatar.Update(elapsedSec, m_Level, m_EnemyManager.GetEnemies(), m_BulletManager);
@@ -70,8 +76,8 @@ void Game::Update( float elapsedSec )
 			m_Avatar.PowerupHit(powerUpType);
 		}
 	}
-
-	m_HUD.Update(m_Avatar.GetHealth(), m_Avatar.GetAmountOfLives(), m_GameOver, m_GameHasStarted);
+	
+	m_HUD.Update(elapsedSec, m_Avatar.GetHealth(), m_Avatar.GetAmountOfLives(), m_EnemyManager.GetPitMonster()->GetHeath(), m_GameOver, m_GameHasStarted, m_EnemyManager.GetPitMonster()->AvatarIsInRange(m_Avatar.GetShape()));
 }
 
 void Game::Draw( ) const

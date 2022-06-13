@@ -161,6 +161,18 @@ std::vector<Enemy*>& EnemyManager::GetEnemies( )
 	return m_pEnemies;
 }
 
+const PitMonster* EnemyManager::GetPitMonster() const
+{
+	for (Enemy* enemy : m_pEnemies)
+	{
+		if (dynamic_cast<PitMonster*>(enemy))
+		{
+			return dynamic_cast<PitMonster*>(enemy);
+		}
+	}
+	return nullptr;
+}
+
 void EnemyManager::DeleteEnemy(int index)
 {
 	delete m_pEnemies[index];

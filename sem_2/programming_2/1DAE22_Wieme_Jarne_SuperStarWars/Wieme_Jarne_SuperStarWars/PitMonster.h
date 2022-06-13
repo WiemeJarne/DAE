@@ -16,6 +16,7 @@ public:
 
 	virtual void Update(float elapsedSec, const Level& level, const Avatar& avatar) override;
 	virtual void Draw( ) const override;
+	bool AvatarIsInRange(const Rectf& avatarShape) const;
 
 private:
 	enum class ActionState
@@ -30,6 +31,7 @@ private:
 	bool m_HasBeenSummoned;
 	float m_SecondsSinceLastTentacle;
 	BulletManager& m_BulletManager;
+	float m_AvatarYPosToSummon;
 
 	void Attack( );
 	virtual void ChangeShapeDimensions( ) override;

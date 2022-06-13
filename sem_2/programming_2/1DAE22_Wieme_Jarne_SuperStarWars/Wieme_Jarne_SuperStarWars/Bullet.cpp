@@ -58,6 +58,7 @@ Bullet::Bullet(const Point2f& pos, const Vector2f& velocity, TextureManager& pTe
 
 	case Bullet::Type::boss:
 		m_pSprite = new Sprite{ pTextureManager.GetTexture("Resources/PitMonster/AttackRock.png"), Sprite::AnimType::loop, 4, 1, 2.f };
+		m_Acceleration.y = -981.f;
 		break;
 	}
 

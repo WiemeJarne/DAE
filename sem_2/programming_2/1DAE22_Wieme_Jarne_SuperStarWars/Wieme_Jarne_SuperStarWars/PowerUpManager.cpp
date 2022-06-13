@@ -64,7 +64,7 @@ void PowerUpManager::Reset( )
 		powerUp = nullptr;
 	}
 
-	m_pPowerups.clear();
+	m_pPowerups.clear( );
 	
 	InitializePowerUps( );
 }

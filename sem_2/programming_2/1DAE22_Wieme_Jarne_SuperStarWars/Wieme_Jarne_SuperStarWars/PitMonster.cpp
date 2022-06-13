@@ -13,6 +13,7 @@ PitMonster::PitMonster(const Point2f& bottomLeftStartPoint, float scale, int hea
 	, m_HasBeenSummoned{ }
 	, m_SecondsSinceLastTentacle{ }
 	, m_BulletManager{ bulletManager }
+	, m_AvatarYPosToSummon{ 7850.f }
 {
 	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/PitMonster/Tentacles.png"), Sprite::AnimType::repeatBackwards, 3, 1, 3.f });
 	m_pSprites.push_back(new Sprite{ textureManager.GetTexture("Resources/PitMonster/RiseOutGround.png"), Sprite::AnimType::repeatBackwards, 5, 1, 5.f });
@@ -33,12 +34,12 @@ void PitMonster::Update(float elapsedSec, const Level& level, const Avatar& avat
 
 		if (avatar.GetShape().left < m_Shape.left + m_Shape.width)
 		{
-			m_FacingDirection = -1;
+			m_FacingDirection = 1;
 		}
 
 		if (avatar.GetShape().left > m_Shape.left + m_Shape.width)
 		{
-			m_FacingDirection = 1;
+			m_FacingDirection = -1;
 		}
 
 		if (m_ActionState == ActionState::tentacles
@@ -78,14 +79,26 @@ void PitMonster::Draw( ) const
 	glPopMatrix( );	
 }
 
+bool PitMonster::AvatarIsInRange(const Rectf& avatarShape) const
+{
+	if (avatarShape.left >= m_Shape.left - 2 * m_Shape.width)
+	{
+		return true;
+	}
+	return false;
+}
+
 void PitMonster::Attack( )
 {
-	Vector2f velocity{ 0.f, 75.f };
+	Vector2f velocity{ 0.f, 0.f };
 
 	const int minXVelocity{ 100 };
 	const int maxXVelocity{ 250 };
 
-	if (m_FacingDirection == -1)
+	const int minYVelocity{ 75 };
+	const int maxYVelocity{ 150 };
+
+	if (m_FacingDirection == 1)
 	{
 		velocity.x = -float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
 	}
@@ -93,6 +106,8 @@ void PitMonster::Attack( )
 	{
 		velocity.x = float(rand() % (maxXVelocity - minXVelocity + 1) + minXVelocity);
 	}
+
+	velocity.y = float(rand() % (maxYVelocity - minYVelocity + 1) + minYVelocity);
 
 	m_BulletManager.AddBullet(Point2f{ m_Shape.left + m_Shape.width / 2.f, m_Shape.height }, velocity, 1.f, Bullet::Type::boss);
 }
@@ -108,10 +123,16 @@ void PitMonster::ChangeShapeDimensions( )
 
 void PitMonster::CheckActionState(const Avatar& avatar)
 {
-	if (avatar.GetShape().left >= 7850.f && m_ActionState == ActionState::inground && m_HasBeenSummoned == false)
+	if (avatar.GetShape().left >= m_AvatarYPosToSummon && m_ActionState == ActionState::inground && m_HasBeenSummoned == false)
 	{
 		m_HasBeenSummoned = true;
 		m_ActionState = ActionState::tentacles;
+	}
+
+	if (avatar.GetShape().left <= 100.f)
+	{
+		m_HasBeenSummoned = false;
+		m_ActionState = ActionState::inground;
 	}
 
 	if (m_ActionState == ActionState::tentacles && m_SecondsSinceLastTentacle >= 1.f && m_pSprites[int(ActionState::tentacles)]->GetFrameNr() == 0)
@@ -121,7 +142,6 @@ void PitMonster::CheckActionState(const Avatar& avatar)
 	
 	if (m_HasBeenSummoned == true && m_ActionState == ActionState::inground)
 	{
-		m_HasBeenSummoned = false;
 		m_ActionState = ActionState::summon;
 	}
 
