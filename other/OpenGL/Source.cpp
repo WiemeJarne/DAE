@@ -3,16 +3,13 @@
 #include <iostream>
 
 void InitAndConfigGLFW();
+GLFWwindow* CreateWindow(int windowWidth, int windowHeight);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 unsigned int CreateVertexShader();
 unsigned int CreateFragmentShader();
 void CheckIfShaderCompiled(GLuint shader, std::string shaderType);
 void CheckIfShaderProgramLinked(GLuint program);
-
-//settings
-const unsigned int windowWidth{ 800 };
-const unsigned int windowHeight{ 600 };
 
 //vertex shader source code
 const char* vertexShaderSource = "#version 330 core\n"
@@ -36,15 +33,10 @@ int main()
 	InitAndConfigGLFW();
 
 	//glfw window creation
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "LearnOpenGL", NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	const unsigned int windowWidth{ 800 };
+	const unsigned int windowHeight{ 600 };
+
+	GLFWwindow* window = CreateWindow(windowWidth, windowHeight);
 
 	//glad: load all OpenGL function pointers
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -153,6 +145,23 @@ void InitAndConfigGLFW()
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+}
+
+GLFWwindow* CreateWindow(int windowWidth, int windowHeight)
+{
+	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "LearnOpenGL", NULL, NULL);
+
+	if (window == NULL)
+	{
+		std::cout << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return nullptr;
+	}
+
+	glfwMakeContextCurrent(window);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+	return window;
 }
 
 //glfw: whenever the window size changes(by OS or user resize) this callback function executes
