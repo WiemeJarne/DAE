@@ -26,6 +26,8 @@ Avatar::Avatar(TextureManager& textureManager)
 	, m_LostLifeSound{ new SoundEffect{"Resources/Sound/LoseLife.mp3"} }
 	, m_ShootSound { new SoundEffect{"Resources/Sound/Blaster.mp3"} }
 {
+	m_Shape.left = 7500.f;
+
 	m_Health = m_StartHealth;
 	m_AmountOfLives = m_StartAmountOfLives;
 	
