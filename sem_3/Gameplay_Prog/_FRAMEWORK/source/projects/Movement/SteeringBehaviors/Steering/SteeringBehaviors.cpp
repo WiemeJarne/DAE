@@ -72,25 +72,18 @@ SteeringOutput Face::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 
 	Vector2 toTarget{ m_Target.Position - pAgent->GetPosition() };
 	Vector2 rotationVector{ cosf(pAgent->GetRotation()), sinf(pAgent->GetRotation()) };
-	DEBUGRENDERER2D->DrawDirection(pAgent->GetPosition(), toTarget, 5.f, {1,0,0});
-	DEBUGRENDERER2D->DrawDirection(pAgent->GetPosition(), rotationVector, 15.f, { 0.f, 1.f, 0.f });
-	rotationVector.Normalize();
 
-	//const float dotProdruct{ pAgent->GetDirection().Dot(rotationVector)};
-
-
-	if (AngleBetween(toTarget, rotationVector) < 0)
-	{
-		steering.AngularVelocity = 50.f;
-	}
-	else if (AngleBetween(toTarget, rotationVector) > 0)
-	{
-		steering.AngularVelocity = -50.f;
-	}
-	else if(AngleBetween(toTarget, rotationVector) == 0)
+	if (AngleBetween(toTarget, rotationVector) < 0.1f && AngleBetween(toTarget, rotationVector) > -0.1f)
 	{
 		steering.AngularVelocity = 0.f;
 	}
-
+	else if (AngleBetween(toTarget, rotationVector) < 0)
+	{
+		steering.AngularVelocity = pAgent->GetMaxAngularSpeed();
+	}
+	else if (AngleBetween(toTarget, rotationVector) > 0)
+	{
+		steering.AngularVelocity = -pAgent->GetMaxAngularSpeed();;
+	}
 	return steering;
 }
