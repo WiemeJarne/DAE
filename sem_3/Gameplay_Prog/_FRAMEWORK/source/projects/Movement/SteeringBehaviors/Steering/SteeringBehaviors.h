@@ -75,6 +75,24 @@ public:
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
 };
 
+class Wander : public Seek
+{
+public:
+	Wander() = default;
+	virtual ~Wander() = default;
+
+	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
+
+	void SetWanderOffset(float offset) { m_OffsetDistance = offset; }
+	void SetWanderRadius(float radius) { m_Radius = radius; }
+	void SetMaxAngleChange(float rad) { m_MaxAngleChange = rad; }
+
+protected:
+	float m_OffsetDistance{ 6.f }; //offset in agent direction
+	float m_Radius{ 4.f }; //wanderRadius
+	float m_MaxAngleChange{ 45 }; //max wanderingAngle change per frame
+	float m_WanderAngle{ 0.f };
+};
 #endif
 
 
