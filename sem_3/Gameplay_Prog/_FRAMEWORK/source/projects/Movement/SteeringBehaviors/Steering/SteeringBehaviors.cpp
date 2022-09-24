@@ -94,25 +94,38 @@ SteeringOutput Wander::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 	circleOrigin.x = pAgent->GetPosition().x + cosf(pAgent->GetRotation()) * m_OffsetDistance;
 	circleOrigin.y = pAgent->GetPosition().y + sinf(pAgent->GetRotation()) * m_OffsetDistance;
 
-	const int maxWanderAngle{ int(m_WanderAngle + m_MaxAngleChange )};
-	const int minWanderAngle{ int(m_WanderAngle - m_MaxAngleChange )};
+	const int maxWanderAngle{ int(m_WanderAngle + m_MaxAngleChange) };
+	const int minWanderAngle{ int(m_WanderAngle - m_MaxAngleChange) };
 
 	m_WanderAngle = float(rand() % (maxWanderAngle - minWanderAngle) + minWanderAngle);
 	
-	std::cout << m_WanderAngle << '\n';
+	while (m_WanderAngle > 360 || m_WanderAngle < -360)
+	{
+		if (m_WanderAngle > 360)
+		{
+			m_WanderAngle -= 360;
+		}
+		else
+		{
+			m_WanderAngle += 360;
+		}
+	}
 
 	Vector2 randomPointOnCircle{};
-	randomPointOnCircle.x = circleOrigin.x + cosf(ToRadians( m_WanderAngle)) * m_Radius;
+	randomPointOnCircle.x = circleOrigin.x + cosf(ToRadians(m_WanderAngle)) * m_Radius;
 	randomPointOnCircle.y = circleOrigin.y + sinf(ToRadians(m_WanderAngle)) * m_Radius;
-
-	DEBUGRENDERER2D->DrawCircle(circleOrigin, m_Radius, { 1,0,0 }, 0);
-	DEBUGRENDERER2D->DrawPoint(randomPointOnCircle, 10.f, { 0,0,1 }, 0);
-	DEBUGRENDERER2D->DrawDirection(pAgent->GetPosition(), randomPointOnCircle - pAgent->GetPosition(), 10, {0,1,0});
 	
 	SteeringOutput steering{};
 	steering.LinearVelocity = randomPointOnCircle - pAgent->GetPosition();
 	steering.LinearVelocity.Normalize();
 	steering.LinearVelocity *= pAgent->GetMaxLinearSpeed();
+
+	if (pAgent->CanRenderBehavior())
+	{
+		DEBUGRENDERER2D->DrawCircle(circleOrigin, m_Radius, { 1,0,0 }, 0);
+		DEBUGRENDERER2D->DrawPoint(randomPointOnCircle, 10.f, { 0,0,1 }, 0);
+		DEBUGRENDERER2D->DrawDirection(pAgent->GetPosition(), randomPointOnCircle - pAgent->GetPosition(), 10, { 0,1,0 });
+	}
 
 	return steering;
 }

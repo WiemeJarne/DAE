@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) //argc = argument count, argv = argument vector
     }
 
     if (    *argv[1] < 58 && *argv[1] > 47 
-         && *argv[3] < 58 && *argv[3] > 47)  //using ascii value to check if value1 and value2 are numbers
+         && *argv[3] < 58 && *argv[3] > 47 )  //using ascii value to check if value1 and value2 are numbers
     {
         switch (*argv[2])
         {
