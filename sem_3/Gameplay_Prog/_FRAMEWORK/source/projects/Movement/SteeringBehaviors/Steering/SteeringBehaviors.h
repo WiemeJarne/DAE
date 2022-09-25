@@ -93,6 +93,15 @@ protected:
 	float m_MaxAngleChange{ 15 }; //max wanderingAngle change per frame
 	float m_WanderAngle{ 0.f };
 };
+
+class Pursuit : public Seek
+{
+public:
+	Pursuit() = default;
+	virtual ~Pursuit() = default;
+
+	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
+};
 #endif
 
 
