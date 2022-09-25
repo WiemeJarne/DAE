@@ -34,7 +34,7 @@ SteeringOutput Seek::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 		DEBUGRENDERER2D->DrawDirection(agentPosition, toTarget, pAgent->GetMaxLinearSpeed(), {0.f, 1.f, 0.f});
 
 		//draws the desired velocity vector - current velocity vector
-		DEBUGRENDERER2D->DrawDirection(agentPosition, toTarget - agentDirection, toTarget.Magnitude() - agentDirection.Magnitude(), {0.f, 1.f, 1.f});
+		DEBUGRENDERER2D->DrawDirection(agentPosition, toTarget - agentDirection, (toTarget - agentDirection).Magnitude(), {0.f, 1.f, 1.f});
 	}
 
 	return steering;
