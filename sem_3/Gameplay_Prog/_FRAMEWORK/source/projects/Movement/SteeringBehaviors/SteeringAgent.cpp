@@ -25,7 +25,7 @@ void SteeringAgent::Update(float dt)
 		//****************
 		if(m_AutoOrient)
 		{
-			auto desiredOrientation = Elite::GetOrientationFromVelocity(GetLinearVelocity());
+			auto desiredOrientation = Elite::VectorToOrientation(GetLinearVelocity());
 			SetRotation(desiredOrientation);
 		}
 		else

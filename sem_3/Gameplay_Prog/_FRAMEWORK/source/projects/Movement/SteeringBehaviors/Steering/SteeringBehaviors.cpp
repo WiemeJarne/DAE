@@ -44,6 +44,15 @@ SteeringOutput Flee::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
 	SteeringOutput steering{};
 
+	Vector2 fromTarget{ pAgent->GetPosition() - m_Target.Position };
+	float distance{ fromTarget.Magnitude() };
+
+	if (distance > m_FleeRadius)
+	{
+		steering.IsValid = false;
+		return steering;
+	}
+
 	Vector2 agentPosition{ pAgent->GetPosition() };
 	Vector2 toTarget{ m_Target.Position - agentPosition };
 

@@ -20,7 +20,7 @@ public:
 
 	float GetRotation() const {
 		return Elite::ClampedAngle(m_pRigidBody->GetRotation().x);}
-	void SetRotation(float rot) const { m_pRigidBody->SetRotation({ rot - (float)E_PI_2,0.f }); } // hotfix for angular issue with BOX2D setup
+	void SetRotation(float rot) const { m_pRigidBody->SetRotation({ rot, 0.0f }); } 
 
 	Elite::Vector2 GetLinearVelocity() const { return m_pRigidBody->GetLinearVelocity(); }
 	void SetLinearVelocity(const Elite::Vector2& linVel) const { m_pRigidBody->SetLinearVelocity(linVel); }

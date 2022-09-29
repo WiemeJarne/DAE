@@ -201,19 +201,28 @@ namespace Elite
 	{
 		return{ randomFloat(min, max),randomFloat(min, max) };
 	}
-	/*! Orientation to a Vector2 */
-	inline Vector2 OrientationToVector(float orientation)
-	{
-		orientation -= static_cast<float>(E_PI_2);
-		return Vector2(cos(orientation), sin(orientation));
-	}
-	/*! Get orientation from an a velocity vector */
+
+	/* Get orientation from an a velocity vector
+	-- [Deprecated] -- Use VectorToAngle instead*/
+	[[deprecated("Use VectorToAngle instead")]]
 	inline float GetOrientationFromVelocity(const Elite::Vector2& velocity)
 	{
 		if (velocity.Magnitude() == 0)
 			return 0.f;
 
 		return atan2f(velocity.x, -velocity.y);
+	}
+
+	/*  Creates a normalized vector from an angle in radians.  */
+	inline Vector2 OrientationToVector(float orientation)
+	{
+		return Vector2(cos(orientation), sin(orientation));
+	}
+
+	/*Calculates the orientation angle from a vector*/
+	inline float VectorToOrientation(const Vector2& vector)
+	{
+		return atan2f(vector.y, vector.x);
 	}
 
 	/*! Get Angle Between 2 vectors*/

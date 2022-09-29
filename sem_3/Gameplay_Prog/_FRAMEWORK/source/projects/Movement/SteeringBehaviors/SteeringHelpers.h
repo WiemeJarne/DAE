@@ -28,7 +28,7 @@ struct SteeringParams //Also used as Target for SteeringBehaviors
 
 	Elite::Vector2 GetDirection() const  //Zero Orientation > {0,-1}
 	{
-		return Elite::Vector2(cos(Orientation - b2_pi / 2.f), sin(Orientation - b2_pi / 2.f));
+		return Elite::Vector2(cos(Orientation), sin(Orientation));
 	}
 
 	float GetOrientationFromVelocity() const

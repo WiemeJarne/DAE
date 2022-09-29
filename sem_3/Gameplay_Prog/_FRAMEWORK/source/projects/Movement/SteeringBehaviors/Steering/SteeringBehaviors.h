@@ -55,6 +55,10 @@ public:
 	virtual ~Flee() = default;
 
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
+	void SetFleeRadius(float fleeRadius) { m_FleeRadius = fleeRadius; }
+
+private:
+	float m_FleeRadius = 10.f;
 };
 
 class Arrive : public ISteeringBehavior
@@ -99,6 +103,15 @@ class Pursuit : public Seek
 public:
 	Pursuit() = default;
 	virtual ~Pursuit() = default;
+
+	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
+};
+
+class Evade : public Flee
+{
+public:
+	Evade() = default;
+	virtual ~Evade() = default;
 
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
 };
