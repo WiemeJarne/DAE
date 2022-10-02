@@ -1,0 +1,34 @@
+﻿  stdafx.cpp
+  EGeometry2DTypes.cpp
+  EInputManager.cpp
+  EMatrix2x3.cpp
+  ERigidBodyBox2D.cpp
+  EPhysicsWorldBox2D.cpp
+  ECamera2D.cpp
+  SDLDebugRenderer2D.cpp
+  SDLFrame.cpp
+  ETimer_SDL.cpp
+  EImmediateUI.cpp
+  SDLWindow.cpp
+  gl3w.c
+  main.cpp
+  App_Sandbox.cpp
+  SandboxAgent.cpp
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Movement\Sandbox\SandboxAgent.cpp(54,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Movement\Sandbox\SandboxAgent.cpp(57,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  App_CombinedSteering.cpp
+  CombinedSteeringBehaviors.cpp
+  App_Flocking.cpp
+  Flock.cpp
+  FlockingSteeringBehaviors.cpp
+  Compiling...
+  App_SteeringBehaviors.cpp
+  Obstacle.cpp
+  SteeringAgent.cpp
+  SteeringBehaviors.cpp
+  BaseAgent.cpp
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Shared\BaseAgent.cpp(43,17): error C2589: '(': illegal token on right side of '::'
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Shared\BaseAgent.cpp(43): error C2062: type 'unknown-type' unexpected
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Shared\BaseAgent.cpp(43,56): error C2059: syntax error: ')'
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Shared\BaseAgent.cpp(43,64): error C2143: syntax error: missing ';' before '{'
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\source\projects\Shared\BaseAgent.cpp(43,64): error C2447: '{': missing function header (old-style formal list?)

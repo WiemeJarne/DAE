@@ -55,10 +55,6 @@ public:
 	virtual ~Flee() = default;
 
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
-	void SetFleeRadius(float fleeRadius) { m_FleeRadius = fleeRadius; }
-
-private:
-	float m_FleeRadius = 10.f;
 };
 
 class Arrive : public ISteeringBehavior
@@ -114,7 +110,9 @@ public:
 	virtual ~Evade() = default;
 
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
+	int GetEvadeRadius() const { return m_EvadeRadius; };
+
+private:
+	const int m_EvadeRadius{ 10 };
 };
 #endif
-
-

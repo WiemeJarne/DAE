@@ -12,7 +12,7 @@ BlendedSteering::BlendedSteering(std::vector<WeightedBehavior> weightedBehaviors
 //BLENDED STEERING
 SteeringOutput BlendedSteering::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	SteeringOutput blendedSteering = {};
+	SteeringOutput blendedSteering{};
 	auto totalWeight = 0.f;
 
 	for (auto weightedBehavior : m_WeightedBehaviors)
@@ -40,7 +40,7 @@ SteeringOutput BlendedSteering::CalculateSteering(float deltaT, SteeringAgent* p
 //PRIORITY STEERING
 SteeringOutput PrioritySteering::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	SteeringOutput steering = {};
+	SteeringOutput steering{};
 
 	for (auto pBehavior : m_PriorityBehaviors)
 	{
