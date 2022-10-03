@@ -22,6 +22,7 @@ Flock::Flock(
 	, m_NrOfNeighbors{0}
 {
 	m_Agents.resize(m_FlockSize);
+	m_Neighbors.resize(m_FlockSize);
 
 	// TODO: initialize the flock and the memory pool
 	m_pSeekBehavior = new Seek();
@@ -39,6 +40,7 @@ Flock::Flock(
 	m_pEvadeBehavior = new Evade();
 	m_pPrioritySteering = new PrioritySteering({ m_pEvadeBehavior, m_pBlendedSteering });
 
+	Vector2 randomPos{};
 	for (size_t index{}; index < m_Agents.size(); ++index)
 	{
 		m_Agents[index] = new SteeringAgent();
@@ -46,6 +48,9 @@ Flock::Flock(
 		m_Agents[index]->SetMaxLinearSpeed(15.f);
 		m_Agents[index]->SetMass(0.f);
 		m_Agents[index]->SetAutoOrient(true);
+		randomPos.x = rand() % static_cast<int>(m_WorldSize);
+		randomPos.y = rand() % static_cast<int>(m_WorldSize);
+		m_Agents[index]->SetPosition(randomPos);
 	}
 
 	m_EnemyAgent = new SteeringAgent();
@@ -54,6 +59,9 @@ Flock::Flock(
 	m_EnemyAgent->SetMass(0.f);
 	m_EnemyAgent->SetAutoOrient(true);
 	m_EnemyAgent->SetBodyColor({ 1.f, 0.f, 0.f });
+	randomPos.x = rand() % static_cast<int>(m_WorldSize);
+	randomPos.y = rand() % static_cast<int>(m_WorldSize);
+	m_EnemyAgent->SetPosition(randomPos);
 }
 
 Flock::~Flock()
@@ -95,11 +103,6 @@ void Flock::Update(float deltaT)
 		if (m_TrimWorld)
 		{
 			m_Agents[index]->TrimToWorld(m_WorldSize);
-		}
-
-		if (index == 0 && m_CanDebugRender)
-		{
-			
 		}
 	}
 
@@ -184,7 +187,6 @@ void Flock::UpdateAndRenderUI()
 	ImGui::SliderFloat("Cohesion", &m_pBlendedSteering->GetWeightedBehaviorsRef()[2].weight, 0.f, 1.f, "%.2");
 	ImGui::SliderFloat("VelocityMatch", &m_pBlendedSteering->GetWeightedBehaviorsRef()[3].weight, 0.f, 1.f, "%.2");
 	ImGui::SliderFloat("Wander", &m_pBlendedSteering->GetWeightedBehaviorsRef()[4].weight, 0.f, 1.f, "%.2");
-	//ImGui::SliderFloat("Evade", &m_pBlendedSteering->GetWeightedBehaviorsRef()[5].weight, 0.f, 1.f, "%.2");
 
 	//End
 	ImGui::PopAllowKeyboardFocus();
@@ -202,7 +204,7 @@ void Flock::RegisterNeighbors(SteeringAgent* pAgent)
 			float distance{ ( m_Agents[index]->GetPosition() - pAgent->GetPosition() ).Magnitude() };
 			if (distance <= m_NeighborhoodRadius)
 			{
-				m_Neighbors.push_back(m_Agents[index]);
+				m_Neighbors[m_NrOfNeighbors] = m_Agents[index];
 				++m_NrOfNeighbors;
 
 				//colors the neighbors of the first agent in the vector green
