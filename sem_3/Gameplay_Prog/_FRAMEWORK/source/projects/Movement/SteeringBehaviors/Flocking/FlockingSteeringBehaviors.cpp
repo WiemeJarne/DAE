@@ -12,8 +12,6 @@ using namespace Elite;
 //COHESION (FLOCKING)
 SteeringOutput Cohesion::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	m_pFlock->RegisterNeighbors(pAgent);
-
 	if (m_pFlock->GetNrOfNeighbors() == 0)
 	{
 		return SteeringOutput{};
@@ -30,8 +28,6 @@ SteeringOutput Cohesion::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 //SEPARATION (FLOCKING)
 SteeringOutput Separation::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	m_pFlock->RegisterNeighbors(pAgent);
-
 	if (m_pFlock->GetNrOfNeighbors() == 0)
 	{
 		return SteeringOutput{};
