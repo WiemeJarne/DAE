@@ -187,7 +187,6 @@ void Flock::UpdateAndRenderUI()
 	ImGui::SliderFloat("Cohesion", &m_pBlendedSteering->GetWeightedBehaviorsRef()[2].weight, 0.f, 1.f, "%.2");
 	ImGui::SliderFloat("VelocityMatch", &m_pBlendedSteering->GetWeightedBehaviorsRef()[3].weight, 0.f, 1.f, "%.2");
 	ImGui::SliderFloat("Wander", &m_pBlendedSteering->GetWeightedBehaviorsRef()[4].weight, 0.f, 1.f, "%.2");
-	//ImGui::SliderFloat("Evade", &m_pBlendedSteering->GetWeightedBehaviorsRef()[5].weight, 0.f, 1.f, "%.2");
 
 	//End
 	ImGui::PopAllowKeyboardFocus();
