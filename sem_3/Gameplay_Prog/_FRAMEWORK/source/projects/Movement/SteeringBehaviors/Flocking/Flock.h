@@ -38,8 +38,6 @@ private:
 	std::vector<SteeringAgent*> m_Agents;
 	std::vector<SteeringAgent*> m_Neighbors;
 
-	SteeringAgent* m_EnemyAgent;
-
 	bool m_CanDebugRender = false;
 	bool m_TrimWorld = false;
 	float m_TrimWorldSize = 25.f;

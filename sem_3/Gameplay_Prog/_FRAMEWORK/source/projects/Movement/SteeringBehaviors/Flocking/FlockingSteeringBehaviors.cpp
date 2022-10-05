@@ -4,22 +4,21 @@
 #include "../SteeringAgent.h"
 #include "../SteeringHelpers.h"
 
-#include <iostream>
-
 using namespace Elite;
 
 //*******************
 //COHESION (FLOCKING)
 SteeringOutput Cohesion::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	m_pFlock->RegisterNeighbors(pAgent);
+	SteeringOutput steering{};
 
 	if (m_pFlock->GetNrOfNeighbors() == 0)
 	{
-		return SteeringOutput{};
+		steering.IsValid = false;
+		return steering;
 	}
 
-	Vector2 averageNeighborPos{ m_pFlock->GetAverageNeighborPos() };
+	const Vector2 averageNeighborPos{ m_pFlock->GetAverageNeighborPos() };
 
 	m_Target = averageNeighborPos;
 
@@ -30,26 +29,17 @@ SteeringOutput Cohesion::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 //SEPARATION (FLOCKING)
 SteeringOutput Separation::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	m_pFlock->RegisterNeighbors(pAgent);
+	SteeringOutput steering{};
 
 	if (m_pFlock->GetNrOfNeighbors() == 0)
 	{
-		return SteeringOutput{};
+		steering.IsValid = false;
+		return steering;
 	}
 
-	std::vector<SteeringAgent*> neighbors{ m_pFlock->GetNeighbors() };
+	const Vector2 averageNeighborPos{ m_pFlock->GetAverageNeighborPos() };
 
-	Vector2 velocity{};
-	const int nrOfNeightbors{ m_pFlock->GetNrOfNeighbors() };
-
-	for (int index{}; index < nrOfNeightbors; ++index)
-	{
-		Vector2 fromNeighbor{ pAgent->GetPosition() - neighbors[index]->GetPosition() };
-		
-		velocity += fromNeighbor;
-	}
-	
-	m_Target.LinearVelocity = velocity;
+	m_Target = averageNeighborPos;
 
 	return Flee::CalculateSteering(deltaT, pAgent);
 }
@@ -58,11 +48,12 @@ SteeringOutput Separation::CalculateSteering(float deltaT, SteeringAgent* pAgent
 //VELOCITY MATCH (FLOCKING)
 SteeringOutput VelocityMatch::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 {
-	m_pFlock->RegisterNeighbors(pAgent);
+	SteeringOutput steering{};
 
 	if (m_pFlock->GetNrOfNeighbors() == 0)
 	{
-		return SteeringOutput{};
+		steering.IsValid = false;
+		return steering;
 	}
 
 	pAgent->SetLinearVelocity(m_pFlock->GetAverageNeighborVelocity() );

@@ -57,7 +57,7 @@ public:
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
 };
 
-class Arrive : public ISteeringBehavior
+class Arrive final : public ISteeringBehavior
 {
 public:
 	Arrive() = default;
@@ -66,7 +66,7 @@ public:
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
 };
 
-class Face : public ISteeringBehavior
+class Face final : public ISteeringBehavior
 {
 public:
 	Face() = default;
@@ -75,7 +75,7 @@ public:
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
 };
 
-class Wander : public Seek
+class Wander final : public Seek
 {
 public:
 	Wander() = default;
@@ -94,7 +94,7 @@ protected:
 	float m_WanderAngle{ 0.f };
 };
 
-class Pursuit : public Seek
+class Pursuit final : public Seek
 {
 public:
 	Pursuit() = default;
@@ -103,7 +103,7 @@ public:
 	SteeringOutput CalculateSteering(float deltaT, SteeringAgent* pAgent) override;
 };
 
-class Evade : public Flee
+class Evade final : public Flee
 {
 public:
 	Evade() = default;

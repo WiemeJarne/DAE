@@ -22,6 +22,7 @@ Flock::Flock(
 	, m_NrOfNeighbors{0}
 {
 	m_Agents.resize(m_FlockSize);
+	m_Neighbors.resize(m_FlockSize);
 
 	// TODO: initialize the flock and the memory pool
 	m_pSeekBehavior = new Seek();
@@ -30,7 +31,7 @@ Flock::Flock(
 	m_pVelMatchBehavior = new VelocityMatch(this);
 	m_pWanderBehavior = new Wander();
 
-	m_pBlendedSteering = new BlendedSteering({   {m_pSeekBehavior, 0.2f},
+	m_pBlendedSteering = new BlendedSteering({{m_pSeekBehavior, 0.2f},
 												 {m_pSeparationBehavior, 0.2f},
 											     {m_pCohesionBehavior, 0.2f},
 												 {m_pVelMatchBehavior, 0.2f},
@@ -39,6 +40,7 @@ Flock::Flock(
 	m_pEvadeBehavior = new Evade();
 	m_pPrioritySteering = new PrioritySteering({ m_pEvadeBehavior, m_pBlendedSteering });
 
+	Vector2 randomPos{};
 	for (size_t index{}; index < m_Agents.size(); ++index)
 	{
 		m_Agents[index] = new SteeringAgent();
@@ -46,14 +48,20 @@ Flock::Flock(
 		m_Agents[index]->SetMaxLinearSpeed(15.f);
 		m_Agents[index]->SetMass(0.f);
 		m_Agents[index]->SetAutoOrient(true);
+		randomPos.x = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
+		randomPos.y = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
+		m_Agents[index]->SetPosition(randomPos);
 	}
 
-	m_EnemyAgent = new SteeringAgent();
-	m_EnemyAgent->SetSteeringBehavior(m_pSeekBehavior);
-	m_EnemyAgent->SetMaxLinearSpeed(15.f);
-	m_EnemyAgent->SetMass(0.f);
-	m_EnemyAgent->SetAutoOrient(true);
-	m_EnemyAgent->SetBodyColor({ 1.f, 0.f, 0.f });
+	m_pAgentToEvade = new SteeringAgent();
+	m_pAgentToEvade->SetSteeringBehavior(m_pSeekBehavior);
+	m_pAgentToEvade->SetMaxLinearSpeed(15.f);
+	m_pAgentToEvade->SetMass(0.f);
+	m_pAgentToEvade->SetAutoOrient(true);
+	m_pAgentToEvade->SetBodyColor({ 1.f, 0.f, 0.f });
+	randomPos.x = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
+	randomPos.y = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
+	m_pAgentToEvade->SetPosition(randomPos);
 }
 
 Flock::~Flock()
@@ -75,13 +83,13 @@ Flock::~Flock()
 	}
 	m_Agents.clear();
 
-	SAFE_DELETE(m_EnemyAgent);
+	SAFE_DELETE(m_pAgentToEvade);
 }
 
 void Flock::Update(float deltaT)
 {
-	m_EnemyAgent->Update(deltaT);
-	m_pEvadeBehavior->SetTarget(m_EnemyAgent->GetPosition());
+	m_pAgentToEvade->Update(deltaT);
+	m_pEvadeBehavior->SetTarget(m_pAgentToEvade->GetPosition());
 
 	// TODO: update the flock
 	// loop over all the agents
@@ -96,17 +104,12 @@ void Flock::Update(float deltaT)
 		{
 			m_Agents[index]->TrimToWorld(m_WorldSize);
 		}
-
-		if (index == 0 && m_CanDebugRender)
-		{
-			
-		}
 	}
 
 	if (m_CanDebugRender)
 	{
-		Vector2 agentPosition{ m_Agents[0]->GetPosition() };
-		Vector2 agentDirection{ m_Agents[0]->GetDirection() };
+		const Vector2 agentPosition{ m_Agents[0]->GetPosition() };
+		const Vector2 agentDirection{ m_Agents[0]->GetDirection() };
 
 		//colors the first agent in the vector blue
 		m_Agents[0]->SetBodyColor({ 0.f, 0.f, 1.f });
@@ -118,7 +121,7 @@ void Flock::Update(float deltaT)
 		DEBUGRENDERER2D->DrawCircle(agentPosition, m_NeighborhoodRadius, { 1.f, 1.f, 1.f }, 0.f);
 
 		//draw the evading circle
-		DEBUGRENDERER2D->DrawCircle(m_EnemyAgent->GetPosition(), m_pEvadeBehavior->GetEvadeRadius(), { 1.f, 0.f, 0.f }, 0.f);
+		DEBUGRENDERER2D->DrawCircle(m_pAgentToEvade->GetPosition(), static_cast<float>(m_pEvadeBehavior->GetEvadeRadius()), { 1.f, 0.f, 0.f }, 0.f);
 	}
 }
 
@@ -130,7 +133,7 @@ void Flock::Render(float deltaT)
 		m_Agents[index]->Render(deltaT);
 	}
 
-	m_EnemyAgent->Render(deltaT);
+	m_pAgentToEvade->Render(deltaT);
 }
 
 void Flock::UpdateAndRenderUI()
@@ -199,10 +202,10 @@ void Flock::RegisterNeighbors(SteeringAgent* pAgent)
 	{
 		if (m_Agents[index] && (pAgent != m_Agents[index]) )
 		{
-			float distance{ ( m_Agents[index]->GetPosition() - pAgent->GetPosition() ).Magnitude() };
+			const float distance{ ( m_Agents[index]->GetPosition() - pAgent->GetPosition() ).Magnitude() };
 			if (distance <= m_NeighborhoodRadius)
 			{
-				m_Neighbors.push_back(m_Agents[index]);
+				m_Neighbors[m_NrOfNeighbors] = m_Agents[index];
 				++m_NrOfNeighbors;
 
 				//colors the neighbors of the first agent in the vector green
@@ -211,7 +214,6 @@ void Flock::RegisterNeighbors(SteeringAgent* pAgent)
 					m_Agents[index]->SetBodyColor({ 0.f, 1.f, 0.f });
 				}
 			}
-
 			else if (m_CanDebugRender && pAgent == m_Agents[0])
 			{
 				//colors the not neighbors yellow
