@@ -90,7 +90,7 @@ public:
 protected:
 	float m_OffsetDistance{ 6.f }; //offset in agent direction
 	float m_Radius{ 4.f }; //wanderRadius
-	float m_MaxAngleChange{ 15 }; //max wanderingAngle change per frame
+	float m_MaxAngleChange{ 15.f }; //max wanderingAngle change per frame
 	float m_WanderAngle{ 0.f };
 };
 

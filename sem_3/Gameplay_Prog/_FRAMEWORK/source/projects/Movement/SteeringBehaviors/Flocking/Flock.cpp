@@ -4,6 +4,7 @@
 #include "../SteeringAgent.h"
 #include "../Steering/SteeringBehaviors.h"
 #include "../CombinedSteering/CombinedSteeringBehaviors.h"
+#include "../SpacePartitioning/SpacePartitioning.h"
 
 using namespace Elite;
 
@@ -24,6 +25,8 @@ Flock::Flock(
 	m_Agents.resize(m_FlockSize);
 	m_Neighbors.resize(m_FlockSize);
 
+	m_CellSpace = new CellSpace(m_WorldSize, m_WorldSize, 10, 10, 100);
+
 	// TODO: initialize the flock and the memory pool
 	m_pSeekBehavior = new Seek();
 	m_pSeparationBehavior = new Separation(this);
@@ -41,6 +44,7 @@ Flock::Flock(
 	m_pPrioritySteering = new PrioritySteering({ m_pEvadeBehavior, m_pBlendedSteering });
 
 	Vector2 randomPos{};
+	Vector2 randomLinearVelocity{};
 	for (size_t index{}; index < m_Agents.size(); ++index)
 	{
 		m_Agents[index] = new SteeringAgent();
@@ -51,6 +55,11 @@ Flock::Flock(
 		randomPos.x = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
 		randomPos.y = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
 		m_Agents[index]->SetPosition(randomPos);
+		randomLinearVelocity.x = static_cast<float>(rand() % static_cast<int>(m_Agents[index]->GetMaxLinearSpeed()));
+		randomLinearVelocity.y = static_cast<float>(rand() % static_cast<int>(m_Agents[index]->GetMaxLinearSpeed()));
+		m_Agents[index]->SetLinearVelocity(randomLinearVelocity);
+
+		m_CellSpace->AddAgent(m_Agents[index]);
 	}
 
 	m_pAgentToEvade = new SteeringAgent();
@@ -62,11 +71,17 @@ Flock::Flock(
 	randomPos.x = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
 	randomPos.y = static_cast<float>(rand() % static_cast<int>(m_WorldSize));
 	m_pAgentToEvade->SetPosition(randomPos);
+
+	
+
 }
 
 Flock::~Flock()
 {
 	// TODO: clean up any additional data
+	m_CellSpace->EmptyCells();
+	SAFE_DELETE(m_CellSpace);
+
 	SAFE_DELETE(m_pSeekBehavior);
 	SAFE_DELETE(m_pSeparationBehavior);
 	SAFE_DELETE(m_pCohesionBehavior);
@@ -134,6 +149,8 @@ void Flock::Render(float deltaT)
 	}
 
 	m_pAgentToEvade->Render(deltaT);
+
+	m_CellSpace->RenderCells();
 }
 
 void Flock::UpdateAndRenderUI()
@@ -176,11 +193,6 @@ void Flock::UpdateAndRenderUI()
 
 	// TODO: Implement checkboxes for debug rendering and weight sliders here
 	ImGui::Checkbox("Debug Rendering", &m_CanDebugRender);
-	ImGui::Checkbox("Trim World", &m_TrimWorld);
-	if (m_TrimWorld)
-	{
-		ImGui::SliderFloat("Trim Size", &m_TrimWorldSize, 0.f, 500.f, "%1.");
-	}
 	
 	ImGui::SliderFloat("Seek", &m_pBlendedSteering->GetWeightedBehaviorsRef()[0].weight, 0.f, 1.f, "%.2");
 	ImGui::SliderFloat("Separation", &m_pBlendedSteering->GetWeightedBehaviorsRef()[1].weight, 0.f, 1.f, "%.2");

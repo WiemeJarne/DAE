@@ -159,16 +159,9 @@ SteeringOutput Wander::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 
 	m_WanderAngle = float(rand() % (maxWanderAngle - minWanderAngle) + minWanderAngle);
 	
-	while (m_WanderAngle > 360 || m_WanderAngle < -360)
+	while (m_WanderAngle > 360)
 	{
-		if (m_WanderAngle > 360)
-		{
-			m_WanderAngle -= 360;
-		}
-		else
-		{
-			m_WanderAngle += 360;
-		}
+		m_WanderAngle -= 360;
 	}
 
 	Vector2 randomPointOnCircle{};
