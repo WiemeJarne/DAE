@@ -18,9 +18,7 @@ SteeringOutput Cohesion::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 		return steering;
 	}
 
-	const Vector2 averageNeighborPos{ m_pFlock->GetAverageNeighborPos() };
-
-	m_Target = averageNeighborPos;
+	m_Target = m_pFlock->GetAverageNeighborPos();
 
 	return Seek::CalculateSteering(deltaT, pAgent);
 }
@@ -37,9 +35,7 @@ SteeringOutput Separation::CalculateSteering(float deltaT, SteeringAgent* pAgent
 		return steering;
 	}
 
-	const Vector2 averageNeighborPos{ m_pFlock->GetAverageNeighborPos() };
-
-	m_Target = averageNeighborPos;
+	m_Target = m_pFlock->GetAverageNeighborPos();
 
 	return Flee::CalculateSteering(deltaT, pAgent);
 }
@@ -56,7 +52,7 @@ SteeringOutput VelocityMatch::CalculateSteering(float deltaT, SteeringAgent* pAg
 		return steering;
 	}
 
-	pAgent->SetLinearVelocity(m_pFlock->GetAverageNeighborVelocity() );
+	m_Target = m_pFlock->GetAverageNeighborVelocity() * pAgent->GetMaxLinearSpeed();
 	
-	return SteeringOutput{};
+	return steering;
 }

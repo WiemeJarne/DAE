@@ -48,7 +48,7 @@ public:
 	//empties the cells of entities
 	void EmptyCells();
 
-	void RenderCells()const;
+	void RenderCells() const;
 
 private:
 	// Cells and properties
@@ -62,7 +62,7 @@ private:
 
 	float m_CellWidth;
 	float m_CellHeight;
-
+	int amountOfAgents{};
 	// Members to avoid memory allocation on every frame
 	std::vector<SteeringAgent*> m_Neighbors;
 	int m_NrOfNeighbors;

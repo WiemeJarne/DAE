@@ -20,7 +20,7 @@ public:
 	~Flock();
 
 	void Update(float deltaT);
-	void UpdateAndRenderUI() ;
+	void UpdateAndRenderUI();
 	void Render(float deltaT);
 
 	void RegisterNeighbors(SteeringAgent* pAgent);
@@ -39,6 +39,7 @@ private:
 	std::vector<SteeringAgent*> m_Agents;
 	std::vector<SteeringAgent*> m_Neighbors;
 
+	bool m_SpatialPartitioning = true;
 	bool m_CanDebugRender = false;
 	bool m_TrimWorld = false;
 	float m_TrimWorldSize = 25.f;
