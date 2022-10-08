@@ -157,7 +157,7 @@ SteeringOutput Wander::CalculateSteering(float deltaT, SteeringAgent* pAgent)
 	const int maxWanderAngle{ int(m_WanderAngle + m_MaxAngleChange) + 360 };
 	const int minWanderAngle{ int(m_WanderAngle - m_MaxAngleChange) + 360 };
 
-	m_WanderAngle = float(rand() % (maxWanderAngle - minWanderAngle) + minWanderAngle);
+	m_WanderAngle = static_cast<float>(rand() % (maxWanderAngle - minWanderAngle) + minWanderAngle);
 	
 	while (m_WanderAngle > 360)
 	{

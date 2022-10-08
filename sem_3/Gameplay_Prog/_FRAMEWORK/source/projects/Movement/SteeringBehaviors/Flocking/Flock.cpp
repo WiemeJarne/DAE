@@ -112,20 +112,20 @@ void Flock::Update(float deltaT)
 	{
 		if (m_SpatialPartitioning)
 		{
-			/*if(index == 0)
+			if(index == 0)
 			{
-				std::cout << m_Agents[index]->GetPosition() << '\t';
-			}*/
+				std::cout << m_Agents[0]->GetPosition() << '\t';
+			}
 
-			m_CellSpace->RegisterNeighbors(m_Agents[index], m_NeighborhoodRadius);
 			const Vector2 agentOldPos{ m_Agents[index]->GetPosition() };
+			m_CellSpace->RegisterNeighbors(m_Agents[index], m_NeighborhoodRadius);
 			m_Agents[index]->Update(deltaT);
 			m_CellSpace->UpdateAgentCell(m_Agents[index], agentOldPos);
 			
-			/*if (index == 0)
+			if (index == 0)
 			{
-				std::cout << m_Agents[index]->GetPosition() << '\n';
-			}*/
+				std::cout << m_Agents[0]->GetPosition() << '\n';
+			}
 		}
 		else
 		{
