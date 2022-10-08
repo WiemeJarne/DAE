@@ -24,8 +24,8 @@ public:
 	void Render(float deltaT);
 
 	void RegisterNeighbors(SteeringAgent* pAgent);
-	int GetNrOfNeighbors() const { return m_NrOfNeighbors; }
-	const std::vector<SteeringAgent*>& GetNeighbors() const { return m_Neighbors; }
+	int GetNrOfNeighbors() const;
+	const std::vector<SteeringAgent*>& GetNeighbors() const;
 
 	Elite::Vector2 GetAverageNeighborPos() const;
 	Elite::Vector2 GetAverageNeighborVelocity() const;

@@ -69,7 +69,8 @@ void CellSpace::UpdateAgentCell(SteeringAgent* agent, Elite::Vector2 oldPos)
 
 	if(newIndex != previousIndex)
 	{
-		for(const SteeringAgent* otherAgent : m_Cells[previousIndex].agents)
+		const Cell priviousCell{ m_Cells[previousIndex] };
+		for(const SteeringAgent* otherAgent : priviousCell.agents)
 		{
 			if(otherAgent == agent)
 			{
@@ -120,7 +121,8 @@ void CellSpace::RegisterNeighbors(SteeringAgent* agent, float queryRadius)
 	{
 		for (int colNr{ topAndBottomLeftCellColNr }; colNr < topAndBottomRightCellColNr; ++colNr)
 		{
-			for (SteeringAgent* otherAgent : m_Cells[rowNr * m_NrOfCols + colNr].agents)
+			const Cell cell{ m_Cells[rowNr * m_NrOfCols + colNr] };
+			for (SteeringAgent* otherAgent : cell.agents)
 			{
 				if (otherAgent != agent)
 				{

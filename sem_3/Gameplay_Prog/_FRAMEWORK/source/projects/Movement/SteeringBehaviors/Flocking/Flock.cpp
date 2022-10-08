@@ -45,7 +45,7 @@ Flock::Flock(
 	
 	Vector2 randomPos{};
 	Vector2 randomLinearVelocity{};
-	for (size_t index{}; index < m_FlockSize; ++index)
+	for (int index{}; index < m_FlockSize; ++index)
 	{
 		m_Agents[index] = new SteeringAgent();
 		m_Agents[index]->SetSteeringBehavior(m_pPrioritySteering);
@@ -112,20 +112,15 @@ void Flock::Update(float deltaT)
 	{
 		if (m_SpatialPartitioning)
 		{
-			if(index == 0)
-			{
-				std::cout << m_Agents[0]->GetPosition() << '\t';
-			}
-
-			const Vector2 agentOldPos{ m_Agents[index]->GetPosition() };
 			m_CellSpace->RegisterNeighbors(m_Agents[index], m_NeighborhoodRadius);
 			m_Agents[index]->Update(deltaT);
-			m_CellSpace->UpdateAgentCell(m_Agents[index], agentOldPos);
-			
-			if (index == 0)
+
+			if (m_Agents[index]->GetPriviousPos() != Vector2{0, 0})
 			{
-				std::cout << m_Agents[0]->GetPosition() << '\n';
+				m_CellSpace->UpdateAgentCell(m_Agents[index], m_Agents[index]->GetPriviousPos());
 			}
+
+			m_Agents[index]->SetPreviousPos(m_Agents[index]->GetPosition());
 		}
 		else
 		{
@@ -175,12 +170,12 @@ void Flock::Update(float deltaT)
 void Flock::Render(float deltaT)
 {
 	// TODO: render the flock
-	for (size_t index{}; index < m_Agents.size(); ++index)
+	/*for (size_t index{}; index < m_Agents.size(); ++index)
 	{
 		m_Agents[index]->Render(deltaT);
 	}
 
-	m_pAgentToEvade->Render(deltaT);
+	m_pAgentToEvade->Render(deltaT);*/
 
 	if(m_CanDebugRender && m_SpatialPartitioning)
 	{
@@ -270,16 +265,52 @@ void Flock::RegisterNeighbors(SteeringAgent* pAgent)
 	}
 }
 
+int Flock::GetNrOfNeighbors() const
+{
+	if (m_SpatialPartitioning)
+	{
+		return m_CellSpace->GetNrOfNeighbors();
+	}
+
+	return m_NrOfNeighbors;
+}
+
+const std::vector<SteeringAgent*>& Flock::GetNeighbors() const
+{
+	if (m_SpatialPartitioning)
+	{
+		return m_CellSpace->GetNeighbors();
+	}
+
+	return m_Neighbors;
+}
+
 Elite::Vector2 Flock::GetAverageNeighborPos() const
 {
 	Vector2 averageNeighborPos{};
+	int nrOfNeighbours{};
+	std::vector<SteeringAgent*> neighbors{};
 
-	for (int index{}; index < m_NrOfNeighbors; ++index)
+	if (m_SpatialPartitioning)
 	{
-		averageNeighborPos += m_Neighbors[index]->GetPosition();
+		nrOfNeighbours = m_CellSpace->GetNrOfNeighbors();
+		neighbors = m_CellSpace->GetNeighbors();
+	}
+	else
+	{
+		nrOfNeighbours = m_NrOfNeighbors;
+		neighbors = m_Neighbors;
 	}
 
-	averageNeighborPos /= static_cast<float>(m_NrOfNeighbors);
+	for (int index{}; index < nrOfNeighbours; ++index)
+	{
+		if (index < neighbors.size())
+		{
+			averageNeighborPos += neighbors[index]->GetPosition();
+		}
+	}
+
+	averageNeighborPos /= static_cast<float>(nrOfNeighbours);
 
 	return averageNeighborPos;
 }
@@ -287,13 +318,29 @@ Elite::Vector2 Flock::GetAverageNeighborPos() const
 Elite::Vector2 Flock::GetAverageNeighborVelocity() const
 {
 	Vector2 averageNeighborVelocity{};
+	int nrOfNeighbours{};
+	std::vector<SteeringAgent*> neighbors{};
 
-	for (int index{}; index < m_NrOfNeighbors; ++index)
+	if (m_SpatialPartitioning)
 	{
-		averageNeighborVelocity += m_Neighbors[index]->GetLinearVelocity();
+		nrOfNeighbours = m_CellSpace->GetNrOfNeighbors();
+		neighbors = m_CellSpace->GetNeighbors();
+	}
+	else
+	{
+		nrOfNeighbours = m_NrOfNeighbors;
+		neighbors = m_Neighbors;
 	}
 
-	averageNeighborVelocity /= static_cast<float>(m_NrOfNeighbors);
+	for (int index{}; index < nrOfNeighbours; ++index)
+	{
+		if (index < neighbors.size())
+		{
+			averageNeighborVelocity += neighbors[index]->GetLinearVelocity();
+		}
+	}
+
+	averageNeighborVelocity /= static_cast<float>(nrOfNeighbours);
 	averageNeighborVelocity.Normalize();
 
 	return averageNeighborVelocity;
