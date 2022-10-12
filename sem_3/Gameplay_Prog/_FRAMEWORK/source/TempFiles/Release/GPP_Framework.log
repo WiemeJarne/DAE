@@ -1,10 +1,9 @@
 ﻿  main.cpp
-  CombinedSteeringBehaviors.cpp
   App_Flocking.cpp
   Generating code
-  2 of 1877 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 1877 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   GPP_Framework.vcxproj -> C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\_FRAMEWORK\bin\Release\GPP_Framework.exe
   0 File(s) copied
