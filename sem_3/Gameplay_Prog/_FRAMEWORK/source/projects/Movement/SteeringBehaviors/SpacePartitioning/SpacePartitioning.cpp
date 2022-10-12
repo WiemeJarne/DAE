@@ -69,8 +69,8 @@ void CellSpace::UpdateAgentCell(SteeringAgent* agent, Elite::Vector2 oldPos)
 
 	if(newIndex != previousIndex)
 	{
-		const Cell priviousCell{ m_Cells[previousIndex] };
-		for(const SteeringAgent* otherAgent : priviousCell.agents)
+		const Cell PreviousCell{ m_Cells[previousIndex] };
+		for(const SteeringAgent* otherAgent : PreviousCell.agents)
 		{
 			if(otherAgent == agent)
 			{

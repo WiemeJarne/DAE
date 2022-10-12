@@ -43,8 +43,8 @@ public:
 	void SetRenderBehavior(bool isEnabled) { m_RenderBehavior = isEnabled; }
 	bool CanRenderBehavior() const { return m_RenderBehavior; }
 
-	void SetPreviousPos(Elite::Vector2 pos) { m_PreviousPos = pos; };
-	Elite::Vector2 GetPriviousPos() { return m_PreviousPos; };
+	void SetPreviousPos(Elite::Vector2 pos) { m_PreviousPos = pos; }
+	Elite::Vector2 GetPriviousPos() { return m_PreviousPos; }
 
 protected:
 	//--- Datamembers ---
