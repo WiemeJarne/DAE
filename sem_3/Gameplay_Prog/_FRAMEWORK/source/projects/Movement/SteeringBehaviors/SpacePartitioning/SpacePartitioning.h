@@ -36,14 +36,12 @@ struct Cell
 class CellSpace
 {
 public:
-	CellSpace(float width, float height, int rows, int cols, int maxEntities);
+	CellSpace(float width, float height, int rows, int cols);
 
 	void AddAgent(SteeringAgent* agent);
-	void UpdateAgentCell(SteeringAgent* agent, Elite::Vector2 oldPos);
+	void UpdateAgentCell(SteeringAgent* agent);
 
-	void RegisterNeighbors(SteeringAgent* agent, float queryRadius);
-	const std::vector<SteeringAgent*>& GetNeighbors() const { return m_Neighbors; }
-	int GetNrOfNeighbors() const { return m_NrOfNeighbors; }
+	void RegisterNeighbors(SteeringAgent* agent, float queryRadius, std::vector<SteeringAgent*>& neighbors, int& nrOfNeighbors) const;
 
 	//empties the cells of entities
 	void EmptyCells();
@@ -62,10 +60,6 @@ private:
 
 	float m_CellWidth;
 	float m_CellHeight;
-	int amountOfAgents{};
-	// Members to avoid memory allocation on every frame
-	std::vector<SteeringAgent*> m_Neighbors;
-	int m_NrOfNeighbors;
 
 	// Helper functions
 	int PositionToIndex(const Elite::Vector2 pos) const;

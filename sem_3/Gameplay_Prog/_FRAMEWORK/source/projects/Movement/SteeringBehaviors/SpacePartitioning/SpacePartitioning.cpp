@@ -31,13 +31,11 @@ std::vector<Elite::Vector2> Cell::GetRectPoints() const
 
 // --- Partitioned Space ---
 // -------------------------
-CellSpace::CellSpace(float width, float height, int rows, int cols, int maxEntities)
+CellSpace::CellSpace(float width, float height, int rows, int cols)
 	: m_SpaceWidth(width)
 	, m_SpaceHeight(height)
 	, m_NrOfRows(rows)
 	, m_NrOfCols(cols)
-	, m_Neighbors(maxEntities)
-	, m_NrOfNeighbors(0)
 	, m_CellWidth(width / cols)
 	, m_CellHeight(height / rows)
 {
@@ -62,95 +60,51 @@ void CellSpace::AddAgent(SteeringAgent* agent)
 	m_Cells[index].agents.push_back(agent);
 }
 
-void CellSpace::UpdateAgentCell(SteeringAgent* agent, Elite::Vector2 oldPos)
+void CellSpace::UpdateAgentCell(SteeringAgent* agent)
 {
 	const int newIndex{ PositionToIndex(agent->GetPosition()) };
-	const int previousIndex{ PositionToIndex(oldPos) };
+	const int previousIndex{ PositionToIndex(agent->GetPreviousPos()) };
 
 	if(newIndex != previousIndex)
 	{
-		const Cell PreviousCell{ m_Cells[previousIndex] };
-		for(const SteeringAgent* otherAgent : PreviousCell.agents)
-		{
-			if(otherAgent == agent)
-			{
-				m_Cells[previousIndex].agents.remove(agent);
-			}
-		}
+		m_Cells[previousIndex].agents.remove(agent);
+
 		m_Cells[newIndex].agents.push_back(agent);
 	}
 }
 
-void CellSpace::RegisterNeighbors(SteeringAgent* agent, float queryRadius)
+void CellSpace::RegisterNeighbors(SteeringAgent* agent, float queryRadius, std::vector<SteeringAgent*>& neighbors, int& nrOfNeighbors) const
 {
-	m_NrOfNeighbors = 0;
-	const int agentCellIndex{ PositionToIndex(agent->GetPosition()) };
+	nrOfNeighbors = 0;
 
-	Elite::Rect agentBoundingBox{};
-	agentBoundingBox.bottomLeft.x = agent->GetPosition().x - queryRadius;
-	agentBoundingBox.bottomLeft.y = agent->GetPosition().y - queryRadius;
-	agentBoundingBox.width = queryRadius * 2;
-	agentBoundingBox.height = queryRadius * 2;
+	const Elite::Vector2 agentPos{ agent->GetPosition() };
 
-	int topAndBottomLeftCellColNr = static_cast<int>(agentBoundingBox.bottomLeft.x / m_CellWidth);
-	int topLeftAndRightCellRowNr = static_cast<int>((agentBoundingBox.bottomLeft.y + agentBoundingBox.height) / m_CellHeight);
-	int topAndBottomRightCellColNr = static_cast<int>((agentBoundingBox.bottomLeft.x + agentBoundingBox.width) / m_CellWidth);
-	int bottomLeftAndRightCellRowNr = static_cast<int>(agentBoundingBox.bottomLeft.y / m_CellHeight);
+	const int bottomLeftCellIndex{ PositionToIndex({agentPos.x - queryRadius, agentPos.y - queryRadius}) };
+	const int topRightCellIndex{ PositionToIndex({agentPos.x + queryRadius, agentPos.y + queryRadius}) };
 
-	if (topAndBottomLeftCellColNr < 0)
+	const int bottomLeftCellRowNr = bottomLeftCellIndex % m_NrOfRows;
+	const int bottomLeftCellColNr = bottomLeftCellIndex / m_NrOfCols;
+
+	const int topRightCellRowNr = topRightCellIndex % m_NrOfRows;
+	const int topRightCellColNr = topRightCellIndex / m_NrOfCols;
+
+	for (int rowNr{ bottomLeftCellRowNr }; rowNr <= topRightCellRowNr; ++rowNr)
 	{
-		topAndBottomLeftCellColNr = 0;
-	}
-
-	if(topLeftAndRightCellRowNr > m_NrOfRows)
-	{
-		topLeftAndRightCellRowNr = m_NrOfRows;
-	}
-
-	if(topAndBottomRightCellColNr > m_NrOfCols)
-	{
-		topAndBottomRightCellColNr = m_NrOfCols;
-	}
-
-	if(bottomLeftAndRightCellRowNr < 0)
-	{
-		bottomLeftAndRightCellRowNr = 0;
-	}
-
-	for (int rowNr{ bottomLeftAndRightCellRowNr }; rowNr < topLeftAndRightCellRowNr; ++rowNr)
-	{
-		for (int colNr{ topAndBottomLeftCellColNr }; colNr < topAndBottomRightCellColNr; ++colNr)
+		for (int colNr{ bottomLeftCellColNr }; colNr <= topRightCellColNr; ++colNr)
 		{
-			const Cell cell{ m_Cells[rowNr * m_NrOfCols + colNr] };
+			const int cellIndex{ rowNr + (colNr * m_NrOfCols) };
+
+			const Cell cell{ m_Cells[cellIndex] };
+			
 			for (SteeringAgent* otherAgent : cell.agents)
 			{
-				if (otherAgent != agent)
+				if (otherAgent != agent && (otherAgent->GetPosition() - agent->GetPosition()).Magnitude() <= queryRadius)
 				{
-					if ((otherAgent->GetPosition() - agent->GetPosition()).Magnitude() <= queryRadius)
-					{
-						m_Neighbors[m_NrOfNeighbors] = otherAgent;
-						if(agent->CanRenderBehavior())
-						{
-							DEBUGRENDERER2D->DrawCircle(otherAgent->GetPosition(), otherAgent->GetRadius() + 1, { 0.f, 1.f, 0.f }, 0);
-						}
-						++m_NrOfNeighbors;
-					}
+					neighbors[nrOfNeighbors] = otherAgent;
+					++nrOfNeighbors;
 				}
 			}
 		}
-	}
-	
-	if (agent->CanRenderBehavior())
-	{
-		const std::vector<Elite::Vector2> points{ agentBoundingBox.bottomLeft,
-			Elite::Vector2{agentBoundingBox.bottomLeft.x + agentBoundingBox.width, agentBoundingBox.bottomLeft.y},
-			Elite::Vector2{agentBoundingBox.bottomLeft.x + agentBoundingBox.width, agentBoundingBox.bottomLeft.y + agentBoundingBox.height},
-			Elite::Vector2{agentBoundingBox.bottomLeft.x, agentBoundingBox.bottomLeft.y + agentBoundingBox.height} };
-
-		const auto polygon = new Elite::Polygon{ points };
-		DEBUGRENDERER2D->DrawPolygon(polygon, { 1.f, 1.f, 1.f }, 0.f);
-		delete polygon;
-		DEBUGRENDERER2D->DrawCircle(agent->GetPosition(), queryRadius, { 1.f, 1.f, 1.f }, -1.f);
 	}
 }
 
@@ -165,9 +119,7 @@ void CellSpace::RenderCells() const
 	Elite::Vector2 textPos{ 0, m_CellHeight };
 	for (size_t index{}; index < m_Cells.size(); ++index)
 	{
-		Elite::Polygon* polygon{ new Elite::Polygon(m_Cells[index].GetRectPoints()) };
-		DEBUGRENDERER2D->DrawPolygon(polygon, { 1.f, 0.f, 0.f });
-		delete polygon;
+		DEBUGRENDERER2D->DrawPolygon(&Elite::Polygon(m_Cells[index].GetRectPoints()), {1.f, 0.f, 0.f});
 
 		const int amountOfAgentsInCell{ static_cast<int>(m_Cells[index].agents.size()) };
 		DEBUGRENDERER2D->DrawString( textPos, std::to_string(amountOfAgentsInCell).c_str());

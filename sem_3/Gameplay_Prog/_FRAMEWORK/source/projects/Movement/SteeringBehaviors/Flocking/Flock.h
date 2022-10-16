@@ -30,7 +30,7 @@ public:
 	Elite::Vector2 GetAverageNeighborPos() const;
 	Elite::Vector2 GetAverageNeighborVelocity() const;
 
-	void SetTarget_Seek(TargetData target);
+	void SetSeekTarget(const TargetData& target) const;
 	void SetWorldTrimSize(float size) { m_WorldSize = size; }
 
 private:
@@ -61,9 +61,12 @@ private:
 	BlendedSteering* m_pBlendedSteering = nullptr;
 	PrioritySteering* m_pPrioritySteering = nullptr;
 
-	float* GetWeight(ISteeringBehavior* pBehaviour);
+	
 
-	CellSpace* m_CellSpace = nullptr;
+	void DebugRender() const;
+	float* GetWeight(ISteeringBehavior* pBehaviour) const;
+
+	CellSpace* m_pCellSpace = nullptr;
 
 private:
 	Flock(const Flock& other);

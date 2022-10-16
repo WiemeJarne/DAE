@@ -36,7 +36,7 @@ void App_Flocking::Update(float deltaTime)
 	m_pFlock->UpdateAndRenderUI();
 	m_pFlock->Update(deltaTime);
 	if (m_UseMouseTarget)
-		m_pFlock->SetTarget_Seek(m_MouseTarget);
+		m_pFlock->SetSeekTarget(m_MouseTarget);
 }
 
 void App_Flocking::Render(float deltaTime) const
