@@ -82,10 +82,10 @@ void CellSpace::RegisterNeighbors(SteeringAgent* agent, float queryRadius, std::
 	const int bottomLeftCellIndex{ PositionToIndex({agentPos.x - queryRadius, agentPos.y - queryRadius}) };
 	const int topRightCellIndex{ PositionToIndex({agentPos.x + queryRadius, agentPos.y + queryRadius}) };
 
-	const int bottomLeftCellRowNr = bottomLeftCellIndex % m_NrOfRows;
+	const int bottomLeftCellRowNr = bottomLeftCellIndex % m_NrOfCols;
 	const int bottomLeftCellColNr = bottomLeftCellIndex / m_NrOfCols;
 
-	const int topRightCellRowNr = topRightCellIndex % m_NrOfRows;
+	const int topRightCellRowNr = topRightCellIndex % m_NrOfCols;
 	const int topRightCellColNr = topRightCellIndex / m_NrOfCols;
 
 	for (int rowNr{ bottomLeftCellRowNr }; rowNr <= topRightCellRowNr; ++rowNr)
