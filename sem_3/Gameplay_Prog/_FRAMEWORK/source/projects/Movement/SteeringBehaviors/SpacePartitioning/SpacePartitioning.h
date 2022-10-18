@@ -41,7 +41,7 @@ public:
 	void AddAgent(SteeringAgent* agent);
 	void UpdateAgentCell(SteeringAgent* agent);
 
-	void RegisterNeighbors(SteeringAgent* agent, float queryRadius, std::vector<SteeringAgent*>& neighbors, int& nrOfNeighbors) const;
+	void RegisterNeighbors(const SteeringAgent* agent, float queryRadius, std::vector<SteeringAgent*>& neighbors, int& nrOfNeighbors) const;
 
 	//empties the cells of entities
 	void EmptyCells();

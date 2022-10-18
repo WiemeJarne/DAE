@@ -21,9 +21,9 @@ public:
 
 	void Update(float deltaT);
 	void UpdateAndRenderUI();
-	void Render(float deltaT);
+	void Render(float deltaT) const;
 
-	void RegisterNeighbors(SteeringAgent* pAgent);
+	void RegisterNeighbors(const SteeringAgent* pAgent);
 	int GetNrOfNeighbors() const;
 	const std::vector<SteeringAgent*>& GetNeighbors() const;
 
@@ -61,14 +61,8 @@ private:
 	BlendedSteering* m_pBlendedSteering = nullptr;
 	PrioritySteering* m_pPrioritySteering = nullptr;
 
-	
-
 	void DebugRender() const;
 	float* GetWeight(ISteeringBehavior* pBehaviour) const;
 
 	CellSpace* m_pCellSpace = nullptr;
-
-private:
-	Flock(const Flock& other);
-	Flock& operator=(const Flock& other);
 };

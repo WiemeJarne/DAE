@@ -19,7 +19,7 @@ Flock::Flock(
 	, m_FlockSize{ flockSize }
 	, m_TrimWorld { trimWorld }
 	, m_pAgentToEvade{pAgentToEvade}
-	, m_NeighborhoodRadius{ 15 }
+	, m_NeighborhoodRadius{ 10 }
 	, m_NrOfNeighbors{0}
 {
 	// TODO: initialize the flock and the memory pool
@@ -77,25 +77,25 @@ Flock::~Flock()
 {
 	// TODO: clean up any additional data
 	m_pCellSpace->EmptyCells();
-	SAFE_DELETE(m_pCellSpace);
+	SAFE_DELETE(m_pCellSpace)
 
-	SAFE_DELETE(m_pSeekBehavior);
-	SAFE_DELETE(m_pSeparationBehavior);
-	SAFE_DELETE(m_pCohesionBehavior);
-	SAFE_DELETE(m_pVelMatchBehavior);
-	SAFE_DELETE(m_pWanderBehavior);
-	SAFE_DELETE(m_pEvadeBehavior);
+	SAFE_DELETE(m_pSeekBehavior)
+	SAFE_DELETE(m_pSeparationBehavior)
+	SAFE_DELETE(m_pCohesionBehavior)
+	SAFE_DELETE(m_pVelMatchBehavior)
+	SAFE_DELETE(m_pWanderBehavior)
+	SAFE_DELETE(m_pEvadeBehavior)
 
-	SAFE_DELETE(m_pBlendedSteering);
-	SAFE_DELETE(m_pPrioritySteering);
+	SAFE_DELETE(m_pBlendedSteering)
+	SAFE_DELETE(m_pPrioritySteering)
 
 	for(auto pAgent: m_Agents)
 	{
-		SAFE_DELETE(pAgent);
+		SAFE_DELETE(pAgent)
 	}
 	m_Agents.clear();
 
-	SAFE_DELETE(m_pAgentToEvade);
+	SAFE_DELETE(m_pAgentToEvade)
 }
 
 void Flock::Update(float deltaT)
@@ -133,19 +133,23 @@ void Flock::Update(float deltaT)
 
 		m_Agents[0]->SetRenderBehavior(m_CanDebugRender);
 
-		if(index == 0 && m_CanDebugRender)
+		if(m_CanDebugRender)
 		{
-			DebugRender();
-		}
-	}
+			m_Agents[0]->SetRenderBehavior(true);
 
-	if(m_SpatialPartitioning && m_CanDebugRender)
-	{
-		m_pCellSpace->RenderCells();
+			if(index == 0)
+			{
+				DebugRender();
+			}
+		}
+		else
+		{
+			m_Agents[0]->SetRenderBehavior(false);
+		}
 	}
 }
 
-void Flock::Render(float deltaT)
+void Flock::Render(float deltaT) const
 {
 	// TODO: render the flock
 	/*for (size_t index{}; index < m_Agents.size(); ++index)
@@ -154,11 +158,6 @@ void Flock::Render(float deltaT)
 	}
 
 	m_pAgentToEvade->Render(deltaT);*/
-
-	if(m_CanDebugRender && m_SpatialPartitioning)
-	{
-		m_pCellSpace->RenderCells();
-	}
 }
 
 void Flock::UpdateAndRenderUI()
@@ -214,7 +213,7 @@ void Flock::UpdateAndRenderUI()
 	ImGui::End();
 }
 
-void Flock::RegisterNeighbors(SteeringAgent* pAgent)
+void Flock::RegisterNeighbors(const SteeringAgent* pAgent)
 {
 	m_NrOfNeighbors = 0;
 
@@ -285,15 +284,24 @@ void Flock::DebugRender() const
 	boundingRectPoints.push_back({ m_Agents[0]->GetPosition().x + m_NeighborhoodRadius, m_Agents[0]->GetPosition().y + m_NeighborhoodRadius });
 	boundingRectPoints.push_back({ m_Agents[0]->GetPosition().x - m_NeighborhoodRadius, m_Agents[0]->GetPosition().y + m_NeighborhoodRadius });
 
+	//draws the bounding box of the first agent
 	DEBUGRENDERER2D->DrawPolygon(&Elite::Polygon{ boundingRectPoints }, { 1.f, 1.f, 1.f });
 
+	//draws small circle around the first agent
 	DEBUGRENDERER2D->DrawCircle(m_Agents[0]->GetPosition(), m_Agents[0]->GetRadius() + 1, Color{ 0.f, 1.f, 1.f }, 0.f);
 
+	//draws the neighborhood circle
 	DEBUGRENDERER2D->DrawCircle(m_Agents[0]->GetPosition(), m_NeighborhoodRadius, Color{ 1.f, 1.f, 1.f }, 0.f);
 
+	//draws circles around the neighbors of the first agent
 	for(int index{}; index < m_NrOfNeighbors; ++index)
 	{
 		DEBUGRENDERER2D->DrawCircle(m_Neighbors[index]->GetPosition(), m_Neighbors[index]->GetRadius() + 1, Color(0.f, 1.f, 0.f), 0.f);
+	}
+
+	if (m_SpatialPartitioning)
+	{
+		m_pCellSpace->RenderCells();
 	}
 }
 

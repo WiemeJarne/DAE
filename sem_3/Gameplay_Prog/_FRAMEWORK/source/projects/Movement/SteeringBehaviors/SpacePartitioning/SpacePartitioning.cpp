@@ -73,7 +73,7 @@ void CellSpace::UpdateAgentCell(SteeringAgent* agent)
 	}
 }
 
-void CellSpace::RegisterNeighbors(SteeringAgent* agent, float queryRadius, std::vector<SteeringAgent*>& neighbors, int& nrOfNeighbors) const
+void CellSpace::RegisterNeighbors(const SteeringAgent* agent, float queryRadius, std::vector<SteeringAgent*>& neighbors, int& nrOfNeighbors) const
 {
 	nrOfNeighbors = 0;
 
@@ -104,6 +104,11 @@ void CellSpace::RegisterNeighbors(SteeringAgent* agent, float queryRadius, std::
 					++nrOfNeighbors;
 				}
 			}
+
+			if(agent->CanRenderBehavior())
+			{
+				DEBUGRENDERER2D->DrawPolygon(&Elite::Polygon(cell.GetRectPoints()), Elite::Color{1.f, 1.f, 0.f}, 0.f);
+			}
 		}
 	}
 }
@@ -119,7 +124,7 @@ void CellSpace::RenderCells() const
 	Elite::Vector2 textPos{ 0, m_CellHeight };
 	for (size_t index{}; index < m_Cells.size(); ++index)
 	{
-		DEBUGRENDERER2D->DrawPolygon(&Elite::Polygon(m_Cells[index].GetRectPoints()), {1.f, 0.f, 0.f});
+		DEBUGRENDERER2D->DrawPolygon(&Elite::Polygon(m_Cells[index].GetRectPoints()), {1.f, 0.f, 0.f}, 0.f);
 
 		const int amountOfAgentsInCell{ static_cast<int>(m_Cells[index].agents.size()) };
 		DEBUGRENDERER2D->DrawString( textPos, std::to_string(amountOfAgentsInCell).c_str());

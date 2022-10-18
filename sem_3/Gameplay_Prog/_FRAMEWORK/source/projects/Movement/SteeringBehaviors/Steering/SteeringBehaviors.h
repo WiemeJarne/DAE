@@ -113,6 +113,6 @@ public:
 	int GetEvadeRadius() const { return m_EvadeRadius; };
 
 private:
-	const int m_EvadeRadius{ 10 };
+	const int m_EvadeRadius{ 25 };
 };
 #endif
