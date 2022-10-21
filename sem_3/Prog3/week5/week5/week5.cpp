@@ -195,17 +195,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         HBRUSH blackBrush = CreateSolidBrush(RGB(80, 80, 50));
         HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, blackBrush);
 
-        if (g_PointsVec.size() > 0)
-        {
-            MoveToEx(hdc, g_PointsVec[0].x, g_PointsVec[0].y, 0);
-            Ellipse(hdc, g_PointsVec[0].x - 2, g_PointsVec[0].y - 2, g_PointsVec[0].x + 2, g_PointsVec[0].y + 2);
+        const int amountOfPointPerShape{ 3 };
 
-            for (int count = 1; count < (int)g_PointsVec.size(); ++count)
+        for(int index{}; index < static_cast<int>(g_PointsVec.size()); ++index)
+        {
+            if((index + 1) % amountOfPointPerShape == 1)
             {
-                LineTo(hdc, g_PointsVec[count].x, g_PointsVec[count].y);
-                Ellipse(hdc, g_PointsVec[count].x - 2, g_PointsVec[count].y - 2, g_PointsVec[count].x + 2, g_PointsVec[count].y + 2);
+                MoveToEx(hdc, g_PointsVec[index].x, g_PointsVec[index].y, 0);
+                Ellipse(hdc, g_PointsVec[index].x - 2, g_PointsVec[index].y - 2, g_PointsVec[index].x + 2, g_PointsVec[index].y + 2);
+            }
+            else if((index + 1) % amountOfPointPerShape == 2)
+            {
+                LineTo(hdc, g_PointsVec[index].x, g_PointsVec[index ].y);
+                Ellipse(hdc, g_PointsVec[index].x - 2, g_PointsVec[index].y - 2, g_PointsVec[index].x + 2, g_PointsVec[index].y + 2);
+            }
+            else if((index + 1) % amountOfPointPerShape == 0)
+            {
+                LineTo(hdc, g_PointsVec[index].x, g_PointsVec[index].y);
+                Ellipse(hdc, g_PointsVec[index].x - 2, g_PointsVec[index].y - 2, g_PointsVec[index].x + 2, g_PointsVec[index].y + 2);
+
+            	LineTo(hdc, g_PointsVec[index - 2].x, g_PointsVec[index - 2].y);
+            	Ellipse(hdc, g_PointsVec[index].x - 2, g_PointsVec[index].y - 2, g_PointsVec[index].x + 2, g_PointsVec[index].y + 2);
             }
         }
+
 
         SelectObject(hdc, oldBrush);
         DeleteObject(blackBrush);

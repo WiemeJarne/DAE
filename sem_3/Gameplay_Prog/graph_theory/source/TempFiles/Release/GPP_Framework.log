@@ -1,8 +1,42 @@
-﻿  App_GraphTheory.cpp
+﻿  stdafx.cpp
+  EGraphConnectionTypes.cpp
+  EGraphNodeTypes.cpp
+  EGraphEditor.cpp
+  EGraphRenderer.cpp
+  EGeometry2DTypes.cpp
+  EInputManager.cpp
+  EMatrix2x3.cpp
+  EPhysicsWorldBox2D.cpp
+  ERigidBodyBox2D.cpp
+  ECamera2D.cpp
+  SDLDebugRenderer2D.cpp
+  SDLFrame.cpp
+  gl3w.c
+  ETimer_SDL.cpp
+  EImmediateUI.cpp
+  SDLWindow.cpp
+  main.cpp
+  App_GraphTheory.cpp
+  App_Sandbox.cpp
+  SandboxAgent.cpp
+  App_CombinedSteering.cpp
+  CombinedSteeringBehaviors.cpp
+  App_Flocking.cpp
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\graph_theory\source\projects\Movement\Sandbox\SandboxAgent.cpp(54,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\graph_theory\source\projects\Movement\Sandbox\SandboxAgent.cpp(57,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Flock.cpp
+  FlockingSteeringBehaviors.cpp
+  Obstacle.cpp
+  SpacePartitioning.cpp
+  SteeringAgent.cpp
+  App_SteeringBehaviors.cpp
+  SteeringBehaviors.cpp
+  BaseAgent.cpp
   Generating code
-  2 of 2441 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  713 of 2441 functions (29.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    81 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  GPP_Framework.vcxproj -> C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\graph_theory\bin\Release\GPP_Framework.exe
-  0 File(s) copied
+  GPP_Framework.vcxproj -> C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\graph_theory\bin\Release\GPP_Framework.exe
+  C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\graph_theory\source\..\lib\SDL2.dll
+  1 File(s) copied
