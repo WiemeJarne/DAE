@@ -34,7 +34,7 @@ void App_GraphTheory::Update(float deltaTime)
 	m_GraphEditor.UpdateGraph(m_pGraph2D);
 	m_pGraph2D->SetConnectionCostsToDistance();
 
-	auto eulerFinder = EulerianPath<GraphNode2D, GraphConnection2D>(m_pGraph2D);
+	const auto eulerFinder = EulerianPath<GraphNode2D, GraphConnection2D>(m_pGraph2D);
 	Eulerianity euleriantity = eulerFinder.IsEulerian();
 
 	auto path = eulerFinder.FindPath(euleriantity);
@@ -46,7 +46,7 @@ void App_GraphTheory::Update(float deltaTime)
 
 	if (path.size() > 0)
 	{
-		if (path.front() == path.back())
+		/*if (path.front() == path.back())
 		{
 			path.front()->SetColor({ 1.f, 0.5f, 0.f });
 		}
@@ -54,6 +54,18 @@ void App_GraphTheory::Update(float deltaTime)
 		{
 			path.front()->SetColor({ 0.f, 1.f, 0.f });
 			path.back()->SetColor({ 1.f, 0.f, 0.f });
+		}*/
+
+		const auto pGraph = eulerFinder.GetGraph();
+
+		for(size_t nodeIndex{}; nodeIndex < path.size(); ++nodeIndex)
+		{
+			auto connectionsCurrentNode{ pGraph->GetNodeConnections(nodeIndex) };
+
+			for(auto connection : connectionsCurrentNode)
+			{
+				
+			}
 		}
 	}
 

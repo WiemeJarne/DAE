@@ -20,6 +20,8 @@ namespace Elite
 		Eulerianity IsEulerian() const;
 		std::vector<T_NodeType*> FindPath(Eulerianity& eulerianity) const;
 
+		auto GetGraph() const { return m_pGraph; }
+
 	private:
 		void VisitAllNodesDFS(int startIdx, std::vector<bool>& visited) const;
 		bool IsConnected() const;
@@ -67,7 +69,6 @@ namespace Elite
 		// Get a copy of the graph because this algorithm involves removing edges
 		auto graphCopy = m_pGraph->Clone();
 		auto path = std::vector<T_NodeType*>();
-		int nrOfNodes = graphCopy->GetNrOfNodes();
 
 		// Check if there can be an Euler path
 		// If this graph is not eulerian, return the empty path
