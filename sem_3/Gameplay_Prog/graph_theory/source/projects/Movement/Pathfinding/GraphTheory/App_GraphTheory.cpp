@@ -56,11 +56,11 @@ void App_GraphTheory::Update(float deltaTime)
 			path.back()->SetColor({ 1.f, 0.f, 0.f });
 		}*/
 
-		const auto pGraph = eulerFinder.GetGraph();
+		m_pPathGraph = eulerFinder.GetGraph();
 
 		for (auto& node : path)
 		{
-			while (CompareNodeColorToNeighbors(node, pGraph))
+			while (DoesNeighborsHaveSameColor(node))
 			{
 				ChangeNodeColor(node);
 			}
@@ -137,16 +137,14 @@ void App_GraphTheory::Render(float deltaTime) const
 	m_GraphRenderer.RenderGraph(m_pGraph2D, true, true);
 }
 
-bool App_GraphTheory::CompareNodeColorToNeighbors(const Elite::GraphNode2D* pNode, const Elite::IGraph<Elite::GraphNode2D, Elite::GraphConnection2D>* pGraph) const
+bool App_GraphTheory::DoesNeighborsHaveSameColor(const Elite::GraphNode2D* pNode) const
 {
-	const auto connectionsCurrentNode{ pGraph->GetNodeConnections(pNode->GetIndex()) };
+	const auto connectionsCurrentNode{ m_pPathGraph->GetNodeConnections(pNode->GetIndex()) };
 	for (const auto connection : connectionsCurrentNode)
 	{
-		const auto currentNodeNeighbor{ pGraph->GetNode(connection->GetTo()) };
+		const auto currentNodeNeighbor{ m_pPathGraph->GetNode(connection->GetTo()) };
 
-		if (currentNodeNeighbor->GetColor().r == pNode->GetColor().r
-			&& currentNodeNeighbor->GetColor().g == pNode->GetColor().g
-			&& currentNodeNeighbor->GetColor().b == pNode->GetColor().b)
+		if (GetColorIndex(currentNodeNeighbor) == GetColorIndex(pNode))
 		{
 			return true;
 		}
@@ -155,26 +153,74 @@ bool App_GraphTheory::CompareNodeColorToNeighbors(const Elite::GraphNode2D* pNod
 	return false;
 }
 
-void App_GraphTheory::ChangeNodeColor(Elite::GraphNode2D*& pNode)
+void App_GraphTheory::ChangeNodeColor(Elite::GraphNode2D* pNode)
 {
-	Elite::Color nodeColer{ pNode->GetColor() };
+	const size_t amountOfColors{ m_Colors.size() };
+	for (size_t index{}; index < amountOfColors; ++index)
+	{
+		pNode->SetColor(m_Colors[static_cast<int>(index)]);
 
-	const float increment{ 0.05f };
+		if (!DoesNeighborsHaveSameColor(pNode))
+		{
+			return;
+		}
+	}
+		
+	AddNewRandomColor();
+	int colorIndex{ static_cast<int>(m_Colors.size()) - 1 };
+	
+	pNode->SetColor(m_Colors[colorIndex]);
+}
 
-	if (nodeColer.r >= 0.f && (nodeColer.r + increment) < 1.f)
+int App_GraphTheory::GetColorIndex(const Elite::GraphNode2D* pNode) const
+{
+	const size_t amountOfColors{ m_Colors.size() };
+	for (size_t index{}; index < amountOfColors; ++index)
 	{
-		pNode->SetColor({ nodeColer.r + increment, nodeColer.g, nodeColer.b });
+		if (m_Colors[index].r == pNode->GetColor().r
+			&& m_Colors[index].g == pNode->GetColor().g
+			&& m_Colors[index].b == pNode->GetColor().b)
+		{
+			return static_cast<int>(index);
+		}
 	}
-	else if (nodeColer.g >= 0.f && (nodeColer.g + increment) < 1.f)
+
+	return invalid_node_index;
+}
+
+void App_GraphTheory::AddNewRandomColor()
+{
+	Elite::Color randomColor{ GenerateRandomColor() };
+
+	while (DoesColorExist(randomColor))
 	{
-		pNode->SetColor({ nodeColer.r, nodeColer.g + increment, nodeColer.b });
+		randomColor = GenerateRandomColor();
 	}
-	else if (nodeColer.b >= 0.f && (nodeColer.b + increment) < 1.f)
+
+	m_Colors.push_back(randomColor);
+}
+
+Elite::Color App_GraphTheory::GenerateRandomColor() const
+{
+	const float randomR{ rand() % 100 / 100.f };
+	const float randomG{ rand() % 100 / 100.f };
+	const float randomB{ rand() % 100 / 100.f };
+
+	return { randomR, randomG, randomB };
+}
+
+bool App_GraphTheory::DoesColorExist(const Elite::Color color) const
+{
+	const size_t amountOfColors{ m_Colors.size() };
+	for (size_t index{}; index < amountOfColors; ++index)
 	{
-		pNode->SetColor({ nodeColer.r, nodeColer.g, nodeColer.b + increment });
+		if (m_Colors[index].r == color.r
+			&& m_Colors[index].g == color.g
+			&& m_Colors[index].b == color.b)
+		{
+			return true;
+		}
 	}
-	else
-	{
-		pNode->SetColor({ 0.f, 0.f, 0.f });
-	}
+
+	return false;
 }

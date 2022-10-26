@@ -34,8 +34,16 @@ private:
 	Elite::GraphRenderer m_GraphRenderer{};
 	Elite::GraphEditor m_GraphEditor{};
 
-	bool CompareNodeColorToNeighbors(const Elite::GraphNode2D* pNode, const Elite::IGraph<Elite::GraphNode2D, Elite::GraphConnection2D>* pGraph) const;
-	void ChangeNodeColor(Elite::GraphNode2D*& pNode);
+	std::vector<Elite::Color> m_Colors{};
+
+	Elite::IGraph<Elite::GraphNode2D, Elite::GraphConnection2D>* m_pPathGraph{};
+
+	void AddNewRandomColor();
+	Elite::Color GenerateRandomColor() const;
+	bool DoesColorExist(const Elite::Color color) const;
+	int GetColorIndex(const Elite::GraphNode2D* pNode) const;
+	bool DoesNeighborsHaveSameColor(const Elite::GraphNode2D* pNode) const;
+	void ChangeNodeColor(Elite::GraphNode2D* pNode);
 
 	//C++ make the class non-copyable
 	App_GraphTheory(const App_GraphTheory&) = delete;
