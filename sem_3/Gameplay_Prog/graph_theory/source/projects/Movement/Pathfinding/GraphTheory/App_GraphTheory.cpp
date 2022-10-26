@@ -39,11 +39,11 @@ void App_GraphTheory::Update(float deltaTime)
 
 	auto path = eulerFinder.FindPath(euleriantity);
 
-	for (auto node : m_pGraph2D->GetAllNodes())
+	/*for (auto node : m_pGraph2D->GetAllNodes())
 	{
 		node->SetColor({ 0.f, 0.f, 1.f });
-	}
-
+	}*/
+	
 	if (path.size() > 0)
 	{
 		/*if (path.front() == path.back())
@@ -58,13 +58,11 @@ void App_GraphTheory::Update(float deltaTime)
 
 		const auto pGraph = eulerFinder.GetGraph();
 
-		for(size_t nodeIndex{}; nodeIndex < path.size(); ++nodeIndex)
+		for (auto& node : path)
 		{
-			auto connectionsCurrentNode{ pGraph->GetNodeConnections(nodeIndex) };
-
-			for(auto connection : connectionsCurrentNode)
+			while (CompareNodeColorToNeighbors(node, pGraph))
 			{
-				
+				ChangeNodeColor(node);
 			}
 		}
 	}
@@ -137,4 +135,46 @@ void App_GraphTheory::Update(float deltaTime)
 void App_GraphTheory::Render(float deltaTime) const
 {
 	m_GraphRenderer.RenderGraph(m_pGraph2D, true, true);
+}
+
+bool App_GraphTheory::CompareNodeColorToNeighbors(const Elite::GraphNode2D* pNode, const Elite::IGraph<Elite::GraphNode2D, Elite::GraphConnection2D>* pGraph) const
+{
+	const auto connectionsCurrentNode{ pGraph->GetNodeConnections(pNode->GetIndex()) };
+	for (const auto connection : connectionsCurrentNode)
+	{
+		const auto currentNodeNeighbor{ pGraph->GetNode(connection->GetTo()) };
+
+		if (currentNodeNeighbor->GetColor().r == pNode->GetColor().r
+			&& currentNodeNeighbor->GetColor().g == pNode->GetColor().g
+			&& currentNodeNeighbor->GetColor().b == pNode->GetColor().b)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void App_GraphTheory::ChangeNodeColor(Elite::GraphNode2D*& pNode)
+{
+	Elite::Color nodeColer{ pNode->GetColor() };
+
+	const float increment{ 0.05f };
+
+	if (nodeColer.r >= 0.f && (nodeColer.r + increment) < 1.f)
+	{
+		pNode->SetColor({ nodeColer.r + increment, nodeColer.g, nodeColer.b });
+	}
+	else if (nodeColer.g >= 0.f && (nodeColer.g + increment) < 1.f)
+	{
+		pNode->SetColor({ nodeColer.r, nodeColer.g + increment, nodeColer.b });
+	}
+	else if (nodeColer.b >= 0.f && (nodeColer.b + increment) < 1.f)
+	{
+		pNode->SetColor({ nodeColer.r, nodeColer.g, nodeColer.b + increment });
+	}
+	else
+	{
+		pNode->SetColor({ 0.f, 0.f, 0.f });
+	}
 }
