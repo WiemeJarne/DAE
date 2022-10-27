@@ -35,6 +35,7 @@ private:
 	Elite::GraphEditor m_GraphEditor{};
 
 	std::vector<Elite::Color> m_Colors{};
+	std::vector<Elite::Color> m_PossibleColors{};
 
 	Elite::IGraph<Elite::GraphNode2D, Elite::GraphConnection2D>* m_pPathGraph{};
 
@@ -44,6 +45,7 @@ private:
 	int GetColorIndex(const Elite::GraphNode2D* pNode) const;
 	bool DoesNeighborsHaveSameColor(const Elite::GraphNode2D* pNode) const;
 	void ChangeNodeColor(Elite::GraphNode2D* pNode);
+	bool AreColorsTheSame(Elite::Color color1, Elite::Color color2) const;
 
 	//C++ make the class non-copyable
 	App_GraphTheory(const App_GraphTheory&) = delete;

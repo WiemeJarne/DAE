@@ -27,6 +27,10 @@ void App_GraphTheory::Start()
 	m_pGraph2D->AddNode(new GraphNode2D(0, { 20, 30 }));
 	m_pGraph2D->AddNode(new GraphNode2D(1, { -10, -10 }));
 	m_pGraph2D->AddConnection(new GraphConnection2D(0, 1));
+
+	srand(time(nullptr));
+
+	m_Colors.push_back(DEFAULT_NODE_COLOR);
 }
 
 void App_GraphTheory::Update(float deltaTime)
@@ -44,9 +48,9 @@ void App_GraphTheory::Update(float deltaTime)
 		node->SetColor({ 0.f, 0.f, 1.f });
 	}*/
 	
-	if (path.size() > 0)
+	/*if (path.size() > 0)
 	{
-		/*if (path.front() == path.back())
+		if (path.front() == path.back())
 		{
 			path.front()->SetColor({ 1.f, 0.5f, 0.f });
 		}
@@ -54,18 +58,16 @@ void App_GraphTheory::Update(float deltaTime)
 		{
 			path.front()->SetColor({ 0.f, 1.f, 0.f });
 			path.back()->SetColor({ 1.f, 0.f, 0.f });
-		}*/
-
-		m_pPathGraph = eulerFinder.GetGraph();
-
-		for (auto& node : path)
-		{
-			while (DoesNeighborsHaveSameColor(node))
-			{
-				ChangeNodeColor(node);
-			}
 		}
+	}*/
+
+	m_pPathGraph = eulerFinder.GetGraph();
+
+	for (auto& node : m_pGraph2D->GetAllNodes())
+	{
+		ChangeNodeColor(node);
 	}
+	
 
 	switch (euleriantity)
 	{
@@ -155,17 +157,28 @@ bool App_GraphTheory::DoesNeighborsHaveSameColor(const Elite::GraphNode2D* pNode
 
 void App_GraphTheory::ChangeNodeColor(Elite::GraphNode2D* pNode)
 {
+	m_PossibleColors = m_Colors;
+
 	const size_t amountOfColors{ m_Colors.size() };
 	for (size_t index{}; index < amountOfColors; ++index)
 	{
 		pNode->SetColor(m_Colors[static_cast<int>(index)]);
 
-		if (!DoesNeighborsHaveSameColor(pNode))
+		if (DoesNeighborsHaveSameColor(pNode))
 		{
+			m_PossibleColors[GetColorIndex(pNode)] = { -1.f, -1.f, -1.f };
+		}
+	}
+	
+	for (size_t index{}; index < amountOfColors; ++index)
+	{
+		if (!AreColorsTheSame(m_PossibleColors[index], { -1.f, -1.f, -1.f }))
+		{
+			pNode->SetColor(m_PossibleColors[index]);
 			return;
 		}
 	}
-		
+
 	AddNewRandomColor();
 	int colorIndex{ static_cast<int>(m_Colors.size()) - 1 };
 	
@@ -177,9 +190,7 @@ int App_GraphTheory::GetColorIndex(const Elite::GraphNode2D* pNode) const
 	const size_t amountOfColors{ m_Colors.size() };
 	for (size_t index{}; index < amountOfColors; ++index)
 	{
-		if (m_Colors[index].r == pNode->GetColor().r
-			&& m_Colors[index].g == pNode->GetColor().g
-			&& m_Colors[index].b == pNode->GetColor().b)
+		if (AreColorsTheSame(m_Colors[index], pNode->GetColor()))
 		{
 			return static_cast<int>(index);
 		}
@@ -214,13 +225,21 @@ bool App_GraphTheory::DoesColorExist(const Elite::Color color) const
 	const size_t amountOfColors{ m_Colors.size() };
 	for (size_t index{}; index < amountOfColors; ++index)
 	{
-		if (m_Colors[index].r == color.r
-			&& m_Colors[index].g == color.g
-			&& m_Colors[index].b == color.b)
+		if (AreColorsTheSame(m_Colors[index], color))
 		{
 			return true;
 		}
 	}
+	return false;
+}
 
+bool App_GraphTheory::AreColorsTheSame(Elite::Color color1, Elite::Color color2) const
+{
+	if (color1.r == color2.r
+		&& color1.g == color2.g
+		&& color1.b == color2.b)
+	{
+		return true;
+	}
 	return false;
 }
