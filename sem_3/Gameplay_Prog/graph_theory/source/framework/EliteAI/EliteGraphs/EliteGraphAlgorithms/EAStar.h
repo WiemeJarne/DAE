@@ -52,75 +52,96 @@ namespace Elite
 		std::vector<T_NodeType*> path{};
 		std::vector<NodeRecord> openList{};
 		std::vector<NodeRecord> closedList{};
-		NodeRecord currentRecord{pStartNode, nullptr, 0.f, GetHeuristicCost(pStartNode, pGoalNode)};
+		NodeRecord currentNodeRecord
+		{
+			pStartNode,
+			nullptr,
+			0.f,
+			GetHeuristicCost(pStartNode, pGoalNode)
+		};
 
-		openList.push_back(currentRecord);
+		openList.push_back(currentNodeRecord);
 
 		while (!openList.empty())
 		{
-			currentRecord = *std::min_element(openList.begin(), openList.end());
+			currentNodeRecord = *std::min_element(openList.begin(), openList.end());
 
-			if (currentRecord.pNode == pGoalNode) break;
+			openList.erase(std::remove(openList.begin(), openList.end(), currentNodeRecord));
 
-			for (const auto& connection : m_pGraph->GetNodeConnections(currentRecord.pNode->GetIndex()))
+			if (currentNodeRecord.pNode == pGoalNode) break;
+
+			const auto connectionsCurrentNode{ m_pGraph->GetNodeConnections(currentNodeRecord.pNode) };
+
+			for (const auto& connection : connectionsCurrentNode)
 			{
-				const float totalCostSoFar{ currentRecord.costSoFar + connection->GetCost() };
-				
-				for (auto& nodeRecord : closedList)
+				const float costSoFar{ currentNodeRecord.costSoFar + connection->GetCost() };
+
+				openList.push_back
+				(NodeRecord{
+					m_pGraph->GetNode(connection->GetTo()),
+					connection,
+					costSoFar,
+					connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
+					});
+			}
+
+			for (const auto& connection : connectionsCurrentNode)
+			{
+				for (const auto& nodeRecord : closedList)
 				{
 					if (nodeRecord.pNode->GetIndex() == connection->GetTo())
 					{
-						if (nodeRecord.pConnection->GetCost() < connection->GetCost())
+						if (nodeRecord.pConnection != nullptr)
 						{
-							continue;
+							if (nodeRecord.pConnection->GetCost() <= connection->GetCost()) continue;
+				
+							NodeRecord existingRecord{ nodeRecord };
+							closedList.erase(std::remove(closedList.begin(), closedList.end(), existingRecord));
 						}
-
-						NodeRecord existingNodeRecord{ nodeRecord };
-
-						closedList.erase(std::remove(closedList.begin(), closedList.end(), existingNodeRecord));
-
-						nodeRecord.estimatedTotalCost = totalCostSoFar + GetHeuristicCost(nodeRecord.pNode, pGoalNode);
-						nodeRecord.pConnection = connection;
-						nodeRecord.costSoFar = totalCostSoFar;
-						
-						closedList.push_back(nodeRecord);
+					}
+				}
+				
+				for (const auto& nodeRecordOnOpenList : openList)
+				{
+					if (nodeRecordOnOpenList.pNode->GetIndex() == connection->GetTo())
+					{
+						if (nodeRecordOnOpenList.pConnection != nullptr)
+						{
+							if (nodeRecordOnOpenList.pConnection->GetCost() <= connection->GetCost()) continue;
+				
+							NodeRecord existingRecord{ nodeRecordOnOpenList };
+							openList.erase(std::remove(openList.begin(), openList.end(), existingRecord));
+						}
 					}
 				}
 
-				for (auto& nodeRecord : openList)
+				const float costSoFar{ currentNodeRecord.costSoFar + connection->GetCost() };
+
+				NodeRecord betterNodeRecord
 				{
-					if (nodeRecord.pNode->GetIndex() == connection->GetTo())
-					{
-						if (nodeRecord.pConnection->GetCost() < connection->GetCost())
-						{
-							continue;
-						}
-
-						NodeRecord existingNodeRecord{ nodeRecord };
-
-						closedList.erase(std::remove(openList.begin(), openList.end(), existingNodeRecord));
-
-						nodeRecord.estimatedTotalCost = totalCostSoFar + GetHeuristicCost(nodeRecord.pNode, pGoalNode);
-						nodeRecord.pConnection = connection;
-						nodeRecord.costSoFar = totalCostSoFar;
-
-						openList.push_back(nodeRecord);
-					}
-				}	
+					m_pGraph->GetNode(connection->GetFrom()),
+					connection,
+					costSoFar,
+					costSoFar + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
+				};
+				
+				openList.push_back(betterNodeRecord);
 			}
-			openList.erase(std::remove(openList.begin(), openList.end(), currentRecord));
-			closedList.push_back(currentRecord);
+
+			closedList.push_back(currentNodeRecord);
 		}
 
-		while (currentRecord.pNode != pStartNode)
+		//backtracking
+		while (currentNodeRecord.pNode != pStartNode)
 		{
-			path.push_back(currentRecord.pNode);
-
-			for (auto& nodeRecord : closedList)
+			path.push_back(currentNodeRecord.pNode);
+			
+			for (const auto& nodeRecord : closedList)
 			{
-				if (nodeRecord.pNode->GetIndex() == currentRecord.pConnection->GetFrom())
+				if (currentNodeRecord.pConnection->GetFrom() == nodeRecord.pNode->GetIndex())
 				{
-					currentRecord = nodeRecord;
+					currentNodeRecord = nodeRecord;
+					break;
 				}
 			}
 		}
