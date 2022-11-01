@@ -85,7 +85,7 @@ namespace Elite
 					});
 			}
 
-			for (const auto& connection : connectionsCurrentNode)
+			/*for (const auto& connection : connectionsCurrentNode)
 			{
 				for (const auto& nodeRecord : closedList)
 				{
@@ -97,6 +97,16 @@ namespace Elite
 				
 							NodeRecord existingRecord{ nodeRecord };
 							closedList.erase(std::remove(closedList.begin(), closedList.end(), existingRecord));
+
+							NodeRecord betterNodeRecord =
+							{
+								m_pGraph->GetNode(connection->GetFrom()),
+								connection,
+								currentNodeRecord.costSoFar + connection->GetCost(),
+								connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetFrom()), pGoalNode)
+							};
+
+							openList.push_back(betterNodeRecord);
 						}
 					}
 				}
@@ -111,22 +121,21 @@ namespace Elite
 				
 							NodeRecord existingRecord{ nodeRecordOnOpenList };
 							openList.erase(std::remove(openList.begin(), openList.end(), existingRecord));
+
+							NodeRecord betterNodeRecord =
+							{
+								m_pGraph->GetNode(connection->GetFrom()),
+								connection,
+								currentNodeRecord.costSoFar + connection->GetCost(),
+								connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetFrom()), pGoalNode)
+							};
+
+							openList.push_back(betterNodeRecord);
 						}
 					}
 				}
 
-				const float costSoFar{ currentNodeRecord.costSoFar + connection->GetCost() };
-
-				NodeRecord betterNodeRecord
-				{
-					m_pGraph->GetNode(connection->GetFrom()),
-					connection,
-					costSoFar,
-					costSoFar + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
-				};
-				
-				openList.push_back(betterNodeRecord);
-			}
+			}*/
 
 			closedList.push_back(currentNodeRecord);
 		}
