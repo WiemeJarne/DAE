@@ -59,7 +59,7 @@ namespace Elite
 			0.f,
 			GetHeuristicCost(pStartNode, pGoalNode)
 		};
-
+		
 		openList.push_back(currentNodeRecord);
 
 		while (!openList.empty())
