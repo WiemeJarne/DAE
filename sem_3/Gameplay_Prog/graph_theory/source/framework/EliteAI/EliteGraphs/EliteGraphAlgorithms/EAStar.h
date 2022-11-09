@@ -66,8 +66,6 @@ namespace Elite
 		{
 			currentNodeRecord = *std::min_element(openList.begin(), openList.end());
 
-			openList.erase(std::remove(openList.begin(), openList.end(), currentNodeRecord));
-
 			if (currentNodeRecord.pNode == pGoalNode) break;
 
 			const auto connectionsCurrentNode{ m_pGraph->GetNodeConnections(currentNodeRecord.pNode) };
@@ -76,67 +74,61 @@ namespace Elite
 			{
 				const float costSoFar{ currentNodeRecord.costSoFar + connection->GetCost() };
 
-				openList.push_back
-				(NodeRecord{
-					m_pGraph->GetNode(connection->GetTo()),
-					connection,
-					costSoFar,
-					connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
-					});
-			}
-
-			/*for (const auto& connection : connectionsCurrentNode)
-			{
+				//check if the connection is pointing to a node that was previously visited
+				bool isConnectionInClosedList{};
 				for (const auto& nodeRecord : closedList)
 				{
-					if (nodeRecord.pNode->GetIndex() == connection->GetTo())
+					if (nodeRecord.pNode->GetIndex() == connection->GetTo() && nodeRecord.pConnection != nullptr)
 					{
-						if (nodeRecord.pConnection != nullptr)
+						//check if the already existing connection is cheaper
+						if(costSoFar < nodeRecord.costSoFar)
 						{
-							if (nodeRecord.pConnection->GetCost() <= connection->GetCost()) continue;
-				
-							NodeRecord existingRecord{ nodeRecord };
-							closedList.erase(std::remove(closedList.begin(), closedList.end(), existingRecord));
-
-							NodeRecord betterNodeRecord =
-							{
-								m_pGraph->GetNode(connection->GetFrom()),
-								connection,
-								currentNodeRecord.costSoFar + connection->GetCost(),
-								connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetFrom()), pGoalNode)
-							};
-
-							openList.push_back(betterNodeRecord);
+							isConnectionInClosedList = true;
+							//if the new connection is cheaper remove the old one
+							closedList.erase(std::remove(closedList.begin(), closedList.end(), nodeRecord));
+							break;
 						}
 					}
 				}
-				
-				for (const auto& nodeRecordOnOpenList : openList)
+
+				if (isConnectionInClosedList) continue;
+
+				//if the connection is not in the closedList check if it is in the openList
+				bool isConnectionInOpenList{};
+				if (!isConnectionInClosedList)
 				{
-					if (nodeRecordOnOpenList.pNode->GetIndex() == connection->GetTo())
+					for (const auto& nodeRecord : openList)
 					{
-						if (nodeRecordOnOpenList.pConnection != nullptr)
+						if (nodeRecord.pNode->GetIndex() == connection->GetTo() && nodeRecord.pConnection != nullptr)
 						{
-							if (nodeRecordOnOpenList.pConnection->GetCost() <= connection->GetCost()) continue;
-				
-							NodeRecord existingRecord{ nodeRecordOnOpenList };
-							openList.erase(std::remove(openList.begin(), openList.end(), existingRecord));
-
-							NodeRecord betterNodeRecord =
+							//check if the already existing connection is cheaper
+							
+							if(costSoFar < nodeRecord.costSoFar)
 							{
-								m_pGraph->GetNode(connection->GetFrom()),
-								connection,
-								currentNodeRecord.costSoFar + connection->GetCost(),
-								connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetFrom()), pGoalNode)
-							};
-
-							openList.push_back(betterNodeRecord);
+								isConnectionInOpenList = true;
+								//if the new connection is cheaper remove the old one
+								openList.erase(std::remove(openList.begin(), openList.end(), nodeRecord));
+								break;
+							}
 						}
 					}
 				}
 
-			}*/
+				if(isConnectionInOpenList) continue;
 
+				openList.push_back
+				(
+					NodeRecord 
+					{
+						m_pGraph->GetNode(connection->GetTo()),
+						connection,
+						costSoFar,
+						connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
+					}
+				);
+			}
+			//remove the connection from the openList and add it to the closedList
+			openList.erase(std::remove(openList.begin(), openList.end(), currentNodeRecord));
 			closedList.push_back(currentNodeRecord);
 		}
 
