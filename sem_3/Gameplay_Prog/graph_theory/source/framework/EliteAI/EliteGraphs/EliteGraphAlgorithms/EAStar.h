@@ -1,4 +1,5 @@
 #pragma once
+#include "framework/EliteAI/EliteNavigation/ENavigation.h"
 
 namespace Elite
 {
@@ -95,21 +96,19 @@ namespace Elite
 
 				//if the connection is not in the closedList check if it is in the openList
 				bool isConnectionInOpenList{};
-				if (!isConnectionInClosedList)
+				
+				for (const auto& nodeRecord : openList)
 				{
-					for (const auto& nodeRecord : openList)
+					if (nodeRecord.pNode->GetIndex() == connection->GetTo() && nodeRecord.pConnection != nullptr)
 					{
-						if (nodeRecord.pNode->GetIndex() == connection->GetTo() && nodeRecord.pConnection != nullptr)
+						//check if the already existing connection is cheaper
+						
+						if(costSoFar < nodeRecord.costSoFar)
 						{
-							//check if the already existing connection is cheaper
-							
-							if(costSoFar < nodeRecord.costSoFar)
-							{
-								isConnectionInOpenList = true;
-								//if the new connection is cheaper remove the old one
-								openList.erase(std::remove(openList.begin(), openList.end(), nodeRecord));
-								break;
-							}
+							isConnectionInOpenList = true;
+							//if the new connection is cheaper remove the old one
+							openList.erase(std::remove(openList.begin(), openList.end(), nodeRecord));
+							break;
 						}
 					}
 				}
