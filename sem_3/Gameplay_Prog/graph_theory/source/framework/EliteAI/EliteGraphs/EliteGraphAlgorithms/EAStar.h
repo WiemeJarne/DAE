@@ -79,10 +79,10 @@ namespace Elite
 				bool isConnectionInClosedList{};
 				for (const auto& nodeRecord : closedList)
 				{
-					if (nodeRecord.pNode->GetIndex() == connection->GetTo() && nodeRecord.pConnection != nullptr)
+					if (nodeRecord.pNode->GetIndex() == connection->GetTo())
 					{
-						//check if the already existing connection is cheaper
-						if(costSoFar < nodeRecord.costSoFar)
+						//check if the new connection is cheaper the the already existing one
+						if (costSoFar < nodeRecord.costSoFar)
 						{
 							isConnectionInClosedList = true;
 							//if the new connection is cheaper remove the old one
@@ -96,14 +96,13 @@ namespace Elite
 
 				//if the connection is not in the closedList check if it is in the openList
 				bool isConnectionInOpenList{};
-				
+
 				for (const auto& nodeRecord : openList)
 				{
-					if (nodeRecord.pNode->GetIndex() == connection->GetTo() && nodeRecord.pConnection != nullptr)
+					if (nodeRecord.pNode->GetIndex() == connection->GetTo())
 					{
-						//check if the already existing connection is cheaper
-						
-						if(costSoFar < nodeRecord.costSoFar)
+						//check if the new connection is cheaper the the already existing one
+						if (costSoFar < nodeRecord.costSoFar)
 						{
 							isConnectionInOpenList = true;
 							//if the new connection is cheaper remove the old one
@@ -113,18 +112,19 @@ namespace Elite
 					}
 				}
 
-				if(isConnectionInOpenList) continue;
+				if (isConnectionInOpenList) continue;
 
 				openList.push_back
 				(
-					NodeRecord 
+					NodeRecord
 					{
 						m_pGraph->GetNode(connection->GetTo()),
 						connection,
 						costSoFar,
-						connection->GetCost() + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
+						costSoFar + GetHeuristicCost(m_pGraph->GetNode(connection->GetTo()), pGoalNode)
 					}
 				);
+				
 			}
 			//remove the connection from the openList and add it to the closedList
 			openList.erase(std::remove(openList.begin(), openList.end(), currentNodeRecord));

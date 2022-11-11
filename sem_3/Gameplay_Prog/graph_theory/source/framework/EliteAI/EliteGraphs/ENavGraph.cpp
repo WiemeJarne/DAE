@@ -54,7 +54,7 @@ void Elite::NavGraph::CreateNavigationGraph()
 {
 	//1. Go over all the edges of the navigationmesh and create nodes
 	auto& lines{ m_pNavMeshPolygon->GetLines() };
-	int amountOfLines{ static_cast<int>(lines.size()) };
+	const int amountOfLines{ static_cast<int>(lines.size()) };
 	for (int index{}; index < amountOfLines; ++index)
 	{
 		if (m_pNavMeshPolygon->GetTrianglesFromLineIndex(index).size() > 1)
@@ -68,7 +68,7 @@ void Elite::NavGraph::CreateNavigationGraph()
 	for (auto& triangle : m_pNavMeshPolygon->GetTriangles())
 	{
 		std::vector<int> validNodeIndices{};
-		for (auto& index : triangle->metaData.IndexLines)
+		for (const auto& index : triangle->metaData.IndexLines)
 		{
 			const int nodeIndex{ GetNodeIdxFromLineIdx(index) };
 			if (nodeIndex != invalid_node_index)
@@ -79,13 +79,13 @@ void Elite::NavGraph::CreateNavigationGraph()
 
 		if (validNodeIndices.size() == 2)
 		{
-			AddConnection(new GraphConnection2D{ validNodeIndices[0], validNodeIndices[1] });
+			AddConnection(new GraphConnection2D( validNodeIndices[0], validNodeIndices[1] ));
 		}
 		else if (validNodeIndices.size() == 3)
 		{
-			AddConnection(new GraphConnection2D{ validNodeIndices[0], validNodeIndices[1] });
-			AddConnection(new GraphConnection2D{ validNodeIndices[1], validNodeIndices[2] });
-			AddConnection(new GraphConnection2D{ validNodeIndices[2], validNodeIndices[0] });
+			AddConnection(new GraphConnection2D( validNodeIndices[0], validNodeIndices[1] ));
+			AddConnection(new GraphConnection2D( validNodeIndices[1], validNodeIndices[2] ));
+			AddConnection(new GraphConnection2D( validNodeIndices[2], validNodeIndices[0] ));
 		}
 	}
 

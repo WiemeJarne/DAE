@@ -10,7 +10,7 @@ namespace Elite
 	class NavMeshPathfinding
 	{
 	public:
-		static std::vector<Vector2> FindPath(Vector2 startPos, Vector2 endPos, NavGraph* pNavGraph, std::vector<Vector2>& debugNodePositions, std::vector<Portal>& debugPortals)
+		static std::vector<Vector2> FindPath(Vector2 startPos, Vector2 endPos, const NavGraph* pNavGraph, std::vector<Vector2>& debugNodePositions, std::vector<Portal>& debugPortals)
 		{
 			//Create the path to return
 			std::vector<Vector2> finalPath{};
@@ -29,21 +29,41 @@ namespace Elite
 
 			//=> Start looking for a path
 			//Copy the graph
-			auto graph {pNavGraph->Clone()};
+			const auto graph {pNavGraph->Clone()};
 			
+			const auto& lines{ pNavGraph->GetNavMeshPolygon()->GetLines() };
+
 			//Create extra node for the Start Node (Agent's position
-			graph->AddNode(new NavGraphNode( graph->GetNextFreeNodeIndex(), startPos ));
+			const auto& startNode{ new NavGraphNode(graph->GetNextFreeNodeIndex(), -1, startPos) };
+			graph->AddNode(startNode );
+			for(const auto& lineIndex : startTriangle->metaData.IndexLines)
+			{
+				const Vector2 lineMiddle{ (lines[lineIndex]->p1 + lines[lineIndex]->p2) / 2.f };
+				const auto& node{ graph->GetNodeAtWorldPos(lineMiddle) };
+				if(node != nullptr)
+				{
+					graph->AddConnection(new GraphConnection2D(startNode->GetIndex(), node->GetIndex(), Distance(startPos, node->GetPosition())));
+				}
+			}
 
 			//Create extra node for the endNode
-			graph->AddNode(new NavGraphNode( graph->GetNextFreeNodeIndex(), endPos ));
-			
-			//Run A star on new graph
-			auto pathfinder = AStar<NavGraphNode, GraphConnection2D>(graph.get(), Elite::HeuristicFunctions::Chebyshev);
-			auto startNode = graph->GetNode(graph->GetNodeIdxAtWorldPos(startPos));
-			auto endNode = graph->GetNode(graph->GetNodeIdxAtWorldPos(endPos));
+			const auto& endNode{ new NavGraphNode(graph->GetNextFreeNodeIndex(), -1, endPos) };
+			graph->AddNode(endNode);
+			for (const auto& lineIndex : endTriangle->metaData.IndexLines)
+			{
+				const Vector2 lineMiddle{ (lines[lineIndex]->p1 + lines[lineIndex]->p2) / 2.f };
+				const auto& node{ graph->GetNodeAtWorldPos(lineMiddle) };
+				if (node != nullptr)
+				{
+					graph->AddConnection(new GraphConnection2D(node->GetIndex(), endNode->GetIndex(), Distance(endPos, node->GetPosition())));
+				}
+			}
 
-			auto path{ pathfinder.FindPath(startNode, endNode) };
-			for (auto& node : path)
+			//Run A star on new graph
+			auto pathfinder = AStar<NavGraphNode, GraphConnection2D>(graph.get(), HeuristicFunctions::Chebyshev);
+
+			const auto path{ pathfinder.FindPath(startNode, endNode) };
+			for (const auto& node : path)
 			{
 				finalPath.push_back(node->GetPosition());
 			}
