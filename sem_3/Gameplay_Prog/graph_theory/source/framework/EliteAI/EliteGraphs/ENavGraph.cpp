@@ -60,7 +60,7 @@ void Elite::NavGraph::CreateNavigationGraph()
 		if (m_pNavMeshPolygon->GetTrianglesFromLineIndex(index).size() > 1)
 		{
 			const Vector2 lineMiddle{ (lines[index]->p2 + lines[index]->p1) / 2.f};
-			AddNode(new NavGraphNode( this->GetNextFreeNodeIndex(), index, lineMiddle));
+			AddNode(new NavGraphNode( this->GetNextFreeNodeIndex(), index, lineMiddle));	
 		}
 	}
 

@@ -29,33 +29,59 @@ namespace Elite
 
 			//=> Start looking for a path
 			//Copy the graph
-			const auto graph {pNavGraph->Clone()};
+			auto graph{ pNavGraph->Clone() };
 			
 			const auto& lines{ pNavGraph->GetNavMeshPolygon()->GetLines() };
 
-			//Create extra node for the Start Node (Agent's position
+			//Create extra node for the Start Node (Agent's position)
 			const auto& startNode{ new NavGraphNode(graph->GetNextFreeNodeIndex(), -1, startPos) };
+
 			graph->AddNode(startNode );
-			for(const auto& lineIndex : startTriangle->metaData.IndexLines)
+
+			for(int lineIndex : startTriangle->metaData.IndexLines)
 			{
 				const Vector2 lineMiddle{ (lines[lineIndex]->p1 + lines[lineIndex]->p2) / 2.f };
+
 				const auto& node{ graph->GetNodeAtWorldPos(lineMiddle) };
-				if(node != nullptr)
+
+				if(node != nullptr) //check if the node on the middle of the line exists
 				{
-					graph->AddConnection(new GraphConnection2D(startNode->GetIndex(), node->GetIndex(), Distance(startPos, node->GetPosition())));
+					//create a connection from the startNode to the node on the middle of the line
+					GraphConnection2D* newConnection{ new GraphConnection2D(startNode->GetIndex(), node->GetIndex(), Distance(startPos, node->GetPosition())) };
+
+					if (graph->IsUniqueConnection(newConnection->GetFrom(), newConnection->GetTo())) //check if the connection already exists
+					{
+						graph->AddConnection(newConnection);
+					}
+					else delete newConnection; //delete the new connection if it already exists
 				}
 			}
 
 			//Create extra node for the endNode
 			const auto& endNode{ new NavGraphNode(graph->GetNextFreeNodeIndex(), -1, endPos) };
+
 			graph->AddNode(endNode);
-			for (const auto& lineIndex : endTriangle->metaData.IndexLines)
+
+			for (int lineIndex : endTriangle->metaData.IndexLines)
 			{
 				const Vector2 lineMiddle{ (lines[lineIndex]->p1 + lines[lineIndex]->p2) / 2.f };
+
 				const auto& node{ graph->GetNodeAtWorldPos(lineMiddle) };
-				if (node != nullptr)
-				{
-					graph->AddConnection(new GraphConnection2D(node->GetIndex(), endNode->GetIndex(), Distance(endPos, node->GetPosition())));
+
+
+				//check if the node on the middle of the line exists 
+				//and check if the node on the line is the same as the endNode
+				//if so then there can not be made a connection between the 2 nodes (becasue they are the same)
+				if (node != nullptr && node != endNode) 
+				{										
+					//create a connection from the node on the middle of the line to the end node
+					GraphConnection2D* newConnection{ new GraphConnection2D(node->GetIndex(), endNode->GetIndex(), Distance(startPos, node->GetPosition())) };
+					
+					if (graph->IsUniqueConnection(newConnection->GetFrom(), newConnection->GetTo())) //check if the connection already exists
+					{
+						graph->AddConnection(newConnection);
+					}
+					else delete newConnection; //delete the new connection if it already exists
 				}
 			}
 
@@ -63,6 +89,7 @@ namespace Elite
 			auto pathfinder = AStar<NavGraphNode, GraphConnection2D>(graph.get(), HeuristicFunctions::Chebyshev);
 
 			const auto path{ pathfinder.FindPath(startNode, endNode) };
+
 			for (const auto& node : path)
 			{
 				finalPath.push_back(node->GetPosition());
