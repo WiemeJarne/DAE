@@ -1,0 +1,1 @@
+als de exe open staat sluit het en heropen hets
