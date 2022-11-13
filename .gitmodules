@@ -1,6 +1,3 @@
 [submodule "sem_3/Graphics_Prog1/RayTracer"]
 	path = sem_3/Graphics_Prog1/RayTracer
 	url = https://github.com/ozikov/RayTracer.git
-[submodule "sem_3Graphics_Prog1Rasterizer"]
-	path = sem_3Graphics_Prog1Rasterizer
-	url = https://github.com/ozikov/Rasterizer.git
