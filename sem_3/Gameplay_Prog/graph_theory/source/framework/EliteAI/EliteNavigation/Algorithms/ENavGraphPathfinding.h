@@ -68,11 +68,10 @@ namespace Elite
 
 				const auto& node{ graph->GetNodeAtWorldPos(lineMiddle) };
 
-
 				//check if the node on the middle of the line exists 
 				//and check if the node on the line is the same as the endNode
 				//if so then there can not be made a connection between the 2 nodes (becasue they are the same)
-				if (node != nullptr && node != endNode) 
+				if (node != nullptr && node != endNode)
 				{										
 					//create a connection from the node on the middle of the line to the end node
 					GraphConnection2D* newConnection{ new GraphConnection2D(node->GetIndex(), endNode->GetIndex(), Distance(startPos, node->GetPosition())) };
@@ -99,8 +98,8 @@ namespace Elite
 			debugNodePositions = finalPath;
 
 			//Run optimiser on new graph, MAKE SURE the A star path is working properly before starting this section and uncommenting this!!!
-			//m_Portals = SSFA::FindPortals(nodes, m_pNavGraph->GetNavMeshPolygon());
-			//finalPath = SSFA::OptimizePortals(m_Portals);
+			auto m_Portals = SSFA::FindPortals(path, pNavGraph->GetNavMeshPolygon());
+			finalPath = SSFA::OptimizePortals(m_Portals);
 
 			return finalPath;
 		}
