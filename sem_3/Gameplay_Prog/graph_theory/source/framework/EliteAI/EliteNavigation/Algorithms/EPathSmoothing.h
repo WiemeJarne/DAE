@@ -85,10 +85,10 @@ namespace Elite
 				//1. See if moving funnel inwards - RIGHT
 				Vector2 nextRightLeg{ portal.Line.p1 - apexPos };
 
-				if (nextRightLeg.Cross(leftLeg) >= rightLeg.Cross(leftLeg))
+				if (nextRightLeg.GetNormalized().Cross(leftLeg.GetNormalized()) >= rightLeg.GetNormalized().Cross(leftLeg.GetNormalized()))
 				{
 					//2. See if new line degenerates a line segment - RIGHT
-					if (nextRightLeg.Cross(leftLeg) <= 0)
+					if (nextRightLeg.GetNormalized().Cross(leftLeg.GetNormalized()) <= 0)
 					{
 						apexPos += leftLeg;
 						apexIdx = leftLegIdx;
@@ -116,10 +116,10 @@ namespace Elite
 				//1. See if moving funnel inwards - LEFT
 				Vector2 nextLeftLeg{ portal.Line.p2 - apexPos };
 
-				if (nextLeftLeg.Cross(rightLeg) <= leftLeg.Cross(rightLeg))
+				if (nextLeftLeg.GetNormalized().Cross(rightLeg.GetNormalized()) >= leftLeg.GetNormalized().Cross(rightLeg.GetNormalized()))
 				{
 					//2. See if new line degenerates a line segment - LEFT
-					if (nextLeftLeg.Cross(rightLeg) >= 0)
+					if (nextLeftLeg.GetNormalized().Cross(rightLeg.GetNormalized()) >= 0)
 					{
 						apexPos += rightLeg;
 						apexIdx = rightLegIdx;
