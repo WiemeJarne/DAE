@@ -85,14 +85,19 @@ namespace Elite
 				//1. See if moving funnel inwards - RIGHT
 				Vector2 nextRightLeg{ portal.Line.p1 - apexPos };
 
-				if (nextRightLeg.GetNormalized().Cross(leftLeg.GetNormalized()) >= rightLeg.GetNormalized().Cross(leftLeg.GetNormalized()))
+				if (nextRightLeg.GetNormalized().Cross(rightLeg.GetNormalized()) <= 0)
 				{
 					//2. See if new line degenerates a line segment - RIGHT
-					if (nextRightLeg.GetNormalized().Cross(leftLeg.GetNormalized()) <= 0)
+					if (nextRightLeg.GetNormalized().Cross(leftLeg.GetNormalized()) > 0)
+					{
+						rightLeg = nextRightLeg;
+						rightLegIdx = portalIdx;
+					}
+					else
 					{
 						apexPos += leftLeg;
 						apexIdx = leftLegIdx;
-						portalIdx += leftLegIdx + 1;
+						portalIdx = leftLegIdx + 1;
 						leftLegIdx = portalIdx;
 						rightLegIdx = portalIdx;
 						vPath.push_back(apexPos);
@@ -103,11 +108,6 @@ namespace Elite
 							leftLeg = portals[leftLegIdx].Line.p2 - apexPos;
 							continue;
 						}
-					}
-					else
-					{
-						rightLeg = nextRightLeg;
-						rightLegIdx = portalIdx;
 					}
 					
 				}
@@ -116,14 +116,19 @@ namespace Elite
 				//1. See if moving funnel inwards - LEFT
 				Vector2 nextLeftLeg{ portal.Line.p2 - apexPos };
 
-				if (nextLeftLeg.GetNormalized().Cross(rightLeg.GetNormalized()) >= leftLeg.GetNormalized().Cross(rightLeg.GetNormalized()))
+				if (nextLeftLeg.GetNormalized().Cross(leftLeg.GetNormalized()) >= 0.f)
 				{
 					//2. See if new line degenerates a line segment - LEFT
-					if (nextLeftLeg.GetNormalized().Cross(rightLeg.GetNormalized()) >= 0)
+					if (nextLeftLeg.GetNormalized().Cross(rightLeg.GetNormalized()) < 0)
+					{
+						leftLeg = nextLeftLeg;
+						leftLegIdx = portalIdx;
+					}
+					else
 					{
 						apexPos += rightLeg;
 						apexIdx = rightLegIdx;
-						portalIdx += rightLegIdx + 1;
+						portalIdx = rightLegIdx + 1;
 						leftLegIdx = portalIdx;
 						rightLegIdx = portalIdx;
 						vPath.push_back(apexPos);
@@ -134,11 +139,6 @@ namespace Elite
 							leftLeg = portals[leftLegIdx].Line.p2 - apexPos;
 							continue;
 						}
-					}
-					else
-					{
-						leftLeg = nextLeftLeg;
-						leftLegIdx = portalIdx;
 					}
 				}
 			}

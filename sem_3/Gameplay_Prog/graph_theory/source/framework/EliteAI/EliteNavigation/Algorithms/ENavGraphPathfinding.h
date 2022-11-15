@@ -44,17 +44,16 @@ namespace Elite
 
 				const auto& node{ graph->GetNodeAtWorldPos(lineMiddle) };
 
-				if(node != nullptr) //check if the node on the middle of the line exists
-				{
-					//create a connection from the startNode to the node on the middle of the line
-					GraphConnection2D* newConnection{ new GraphConnection2D(startNode->GetIndex(), node->GetIndex(), Distance(startPos, node->GetPosition())) };
+				if (node == nullptr || node == startNode) continue; //check if the node on the middle of the line exists
+				
+				//create a connection from the startNode to the node on the middle of the line
+				GraphConnection2D* newConnection{ new GraphConnection2D(startNode->GetIndex(), node->GetIndex(), Distance(startPos, node->GetPosition())) };
 
-					if (graph->IsUniqueConnection(newConnection->GetFrom(), newConnection->GetTo())) //check if the connection already exists
-					{
-						graph->AddConnection(newConnection);
-					}
-					else delete newConnection; //delete the new connection if it already exists
+				if (graph->IsUniqueConnection(newConnection->GetFrom(), newConnection->GetTo())) //check if the connection already exists
+				{
+					graph->AddConnection(newConnection);
 				}
+				else delete newConnection; //delete the new connection if it already exists
 			}
 
 			//Create extra node for the endNode
@@ -70,18 +69,16 @@ namespace Elite
 
 				//check if the node on the middle of the line exists 
 				//and check if the node on the line is the same as the endNode
-				//if so then there can not be made a connection between the 2 nodes (becasue they are the same)
-				if (node != nullptr && node != endNode)
-				{										
-					//create a connection from the node on the middle of the line to the end node
-					GraphConnection2D* newConnection{ new GraphConnection2D(node->GetIndex(), endNode->GetIndex(), Distance(startPos, node->GetPosition())) };
-					
-					if (graph->IsUniqueConnection(newConnection->GetFrom(), newConnection->GetTo())) //check if the connection already exists
-					{
-						graph->AddConnection(newConnection);
-					}
-					else delete newConnection; //delete the new connection if it already exists
+				if (node == nullptr || node == endNode) continue;
+
+				//create a connection from the node on the middle of the line to the end node
+				GraphConnection2D* newConnection{ new GraphConnection2D(node->GetIndex(), endNode->GetIndex(), Distance(endPos, node->GetPosition())) };
+				
+				if (graph->IsUniqueConnection(newConnection->GetFrom(), newConnection->GetTo())) //check if the connection already exists
+				{
+					graph->AddConnection(newConnection);
 				}
+				else delete newConnection; //delete the new connection if it already exists
 			}
 
 			//Run A star on new graph
