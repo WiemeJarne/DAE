@@ -17,7 +17,6 @@ namespace Elite
 		Elite::Line Line = {};
 	};
 
-
 	class SSFA final
 	{
 	public:
@@ -85,15 +84,10 @@ namespace Elite
 				//1. See if moving funnel inwards - RIGHT
 				Vector2 nextRightLeg{ portal.Line.p1 - apexPos };
 
-				if (nextRightLeg.GetNormalized().Cross(rightLeg.GetNormalized()) <= 0)
+				if (Cross(nextRightLeg, rightLeg) <= 0)
 				{
 					//2. See if new line degenerates a line segment - RIGHT
-					if (nextRightLeg.GetNormalized().Cross(leftLeg.GetNormalized()) > 0)
-					{
-						rightLeg = nextRightLeg;
-						rightLegIdx = portalIdx;
-					}
-					else
+					if (Cross(nextRightLeg, leftLeg) < 0) //the new leg goes over the left leg
 					{
 						apexPos += leftLeg;
 						apexIdx = leftLegIdx;
@@ -109,22 +103,21 @@ namespace Elite
 							continue;
 						}
 					}
-					
+					else
+					{
+						rightLeg = nextRightLeg;
+						rightLegIdx = portalIdx;
+					}
 				}
 
 				//--- LEFT CHECK ---
 				//1. See if moving funnel inwards - LEFT
 				Vector2 nextLeftLeg{ portal.Line.p2 - apexPos };
 
-				if (nextLeftLeg.GetNormalized().Cross(leftLeg.GetNormalized()) >= 0.f)
+				if (Cross(nextLeftLeg, leftLeg) >= 0.f)
 				{
 					//2. See if new line degenerates a line segment - LEFT
-					if (nextLeftLeg.GetNormalized().Cross(rightLeg.GetNormalized()) < 0)
-					{
-						leftLeg = nextLeftLeg;
-						leftLegIdx = portalIdx;
-					}
-					else
+					if (Cross(nextLeftLeg, rightLeg) > 0) //the new leg goes over the right leg
 					{
 						apexPos += rightLeg;
 						apexIdx = rightLegIdx;
@@ -139,6 +132,11 @@ namespace Elite
 							leftLeg = portals[leftLegIdx].Line.p2 - apexPos;
 							continue;
 						}
+					}
+					else
+					{
+						leftLeg = nextLeftLeg;
+						leftLegIdx = portalIdx;
 					}
 				}
 			}
