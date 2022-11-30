@@ -1,0 +1,9 @@
+C:\Users\jarne\Documents\DAE\sem_3\Game_Mechanics\UE4Demo\Intermediate\Build\Win64\UE4\Shipping\UE4Demo\Definitions.UE4Demo.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+C:\Users\jarne\Documents\DAE\sem_3\Game_Mechanics\UE4Demo\Source\UE4Demo/UE4DemoGameModeBase.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\ServerStatReplicator.generated.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\GameModeBase.generated.h
+C:\Users\jarne\Documents\DAE\sem_3\Game_Mechanics\UE4Demo\Intermediate\Build\Win64\UE4\Inc\UE4Demo\UE4DemoGameModeBase.generated.h
