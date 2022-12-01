@@ -1,3 +1,0 @@
-C:\Users\jarne\Documents\DAE\sem_3\Game_Mechanics\UE4Demo\Intermediate\Build\Win64\UE4\Shipping\UE4Demo\Definitions.UE4Demo.h
-C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h

@@ -1,2 +1,0 @@
-C:\Users\jarne\Documents\DAE\sem_3\Game_Mechanics\UE4Demo\Intermediate\Build\Win64\UE4\Shipping\UE4Demo\Definitions.UE4Demo.h
-C:\Users\jarne\Documents\DAE\sem_3\Game_Mechanics\UE4Demo\Source\UE4Demo\UE4Demo.h
