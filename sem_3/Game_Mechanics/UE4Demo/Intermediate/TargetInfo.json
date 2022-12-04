@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "UE4Demo",
+			"Path": "C:\\Users\\jarne\\Documents\\DAE\\sem_3\\Game_Mechanics\\UE4Demo\\Source\\UE4Demo.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "UE4DemoEditor",
+			"Path": "C:\\Users\\jarne\\Documents\\DAE\\sem_3\\Game_Mechanics\\UE4Demo\\Source\\UE4DemoEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
