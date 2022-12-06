@@ -4,3 +4,6 @@
 [submodule "sem_3/Graphics_Prog1/Rasterizer"]
 	path = sem_3/Graphics_Prog1/Rasterizer
 	url = https://github.com/ozikov/Rasterizer.git
+[submodule "sem_3/Graphics_Prog1/rasterizerHardware"]
+	path = sem_3/Graphics_Prog1/rasterizerHardware
+	url = git@github.com:ozikov/rasterizerHardware.git
