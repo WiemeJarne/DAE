@@ -6,21 +6,22 @@
 template <typename T>
 struct Node
 {
-	std::shared_ptr<Node> previous{nullptr};
-	T value{};
+	Node(const T& value, std::shared_ptr<Node> previous)
+		: value{ value }, previous{ previous }
+	{
+	}
+
+	std::shared_ptr<Node> previous;
+	T value;
 };
 
 template <typename T>
 class LinkedListStack
 {
 public:
-	void Push(T value)
+	void Push(const T& value)
 	{
-		auto newNode{std::make_shared<Node<T>>()};
-		newNode->value = value;
-		newNode->previous = m_TopNode;
-
-		m_TopNode = newNode;
+		m_TopNode = std::make_shared<Node<T>>(value, m_TopNode);
 	}
 
 	T Pop()
