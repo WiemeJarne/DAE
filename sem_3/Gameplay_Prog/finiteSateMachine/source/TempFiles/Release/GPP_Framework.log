@@ -1,57 +1,9 @@
-﻿  stdafx.cpp
-  EBehaviorTree.cpp
-  EFiniteStateMachine.cpp
-  EGraphConnectionTypes.cpp
-  EGraphNodeTypes.cpp
-  EGraphEditor.cpp
-  EGraphRenderer.cpp
-  ENavGraph.cpp
-  EGeometry2DTypes.cpp
-  EInputManager.cpp
-  EMatrix2x3.cpp
-  ERigidBodyBox2D.cpp
-C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\finiteSateMachine\source\framework\EliteAI\EliteDecisionMaking\EliteBehaviorTree\EBehaviorTree.cpp(121,2): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
-  EPhysicsWorldBox2D.cpp
-  ECamera2D.cpp
-  SDLDebugRenderer2D.cpp
-  SDLFrame.cpp
-  ETimer_SDL.cpp
-  EImmediateUI.cpp
-  SDLWindow.cpp
-  gl3w.c
-  main.cpp
-  App_AgarioGame_BT.cpp
-  App_AgarioGame.cpp
-  StatesAndTransitions.cpp
+﻿  main.cpp
   App_InfluenceMap.cpp
-  App_PathfindingAStar.cpp
-  App_GraphTheory.cpp
-  App_NavMeshGraph.cpp
-  App_Sandbox.cpp
-  SandboxAgent.cpp
-  App_CombinedSteering.cpp
-C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\finiteSateMachine\source\projects\Movement\Sandbox\SandboxAgent.cpp(54,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\finiteSateMachine\source\projects\Movement\Sandbox\SandboxAgent.cpp(57,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  CombinedSteeringBehaviors.cpp
-  App_Flocking.cpp
-C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\finiteSateMachine\source\projects\Movement\Pathfinding\GraphTheory\App_GraphTheory.cpp(31,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Flock.cpp
-  FlockingSteeringBehaviors.cpp
-  SpacePartitioning.cpp
-  App_SteeringBehaviors.cpp
-  Obstacle.cpp
-  SteeringAgent.cpp
-  SteeringBehaviors.cpp
-  AgarioAgent.cpp
-  AgarioContactListener.cpp
-  AgarioFood.cpp
-  BaseAgent.cpp
-  NavigationColliderElement.cpp
   Generating code
-  4697 of 4727 functions (99.4%) were compiled, the rest were copied from previous compilation.
-    1671 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  0 of 4727 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   GPP_Framework.vcxproj -> C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\finiteSateMachine\bin\Release\GPP_Framework.exe
-  C:\Users\Jarne\Documents\DAE\sem_3\Gameplay_Prog\finiteSateMachine\source\..\lib\SDL2.dll
-  1 File(s) copied
+  0 File(s) copied
