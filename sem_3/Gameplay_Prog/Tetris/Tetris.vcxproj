@@ -139,6 +139,7 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameWinMain.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="structs.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Tetris.h" />
   </ItemGroup>

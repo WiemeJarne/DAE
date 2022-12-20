@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------
 #include "Tetris.h"																				
 #include "Grid.h"
+#include "structs.h"
 
 //-----------------------------------------------------------------
 // Tetris methods																				
@@ -143,6 +144,12 @@ void Tetris::Paint(RECT rect)
 	Grid* grid{ new Grid(100, 100, 22, 10, 25) };
 	grid->Paint();
 	delete grid;
+
+	Matrix matrix{ Vector4(1, 2, 3, 4), Vector4(1, 2, 3, 4),Vector4(1, 2, 3, 4),Vector4(1, 2, 3, 4) };
+
+	auto m{ matrix[0][0] };
+
+	matrix = Matrix::InverseRows(matrix);
 }
 
 void Tetris::Tick()

@@ -53,6 +53,9 @@
     <ClInclude Include="Grid.h">
       <Filter>Project Files</Filter>
     </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>Project Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="big.ico">
