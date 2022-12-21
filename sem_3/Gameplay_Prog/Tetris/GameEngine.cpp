@@ -199,7 +199,14 @@ bool GameEngine::Run(HINSTANCE hInstance, int cmdShow)
 					m_HdcDraw = hBufferDC;
 					m_RectDraw = rect;
 					m_IsDoublebuffering = true;
-					m_GamePtr->Tick();
+
+					auto now = std::chrono::system_clock::now();
+
+					float elapsedSec{ std::chrono::duration<float>(now - AbstractGame::m_PeviousNow).count() };
+
+					AbstractGame::m_PeviousNow = now;
+
+					m_GamePtr->Tick(elapsedSec);
 					m_GamePtr->Paint(rect);
 					m_IsDoublebuffering = false;
 
@@ -2453,7 +2460,7 @@ LRESULT Button::ButtonProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 Timer::Timer(int msec, Callable* targetPtr) : m_IsRunning(false)
 {
 	m_Delay = msec;
-
+	
 	AddActionListener(targetPtr);
 }
 

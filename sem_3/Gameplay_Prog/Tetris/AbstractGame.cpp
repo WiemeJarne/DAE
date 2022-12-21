@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------
 #define GAME_ENGINE (GameEngine::GetSingleton())
 
+//statics
+std::chrono::system_clock::time_point AbstractGame::m_PeviousNow = std::chrono::system_clock::now();
+
 //-----------------------------------------------------------------
 // AbstractGame methods
 //-----------------------------------------------------------------

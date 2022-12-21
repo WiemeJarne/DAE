@@ -13,6 +13,8 @@
 #include "GameEngine.h"
 #include "AbstractGame.h"
 
+class Grid;
+
 //-----------------------------------------------------------------
 // Tetris Class																
 //-----------------------------------------------------------------
@@ -46,7 +48,7 @@ public:
 	void CheckKeyboard() override;
 	void KeyPressed(TCHAR cKey) override;
 	void Paint(RECT rect) override;
-	void Tick() override;
+	void Tick(float elapsedSec) override;
 	
 	void CallAction(Caller* callerPtr) override;
 
@@ -54,6 +56,5 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-
-
+	std::unique_ptr<Grid> m_Grid{};
 };

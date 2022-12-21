@@ -1,0 +1,11 @@
+﻿  AbstractGame.cpp
+  GameEngine.cpp
+  GameWinMain.cpp
+  Grid.cpp
+  Tetris.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\Tetris\structs.h(36): warning C4715: 'Vector4::operator[]': not all control paths return a value
+  All 506 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Tetris.vcxproj -> C:\Users\jarne\Documents\DAE\sem_3\Gameplay_Prog\Tetris\x64\Release\Tetris.exe

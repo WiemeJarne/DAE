@@ -13,6 +13,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <tchar.h>
+#include <chrono>
 
 //-----------------------------------------------------------------
 // AbstractGame Class
@@ -23,6 +24,7 @@ public :
 	AbstractGame() 
 	{
 		// nothing to create
+		
 	}
 
 	virtual ~AbstractGame() 
@@ -47,5 +49,7 @@ public :
 	virtual void CheckKeyboard(void) = 0;														// pure virtual function
 	virtual void KeyPressed(TCHAR cKey) = 0;													// pure virtual function
 	virtual void Paint(RECT rect) = 0;															// pure virtual function
-	virtual void Tick() = 0;																	// pure virtual function
+	virtual void Tick(float elapsedSec) = 0;													// pure virtual function
+
+	static std::chrono::system_clock::time_point m_PeviousNow;
 };

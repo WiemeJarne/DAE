@@ -1,3 +1,4 @@
+#include <cassert>
 struct Vector4
 {
 	Vector4(float _x, float _y, float _z, float _w)
@@ -32,6 +33,10 @@ struct Vector4
 		case 3:
 			return w;
 			break;
+
+		default:
+			assert("invalid index used for operator[] with a Vector 4");
+			break;
 		}
 	}
 
@@ -53,6 +58,9 @@ struct Vector4
 
 		case 3:
 			return w;
+			break;
+		default:
+			assert("invalid index used for operator[] with a Vector 4");
 			break;
 		}
 	}
@@ -92,6 +100,78 @@ struct Matrix
 		data[1] = result[1];
 		data[2] = result[2];
 		data[3] = result[3];
+
+		return *this;
+	}
+
+	const Matrix& InverseRows()
+	{
+		Matrix result{};
+		//row 1
+		result[0][0] = data[0][3];
+		result[0][1] = data[0][2];
+		result[0][2] = data[0][1];
+		result[0][3] = data[0][0];
+
+		//row 2
+		result[1][0] = data[1][3];
+		result[1][1] = data[1][2];
+		result[1][2] = data[1][1];
+		result[1][3] = data[1][0];
+
+		//row 3
+		result[2][0] = data[2][3];
+		result[2][1] = data[2][2];
+		result[2][2] = data[2][1];
+		result[2][3] = data[2][0];
+
+		//row 4
+		result[3][0] = data[3][3];
+		result[3][1] = data[3][2];
+		result[3][2] = data[3][1];
+		result[3][3] = data[3][0];
+
+		data[0] = result[0];
+		data[1] = result[1];
+		data[2] = result[2];
+		data[3] = result[3];
+
+		return *this;
+	}
+
+	const Matrix& InverseCollumns()
+	{
+		Matrix result{};
+		//collumn 1
+		result[0][0] = data[3][0];
+		result[1][0] = data[2][0];
+		result[2][0] = data[1][0];
+		result[3][0] = data[0][0];
+
+		//collumn 2
+		result[0][1] = data[3][1];
+		result[1][1] = data[2][1];
+		result[2][1] = data[1][1];
+		result[3][1] = data[0][1];
+
+		//collumn 3
+		result[0][2] = data[3][2];
+		result[1][2] = data[2][2];
+		result[2][2] = data[1][2];
+		result[3][2] = data[0][2];
+
+		//collumn 4
+		result[0][3] = data[3][3];
+		result[1][3] = data[2][3];
+		result[2][3] = data[1][3];
+		result[3][3] = data[0][3];
+
+		data[0] = result[0];
+		data[1] = result[1];
+		data[2] = result[2];
+		data[3] = result[3];
+
+		return *this;
 	}
 
 	static Matrix Transpose(const Matrix& matrix)
@@ -105,29 +185,7 @@ struct Matrix
 	static Matrix InverseRows(const Matrix& matrix)
 	{
 		Matrix result{};
-		//row 1
-		result[0][0] = matrix[0][3];
-		result[0][1] = matrix[0][2];
-		result[0][2] = matrix[0][1];
-		result[0][3] = matrix[0][0];
-
-		//row 2
-		result[1][0] = matrix[1][3];
-		result[1][1] = matrix[1][2];
-		result[1][2] = matrix[1][1];
-		result[1][3] = matrix[1][0];
-
-		//row 3
-		result[2][0] = matrix[2][3];
-		result[2][1] = matrix[2][2];
-		result[2][2] = matrix[2][1];
-		result[2][3] = matrix[2][0];
-
-		//row 4
-		result[3][0] = matrix[3][3];
-		result[3][1] = matrix[3][2];
-		result[3][2] = matrix[3][1];
-		result[3][3] = matrix[3][0];
+		result.InverseRows();
 
 		return result;
 	}

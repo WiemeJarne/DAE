@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------
 #include "Tetris.h"																				
 #include "Grid.h"
-#include "structs.h"
+
 
 //-----------------------------------------------------------------
 // Tetris methods																				
@@ -16,7 +16,7 @@
 
 Tetris::Tetris() 																	
 {
-	// nothing to create
+	Start();
 }
 
 Tetris::~Tetris()																						
@@ -48,6 +48,7 @@ void Tetris::Initialize(HINSTANCE hInstance)
 void Tetris::Start()
 {
 	// Insert the code that needs to be executed at the start of the project
+	m_Grid = make_unique<Grid>(100, 100, 22, 10, 25);
 }
 
 void Tetris::End()
@@ -105,6 +106,11 @@ void Tetris::CheckKeyboard()
 	if (GAME_ENGINE->IsKeyDown(_T('M'))) xIcon += xSpeed;
 	if (GAME_ENGINE->IsKeyDown(_T('O'))) yIcon -= ySpeed;
 	*/
+
+	if (GAME_ENGINE->IsKeyDown(_T('A'))) m_Grid->MoveCurrentDroppingTetriminoLeft();
+	if (GAME_ENGINE->IsKeyDown(_T('D'))) m_Grid->MoveCurrentDroppingTetriminoRight();
+	if (GAME_ENGINE->IsKeyDown(_T('Q'))) m_Grid->RotateCurrentDroppingTetriminoCCW();
+	if (GAME_ENGINE->IsKeyDown(_T('E'))) m_Grid->RotateCurrentDroppingTetriminoCW();
 }
 
 void Tetris::KeyPressed(TCHAR cKey)
@@ -141,27 +147,17 @@ void Tetris::Paint(RECT rect)
 	// Insert paint code 
 
 	//test to draw a grid
-	Grid* grid{ new Grid(100, 100, 22, 10, 25) };
-	grid->Paint();
-	delete grid;
-
-	Matrix matrix{ Vector4(1, 2, 3, 4), Vector4(1, 2, 3, 4),Vector4(1, 2, 3, 4),Vector4(1, 2, 3, 4) };
-
-	auto m{ matrix[0][0] };
-
-	matrix = Matrix::InverseRows(matrix);
+	
+	m_Grid->Paint();
 }
 
-void Tetris::Tick()
+void Tetris::Tick(float elapsedSec)
 {
 	// Insert non-paint code that needs to be executed each tick 
+	m_Grid->Update(elapsedSec);
 }
 
 void Tetris::CallAction(Caller* callerPtr)
 {
 	// Insert the code that needs to be executed when a Caller has to perform an action
 }
-
-
-
-
