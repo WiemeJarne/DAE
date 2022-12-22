@@ -7,13 +7,13 @@ Grid::Grid(int topLeftX, int topLeftY, int amountOfRows, int amountOfCollumns, i
 	, m_AmountOfCollumns{ amountOfCollumns }
 	, m_CellSideLenght{ cellSideLength }
 	, m_Color{ color }
-	, m_DropSpeed{ 0.5f }
+	, m_DropSpeed{ 0.1f }
 	, m_AmountOfSecSinceLastCellDrop{ }
 	, m_MoveSpeed{ 0.1f }
 	, m_AmountOfSecSinceLastMove{ }
 	, m_RotateSpeed{ 0.2f }
 	, m_AmountOfSecSinceLastRotate{ }
-	, m_CurrentDroppingTetrimino{ Tetrimino(0, 0, cellSideLength) }
+, m_CurrentDroppingTetrimino{ Tetrimino(0, 0, cellSideLength, Tetrimino::Kind::I) }
 {
 	for (int index{}; index < m_AmountOfRows * m_AmountOfCollumns; ++index)
 	{
@@ -23,7 +23,7 @@ Grid::Grid(int topLeftX, int topLeftY, int amountOfRows, int amountOfCollumns, i
 
 void Grid::Update(float elapsedSec)
 {
-	//m_AmountOfSecSinceLastCellDrop += elapsedSec;
+	m_AmountOfSecSinceLastCellDrop += elapsedSec;
 	m_AmountOfSecSinceLastMove += elapsedSec;
 	m_AmountOfSecSinceLastRotate += elapsedSec;
 
@@ -33,15 +33,15 @@ void Grid::Update(float elapsedSec)
 		{
 			for (int colIndex{}; colIndex < 4; ++colIndex)
 			{
-				if (m_CurrentDroppingTetrimino.data[rowIndex][colIndex] == 1.f)
+				if (m_CurrentDroppingTetrimino.pData->GetValue(rowIndex, colIndex) == 1.f)
 				{
 					m_Cells[(m_CurrentDroppingTetrimino.rowNr + rowIndex) * m_AmountOfCollumns + m_CurrentDroppingTetrimino.colNr + colIndex].isColored = true;
-					m_Cells[(m_CurrentDroppingTetrimino.rowNr + rowIndex) * m_AmountOfCollumns + m_CurrentDroppingTetrimino.colNr + colIndex].color = RGB(120, 120, 120);
+					m_Cells[(m_CurrentDroppingTetrimino.rowNr + rowIndex) * m_AmountOfCollumns + m_CurrentDroppingTetrimino.colNr + colIndex].color = m_CurrentDroppingTetrimino.color;
 				}
 			}
 		}
 
-		m_CurrentDroppingTetrimino = Tetrimino(0, 0, m_CellSideLenght);
+		m_CurrentDroppingTetrimino = Tetrimino(0, 0, m_CellSideLenght, Tetrimino::Kind::I);
 	}
 	else if (m_AmountOfSecSinceLastCellDrop >= m_DropSpeed)
 	{
@@ -150,24 +150,31 @@ bool Grid::CollisionTest()
 	// calcute the rowNr and colNr for all cells that need to be checked
 	std::vector<std::pair<int, int>> cellsToCheck{};
 
+	std::pair<int, int> mostBottomCell{};
+
 	for (int rowIndex{}; rowIndex < 4; ++rowIndex)
 	{
 		for (int colIndex{}; colIndex < 4; ++colIndex)
 		{
-			if (m_CurrentDroppingTetrimino.data[rowIndex][colIndex] == 0.f)
+			if (m_CurrentDroppingTetrimino.pData->GetValue(rowIndex, colIndex) == 1.f)
 			{
 				cellsToCheck.push_back(std::pair(m_CurrentDroppingTetrimino.rowNr + rowIndex, m_CurrentDroppingTetrimino.colNr + colIndex));
+				mostBottomCell = std::pair(m_CurrentDroppingTetrimino.rowNr + rowIndex, m_CurrentDroppingTetrimino.colNr + colIndex);
 			}
 		}
 	}
 
+	//if (mostBottomCell.first != (m_AmountOfRows - 1) && m_Cells[(mostBottomCell.first + 1) * m_AmountOfCollumns + mostBottomCell.second].isColored)
+	//{
+	//	return true;
+	//}
+
 	for (const auto& cell : cellsToCheck)
 	{
-		if (cell.first == (m_AmountOfRows) || cell.second == (m_AmountOfCollumns)) return true;
-
-		const int cellIndex{ cell.first * m_AmountOfCollumns + cell.second };
-
-		if (m_Cells[cellIndex].isColored == true) return true;
+		if (mostBottomCell.first != (m_AmountOfRows - 1) && (cell.first == (m_AmountOfRows - 1) || m_Cells[(mostBottomCell.first + 1) * m_AmountOfCollumns + mostBottomCell.second].isColored))
+		{
+			return true;
+		}	
 	}
 
 	return false;

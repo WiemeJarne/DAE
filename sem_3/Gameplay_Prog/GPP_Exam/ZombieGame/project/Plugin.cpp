@@ -14,9 +14,9 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	//Bit information about the plugin
 	//Please fill this in!!
 	info.BotName = "MinionExam";
-	info.Student_FirstName = "Foo";
-	info.Student_LastName = "Bar";
-	info.Student_Class = "2DAEx";
+	info.Student_FirstName = "Jarne";
+	info.Student_LastName = "Wieme";
+	info.Student_Class = "2DAE15";
 }
 
 //Called only once

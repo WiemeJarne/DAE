@@ -17,10 +17,22 @@ public:
 private:
 	struct Tetrimino
 	{
+		enum class Kind
+		{
+			I,
+			O,
+			T,
+			S,
+			Z,
+			J,
+			L
+		};
+
+		Kind kind;
 		int rowNr; // the rowNr on the grid of the top left cell
 		int colNr; // the colNr on the grid of the top left cell
 		int cellSideLenght;
-		COLORREF color{ RGB(120, 120, 120) };
+		COLORREF color{ RGB(255, 255, 255) };
 
 		Matrix* pData{};
 
@@ -32,11 +44,37 @@ private:
 			Vector4(0.f, 0.f, 0.f, 0.f)
 		};
 
-		Tetrimino(int _rowNr, int _colNr, int _cellSideLenght)
+		Tetrimino(int _rowNr, int _colNr, int _cellSideLenght, Kind _kind)
 		{
+			kind = _kind;
 			rowNr = _rowNr;
 			colNr = _colNr;
 			cellSideLenght = _cellSideLenght;
+
+			switch (_kind)
+			{
+			case Kind::I:
+				color = RGB(49, 199, 239);
+				break;
+			case Kind::O:
+				color = RGB(247, 211, 8);
+				break;
+			case Kind::T:
+				color = RGB(152, 56, 136);
+				break;
+			case Kind::S:
+				color = RGB(66, 182, 66);
+				break;
+			case Kind::Z:
+				color = RGB(239, 32, 41);
+				break;
+			case Kind::J:
+				color = RGB(90, 101, 173);
+				break;
+			case Kind::L:
+				color = RGB(239, 121, 33);
+				break;
+			}
 
 			pData = new Matrix4X4
 			{
@@ -63,7 +101,7 @@ private:
 				for (int colNr{}; colNr < 4; ++colNr)
 				{
 					if (pData->GetValue(rowNr, colNr) == 1.f)
-					{
+					{						
 						GAME_ENGINE->FillRect(x + cellSideLenght * colNr, y + cellSideLenght * rowNr, cellSideLenght, cellSideLenght);
 					}
 				}
@@ -112,7 +150,7 @@ private:
 		Cell() = default;
 
 		bool isColored{ false };
-		COLORREF color = RGB(0, 0, 0);
+		COLORREF color{};
 
 		void Paint(int x, int y, int sideLenght) const
 		{
