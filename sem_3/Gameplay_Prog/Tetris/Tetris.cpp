@@ -147,7 +147,6 @@ void Tetris::Paint(RECT rect)
 	// Insert paint code 
 
 	//test to draw a grid
-	
 	m_Grid->Paint();
 }
 

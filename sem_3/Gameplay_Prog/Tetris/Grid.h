@@ -22,7 +22,9 @@ private:
 		int cellSideLenght;
 		COLORREF color{ RGB(120, 120, 120) };
 
-		Matrix data
+		Matrix* pData{};
+
+		Matrix4X4 data
 		{
 			Vector4(0.f, 0.f, 0.f, 0.f),
 			Vector4(1.f, 1.f, 1.f, 1.f), 
@@ -30,19 +32,26 @@ private:
 			Vector4(0.f, 0.f, 0.f, 0.f)
 		};
 
-		Tetrimino()
-			: rowNr{ 0 }
-			, colNr{ 0 }
-			, cellSideLenght{ 25 }
-		{
-
-		}
-
 		Tetrimino(int _rowNr, int _colNr, int _cellSideLenght)
 		{
 			rowNr = _rowNr;
 			colNr = _colNr;
 			cellSideLenght = _cellSideLenght;
+
+			pData = new Matrix4X4
+			{
+				Vector4(0.f, 0.f, 0.f, 0.f),
+				Vector4(1.f, 1.f, 1.f, 1.f),
+				Vector4(0.f, 0.f, 0.f, 0.f),
+				Vector4(0.f, 0.f, 0.f, 0.f)
+			};
+
+			//pData = new	Matrix3X3
+			//{
+			//	Vector3(1.f, 0.f, 0.f),
+			//	Vector3(1.f, 1.f, 1.f),
+			//	Vector3(0.f, 0.f, 0.f)
+			//};
 		}
 
 		void Paint(int x, int y) const
@@ -53,7 +62,7 @@ private:
 			{
 				for (int colNr{}; colNr < 4; ++colNr)
 				{
-					if (data[rowNr][colNr] == 1.f)
+					if (pData->GetValue(rowNr, colNr) == 1.f)
 					{
 						GAME_ENGINE->FillRect(x + cellSideLenght * colNr, y + cellSideLenght * rowNr, cellSideLenght, cellSideLenght);
 					}
@@ -63,14 +72,18 @@ private:
 
 		void RotateCCW()
 		{
-			data.Transpose();
-			data.InverseCollumns();
+			//data.Transpose();
+			//data.InverseCollumns();
+			pData->Transpose();
+			pData->InverseCollumns();
 		}
 
 		void RotateCW()
 		{
-			data.Transpose();
-			data.InverseRows();
+			//data.Transpose();
+			//data.InverseRows();
+			pData->Transpose();
+			pData->InverseRows();
 		}
 	};
 

@@ -13,13 +13,12 @@ Grid::Grid(int topLeftX, int topLeftY, int amountOfRows, int amountOfCollumns, i
 	, m_AmountOfSecSinceLastMove{ }
 	, m_RotateSpeed{ 0.2f }
 	, m_AmountOfSecSinceLastRotate{ }
+	, m_CurrentDroppingTetrimino{ Tetrimino(0, 0, cellSideLength) }
 {
 	for (int index{}; index < m_AmountOfRows * m_AmountOfCollumns; ++index)
 	{
 		m_Cells.push_back(Cell());
 	}
-
-	m_CurrentDroppingTetrimino = Tetrimino(0, 0, cellSideLength);
 }
 
 void Grid::Update(float elapsedSec)
@@ -42,7 +41,7 @@ void Grid::Update(float elapsedSec)
 			}
 		}
 
-		m_CurrentDroppingTetrimino = Tetrimino();
+		m_CurrentDroppingTetrimino = Tetrimino(0, 0, m_CellSideLenght);
 	}
 	else if (m_AmountOfSecSinceLastCellDrop >= m_DropSpeed)
 	{
