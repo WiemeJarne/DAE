@@ -43,31 +43,13 @@ void App_GraphTheory::Update(float deltaTime)
 
 	auto path = eulerFinder.FindPath(euleriantity);
 
-	/*for (auto node : m_pGraph2D->GetAllNodes())
-	{
-		node->SetColor({ 0.f, 0.f, 1.f });
-	}*/
-	
-	/*if (path.size() > 0)
-	{
-		if (path.front() == path.back())
-		{
-			path.front()->SetColor({ 1.f, 0.5f, 0.f });
-		}
-		else
-		{
-			path.front()->SetColor({ 0.f, 1.f, 0.f });
-			path.back()->SetColor({ 1.f, 0.f, 0.f });
-		}
-	}*/
-
+	// graph coloring
 	m_pPathGraph = eulerFinder.GetGraph();
-
+	
 	for (auto& node : m_pGraph2D->GetAllNodes())
 	{
 		ChangeNodeColor(node);
 	}
-	
 
 	switch (euleriantity)
 	{
@@ -157,37 +139,44 @@ bool App_GraphTheory::DoesNeighborsHaveSameColor(const Elite::GraphNode2D* pNode
 
 void App_GraphTheory::ChangeNodeColor(Elite::GraphNode2D* pNode)
 {
-	m_PossibleColors = m_Colors;
+	std::vector<Elite::Color> m_PossibleColorsCurrentNode{ m_Colors };
 
-	const size_t amountOfColors{ m_Colors.size() };
-	for (size_t index{}; index < amountOfColors; ++index)
+	// loop over all the colors in m_Colors
+	for (const auto& color : m_Colors)
 	{
-		pNode->SetColor(m_Colors[static_cast<int>(index)]);
-
+		pNode->SetColor(color);
+		
+		// if a neighbor of the current node has the same color
+		// then is the current color of the node no longer a possibility
 		if (DoesNeighborsHaveSameColor(pNode))
 		{
-			m_PossibleColors[GetColorIndex(pNode)] = { -1.f, -1.f, -1.f };
-		}
-	}
-	
-	for (size_t index{}; index < amountOfColors; ++index)
-	{
-		if (!AreColorsTheSame(m_PossibleColors[index], { -1.f, -1.f, -1.f }))
-		{
-			pNode->SetColor(m_PossibleColors[index]);
-			return;
+			m_PossibleColorsCurrentNode[GetColorIndex(pNode)] = { -1.f, -1.f, -1.f }; // set all color channels to -1 so the color is invalid
 		}
 	}
 
+	for (const auto& color : m_PossibleColorsCurrentNode)
+	{
+		if (!AreColorsTheSame(color, { -1.f, -1.f, -1.f })) // if the color has -1 in all channels then the color is invalid
+		{
+			pNode->SetColor(color);
+			return; // return when a possible color is foudn
+		}
+	}
+
+	// when there are no possible colors make a new color and add it to the back of m_Colors vector
 	AddNewRandomColor();
+	// calculate the index of the new color
 	int colorIndex{ static_cast<int>(m_Colors.size()) - 1 };
 	
+	// set the color of the node to the new color
 	pNode->SetColor(m_Colors[colorIndex]);
 }
 
 int App_GraphTheory::GetColorIndex(const Elite::GraphNode2D* pNode) const
 {
 	const size_t amountOfColors{ m_Colors.size() };
+	// loop over all the colors in the m_Colors vector
+	// until the color of the node is the same as the color in the vector
 	for (size_t index{}; index < amountOfColors; ++index)
 	{
 		if (AreColorsTheSame(m_Colors[index], pNode->GetColor()))
@@ -196,6 +185,7 @@ int App_GraphTheory::GetColorIndex(const Elite::GraphNode2D* pNode) const
 		}
 	}
 
+	// when the color of the current node is not in the m_Colors vector return an invalid index
 	return invalid_node_index;
 }
 
@@ -203,19 +193,23 @@ void App_GraphTheory::AddNewRandomColor()
 {
 	Elite::Color randomColor{ GenerateRandomColor() };
 
-	while (DoesColorExist(randomColor))
+	// check if the random generated color already exists
+	// if it already exists generate another random color
+	// until a new color that does not yet exist is generated
+	while (DoesColorExist(randomColor)) 
 	{
 		randomColor = GenerateRandomColor();
 	}
 
+	// add the new color to the back of the m_Colors vector
 	m_Colors.push_back(randomColor);
 }
 
 Elite::Color App_GraphTheory::GenerateRandomColor() const
 {
-	const float randomR{ rand() % 100 / 100.f };
-	const float randomG{ rand() % 100 / 100.f };
-	const float randomB{ rand() % 100 / 100.f };
+	const float randomR{ rand() % 100 / 100.f }; // generate a random nubmer between 0.f and 1.f
+	const float randomG{ rand() % 100 / 100.f }; // generate a random nubmer between 0.f and 1.f
+	const float randomB{ rand() % 100 / 100.f }; // generate a random nubmer between 0.f and 1.f
 
 	return { randomR, randomG, randomB };
 }

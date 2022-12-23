@@ -35,7 +35,6 @@ private:
 	Elite::GraphEditor m_GraphEditor{};
 
 	std::vector<Elite::Color> m_Colors{};
-	std::vector<Elite::Color> m_PossibleColors{};
 
 	Elite::IGraph<Elite::GraphNode2D, Elite::GraphConnection2D>* m_pPathGraph{};
 
