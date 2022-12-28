@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Plugin.h"
 #include "IExamInterface.h"
+#include "SteeringBehaviors.h"
 
 using namespace std;
 
@@ -17,6 +18,8 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	info.Student_FirstName = "Jarne";
 	info.Student_LastName = "Wieme";
 	info.Student_Class = "2DAE15";
+
+	m_pSteeringBehavior = new Wander();
 }
 
 //Called only once
@@ -123,6 +126,7 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 	//Use the Interface (IAssignmentInterface) to 'interface' with the AI_Framework
 	auto agentInfo = m_pInterface->Agent_GetInfo();
 
+	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
 
 	//Use the navmesh to calculate the next navmesh point
 	//auto nextTargetPos = m_pInterface->NavMesh_GetClosestPathPoint(checkpointLocation);

@@ -4,6 +4,7 @@
 
 class IBaseInterface;
 class IExamInterface;
+class ISteeringBehavior;
 
 class Plugin :public IExamPlugin
 {
@@ -35,6 +36,7 @@ private:
 	float m_AngSpeed = 0.f; //Demo purpose
 
 	UINT m_InventorySlot = 0;
+	ISteeringBehavior* m_pSteeringBehavior;
 };
 
 //ENTRY
