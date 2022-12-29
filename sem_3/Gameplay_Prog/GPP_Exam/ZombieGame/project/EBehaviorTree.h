@@ -9,6 +9,7 @@
 
 //--- Includes ---
 #include "EBlackboard.h"
+#include "Exam_HelperStructs.h"
 
 namespace Elite
 {
@@ -149,10 +150,14 @@ namespace Elite
 		Blackboard* GetBlackboard() const
 		{ return m_pBlackBoard;	}
 
+		SteeringPlugin_Output GetSteeringOutput() const
+		{ return m_SteeringOutput; }
+
 	private:
 		BehaviorState m_CurrentState = BehaviorState::Failure;
 		Blackboard* m_pBlackBoard = nullptr;
 		IBehavior* m_pRootBehavior = nullptr;
+		SteeringPlugin_Output m_SteeringOutput;
 	};
 }
 #endif

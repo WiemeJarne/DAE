@@ -1,6 +1,7 @@
 #pragma once
 #include "IExamPlugin.h"
 #include "Exam_HelperStructs.h"
+#include "EBehaviorTree.h"
 
 class IBaseInterface;
 class IExamInterface;
@@ -37,6 +38,8 @@ private:
 
 	UINT m_InventorySlot = 0;
 	ISteeringBehavior* m_pSteeringBehavior;
+
+	Elite::BehaviorTree* m_pBehaviorTree;
 };
 
 //ENTRY

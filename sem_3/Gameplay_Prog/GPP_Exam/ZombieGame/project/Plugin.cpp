@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Plugin.h"
 #include "IExamInterface.h"
-#include "SteeringBehaviors.h"
+#include "Behaviors.h"
 
 using namespace std;
+using namespace Elite;
 
 //Called only once, during initialization
 void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
@@ -18,20 +19,39 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	info.Student_FirstName = "Jarne";
 	info.Student_LastName = "Wieme";
 	info.Student_Class = "2DAE15";
-
-	m_pSteeringBehavior = new Wander();
 }
 
 //Called only once
 void Plugin::DllInit()
 {
 	//Called when the plugin is loaded
+
+	//Create Blackboard
+	Elite::Blackboard* pBlackboard{ new Blackboard() };
+
+	//Add data to the Blackboard
+	pBlackboard->AddData("SteeringBehavior", m_pSteeringBehavior);
+
+	//Create BehaviorTree
+	m_pBehaviorTree =
+	{
+		new Elite::BehaviorTree
+		(
+			pBlackboard,
+			
+			new BehaviorAction(BT_Actions::ChangeToWander)
+		)
+	};
+
+	
 }
 
 //Called only once
 void Plugin::DllShutdown()
 {
 	//Called wheb the plugin gets unloaded
+	SAFE_DELETE(m_pSteeringBehavior);
+	SAFE_DELETE(m_pBehaviorTree);
 }
 
 //Called only once, during initialization
@@ -120,12 +140,19 @@ void Plugin::Update(float dt)
 //Update
 //This function calculates the new SteeringOutput, called once per frame
 SteeringPlugin_Output Plugin::UpdateSteering(float dt)
-{
+{	
+	assert(m_pBehaviorTree && "m_pBehaviorTree is null");
+
+	m_pBehaviorTree->Update(dt);
+
+	//return m_BehaviorTree->GetSteeringOutput();
+
 	auto steering = SteeringPlugin_Output();
 	
 	//Use the Interface (IAssignmentInterface) to 'interface' with the AI_Framework
 	auto agentInfo = m_pInterface->Agent_GetInfo();
 
+	m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehavior", m_pSteeringBehavior);
 	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
 
 	//Use the navmesh to calculate the next navmesh point
