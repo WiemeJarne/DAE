@@ -2,10 +2,11 @@
 #include "IExamPlugin.h"
 #include "Exam_HelperStructs.h"
 #include "EBehaviorTree.h"
+#include "SteeringBehaviors.h"
 
 class IBaseInterface;
 class IExamInterface;
-class ISteeringBehavior;
+//class ISteeringBehavior;
 
 class Plugin :public IExamPlugin
 {
@@ -39,7 +40,13 @@ private:
 	UINT m_InventorySlot = 0;
 	ISteeringBehavior* m_pSteeringBehavior;
 
+	//Behaviors
+	ISteeringBehavior* m_pWander;
+	ISteeringBehavior* m_pFace;
+
 	Elite::BehaviorTree* m_pBehaviorTree;
+
+	std::vector<EntityInfo> m_vEntitiesInFOV;
 };
 
 //ENTRY

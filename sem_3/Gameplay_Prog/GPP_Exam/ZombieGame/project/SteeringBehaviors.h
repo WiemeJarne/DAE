@@ -113,4 +113,11 @@ public:
 private:
 	const int m_EvadeRadius{ 25 };
 };
+
+enum class SteeringBehaviorType
+{
+	none,
+	wander,
+	face
+};
 #endif

@@ -13,6 +13,67 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	//This interface gives you access to certain actions the AI_Framework can perform for you
 	m_pInterface = static_cast<IExamInterface*>(pInterface);
 
+	//Create Blackboard
+	Elite::Blackboard* pBlackboard{ new Blackboard() };
+
+	//Add data to the Blackboard
+	pBlackboard->AddData("SteeringBehaviorType", SteeringBehaviorType::none);
+	pBlackboard->AddData("EntitiesInFOV", &m_vEntitiesInFOV);
+	pBlackboard->AddData("Interface", m_pInterface);
+	pBlackboard->AddData("Target", m_Target);
+
+	//Create BehaviorTree
+	m_pBehaviorTree =
+	{
+		new Elite::BehaviorTree
+		(
+			pBlackboard,
+
+			new BehaviorSelector
+			(
+				{
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsPistolInFOV),
+							new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
+							new BehaviorAction(BT_Actions::GrabPistol)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsShotgunInFOV),
+							new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
+							new BehaviorAction(BT_Actions::GrabShotGun)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsEnemyInFOV),
+							new BehaviorAction(BT_Actions::FaceEnemy),
+							new BehaviorAction(BT_Actions::ShootPistol)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsGarbageInFOV),
+							new BehaviorConditional(BT_Conditions::IsGarbageInGrabRange),
+							new BehaviorAction(BT_Actions::DestroyGarbage)
+						}
+					),
+
+					new BehaviorAction(BT_Actions::ChangeToWander)
+				}
+			)
+		)
+	};
+
 	//Bit information about the plugin
 	//Please fill this in!!
 	info.BotName = "MinionExam";
@@ -26,32 +87,17 @@ void Plugin::DllInit()
 {
 	//Called when the plugin is loaded
 
-	//Create Blackboard
-	Elite::Blackboard* pBlackboard{ new Blackboard() };
-
-	//Add data to the Blackboard
-	pBlackboard->AddData("SteeringBehavior", m_pSteeringBehavior);
-
-	//Create BehaviorTree
-	m_pBehaviorTree =
-	{
-		new Elite::BehaviorTree
-		(
-			pBlackboard,
-			
-			new BehaviorAction(BT_Actions::ChangeToWander)
-		)
-	};
-
-	
+	//create the steeringBehaviors
+	m_pWander = new Wander();
+	m_pFace = new Face();
 }
 
 //Called only once
 void Plugin::DllShutdown()
 {
 	//Called wheb the plugin gets unloaded
-	SAFE_DELETE(m_pSteeringBehavior);
 	SAFE_DELETE(m_pBehaviorTree);
+	SAFE_DELETE(m_pWander);
 }
 
 //Called only once, during initialization
@@ -145,6 +191,8 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 
 	m_pBehaviorTree->Update(dt);
 
+	m_vEntitiesInFOV = GetEntitiesInFOV();
+
 	//return m_BehaviorTree->GetSteeringOutput();
 
 	auto steering = SteeringPlugin_Output();
@@ -152,7 +200,26 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 	//Use the Interface (IAssignmentInterface) to 'interface' with the AI_Framework
 	auto agentInfo = m_pInterface->Agent_GetInfo();
 
-	m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehavior", m_pSteeringBehavior);
+	SteeringBehaviorType steeringBehaviorType;
+	if (m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehaviorType", steeringBehaviorType))
+	{
+		switch (steeringBehaviorType)
+		{
+		case SteeringBehaviorType::none:
+			m_pSteeringBehavior = nullptr;
+			break;
+
+		case SteeringBehaviorType::wander:
+			m_pSteeringBehavior = m_pWander;
+			break;
+
+		case SteeringBehaviorType::face:
+			m_pSteeringBehavior = m_pFace;
+			break;
+		}
+	}
+
+	if(m_pSteeringBehavior && steeringBehaviorType == SteeringBehaviorType::face)
 	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
 
 	//Use the navmesh to calculate the next navmesh point
