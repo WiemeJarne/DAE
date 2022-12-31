@@ -37,24 +37,6 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSequence
 					(
 						{
-							new BehaviorConditional(BT_Conditions::IsPistolInFOV),
-							new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
-							new BehaviorAction(BT_Actions::GrabPistol)
-						}
-					),
-
-					new BehaviorSequence
-					(
-						{
-							new BehaviorConditional(BT_Conditions::IsShotgunInFOV),
-							new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
-							new BehaviorAction(BT_Actions::GrabShotGun)
-						}
-					),
-
-					new BehaviorSequence
-					(
-						{
 							new BehaviorConditional(BT_Conditions::IsEnemyInFOV),
 							new BehaviorAction(BT_Actions::FaceEnemy),
 							new BehaviorAction(BT_Actions::ShootPistol)
@@ -67,6 +49,24 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 							new BehaviorConditional(BT_Conditions::IsHouseInFOV),
 							new BehaviorConditional(BT_Conditions::HasHouseNotBeenEnteredBefore),
 							new BehaviorAction(BT_Actions::GoInHouse)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsPistolInFOV),
+							new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
+							new BehaviorAction(BT_Actions::GrabPistol)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsShotgunInFOV),
+							new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
+							new BehaviorAction(BT_Actions::GrabShotGun)
 						}
 					),
 
@@ -253,8 +253,8 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 		}
 	}
 
-	if(m_pSteeringBehavior && steeringBehaviorType == SteeringBehaviorType::seek)
-	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
+	//if(m_pSteeringBehavior && steeringBehaviorType == SteeringBehaviorType::face)
+	//return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
 
 	//Use the navmesh to calculate the next navmesh point
 	//auto nextTargetPos = m_pInterface->NavMesh_GetClosestPathPoint(checkpointLocation);

@@ -143,21 +143,17 @@ namespace BT_Actions
 		Vector2 toTarget{ target - pInterface->Agent_GetInfo().Position };
 		toTarget.Normalize();
 
-		//the desired angle
-		float angle{ acos(toTarget.Dot({ 1.f, 0.f })) };
+		float desiredAngle{ acos(toTarget.Dot({ 1.f, 0.f })) };
 
 		float cross{ toTarget.Cross({1.f, 0.f}) };
 
 		if (cross > 0) //toTarget ligt rechts van unitX vector
 		{
-			angle *= -1;
+			desiredAngle *= -1;
 		}
 
-		if (angle - 0.1f <= pInterface->Agent_GetInfo().Orientation && angle + 0.1f >= pInterface->Agent_GetInfo().Orientation)
-		{
-			std::cout << angle << " ";
-			std::cout << pInterface->Agent_GetInfo().Orientation << '\n';
-			
+		if (desiredAngle - 0.1f <= pInterface->Agent_GetInfo().Orientation && desiredAngle + 0.1f >= pInterface->Agent_GetInfo().Orientation)
+		{			
 			return BehaviorState::Success;
 		}
 
