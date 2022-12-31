@@ -50,13 +50,6 @@ namespace BT_Actions
 
 			if (itemInfo.Type == eItemType::PISTOL)
 			{
-				pInterface->Inventory_GetItem(0, itemInfo);
-
-				if (itemInfo.Type == eItemType::PISTOL)
-				{
-					pInterface->Inventory_RemoveItem(0);
-				}
-
 				pInterface->Item_Grab(entity, itemInfo);
 				pInterface->Inventory_AddItem(0, itemInfo);
 				return BehaviorState::Success;
@@ -188,6 +181,53 @@ namespace BT_Actions
 		pInterface->Inventory_UseItem(0);
 		
 		return BehaviorState::Success;
+	}
+
+	BehaviorState GoInHouse(Blackboard* pBlackboard)
+	{
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return BehaviorState::Failure;
+
+		SteeringBehaviorType pSteeringBehaviorType;
+		if (!pBlackboard->GetData("SteeringBehaviorType", pSteeringBehaviorType))
+			return BehaviorState::Failure;
+
+		HouseInfo houseInfo;
+		pInterface->Fov_GetHouseByIndex(0, houseInfo);
+
+		pBlackboard->ChangeData("Target", pInterface->NavMesh_GetClosestPathPoint(houseInfo.Center));
+
+		pBlackboard->ChangeData("SteeringBehaviorType", SteeringBehaviorType::seek);
+
+		if (pInterface->Agent_GetInfo().Position.x - 0.1 <= houseInfo.Center.x && pInterface->Agent_GetInfo().Position.x + 0.1 >= houseInfo.Center.x)
+		{
+			std::list<std::pair<Vector2, float>>* pvHouesesEnteredCenter;
+			if (!pBlackboard->GetData("HousesEntered", pvHouesesEnteredCenter) || !pvHouesesEnteredCenter)
+				return BehaviorState::Failure;
+
+			pvHouesesEnteredCenter->push_back(std::pair<Vector2, float>(houseInfo.Center, 0.f));
+
+			return BehaviorState::Success;
+		}
+
+		return BehaviorState::Running;
+	}
+
+	BehaviorState LootHouse(Blackboard* pBlackboard)
+	{
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return BehaviorState::Failure;
+
+		SteeringBehaviorType pSteeringBehaviorType;
+		if (!pBlackboard->GetData("SteeringBehaviorType", pSteeringBehaviorType))
+			return BehaviorState::Failure;
+
+		HouseInfo houseInfo;
+		pInterface->Fov_GetHouseByIndex(0, houseInfo);
+
+		pBlackboard->ChangeData("Target", pInterface->NavMesh_GetClosestPathPoint(houseInfo.Center));
 	}
 }
 
@@ -373,5 +413,58 @@ namespace BT_Conditions
 		}
 
 		return false;
+	}
+
+	bool IsOutSide(Blackboard* pBlackboard)
+	{
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return false;
+
+		if (!pInterface->Agent_GetInfo().IsInHouse)
+			return true;
+
+		return false;
+	}
+
+	bool IsHouseInFOV(Blackboard* pBlackboard)
+	{
+		std::vector<HouseInfo>* pvHousesInFOV;
+		if (!pBlackboard->GetData("HousesInFOV", pvHousesInFOV) || !pvHousesInFOV)
+			return false;
+
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return false;
+
+		if (!pvHousesInFOV->empty())
+			return true;
+
+		return false;
+	}
+
+	bool HasHouseNotBeenEnteredBefore(Blackboard* pBlackboard)
+	{
+		std::list<std::pair<Vector2, float>>* pvHouesesEnteredCenter;
+		if (!pBlackboard->GetData("HousesEntered", pvHouesesEnteredCenter) || !pvHouesesEnteredCenter)
+			return false;
+
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return false;
+
+		HouseInfo houseInfo;
+		pInterface->Fov_GetHouseByIndex(0, houseInfo);
+
+		bool houseHasBeenEnteredBefore{};
+		for (const auto& houseEntered : *pvHouesesEnteredCenter)
+		{
+			if (houseEntered.first == houseInfo.Center)
+			{
+				return false; //house has been entered before
+			}
+		}
+
+		return true; //house has not been entered before
 	}
 }

@@ -13,7 +13,7 @@ SteeringPlugin_Output Seek::CalculateSteering(float deltaT, AgentInfo& agentInfo
 {
 	SteeringPlugin_Output steering{};
 	
-	const Vector2 toTarget{ m_Target.Location - agentInfo.Position };
+	const Vector2 toTarget{ m_Target - agentInfo.Position };
 
 	steering.LinearVelocity = toTarget;
 	steering.LinearVelocity.Normalize();
@@ -40,7 +40,7 @@ SteeringPlugin_Output Flee::CalculateSteering(float deltaT, AgentInfo& agentInfo
 {
 	SteeringPlugin_Output steering{};
 
-	const Vector2 toTarget{ m_Target.Location - agentInfo.Position };
+	const Vector2 toTarget{ m_Target - agentInfo.Position };
 
 	steering.LinearVelocity = toTarget;
 	steering.LinearVelocity.Normalize();
@@ -70,7 +70,7 @@ SteeringPlugin_Output Arrive::CalculateSteering(float deltaT, AgentInfo& agentIn
 {
 	SteeringPlugin_Output steering{};
 
-	Vector2 toTarget{ m_Target.Location - agentInfo.Position };
+	Vector2 toTarget{ m_Target - agentInfo.Position };
 	
 	float distanceToTarget{ toTarget.Magnitude() };
 	
@@ -122,7 +122,7 @@ SteeringPlugin_Output Face::CalculateSteering(float deltaT, AgentInfo& agentInfo
 	SteeringPlugin_Output steering{};
 	steering.AutoOrient = false;
 
-	Vector2 toTarget{ m_Target.Location - agentInfo.Position };
+	Vector2 toTarget{ m_Target - agentInfo.Position };
 	Vector2 rotationVector{ cosf(agentInfo.Orientation), sinf(agentInfo.Orientation) };
 
 	if (AngleBetween(toTarget, rotationVector) < 0.1f && AngleBetween(toTarget, rotationVector) > -0.1f)
@@ -160,7 +160,7 @@ SteeringPlugin_Output Wander::CalculateSteering(float deltaT, AgentInfo& agentIn
 	randomPointOnCircle.x = circleOrigin.x + cosf(ToRadians(m_WanderAngle)) * m_Radius;
 	randomPointOnCircle.y = circleOrigin.y + sinf(ToRadians(m_WanderAngle)) * m_Radius;
 	
-	m_Target.Location = randomPointOnCircle;
+	m_Target = randomPointOnCircle;
 
 	//if (pAgent->CanRenderBehavior())
 	//{
@@ -176,10 +176,10 @@ SteeringPlugin_Output Wander::CalculateSteering(float deltaT, AgentInfo& agentIn
 
 SteeringPlugin_Output Pursuit::CalculateSteering(float deltaT, AgentInfo& agentInfo)
 {
-	Vector2 toTarget{ m_Target.Location - agentInfo.Position };
+	Vector2 toTarget{ m_Target - agentInfo.Position };
 	float t{toTarget.Magnitude() / agentInfo.MaxLinearSpeed}; // number of update cycles
 	
-	m_Target.Location += m_Target.LinearVelocity.GetNormalized() * agentInfo.LinearVelocity.Magnitude() * t;
+	//m_Target += m_Target.LinearVelocity.GetNormalized() * agentInfo.LinearVelocity.Magnitude() * t;
 
 	//if (pAgent->CanRenderBehavior())
 	//{
@@ -191,7 +191,7 @@ SteeringPlugin_Output Pursuit::CalculateSteering(float deltaT, AgentInfo& agentI
 
 SteeringPlugin_Output Evade::CalculateSteering(float deltaT, AgentInfo& agentInfo)
 {
-	Vector2 toTarget{ m_Target.Location - agentInfo.Position };
+	Vector2 toTarget{ m_Target - agentInfo.Position };
 
 	if (m_EvadeRadius <= toTarget.Magnitude())
 	{
@@ -201,7 +201,7 @@ SteeringPlugin_Output Evade::CalculateSteering(float deltaT, AgentInfo& agentInf
 
 	float t{ toTarget.Magnitude() / agentInfo.MaxLinearSpeed }; // number of update cycles
 
-	m_Target.Location += m_Target.LinearVelocity.GetNormalized() * agentInfo.LinearVelocity.Magnitude() * t;
+	//m_Target += m_Target.LinearVelocity.GetNormalized() * agentInfo.LinearVelocity.Magnitude() * t;
 
 	//if (pAgent->CanRenderBehavior())
 	//{

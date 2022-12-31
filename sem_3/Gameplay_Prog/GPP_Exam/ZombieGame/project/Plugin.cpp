@@ -19,8 +19,10 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	//Add data to the Blackboard
 	pBlackboard->AddData("SteeringBehaviorType", SteeringBehaviorType::none);
 	pBlackboard->AddData("EntitiesInFOV", &m_vEntitiesInFOV);
+	pBlackboard->AddData("HousesInFOV", &m_vHousesInFOV);
 	pBlackboard->AddData("Interface", m_pInterface);
 	pBlackboard->AddData("Target", m_Target);
+	pBlackboard->AddData("HousesEntered", &m_vHousesEntered);
 
 	//Create BehaviorTree
 	m_pBehaviorTree =
@@ -62,6 +64,15 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSequence
 					(
 						{
+							new BehaviorConditional(BT_Conditions::IsHouseInFOV),
+							new BehaviorConditional(BT_Conditions::HasHouseNotBeenEnteredBefore),
+							new BehaviorAction(BT_Actions::GoInHouse)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
 							new BehaviorConditional(BT_Conditions::IsGarbageInFOV),
 							new BehaviorConditional(BT_Conditions::IsGarbageInGrabRange),
 							new BehaviorAction(BT_Actions::DestroyGarbage)
@@ -90,6 +101,7 @@ void Plugin::DllInit()
 	//create the steeringBehaviors
 	m_pWander = new Wander();
 	m_pFace = new Face();
+	m_pSeek = new Seek();
 }
 
 //Called only once
@@ -181,6 +193,17 @@ void Plugin::Update(float dt)
 		m_pInterface->Inventory_GetItem(m_InventorySlot, info);
 		std::cout << (int)info.Type << std::endl;
 	}
+
+	for (auto& houseEntered : m_vHousesEntered)
+	{
+		houseEntered.second += dt;
+
+		if (houseEntered.second >= 10) //the houses that have been entered 10 seconds or longer ago can be entered again
+		{
+			m_vHousesEntered.remove(houseEntered);
+			break;
+		}
+	}
 }
 
 //Update
@@ -192,6 +215,7 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 	m_pBehaviorTree->Update(dt);
 
 	m_vEntitiesInFOV = GetEntitiesInFOV();
+	m_vHousesInFOV = GetHousesInFOV();
 
 	//return m_BehaviorTree->GetSteeringOutput();
 
@@ -203,6 +227,8 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 	SteeringBehaviorType steeringBehaviorType;
 	if (m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehaviorType", steeringBehaviorType))
 	{
+		Vector2 target;
+
 		switch (steeringBehaviorType)
 		{
 		case SteeringBehaviorType::none:
@@ -215,11 +241,19 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 
 		case SteeringBehaviorType::face:
 			m_pSteeringBehavior = m_pFace;
+			m_pBehaviorTree->GetBlackboard()->GetData("Target", target);
+			m_pFace->SetTarget(target);
+			break;
+
+		case SteeringBehaviorType::seek:
+			m_pSteeringBehavior = m_pSeek;
+			m_pBehaviorTree->GetBlackboard()->GetData("Target", target);
+			m_pSeek->SetTarget(target);
 			break;
 		}
 	}
 
-	if(m_pSteeringBehavior && steeringBehaviorType == SteeringBehaviorType::face)
+	if(m_pSteeringBehavior && steeringBehaviorType == SteeringBehaviorType::seek)
 	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
 
 	//Use the navmesh to calculate the next navmesh point

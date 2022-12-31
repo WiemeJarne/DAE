@@ -43,10 +43,13 @@ private:
 	//Behaviors
 	ISteeringBehavior* m_pWander;
 	ISteeringBehavior* m_pFace;
+	ISteeringBehavior* m_pSeek;
 
 	Elite::BehaviorTree* m_pBehaviorTree;
 
 	std::vector<EntityInfo> m_vEntitiesInFOV;
+	std::vector<HouseInfo> m_vHousesInFOV;
+	std::list<std::pair<Elite::Vector2, float>> m_vHousesEntered; //the Vector2 = center of the house, the float is the time passed since it has been entered
 };
 
 //ENTRY

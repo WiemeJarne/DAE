@@ -22,14 +22,14 @@ public:
 	virtual SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) = 0;
 
 	//Seek Functions
-	void SetTarget(const EnemyInfo& target) { m_Target = target; }
+	void SetTarget(const Elite::Vector2 & target) { m_Target = target; }
 
 	template<class T, typename std::enable_if<std::is_base_of<ISteeringBehavior, T>::value>::type* = nullptr>
 	T* As()
 	{ return static_cast<T*>(this); }
 
 protected:
-	EnemyInfo m_Target;
+	Elite::Vector2 m_Target;
 };
 #pragma endregion
 
@@ -118,6 +118,7 @@ enum class SteeringBehaviorType
 {
 	none,
 	wander,
-	face
+	face,
+	seek
 };
 #endif
