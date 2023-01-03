@@ -66,6 +66,37 @@ SteeringPlugin_Output Flee::CalculateSteering(float deltaT, AgentInfo& agentInfo
 	return steering;
 }
 
+SteeringPlugin_Output SprintFlee::CalculateSteering(float deltaT, AgentInfo& agentInfo)
+{
+	SteeringPlugin_Output steering{};
+
+	const Vector2 toTarget{ m_Target - agentInfo.Position };
+
+	steering.LinearVelocity = toTarget;
+	steering.LinearVelocity.Normalize();
+	steering.LinearVelocity *= agentInfo.MaxLinearSpeed * -1;
+	steering.RunMode = true;
+
+	//if ()
+	//{
+	//	const Vector2 agentDirection{ pAgent->GetDirection() };
+	//
+	//	//draws the current velocity vector
+	//	DEBUGRENDERER2D->DrawDirection(agentPosition, agentDirection, pAgent->GetLinearVelocity().Magnitude(), { 1.f, 0.f, 1.f });
+	//
+	//	//draws the desired velocity vector
+	//	DEBUGRENDERER2D->DrawDirection(agentPosition, toTarget, pAgent->GetMaxLinearSpeed(), { 0.f, 1.f, 0.f });
+	//
+	//	//draws the desired velocity vector - current velocity vector
+	//	DEBUGRENDERER2D->DrawDirection(agentPosition, toTarget.GetNormalized() - agentDirection, pAgent->GetMaxLinearSpeed() - pAgent->GetLinearVelocity().Magnitude(), { 0.f, 1.f, 1.f });
+	//
+	//	//draws the opposite desired velocity vector
+	//	DEBUGRENDERER2D->DrawDirection(agentPosition, -toTarget, pAgent->GetMaxLinearSpeed(), { 0.f, 1.f, 0.f });
+	//}
+
+	return steering;
+}
+
 SteeringPlugin_Output Arrive::CalculateSteering(float deltaT, AgentInfo& agentInfo)
 {
 	SteeringPlugin_Output steering{};

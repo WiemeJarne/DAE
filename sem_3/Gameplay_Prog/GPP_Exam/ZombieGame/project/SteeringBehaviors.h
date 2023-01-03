@@ -55,6 +55,15 @@ public:
 	SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) override;
 };
 
+class SprintFlee : public ISteeringBehavior
+{
+public:
+	SprintFlee() = default;
+	virtual ~SprintFlee() = default;
+
+	SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) override;
+};
+
 class Arrive final : public ISteeringBehavior
 {
 public:
@@ -88,7 +97,7 @@ public:
 protected:
 	float m_OffsetDistance{ 6.f }; //offset in agent direction
 	float m_Radius{ 4.f }; //wanderRadius
-	float m_MaxAngleChange{ 15.f }; //max wanderingAngle change per frame
+	float m_MaxAngleChange{ 10.f }; //max wanderingAngle change per frame
 	float m_WanderAngle{ 0.f };
 };
 
@@ -119,6 +128,8 @@ enum class SteeringBehaviorType
 	none,
 	wander,
 	face,
-	seek
+	seek,
+	flee,
+	sprintFlee
 };
 #endif

@@ -13,6 +13,15 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	//This interface gives you access to certain actions the AI_Framework can perform for you
 	m_pInterface = static_cast<IExamInterface*>(pInterface);
 
+	//fill the list m_lPositionsToVisit with position for the agent to visit
+	for (int x{-350 }; x < 350; x += 20)
+	{
+		for (int y{ -350 }; y < 350; y += 20)
+		{
+			m_lPositionsToVisit.push_back(Vector2(x, y));
+		}
+	}
+	
 	//Create Blackboard
 	Elite::Blackboard* pBlackboard{ new Blackboard() };
 
@@ -23,6 +32,12 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	pBlackboard->AddData("Interface", m_pInterface);
 	pBlackboard->AddData("Target", m_Target);
 	pBlackboard->AddData("HousesEntered", &m_vHousesEntered);
+	pBlackboard->AddData("posBeforeEnteredHouse", Vector2());
+	pBlackboard->AddData("AmountOfTimeInHouse", &m_AmountOfTimeInHouse);
+	pBlackboard->AddData("isDoing180", bool());
+	pBlackboard->AddData("StartRotationFor180", float());
+	pBlackboard->AddData("posItemToSeek", Vector2());
+	pBlackboard->AddData("positionsToVisit", &m_lPositionsToVisit);
 
 	//Create BehaviorTree
 	m_pBehaviorTree =
@@ -37,9 +52,239 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSequence
 					(
 						{
+							new BehaviorConditional(BT_Conditions::NotMaxHealth),
+							new BehaviorConditional(BT_Conditions::HasMedkit),
+							new BehaviorConditional(BT_Conditions::HasEquipedMedkitHealth),
+							new BehaviorAction(BT_Actions::UseMedkit)
+						}
+					),
+					
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::AlmostOutOfEnergy),
+							new BehaviorConditional(BT_Conditions::HasFood),
+							new BehaviorConditional(BT_Conditions::HasEquipedFoodEnergy),
+							new BehaviorAction(BT_Actions::EatFood)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
 							new BehaviorConditional(BT_Conditions::IsEnemyInFOV),
-							new BehaviorAction(BT_Actions::FaceEnemy),
-							new BehaviorAction(BT_Actions::ShootPistol)
+
+							new BehaviorSelector
+							(
+								{
+									new BehaviorConditional(BT_Conditions::IsNotDoing180),
+									new BehaviorAction(BT_Actions::StopRotate180)
+								}
+							),
+
+							new BehaviorSelector
+							(
+								{
+									new BehaviorSequence
+									(
+										{
+											new BehaviorConditional(BT_Conditions::HasPistol),
+											new BehaviorConditional(BT_Conditions::HasEquipedPistolAmmo),
+											new BehaviorAction(BT_Actions::FaceEnemy),
+											new BehaviorAction(BT_Actions::ShootPistol)
+										}
+									),
+									
+									new BehaviorSequence
+									(
+										{
+											new BehaviorConditional(BT_Conditions::HasShotGun),
+											new BehaviorConditional(BT_Conditions::HasEquipedShotgunAmmo),
+											new BehaviorAction(BT_Actions::FaceEnemy),
+											new BehaviorAction(BT_Actions::ShootShotgun)
+										}
+									),
+
+									new BehaviorSequence
+									(
+										{
+											new BehaviorConditional(BT_Conditions::CanSprint),
+											new BehaviorAction(BT_Actions::ChangeToSprintFlee)
+										}
+									),
+									
+									new BehaviorAction(BT_Actions::ChangeToFlee)
+								}
+							)
+						}
+					),
+
+					new BehaviorSelector
+					(
+						{
+							new BehaviorSequence
+							(
+								{
+									new BehaviorConditional(BT_Conditions::HasTakenDamage),
+									new BehaviorAction(BT_Actions::Rotate180)
+								}
+							),
+
+							new BehaviorSequence
+							(
+								{
+									new BehaviorConditional(BT_Conditions::IsDoing180),
+									new BehaviorAction(BT_Actions::Rotate180)
+								}
+							)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsItemInGrabrange),
+							
+							new BehaviorSelector
+							(
+								{
+									new BehaviorSequence
+									(
+										{
+											new BehaviorConditional(BT_Conditions::IsGarbageInGrabRange),
+											new BehaviorAction(BT_Actions::DestroyGarbage)
+										}
+									),
+
+									new BehaviorSelector
+									(
+										{
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasPistol),
+													new BehaviorConditional(BT_Conditions::HasEquipedPistolMoreAmmoThenPistolInGrabrange),
+													new BehaviorAction(BT_Actions::DestroyPistolInGrabrange)
+												}
+											),
+
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasPistol),
+													new BehaviorAction(BT_Actions::DestroyEquipedPistol)
+												}
+											),
+
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
+													new BehaviorAction(BT_Actions::GrabPistol)
+												}
+											)
+										}
+									),
+
+									new BehaviorSelector
+									(
+										{
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasShotGun),
+													new BehaviorConditional(BT_Conditions::HasEquipedShotgunMoreAmmoThenShotgunInGrabrange),
+													new BehaviorAction(BT_Actions::DestroyPistolInGrabrange)
+												}
+											),
+											
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasShotGun),
+													new BehaviorAction(BT_Actions::DestroyEquipedShotgun)
+												}
+											),
+
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
+													new BehaviorAction(BT_Actions::GrabShotGun)
+												}
+											)
+										}
+									),
+
+									new BehaviorSelector
+									(
+										{
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsMedkitInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasMedkit),
+													new BehaviorConditional(BT_Conditions::HasEquipedMedkitMoreHPThenMedkitInGrabrange),
+													new BehaviorAction(BT_Actions::DestroyMedkitInGrabrange)
+												}
+											),
+											
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsMedkitInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasMedkit),
+													new BehaviorAction(BT_Actions::DestroyEquipedMedkit)
+												}
+											),
+
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsMedkitInGrabRange),
+													new BehaviorAction(BT_Actions::GrabMedkit)
+												}
+											)
+										}
+									),
+
+									new BehaviorSelector
+									(
+										{
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsFoodInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasFood),
+													new BehaviorConditional(BT_Conditions::HasEquipedFoodMoreEnergyThenFoodInGrabrange),
+													new BehaviorAction(BT_Actions::DestroyFoodInGrabrange)
+												}
+											),
+
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsFoodInGrabRange),
+													new BehaviorConditional(BT_Conditions::HasFood),
+													new BehaviorAction(BT_Actions::DestroyEquipedFood)
+												}
+											),
+
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::IsFoodInGrabRange),
+													new BehaviorAction(BT_Actions::GrabFood)
+												}
+											)
+										}
+									)
+								}
+							)
 						}
 					),
 
@@ -55,27 +300,25 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSequence
 					(
 						{
-							new BehaviorConditional(BT_Conditions::IsPistolInFOV),
-							new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
-							new BehaviorAction(BT_Actions::GrabPistol)
+							new BehaviorConditional(BT_Conditions::IsInHouse),
+							new BehaviorConditional(BT_Conditions::HasBeenInHouseFor5Seconds),
+							new BehaviorAction(BT_Actions::GoOutHouse)
 						}
 					),
 
 					new BehaviorSequence
 					(
 						{
-							new BehaviorConditional(BT_Conditions::IsShotgunInFOV),
-							new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
-							new BehaviorAction(BT_Actions::GrabShotGun)
+							new BehaviorConditional(BT_Conditions::IsItemInFOV),
+							new BehaviorAction(BT_Actions::SeekLoot)
 						}
 					),
 
 					new BehaviorSequence
 					(
 						{
-							new BehaviorConditional(BT_Conditions::IsGarbageInFOV),
-							new BehaviorConditional(BT_Conditions::IsGarbageInGrabRange),
-							new BehaviorAction(BT_Actions::DestroyGarbage)
+							new BehaviorConditional(BT_Conditions::HasNotExploreFullWorld),
+							new BehaviorAction(BT_Actions::GoToNextPosToVisit)
 						}
 					),
 
@@ -102,6 +345,8 @@ void Plugin::DllInit()
 	m_pWander = new Wander();
 	m_pFace = new Face();
 	m_pSeek = new Seek();
+	m_pFlee = new Flee();
+	m_pSprintFlee = new SprintFlee();
 }
 
 //Called only once
@@ -136,6 +381,11 @@ void Plugin::InitGameDebugParams(GameDebugParams& params)
 //(=Use only for Debug Purposes)
 void Plugin::Update(float dt)
 {
+	//for (const auto& pos : m_lPositionsToVisit)
+	//{
+	//	m_pInterface->Draw_Point(pos, 1, Vector3(1.f, 1.f, 1.f));
+	//}
+
 	//Demo Event Code
 	//In the end your AI should be able to walk around without external input
 	if (m_pInterface->Input_IsMouseButtonUp(Elite::InputMouseButton::eLeft))
@@ -194,13 +444,22 @@ void Plugin::Update(float dt)
 		std::cout << (int)info.Type << std::endl;
 	}
 
-	for (auto& houseEntered : m_vHousesEntered)
+	if (m_pInterface->Agent_GetInfo().IsInHouse)
 	{
-		houseEntered.second += dt;
+		m_AmountOfTimeInHouse += dt;
+	}
+	else
+	{
+		m_AmountOfTimeInHouse = 0.f;
+	}
 
-		if (houseEntered.second >= 10) //the houses that have been entered 10 seconds or longer ago can be entered again
+	//remove the position where the agent is the closest to
+	for (const auto& pos : m_lPositionsToVisit)
+	{
+		if (pos.x - m_pInterface->Agent_GetInfo().FOV_Range <= m_pInterface->Agent_GetInfo().Position.x && pos.x + m_pInterface->Agent_GetInfo().FOV_Range >= m_pInterface->Agent_GetInfo().Position.x
+			&& pos.y - m_pInterface->Agent_GetInfo().FOV_Range <= m_pInterface->Agent_GetInfo().Position.y && pos.y + m_pInterface->Agent_GetInfo().FOV_Range >= m_pInterface->Agent_GetInfo().Position.y)
 		{
-			m_vHousesEntered.remove(houseEntered);
+			m_lPositionsToVisit.remove(pos);
 			break;
 		}
 	}
@@ -250,11 +509,25 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 			m_pBehaviorTree->GetBlackboard()->GetData("Target", target);
 			m_pSeek->SetTarget(target);
 			break;
+
+		case SteeringBehaviorType::flee:
+			m_pSteeringBehavior = m_pFlee;
+			m_pBehaviorTree->GetBlackboard()->GetData("Target", target);
+			m_pFlee->SetTarget(target);
+			break;
+
+		case SteeringBehaviorType::sprintFlee:
+			m_pSteeringBehavior = m_pSprintFlee;
+			m_pBehaviorTree->GetBlackboard()->GetData("Target", target);
+			m_pSprintFlee->SetTarget(target);
+			break;
 		}
 	}
 
-	//if(m_pSteeringBehavior && steeringBehaviorType == SteeringBehaviorType::face)
-	//return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
+	SteeringBehaviorType steeringb;
+	m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehaviorType", steeringb);
+	if(m_pSteeringBehavior  /*&& steeringb == SteeringBehaviorType::seek*/ )
+	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
 
 	//Use the navmesh to calculate the next navmesh point
 	//auto nextTargetPos = m_pInterface->NavMesh_GetClosestPathPoint(checkpointLocation);
