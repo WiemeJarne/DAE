@@ -6,6 +6,8 @@
 using namespace std;
 using namespace Elite;
 
+//TODO: add bool isPathfindingToHouse in blackboard, add float amountOfTimeFleeing in blackboardss
+
 //Called only once, during initialization
 void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 {
@@ -292,7 +294,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					(
 						{
 							new BehaviorConditional(BT_Conditions::IsHouseInFOV),
-							new BehaviorConditional(BT_Conditions::HasHouseNotBeenEnteredBefore),
+							new BehaviorConditional(BT_Conditions::HasNotEnteredHouseInFOVInlast30Sec),
 							new BehaviorAction(BT_Actions::GoInHouse)
 						}
 					),
@@ -317,6 +319,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSequence
 					(
 						{
+							new BehaviorConditional(BT_Conditions::IsOutside),
 							new BehaviorConditional(BT_Conditions::HasNotExploreFullWorld),
 							new BehaviorAction(BT_Actions::GoToNextPosToVisit)
 						}

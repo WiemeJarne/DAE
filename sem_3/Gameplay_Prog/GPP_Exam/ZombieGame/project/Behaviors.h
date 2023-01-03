@@ -969,6 +969,15 @@ namespace BT_Conditions
 		return pInterface->Agent_GetInfo().IsInHouse;
 	}
 
+	bool IsOutside(Blackboard* pBlackboard)
+	{
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return false;
+
+		return !pInterface->Agent_GetInfo().IsInHouse;
+	}
+
 	bool HasNotEnteredHouseInFOVInlast30Sec(Blackboard* pBlackboard)
 	{
 		std::vector<HouseInfo>* pvHousesInFOV;
@@ -983,14 +992,14 @@ namespace BT_Conditions
 		{
 			for (const auto& house : *pvHousesInFOV)
 			{
-				if (house.Center == enteredHouse.first && enteredHouse.second >= 30.f)
+				if (house.Center == enteredHouse.first && enteredHouse.second <= 30.f)
 				{
-					return true;
+					return false;
 				}
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	bool HasBeenInHouseFor5Seconds(Blackboard* pBlackboard)
