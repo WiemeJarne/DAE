@@ -698,6 +698,36 @@ namespace BT_Actions
 
 		return BehaviorState::Running;
 	}
+
+	BehaviorState FleePurgeZoneAgentIsIn(Blackboard* pBlackboard)
+	{
+		std::vector<EntityInfo>* pvEntitiesInFOV;
+		if (!pBlackboard->GetData("EntitiesInFOV", pvEntitiesInFOV) || !pvEntitiesInFOV)
+			return BehaviorState::Failure;
+
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return BehaviorState::Failure;
+
+		for (const auto& entity : *pvEntitiesInFOV)
+		{
+			if (entity.Type == eEntityType::PURGEZONE)
+			{
+				PurgeZoneInfo purgZoneInfo;
+				pInterface->PurgeZone_GetInfo(entity, purgZoneInfo);
+
+				if ((purgZoneInfo.Center - pInterface->Agent_GetInfo().Position).Magnitude() > purgZoneInfo.Radius)
+				{
+					return BehaviorState::Success;
+				}
+
+				pBlackboard->ChangeData("SteeringBehaviorType", SteeringBehaviorType::flee);
+				pBlackboard->ChangeData("Target", purgZoneInfo.Center);
+			}
+		}
+
+		return BehaviorState::Running;
+	}
 }
 
 //-----------------------------------------------------------------
@@ -710,10 +740,6 @@ namespace BT_Conditions
 	{
 		std::vector<EntityInfo>* pvEntitiesInFOV;
 		if (!pBlackboard->GetData("EntitiesInFOV", pvEntitiesInFOV) || !pvEntitiesInFOV)
-			return false;
-
-		IExamInterface* pInterface;
-		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
 			return false;
 
 		for (const auto& entity : *pvEntitiesInFOV)
@@ -1359,6 +1385,32 @@ namespace BT_Conditions
 		if (!plPositionsToVisit->empty())
 			return true;
 
+		return false;
+	}
+
+	bool IsInPergeZone(Blackboard* pBlackboard)
+	{
+		std::vector<EntityInfo>* pvEntitiesInFOV;
+		if (!pBlackboard->GetData("EntitiesInFOV", pvEntitiesInFOV) || !pvEntitiesInFOV)
+			return false;
+
+		IExamInterface* pInterface;
+		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
+			return false;
+
+		for (const auto& entity : *pvEntitiesInFOV)
+		{
+			if (entity.Type == eEntityType::PURGEZONE)
+			{
+				PurgeZoneInfo purgZoneInfo;
+				pInterface->PurgeZone_GetInfo(entity, purgZoneInfo);
+
+				if ((purgZoneInfo.Center - pInterface->Agent_GetInfo().Position).Magnitude() < purgZoneInfo.Radius)
+				{
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 }

@@ -54,6 +54,14 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSequence
 					(
 						{
+							new BehaviorConditional(BT_Conditions::IsInPergeZone),
+							new BehaviorAction(BT_Actions::FleePurgeZoneAgentIsIn)
+						}
+					),
+
+					new BehaviorSequence
+					(
+						{
 							new BehaviorConditional(BT_Conditions::NotMaxHealth),
 							new BehaviorConditional(BT_Conditions::HasMedkit),
 							new BehaviorConditional(BT_Conditions::HasEquipedMedkitHealth),
