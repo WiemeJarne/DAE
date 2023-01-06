@@ -29,7 +29,6 @@ Debug/
 *.a
 
 # Executables
-*.exe
 *.out
 *.app
 *.ipa
