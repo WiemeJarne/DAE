@@ -3,10 +3,7 @@
 #include "IExamInterface.h"
 #include "Behaviors.h"
 
-using namespace std;
 using namespace Elite;
-
-//TODO: add bool isPathfindingToHouse in blackboard, add float amountOfTimeFleeing in blackboardss
 
 //Called only once, during initialization
 void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
@@ -15,15 +12,37 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	//This interface gives you access to certain actions the AI_Framework can perform for you
 	m_pInterface = static_cast<IExamInterface*>(pInterface);
 
+	
+
+	//Bit information about the plugin
+	//Please fill this in!!
+	info.BotName = "Jarne";
+	info.Student_FirstName = "Jarne";
+	info.Student_LastName = "Wieme";
+	info.Student_Class = "2DAE15";
+}
+
+//Called only once
+void Plugin::DllInit()
+{
+	//Called when the plugin is loaded
+
+	//create the steeringBehaviors
+	m_pWander = new Wander();
+	m_pFace = new Face();
+	m_pSeek = new Seek();
+	m_pFlee = new Flee();
+	m_pSprintFlee = new SprintFlee();
+
 	//fill the list m_lPositionsToVisit with position for the agent to visit
-	for (int x{-350 }; x < 350; x += 20)
+	for (int x{ -350 }; x < 350; x += 20)
 	{
 		for (int y{ -350 }; y < 350; y += 20)
 		{
-			m_lPositionsToVisit.push_back(Vector2(x, y));
+			m_lPositionsToVisit.push_back(Vector2(static_cast<float>(x), static_cast<float>(y)));
 		}
 	}
-	
+
 	//Create Blackboard
 	Elite::Blackboard* pBlackboard{ new Blackboard() };
 
@@ -38,8 +57,9 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	pBlackboard->AddData("AmountOfTimeInHouse", &m_AmountOfTimeInHouse);
 	pBlackboard->AddData("isDoing180", bool());
 	pBlackboard->AddData("StartRotationFor180", float());
-	pBlackboard->AddData("posItemToSeek", Vector2());
 	pBlackboard->AddData("positionsToVisit", &m_lPositionsToVisit);
+	pBlackboard->AddData("isPathfindingToHouse", bool());
+	pBlackboard->AddData("hasReachedHouseCenter", bool());
 
 	//Create BehaviorTree
 	m_pBehaviorTree =
@@ -51,10 +71,20 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 			new BehaviorSelector
 			(
 				{
+
+					new BehaviorPartialSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsInPurgeZone),
+							new BehaviorConditional(BT_Conditions::IsInHouse),
+							new BehaviorAction(BT_Actions::GoOutHouse)
+						}
+					),
+
 					new BehaviorSequence
 					(
 						{
-							new BehaviorConditional(BT_Conditions::IsInPergeZone),
+							new BehaviorConditional(BT_Conditions::IsInPurgeZone),
 							new BehaviorAction(BT_Actions::FleePurgeZoneAgentIsIn)
 						}
 					),
@@ -68,14 +98,14 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 							new BehaviorAction(BT_Actions::UseMedkit)
 						}
 					),
-					
+
 					new BehaviorSequence
 					(
 						{
 							new BehaviorConditional(BT_Conditions::AlmostOutOfEnergy),
 							new BehaviorConditional(BT_Conditions::HasFood),
 							new BehaviorConditional(BT_Conditions::HasEquipedFoodEnergy),
-							new BehaviorAction(BT_Actions::EatFood)
+							new BehaviorAction(BT_Actions::UseFoodWithMostEnergy)
 						}
 					),
 
@@ -84,7 +114,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 						{
 							new BehaviorConditional(BT_Conditions::IsEnemyInFOV),
 
-							new BehaviorSelector
+							new BehaviorSelector //this selector checks if the agent is doing a 180 if he is then the 180 is stopped
 							(
 								{
 									new BehaviorConditional(BT_Conditions::IsNotDoing180),
@@ -101,17 +131,17 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 											new BehaviorConditional(BT_Conditions::HasPistol),
 											new BehaviorConditional(BT_Conditions::HasEquipedPistolAmmo),
 											new BehaviorAction(BT_Actions::FaceEnemy),
-											new BehaviorAction(BT_Actions::ShootPistol)
+											new BehaviorAction(BT_Actions::UsePistol)
 										}
 									),
-									
+
 									new BehaviorSequence
 									(
 										{
 											new BehaviorConditional(BT_Conditions::HasShotGun),
 											new BehaviorConditional(BT_Conditions::HasEquipedShotgunAmmo),
 											new BehaviorAction(BT_Actions::FaceEnemy),
-											new BehaviorAction(BT_Actions::ShootShotgun)
+											new BehaviorAction(BT_Actions::UseShotgun)
 										}
 									),
 
@@ -122,7 +152,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 											new BehaviorAction(BT_Actions::ChangeToSprintFlee)
 										}
 									),
-									
+
 									new BehaviorAction(BT_Actions::ChangeToFlee)
 								}
 							)
@@ -132,19 +162,43 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					new BehaviorSelector
 					(
 						{
-							new BehaviorSequence
+							new BehaviorPartialSequence
 							(
 								{
 									new BehaviorConditional(BT_Conditions::HasTakenDamage),
-									new BehaviorAction(BT_Actions::Rotate180)
+									new BehaviorConditional(BT_Conditions::HasPistol),
+									new BehaviorAction(BT_Actions::Rotate180Degrees)
 								}
 							),
 
 							new BehaviorSequence
 							(
 								{
-									new BehaviorConditional(BT_Conditions::IsDoing180),
-									new BehaviorAction(BT_Actions::Rotate180)
+									new BehaviorConditional(BT_Conditions::HasTakenDamage),
+									new BehaviorConditional(BT_Conditions::HasShotGun),
+									new BehaviorAction(BT_Actions::Rotate180Degrees)
+								}
+							),
+
+							new BehaviorSequence
+							(
+								{
+									new BehaviorConditional(BT_Conditions::HasTakenDamage),
+
+									new BehaviorSelector
+									(
+										{
+											new BehaviorSequence
+											(
+												{
+													new BehaviorConditional(BT_Conditions::CanSprint),
+													new BehaviorAction(BT_Actions::ChangeToSprintFlee)
+												}
+											),
+
+											new BehaviorAction(BT_Actions::ChangeToFlee)
+										}
+									)
 								}
 							)
 						}
@@ -154,7 +208,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 					(
 						{
 							new BehaviorConditional(BT_Conditions::IsItemInGrabrange),
-							
+
 							new BehaviorSelector
 							(
 								{
@@ -162,7 +216,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 									(
 										{
 											new BehaviorConditional(BT_Conditions::IsGarbageInGrabRange),
-											new BehaviorAction(BT_Actions::DestroyGarbage)
+											new BehaviorAction(BT_Actions::DestroyGarbageInGrabrange)
 										}
 									),
 
@@ -184,7 +238,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 												{
 													new BehaviorConditional(BT_Conditions::IsPistolInGrabRange),
 													new BehaviorConditional(BT_Conditions::HasPistol),
-													new BehaviorAction(BT_Actions::DestroyEquipedPistol)
+													new BehaviorAction(BT_Actions::RemoveEquipedPistol)
 												}
 											),
 
@@ -210,13 +264,13 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 													new BehaviorAction(BT_Actions::DestroyPistolInGrabrange)
 												}
 											),
-											
+
 											new BehaviorSequence
 											(
 												{
 													new BehaviorConditional(BT_Conditions::IsShotgunInGrabRange),
 													new BehaviorConditional(BT_Conditions::HasShotGun),
-													new BehaviorAction(BT_Actions::DestroyEquipedShotgun)
+													new BehaviorAction(BT_Actions::RemoveEquipedShotgun)
 												}
 											),
 
@@ -242,13 +296,13 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 													new BehaviorAction(BT_Actions::DestroyMedkitInGrabrange)
 												}
 											),
-											
+
 											new BehaviorSequence
 											(
 												{
 													new BehaviorConditional(BT_Conditions::IsMedkitInGrabRange),
 													new BehaviorConditional(BT_Conditions::HasMedkit),
-													new BehaviorAction(BT_Actions::DestroyEquipedMedkit)
+													new BehaviorAction(BT_Actions::RemoveEquipedMedkit)
 												}
 											),
 
@@ -280,7 +334,7 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 												{
 													new BehaviorConditional(BT_Conditions::IsFoodInGrabRange),
 													new BehaviorConditional(BT_Conditions::HasFood),
-													new BehaviorAction(BT_Actions::DestroyEquipedFood)
+													new BehaviorAction(BT_Actions::RemoveEquipedFoodWithLeastEnergy)
 												}
 											),
 
@@ -298,66 +352,62 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 						}
 					),
 
-					new BehaviorSequence
-					(
-						{
-							new BehaviorConditional(BT_Conditions::IsHouseInFOV),
-							new BehaviorConditional(BT_Conditions::HasNotEnteredHouseInFOVInlast30Sec),
-							new BehaviorAction(BT_Actions::GoInHouse)
-						}
-					),
-
-					new BehaviorSequence
+					new BehaviorPartialSequence
 					(
 						{
 							new BehaviorConditional(BT_Conditions::IsInHouse),
-							new BehaviorConditional(BT_Conditions::HasBeenInHouseFor5Seconds),
+							new BehaviorConditional(BT_Conditions::HasBeenInHouseFor10Seconds),
 							new BehaviorAction(BT_Actions::GoOutHouse)
 						}
 					),
 
-					new BehaviorSequence
+					new BehaviorPartialSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsHouseInFOV),
+							new BehaviorConditional(BT_Conditions::HasNotEnteredHouseInFOVInlast30Sec),
+							new BehaviorAction(BT_Actions::PathfindToHouseInFOV)
+						}
+					),
+
+					new BehaviorPartialSequence
 					(
 						{
 							new BehaviorConditional(BT_Conditions::IsItemInFOV),
-							new BehaviorAction(BT_Actions::SeekLoot)
+							new BehaviorConditional(BT_Conditions::IsNotPathfindingToHouse),
+							new BehaviorAction(BT_Actions::PathfindToItemInFOV)
 						}
 					),
 
 					new BehaviorSequence
 					(
 						{
-							new BehaviorConditional(BT_Conditions::IsOutside),
-							new BehaviorConditional(BT_Conditions::HasNotExploreFullWorld),
-							new BehaviorAction(BT_Actions::GoToNextPosToVisit)
+							new BehaviorConditional(BT_Conditions::HasReachedHouseCenter),
+							new BehaviorAction(BT_Actions::ChangeToWander)
 						}
 					),
 
-					new BehaviorAction(BT_Actions::ChangeToWander)
+					new BehaviorPartialSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::IsOutside),
+							new BehaviorConditional(BT_Conditions::IsNotPathfindingToHouse),
+							new BehaviorConditional(BT_Conditions::HasNotExploreFullWorld),
+							new BehaviorAction(BT_Actions::GoToNextNotVisitedPosClosestToOrigin)
+						}
+					),
+
+					new BehaviorPartialSequence
+					(
+						{
+							new BehaviorConditional(BT_Conditions::HasExploreFullWorld),
+							new BehaviorAction(BT_Actions::PathfindToNextHouse)
+						}
+					)
 				}
 			)
 		)
 	};
-
-	//Bit information about the plugin
-	//Please fill this in!!
-	info.BotName = "MinionExam";
-	info.Student_FirstName = "Jarne";
-	info.Student_LastName = "Wieme";
-	info.Student_Class = "2DAE15";
-}
-
-//Called only once
-void Plugin::DllInit()
-{
-	//Called when the plugin is loaded
-
-	//create the steeringBehaviors
-	m_pWander = new Wander();
-	m_pFace = new Face();
-	m_pSeek = new Seek();
-	m_pFlee = new Flee();
-	m_pSprintFlee = new SprintFlee();
 }
 
 //Called only once
@@ -392,10 +442,10 @@ void Plugin::InitGameDebugParams(GameDebugParams& params)
 //(=Use only for Debug Purposes)
 void Plugin::Update(float dt)
 {
-	//for (const auto& pos : m_lPositionsToVisit)
-	//{
-	//	m_pInterface->Draw_Point(pos, 1, Vector3(1.f, 1.f, 1.f));
-	//}
+	for (const auto& pos : m_lPositionsToVisit) //draw the position that the agent has not yet visited
+	{
+		m_pInterface->Draw_Point(pos, 1, Vector3(1.f, 1.f, 1.f));
+	}
 
 	//Demo Event Code
 	//In the end your AI should be able to walk around without external input
@@ -463,8 +513,24 @@ void Plugin::Update(float dt)
 	{
 		m_AmountOfTimeInHouse = 0.f;
 	}
+}
 
-	//remove the position where the agent is the closest to
+//Update
+//This function calculates the new SteeringOutput, called once per frame
+SteeringPlugin_Output Plugin::UpdateSteering(float dt)
+{	
+	m_pBehaviorTree->Update(dt);
+
+	m_vEntitiesInFOV = GetEntitiesInFOV();
+	m_vHousesInFOV = GetHousesInFOV();
+
+	//if the agent is outside the set the bool hasReachedHouseCenter to false
+	if (!m_pInterface->Agent_GetInfo().IsInHouse)
+	{
+		m_pBehaviorTree->GetBlackboard()->ChangeData("hasReachedHouseCenter", false);
+	}
+
+	//remove the position that are in the FOV range of the agent
 	for (const auto& pos : m_lPositionsToVisit)
 	{
 		if (pos.x - m_pInterface->Agent_GetInfo().FOV_Range <= m_pInterface->Agent_GetInfo().Position.x && pos.x + m_pInterface->Agent_GetInfo().FOV_Range >= m_pInterface->Agent_GetInfo().Position.x
@@ -474,26 +540,14 @@ void Plugin::Update(float dt)
 			break;
 		}
 	}
-}
 
-//Update
-//This function calculates the new SteeringOutput, called once per frame
-SteeringPlugin_Output Plugin::UpdateSteering(float dt)
-{	
-	assert(m_pBehaviorTree && "m_pBehaviorTree is null");
+	//update the amount of time it has been since the entered houses where entered
+	for (auto& house : m_vHousesEntered)
+	{
+		house.second += dt;
+	}
 
-	m_pBehaviorTree->Update(dt);
-
-	m_vEntitiesInFOV = GetEntitiesInFOV();
-	m_vHousesInFOV = GetHousesInFOV();
-
-	//return m_BehaviorTree->GetSteeringOutput();
-
-	auto steering = SteeringPlugin_Output();
-	
-	//Use the Interface (IAssignmentInterface) to 'interface' with the AI_Framework
-	auto agentInfo = m_pInterface->Agent_GetInfo();
-
+	//get the steeringBehaviorType and assing the correct behavior to m_pSteeringBehavior
 	SteeringBehaviorType steeringBehaviorType;
 	if (m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehaviorType", steeringBehaviorType))
 	{
@@ -535,83 +589,10 @@ SteeringPlugin_Output Plugin::UpdateSteering(float dt)
 		}
 	}
 
-	SteeringBehaviorType steeringb;
-	m_pBehaviorTree->GetBlackboard()->GetData("SteeringBehaviorType", steeringb);
-	if(m_pSteeringBehavior  /*&& steeringb == SteeringBehaviorType::seek*/ )
-	return m_pSteeringBehavior->CalculateSteering(dt, agentInfo);
+	if(m_pSteeringBehavior)
+	return m_pSteeringBehavior->CalculateSteering(dt, m_pInterface->Agent_GetInfo());
 
-	//Use the navmesh to calculate the next navmesh point
-	//auto nextTargetPos = m_pInterface->NavMesh_GetClosestPathPoint(checkpointLocation);
-
-	//OR, Use the mouse target
-	auto nextTargetPos = m_pInterface->NavMesh_GetClosestPathPoint(m_Target); //Uncomment this to use mouse position as guidance
-
-	auto vHousesInFOV = GetHousesInFOV();//uses m_pInterface->Fov_GetHouseByIndex(...)
-	auto vEntitiesInFOV = GetEntitiesInFOV(); //uses m_pInterface->Fov_GetEntityByIndex(...)
-
-	for (auto& e : vEntitiesInFOV)
-	{
-		if (e.Type == eEntityType::PURGEZONE)
-		{
-			PurgeZoneInfo zoneInfo;
-			m_pInterface->PurgeZone_GetInfo(e, zoneInfo);
-			//std::cout << "Purge Zone in FOV:" << e.Location.x << ", "<< e.Location.y << "---Radius: "<< zoneInfo.Radius << std::endl;
-		}
-	}
-
-	//INVENTORY USAGE DEMO
-	//********************
-
-	if (m_GrabItem)
-	{
-		ItemInfo item;
-		//Item_Grab > When DebugParams.AutoGrabClosestItem is TRUE, the Item_Grab function returns the closest item in range
-		//Keep in mind that DebugParams are only used for debugging purposes, by default this flag is FALSE
-		//Otherwise, use GetEntitiesInFOV() to retrieve a vector of all entities in the FOV (EntityInfo)
-		//Item_Grab gives you the ItemInfo back, based on the passed EntityHash (retrieved by GetEntitiesInFOV)
-		if (m_pInterface->Item_Grab({}, item))
-		{
-			//Once grabbed, you can add it to a specific inventory slot
-			//Slot must be empty
-			m_pInterface->Inventory_AddItem(m_InventorySlot, item);
-		}
-	}
-
-	if (m_UseItem)
-	{
-		//Use an item (make sure there is an item at the given inventory slot)
-		m_pInterface->Inventory_UseItem(m_InventorySlot);
-	}
-
-	if (m_RemoveItem)
-	{
-		//Remove an item from a inventory slot
-		m_pInterface->Inventory_RemoveItem(m_InventorySlot);
-	}
-
-	//Simple Seek Behaviour (towards Target)
-	steering.LinearVelocity = nextTargetPos - agentInfo.Position; //Desired Velocity
-	steering.LinearVelocity.Normalize(); //Normalize Desired Velocity
-	steering.LinearVelocity *= agentInfo.MaxLinearSpeed; //Rescale to Max Speed
-
-	if (Distance(nextTargetPos, agentInfo.Position) < 2.f)
-	{
-		steering.LinearVelocity = Elite::ZeroVector2;
-	}
-
-	//steering.AngularVelocity = m_AngSpeed; //Rotate your character to inspect the world while walking
-	steering.AutoOrient = true; //Setting AutoOrient to TRue overrides the AngularVelocity
-
-	steering.RunMode = m_CanRun; //If RunMode is True > MaxLinSpd is increased for a limited time (till your stamina runs out)
-
-	//SteeringPlugin_Output is works the exact same way a SteeringBehaviour output
-
-//@End (Demo Purposes)
-	m_GrabItem = false; //Reset State
-	m_UseItem = false;
-	m_RemoveItem = false;
-
-	return steering;
+	return SteeringPlugin_Output();
 }
 
 //This function should only be used for rendering debug elements
@@ -621,9 +602,9 @@ void Plugin::Render(float dt) const
 	m_pInterface->Draw_SolidCircle(m_Target, .7f, { 0,0 }, { 1, 0, 0 });
 }
 
-vector<HouseInfo> Plugin::GetHousesInFOV() const
+std::vector<HouseInfo> Plugin::GetHousesInFOV() const
 {
-	vector<HouseInfo> vHousesInFOV = {};
+	std::vector<HouseInfo> vHousesInFOV = {};
 
 	HouseInfo hi = {};
 	for (int i = 0;; ++i)
@@ -640,9 +621,9 @@ vector<HouseInfo> Plugin::GetHousesInFOV() const
 	return vHousesInFOV;
 }
 
-vector<EntityInfo> Plugin::GetEntitiesInFOV() const
+std::vector<EntityInfo> Plugin::GetEntitiesInFOV() const
 {
-	vector<EntityInfo> vEntitiesInFOV = {};
+	std::vector<EntityInfo> vEntitiesInFOV = {};
 
 	EntityInfo ei = {};
 	for (int i = 0;; ++i)

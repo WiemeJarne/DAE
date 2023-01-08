@@ -64,15 +64,6 @@ public:
 	SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) override;
 };
 
-class Arrive final : public ISteeringBehavior
-{
-public:
-	Arrive() = default;
-	virtual ~Arrive() = default;
-
-	SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) override;
-};
-
 class Face final : public ISteeringBehavior
 {
 public:
@@ -99,28 +90,6 @@ protected:
 	float m_Radius{ 4.f }; //wanderRadius
 	float m_MaxAngleChange{ 10.f }; //max wanderingAngle change per frame
 	float m_WanderAngle{ 0.f };
-};
-
-class Pursuit final : public Seek
-{
-public:
-	Pursuit() = default;
-	virtual ~Pursuit() = default;
-
-	SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) override;
-};
-
-class Evade final : public Flee
-{
-public:
-	Evade() = default;
-	virtual ~Evade() = default;
-
-	SteeringPlugin_Output CalculateSteering(float deltaT, AgentInfo& agentInfo) override;
-	int GetEvadeRadius() const { return m_EvadeRadius; };
-
-private:
-	const int m_EvadeRadius{ 25 };
 };
 
 enum class SteeringBehaviorType
