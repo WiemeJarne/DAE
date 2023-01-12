@@ -480,7 +480,6 @@ namespace BT_Actions
 		if (!pInterface->Agent_GetInfo().IsInHouse)
 		{
 			pBlackboard->ChangeData("posBeforeEnteredHouse", pInterface->Agent_GetInfo().Position);
-			pBlackboard->ChangeData("isPathfindingToHouse", true);
 		}
 
 		HouseInfo houseInfo{};
@@ -519,6 +518,8 @@ namespace BT_Actions
 		pBlackboard->ChangeData("Target", pInterface->NavMesh_GetClosestPathPoint(houseInfo.Center));
 
 		pBlackboard->ChangeData("SteeringBehaviorType", SteeringBehaviorType::seek);
+
+		pBlackboard->ChangeData("isPathfindingToHouse", true);
 
 		if (pInterface->Agent_GetInfo().Position.x - 0.5f <= houseInfo.Center.x && pInterface->Agent_GetInfo().Position.x + 0.5f >= houseInfo.Center.x
 			&& pInterface->Agent_GetInfo().Position.y - 0.5f <= houseInfo.Center.y && pInterface->Agent_GetInfo().Position.y + 0.5f >= houseInfo.Center.y)
@@ -717,7 +718,6 @@ namespace BT_Actions
 
 			pBlackboard->ChangeData("Target", target);
 		}
-
 
 		return BehaviorState::Success;
 	}
@@ -1151,6 +1151,7 @@ namespace BT_Conditions
 		IExamInterface* pInterface;
 		if (!pBlackboard->GetData("Interface", pInterface) || !pInterface)
 			return false;
+			
 
 		if (!pvHousesInFOV->empty())
 			return true;

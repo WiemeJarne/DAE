@@ -12,37 +12,6 @@ void Plugin::Initialize(IBaseInterface* pInterface, PluginInfo& info)
 	//This interface gives you access to certain actions the AI_Framework can perform for you
 	m_pInterface = static_cast<IExamInterface*>(pInterface);
 
-	
-
-	//Bit information about the plugin
-	//Please fill this in!!
-	info.BotName = "Jarne";
-	info.Student_FirstName = "Jarne";
-	info.Student_LastName = "Wieme";
-	info.Student_Class = "2DAE15";
-}
-
-//Called only once
-void Plugin::DllInit()
-{
-	//Called when the plugin is loaded
-
-	//create the steeringBehaviors
-	m_pWander = new Wander();
-	m_pFace = new Face();
-	m_pSeek = new Seek();
-	m_pFlee = new Flee();
-	m_pSprintFlee = new SprintFlee();
-
-	//fill the list m_lPositionsToVisit with position for the agent to visit
-	for (int x{ -350 }; x < 350; x += 20)
-	{
-		for (int y{ -350 }; y < 350; y += 20)
-		{
-			m_lPositionsToVisit.push_back(Vector2(static_cast<float>(x), static_cast<float>(y)));
-		}
-	}
-
 	//Create Blackboard
 	Elite::Blackboard* pBlackboard{ new Blackboard() };
 
@@ -71,7 +40,6 @@ void Plugin::DllInit()
 			new BehaviorSelector
 			(
 				{
-
 					new BehaviorPartialSequence
 					(
 						{
@@ -408,6 +376,35 @@ void Plugin::DllInit()
 			)
 		)
 	};
+
+	//Bit information about the plugin
+	//Please fill this in!!
+	info.BotName = "Jarne";
+	info.Student_FirstName = "Jarne";
+	info.Student_LastName = "Wieme";
+	info.Student_Class = "2DAE15";
+}
+
+//Called only once
+void Plugin::DllInit()
+{
+	//Called when the plugin is loaded
+
+	//create the steeringBehaviors
+	m_pWander = new Wander();
+	m_pFace = new Face();
+	m_pSeek = new Seek();
+	m_pFlee = new Flee();
+	m_pSprintFlee = new SprintFlee();
+
+	//fill the list m_lPositionsToVisit with position for the agent to visit
+	for (int x{ -350 }; x < 350; x += 20)
+	{
+		for (int y{ -350 }; y < 350; y += 20)
+		{
+			m_lPositionsToVisit.push_back(Vector2(static_cast<float>(x), static_cast<float>(y)));
+		}
+	}
 }
 
 //Called only once

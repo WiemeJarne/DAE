@@ -6,7 +6,6 @@
 
 class IBaseInterface;
 class IExamInterface;
-//class ISteeringBehavior;
 
 class Plugin :public IExamPlugin
 {
