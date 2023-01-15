@@ -7,29 +7,26 @@
 #include <vector>
 #include <chrono>
 
-class Exeption{};
-
 int main()
 {
-    auto start{ std::chrono::high_resolution_clock::now() };
+    auto end{ std::chrono::high_resolution_clock::now() };
 
     std::vector<int> vector;
     vector.push_back(3);
     vector.push_back(4);
 
-    try
-    {
-        vector.at(4) = 4;
-        throw Exeption();
-    }
-    catch (const Exeption& exeption)
-    {
-        auto end{ std::chrono::high_resolution_clock::now() };
-        std::cout << (end - start).count();;
-    }
+    auto start{ std::chrono::high_resolution_clock::now() };
 
-    /*vector[4] = 4;
+    vector.at(1) = 4;
+    
+    end = std::chrono::high_resolution_clock::now();
+    std::cout << (end - start).count() << '\n';
 
-    auto end{ std::chrono::high_resolution_clock::now() };
-    std::cout << (end - start).count();*/
+
+    start = std::chrono::high_resolution_clock::now();
+
+    vector[1] = 4;
+    
+    end = std::chrono::high_resolution_clock::now();
+    std::cout << (end - start).count();
 }

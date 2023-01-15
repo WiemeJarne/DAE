@@ -195,7 +195,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         HBRUSH blackBrush = CreateSolidBrush(RGB(80, 80, 50));
         HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, blackBrush);
 
-        const int amountOfPointPerShape{ 3 };
+        int amountOfPointPerShape{ 3 };
 
         for(int index{}; index < static_cast<int>(g_PointsVec.size()); ++index)
         {
@@ -217,6 +217,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             	LineTo(hdc, g_PointsVec[index - 2].x, g_PointsVec[index - 2].y);
             	Ellipse(hdc, g_PointsVec[index].x - 2, g_PointsVec[index].y - 2, g_PointsVec[index].x + 2, g_PointsVec[index].y + 2);
             }
+            wchar_t buffer[32];
+            _itow_s(amountOfPointPerShape, buffer, 10);
+            SetWindowText(hWnd, buffer);
         }
 
 
