@@ -10,3 +10,6 @@
 [submodule "sem_3/Gameplay_Prog/GPP_Exam/ResearchTopic/Flow-field-pathfinding"]
 	path = sem_3/Gameplay_Prog/GPP_Exam/ResearchTopic/Flow-field-pathfinding
 	url = git@github.com:ozikov/Flow-field-pathfinding.git
+[submodule "sem_3/Graphics_Prog1/DualRasterizer"]
+	path = sem_3/Graphics_Prog1/DualRasterizer
+	url = git@github.com:ozikov/DualRasterizer.git
