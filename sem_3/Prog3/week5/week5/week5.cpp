@@ -217,9 +217,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             	LineTo(hdc, g_PointsVec[index - 2].x, g_PointsVec[index - 2].y);
             	Ellipse(hdc, g_PointsVec[index].x - 2, g_PointsVec[index].y - 2, g_PointsVec[index].x + 2, g_PointsVec[index].y + 2);
             }
-            wchar_t buffer[32];
-            _itow_s(amountOfPointPerShape, buffer, 10);
-            SetWindowText(hWnd, buffer);
+            //SendMessage(hWnd, WM_SETTEXT, 0, (LPARAM)L"text");
+            //wchar_t buffer[32];
+            //_itow_s(amountOfPointPerShape, buffer, 10);
+            //SetWindowText(hWnd, buffer);
+            std::wstringstream ss;
+            ss << "text" << amountOfPointPerShape;
+            SetWindowText(hWnd, ss.str().c_str());
         }
 
 

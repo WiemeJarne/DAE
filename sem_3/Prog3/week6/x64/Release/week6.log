@@ -1,8 +1,7 @@
-﻿  pch.cpp
-  week6.cpp
+﻿  week6.cpp
   Generating code
-  11 of 86 functions (12.8%) were compiled, the rest were copied from previous compilation.
-    9 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  0 of 86 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   week6.vcxproj -> C:\Users\jarne\Documents\DAE\sem_3\Prog3\week6\x64\Release\week6.exe
