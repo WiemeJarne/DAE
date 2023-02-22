@@ -72,3 +72,6 @@ Debug/
 
 # Chace files for unreal to use
 **/DerivedDataCache/*
+
+# Other folders
+**/GP2_Libraries
