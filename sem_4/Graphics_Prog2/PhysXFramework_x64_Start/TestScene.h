@@ -18,6 +18,6 @@ protected:
 	void OnSceneDeactivated() override;
 
 private:
-
+	GameObject* m_pBox{ nullptr };
 };
 

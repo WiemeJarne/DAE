@@ -10,7 +10,7 @@
 
 #ifdef W01
 #include "TestScene.h"
-
+#include "PhysXTextScene.h"
 #endif
 
 #ifdef W02
@@ -23,7 +23,8 @@ namespace dae
 	{
 
 #ifdef W01
-		pSceneManager->AddGameScene(new TestScene());
+		//pSceneManager->AddGameScene(new TestScene());
+		pSceneManager->AddGameScene(new PhysXTestScene());
 #endif
 
 #ifdef W02

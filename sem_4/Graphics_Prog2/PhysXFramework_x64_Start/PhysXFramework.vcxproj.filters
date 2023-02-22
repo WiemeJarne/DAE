@@ -175,6 +175,9 @@
     <ClInclude Include="TestScene.h">
       <Filter>GameFiles\Scenes\W01_PhysX</Filter>
     </ClInclude>
+    <ClInclude Include="PhysXTextScene.h">
+      <Filter>GameFiles\Scenes\W01_PhysX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -283,6 +286,9 @@
       <Filter>GameFiles\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
+      <Filter>GameFiles\Scenes\W01_PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXTextScene.cpp">
       <Filter>GameFiles\Scenes\W01_PhysX</Filter>
     </ClCompile>
   </ItemGroup>

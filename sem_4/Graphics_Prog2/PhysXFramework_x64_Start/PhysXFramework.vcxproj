@@ -108,6 +108,7 @@
     <ClInclude Include="PhysxErrorCallback.h" />
     <ClInclude Include="PhysxHelpers.h" />
     <ClInclude Include="PhysxManager.h" />
+    <ClInclude Include="PhysXTextScene.h" />
     <ClInclude Include="PxConvexMeshLoader.h" />
     <ClInclude Include="PxTriangleMeshLoader.h" />
     <ClInclude Include="SceneContext.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="MeshObjectTex.cpp" />
     <ClCompile Include="PhysxErrorCallback.cpp" />
     <ClCompile Include="PhysxManager.cpp" />
+    <ClCompile Include="PhysXTextScene.cpp" />
     <ClCompile Include="PxConvexMeshLoader.cpp" />
     <ClCompile Include="PxTriangleMeshLoader.cpp" />
     <ClCompile Include="SceneContext.cpp" />
