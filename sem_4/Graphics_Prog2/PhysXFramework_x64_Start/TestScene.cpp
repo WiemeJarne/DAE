@@ -8,8 +8,8 @@
 
 enum InputIDs
 {
-	Up,
-	Down,
+	Forwards,
+	Backwards,
 	Left,
 	Right
 };
@@ -37,10 +37,10 @@ void TestScene::Initialize()
 	pCylinder->Translate(0.f, 8.f, 0.f);
 
 	//INPUT
-	m_SceneContext.GetInput()->AddInputAction(InputAction(InputIDs::Down, InputTriggerState::down, VK_DOWN, -1, XINPUT_GAMEPAD_DPAD_DOWN));
+	m_SceneContext.GetInput()->AddInputAction(InputAction(InputIDs::Backwards, InputTriggerState::down, VK_DOWN, -1, XINPUT_GAMEPAD_DPAD_DOWN));
 	m_SceneContext.GetInput()->AddInputAction(InputAction(InputIDs::Left, InputTriggerState::down, VK_LEFT, -1, XINPUT_GAMEPAD_DPAD_LEFT));
 	m_SceneContext.GetInput()->AddInputAction(InputAction(InputIDs::Right, InputTriggerState::down, VK_RIGHT, -1, XINPUT_GAMEPAD_DPAD_RIGHT));
-	m_SceneContext.GetInput()->AddInputAction(InputAction(InputIDs::Up, InputTriggerState::down, VK_UP, -1, XINPUT_GAMEPAD_DPAD_UP));
+	m_SceneContext.GetInput()->AddInputAction(InputAction(InputIDs::Forwards, InputTriggerState::down, VK_UP, -1, XINPUT_GAMEPAD_DPAD_UP));
 }
 
 void TestScene::Update()
@@ -61,12 +61,12 @@ void TestScene::Update()
 		translation.x += movementSpeed;
 	}
 
-	if (m_SceneContext.GetInput()->IsActionTriggered(InputIDs::Up))
+	if (m_SceneContext.GetInput()->IsActionTriggered(InputIDs::Forwards))
 	{
 		translation.y += movementSpeed;
 	}
 
-	if (m_SceneContext.GetInput()->IsActionTriggered(InputIDs::Down))
+	if (m_SceneContext.GetInput()->IsActionTriggered(InputIDs::Backwards))
 	{
 		translation.y -= movementSpeed;
 	}

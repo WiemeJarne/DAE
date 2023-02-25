@@ -79,6 +79,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BouncingBallScene.h" />
+    <ClInclude Include="BoxForceScene.h" />
+    <ClInclude Include="BoxTorqueScene.h" />
+    <ClInclude Include="FrictionTestScene.h" />
+    <ClInclude Include="W1_AssignmentScene.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="ContentLoader.h" />
@@ -125,6 +130,11 @@
     <ClInclude Include="VertexStructs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BouncingBallScene.cpp" />
+    <ClCompile Include="BoxForceScene.cpp" />
+    <ClCompile Include="BoxTorqueScene.cpp" />
+    <ClCompile Include="FrictionTestScene.cpp" />
+    <ClCompile Include="W1_AssignmentScene.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="ContentManager.cpp" />
