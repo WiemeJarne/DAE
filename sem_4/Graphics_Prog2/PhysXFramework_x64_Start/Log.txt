@@ -1,17 +1,17 @@
-[2023-2-27 - 16:14:8:854][DEBUG]   Adapter 0 : AMD Radeon(TM) Graphics
-[2023-2-27 - 16:14:8:860][DEBUG]   Adapter 1 : NVIDIA GeForce RTX 3060 Laptop GPU
-[2023-2-27 - 16:14:8:864][DEBUG]   Adapter 2 : Microsoft Basic Render Driver
-[2023-2-27 - 16:14:8:866][DEBUG]   3 Adapter(s) found
-[2023-2-27 - 16:14:8:881][DEBUG]   InitalizeAdapterAndOutput ok.
-[2023-2-27 - 16:14:8:886][DEBUG]   Window Class Created
-[2023-2-27 - 16:14:8:889][DEBUG]   Desktop resolution: 1920 x 1080
-[2023-2-27 - 16:14:9:81][DEBUG]   Window Opened
-[2023-2-27 - 16:14:9:459][DEBUG]   Direct3D Initialized
-[2023-2-27 - 16:14:11:486][DEBUG]   Managers Initialized!
-[2023-2-27 - 16:14:11:489][INFO]    Press 'Page Up' or 'Page Down' to cycle between the different scenes
-[2023-2-27 - 16:14:11:491][INFO]    Press 'I' to toggle the debug renderer.
-[2023-2-27 - 16:14:11:492][INFO]    Press 'M' to do physics stepping.
-[2023-2-27 - 16:14:11:494][INFO]    Press 'L' to stop doing physics stepping.
-[2023-2-27 - 16:14:11:646][DEBUG]   Scenes Initialized!
-[2023-2-27 - 16:14:11:854][DEBUG]   DebugRenderer::Draw() > Increasing Vertexbuffer Size!
-[2023-2-27 - 16:14:14:915][DEBUG]   Core Initialization Finished
+[2023-3-4 - 14:42:43:665][DEBUG]   Adapter 0 : AMD Radeon RX 6600 XT
+[2023-3-4 - 14:42:43:667][DEBUG]   Adapter 1 : Microsoft Basic Render Driver
+[2023-3-4 - 14:42:43:668][DEBUG]   2 Adapter(s) found
+[2023-3-4 - 14:42:43:669][DEBUG]   InitalizeAdapterAndOutput ok.
+[2023-3-4 - 14:42:43:669][DEBUG]   Window Class Created
+[2023-3-4 - 14:42:43:672][DEBUG]   Desktop resolution: 1920 x 1080
+[2023-3-4 - 14:42:43:737][DEBUG]   Window Opened
+[2023-3-4 - 14:42:43:963][DEBUG]   Direct3D Initialized
+[2023-3-4 - 14:42:44:321][DEBUG]   Managers Initialized!
+[2023-3-4 - 14:42:44:325][INFO]    Press 'Page Up' or 'Page Down' to cycle between the different scenes
+[2023-3-4 - 14:42:44:328][INFO]    Press 'I' to toggle the debug renderer.
+[2023-3-4 - 14:42:44:332][INFO]    Press 'M' to do physics stepping.
+[2023-3-4 - 14:42:44:334][INFO]    Press 'L' to stop doing physics stepping.
+[2023-3-4 - 14:42:44:428][DEBUG]   Parsing mesh: Level.obj
+[2023-3-4 - 14:42:44:433][DEBUG]   Scenes Initialized!
+[2023-3-4 - 14:42:44:562][DEBUG]   DebugRenderer::Draw() > Increasing Vertexbuffer Size!
+[2023-3-4 - 14:43:19:457][DEBUG]   Core Initialization Finished
