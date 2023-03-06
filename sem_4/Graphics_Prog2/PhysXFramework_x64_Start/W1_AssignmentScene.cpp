@@ -18,7 +18,7 @@ void W1_AssignmentScene::Initialize()
 
 	const auto pPhysX{ PhysxManager::GetInstance()->GetPhysics() };
 	const PxMaterial* pFloorMat{ pPhysX->createMaterial(0.7f, 0.7f, 0.5f) };
-	const PxMaterial* pCubeMat{ pPhysX->createMaterial(0.1f, 0.1f, 0.5f) };
+	const PxMaterial* pCubeMat{ pPhysX->createMaterial(0.1f, 0.1f, 0.1f) };
 	const PxMaterial* pSphereMat{ pPhysX->createMaterial(0.5f, 0.5f, 0.5f) };
 
 	//FLOOR
@@ -34,13 +34,14 @@ void W1_AssignmentScene::Initialize()
 	floor->AttachRigidActor(pGroundActor);
 
 	//SPHERE
-	const float radius{ 1.5f };
+	const float radius{ 2.f };
 	m_pSphere = new SpherePosColorNorm(radius, 20, 20, XMFLOAT4(Colors::Yellow));
 	m_pSphere->Translate(0.f, 0.f, -50.f);
 	AddGameObject(m_pSphere);
 	
 	//sphere actor
 	PxRigidDynamic* pSphereActor{ pPhysX->createRigidDynamic(PxTransform(PxIdentity)) };
+	pSphereActor->setMass(3.f);
 
 	//sphere shape
 	PxRigidActorExt::createExclusiveShape(*pSphereActor, PxSphereGeometry(radius), *pSphereMat);
@@ -64,6 +65,7 @@ void W1_AssignmentScene::Initialize()
 			cube->RotateDegrees(0.f, randomRotation, 0.f);
 
 			PxRigidDynamic* pCubeActor{ pPhysX->createRigidDynamic(PxTransform(PxIdentity)) };
+			pCubeActor->setMass(0.1f);
 			auto boxGeometry{ PxBoxGeometry(m_CubeActorDimensions.x / 2.f, m_CubeActorDimensions.y / 2.f, m_CubeActorDimensions.z / 2.f) };
 
 			PxRigidActorExt::createExclusiveShape(*pCubeActor, boxGeometry, *pCubeMat);
@@ -95,7 +97,7 @@ inline PxVec3 ToPxVec3(XMFLOAT3 v)
 
 void W1_AssignmentScene::Update()
 {
-	const float amountOfTorque{ 5.f };
+	const float amountOfTorque{ 10.f };
 
 	if (m_SceneContext.GetInput()->IsActionTriggered(InputIDs::Left))
 	{
@@ -121,6 +123,9 @@ void W1_AssignmentScene::Update()
 	{
 		//reposition SPHERE
 		m_pSphere->Translate(0.f, 0.f, -50.f);
+
+		//stop SHPERE rotating
+		static_cast<PxRigidBody*>(m_pSphere->GetRigidActor())->setForceAndTorque(PxVec3(0.f, 0.f, 0.f), PxVec3(0.f, 0.f, 0.f));
 
 		//reposition CUBES
 		float xTranslation{ m_XStartPos };
