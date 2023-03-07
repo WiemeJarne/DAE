@@ -21,12 +21,17 @@ protected:
 	void onTrigger(PxTriggerPair* pairs, PxU32 count) override;
 
 private:
-	GameObject* m_pSphere{ nullptr };
+	GameObject* m_pSphere1{ nullptr };
+	GameObject* m_pSphere2{ nullptr };
+	GameObject* m_pSphere3{ nullptr };
 	GameObject* m_pLevelTriangle{ nullptr };
 
 	PxRigidStatic* m_pBlueTrigger{ nullptr };
 	PxRigidStatic* m_pRedTrigger{ nullptr };
 
-	bool m_IsTriggeredLeft{};
-	bool m_IsTriggeredRight{};
+	GameObject* m_pBlueBox{};
+	GameObject* m_pRedBox{};
+
+	bool m_IsBlueTriggered{};
+	bool m_IsRedTriggered{};
 };
