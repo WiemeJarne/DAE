@@ -1,0 +1,1 @@
+put the input file in this folder and name it input.obj

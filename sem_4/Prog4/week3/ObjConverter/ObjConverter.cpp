@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cassert>
 #include <string>
 #include <vector>
@@ -11,14 +12,14 @@ int main()
 {
     std::string filePath{ "Resources/Bunny.obj" };
 
-    std::ifstream inputFile{ filePath };
+    std::ifstream inputFile{ filePath }; //open the input file
 
     if (!inputFile.is_open())
     {
         assert("failed to open file");
     }
 
-    std::ofstream outputFile{ "output.bobj", std::ios::binary };
+    std::ofstream outputFile{ "output.bobj", std::ios::binary }; //open or create output file
 
     if (!outputFile.is_open())
     {
@@ -27,33 +28,132 @@ int main()
 
     //read the file
     std::string command{};
-    while (!inputFile.eof())
+    uint16_t amountOfVertices{};
+    uint16_t amountOfNormals{};
+    uint16_t amountOfFaces{};
+    std::streampos firstVPos{ -1 }; //the position in the file of the first v
+    std::streampos firstFPos{ -1 }; //the position in the file of the first f
+    std::streampos firstNvPos{ -1 }; //the position in the file of the first vn
+    std::vector<float> vertices{};
+    std::vector<uint16_t> faces{};
+    std::vector<float> normals{};
+    while (!inputFile.eof()) //loop over the input file
     {
-        inputFile >> command;
+        inputFile >> command; //get the next word
 
         if (command == "v")
         {
+            if (firstVPos == -1)
+            {
+                firstVPos = outputFile.tellp();
+            }
+
+            ++amountOfVertices;
+
             //read in the 3 floats
             float x, y, z;
 
             inputFile >> x >> y >> z;
 
-            //write to the binary file
-            outputFile.write((const char*)&x, sizeof(x));
-            outputFile.write((const char*)&y, sizeof(y));
-            outputFile.write((const char*)&z, sizeof(z));
+            vertices.push_back(x);
+            vertices.push_back(y);
+            vertices.push_back(z);
         }
         else if (command == "f")
         {
+            if (firstFPos == -1)
+            {
+                firstFPos = outputFile.tellp();
+            }
+        
+            ++amountOfFaces;
+        
             //read in 3 ints
-            int x, y, z;
+            uint16_t x, y, z;
             
             inputFile >> x >> y >> z;
 
-            //write to the binary file
-            outputFile.write((const char*)&x, sizeof(x));
-            outputFile.write((const char*)&y, sizeof(y));
-            outputFile.write((const char*)&z, sizeof(z));
+            faces.push_back(x);
+            faces.push_back(y);
+            faces.push_back(z);
+        }
+        else if (command == "vn")
+        {
+            if (firstNvPos == -1)
+            {
+                firstNvPos = outputFile.tellp();
+            }
+
+            ++amountOfNormals;
+
+            //read in the 3 floats
+            float x, y, z;
+
+            inputFile >> x >> y >> z;
+
+            normals.push_back(x);
+            normals.push_back(y);
+            normals.push_back(z);
+        }
+
+        if (command.find("#") != std::string::npos)
+        {
+            std::string line{};
+            std::getline(inputFile, line); // get the comment line
+            std::string comment{ "#" + line }; // add the hashtag to the front of the comment line
+        
+            //write a c to the output file
+            const char c{ 'c' };
+            outputFile.write((const char*)&c, sizeof(c));
+        
+            //write how long the string is to the output file
+            uint16_t commentLenght{static_cast<uint16_t>(comment.size()) };
+            outputFile.write((const char*)&commentLenght, sizeof(commentLenght));
+        
+            //write the comment to the output file
+            outputFile.write(comment.c_str(), sizeof(char) * commentLenght);
+        
+            std::stringstream ss{ line };
+            std::string temp{};
+            uint16_t num{};
+        
+            while (!ss.eof())
+            {
+                ss >> temp; //take the next word in the ss
+        
+                if (std::stringstream(temp) >> num)
+                    break;
+            }
         }
     }
+
+    //write a v and the amount of vertices to the output file
+     const char v{ 'v' };
+     outputFile.write((const char*)&v, sizeof(v));
+     outputFile.write((const char*)&amountOfVertices, sizeof(amountOfVertices));
+
+     for (const auto& number : vertices)
+     {
+         outputFile.write((const char*)&number, sizeof(number));
+     }
+
+     //write an f and the amount of faces to the output file
+     const char f{ 'f' };
+     outputFile.write((const char*)&f, sizeof(f));
+     outputFile.write((const char*)&amountOfFaces, sizeof(amountOfFaces));
+
+     for (const auto& number : faces)
+     {
+         outputFile.write((const char*)&number, sizeof(number));
+     }
+
+     //write an n and the amount of normal to the output file
+     const char n{ 'n' };
+     outputFile.write((const char*)&n, sizeof(n));
+     outputFile.write((const char*)&amountOfNormals, sizeof(amountOfNormals));
+
+     for (const auto& number : normals)
+     {
+         outputFile.write((const char*)&number, sizeof(number));
+     }
 }
