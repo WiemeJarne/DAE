@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{831da0ee-df08-422a-948f-0522ae377b48}</ProjectGuid>
-    <RootNamespace>bobjConverter</RootNamespace>
+    <ProjectGuid>{d4f6ed22-825f-4664-b6b2-6cdf0155134c}</ProjectGuid>
+    <RootNamespace>My2DAE15Programming403WiemeJarne</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -135,7 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bobjConverter.cpp" />
+    <ClCompile Include="2DAE15_Programming4_03_Wieme_Jarne.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,10 +10,10 @@
 
 int main()
 {
-    std::string filePath{ "Resources/Bunny.obj" };
+    std::string filePath{ "input.obj" };
 
     std::ifstream inputFile{ filePath }; //open the input file
-
+    
     if (!inputFile.is_open())
     {
         assert("failed to open file");
@@ -104,11 +104,11 @@ int main()
         
             //write a c to the output file
             const char c{ 'c' };
-            outputFile.write((const char*)&c, sizeof(c));
-        
+            outputFile.write(reinterpret_cast<const char*>(&c), sizeof(c));
+
             //write how long the string is to the output file
             uint16_t commentLenght{static_cast<uint16_t>(comment.size()) };
-            outputFile.write((const char*)&commentLenght, sizeof(commentLenght));
+            outputFile.write(reinterpret_cast<const char*>(&commentLenght), sizeof(commentLenght));
         
             //write the comment to the output file
             outputFile.write(comment.c_str(), sizeof(char) * commentLenght);
@@ -129,31 +129,33 @@ int main()
 
     //write a v and the amount of vertices to the output file
      const char v{ 'v' };
-     outputFile.write((const char*)&v, sizeof(v));
-     outputFile.write((const char*)&amountOfVertices, sizeof(amountOfVertices));
+     outputFile.write(reinterpret_cast<const char*>(&v), sizeof(v));
+     outputFile.write(reinterpret_cast<const char*>(&amountOfVertices), sizeof(amountOfVertices));
 
      for (const auto& number : vertices)
      {
-         outputFile.write((const char*)&number, sizeof(number));
+         outputFile.write(reinterpret_cast<const char*>(&number), sizeof(number));
      }
 
      //write an f and the amount of faces to the output file
      const char f{ 'f' };
-     outputFile.write((const char*)&f, sizeof(f));
-     outputFile.write((const char*)&amountOfFaces, sizeof(amountOfFaces));
+     outputFile.write(reinterpret_cast<const char*>(&f), sizeof(f));
+     outputFile.write(reinterpret_cast<const char*>(&amountOfFaces), sizeof(amountOfFaces));
 
      for (const auto& number : faces)
      {
-         outputFile.write((const char*)&number, sizeof(number));
+         outputFile.write(reinterpret_cast<const char*>(&number), sizeof(number));
      }
 
      //write an n and the amount of normal to the output file
      const char n{ 'n' };
-     outputFile.write((const char*)&n, sizeof(n));
-     outputFile.write((const char*)&amountOfNormals, sizeof(amountOfNormals));
+     outputFile.write(reinterpret_cast<const char*>(&n), sizeof(n));
+     outputFile.write(reinterpret_cast<const char*>(&amountOfNormals), sizeof(amountOfNormals));
 
      for (const auto& number : normals)
      {
-         outputFile.write((const char*)&number, sizeof(number));
+         outputFile.write(reinterpret_cast<const char*>(&number), sizeof(number));
      }
+
+     std::cout << "conversion form obj to bobj succeded\n";
 }

@@ -26,12 +26,12 @@ int main()
     char command{};
     while (!inputFile.eof())
     {
-        inputFile.read((char*)&command, sizeof(command));
+        inputFile.read(reinterpret_cast<char*>(&command), sizeof(command));
 
         if (command == 'v')
         {
             uint16_t amountOfVertices{};
-            inputFile.read((char*)&amountOfVertices, sizeof(amountOfVertices));
+            inputFile.read(reinterpret_cast<char*>(&amountOfVertices), sizeof(amountOfVertices));
 
             //read out all the vertices
             float number{};
@@ -41,19 +41,19 @@ int main()
                 outputFile << "v ";
 
                 //read in the x of the vertex
-                inputFile.read((char*)&number, sizeof(number));
+                inputFile.read(reinterpret_cast<char*>(&number), sizeof(number));
 
                 //write the x value to the output file
                 outputFile << std::scientific << number << ' ';
 
                 //read in the y of the vertex
-                inputFile.read((char*)&number, sizeof(number));
+                inputFile.read(reinterpret_cast<char*>(&number), sizeof(number));
 
                 //write the y value to the output file
                 outputFile << std::scientific << number << ' ';
 
                 //read in the z of the vertex
-                inputFile.read((char*)&number, sizeof(number));
+                inputFile.read(reinterpret_cast<char*>(&number), sizeof(number));
 
                 //write the z value to the output file
                 outputFile << std::scientific << number << ' ';
@@ -66,7 +66,7 @@ int main()
         if (command == 'f')
         {
             uint16_t amountOfFaces{};
-            inputFile.read((char*)&amountOfFaces, sizeof(amountOfFaces));
+            inputFile.read(reinterpret_cast<char*>(&amountOfFaces), sizeof(amountOfFaces));
 
             //read out all the vertices
             uint16_t number{};
@@ -76,19 +76,19 @@ int main()
                 outputFile << "f ";
 
                 //read in the x of the vertex
-                inputFile.read((char*)&number, sizeof(number));
+                inputFile.read(reinterpret_cast<char*>(&number), sizeof(number));
 
                 //write the x value to the output file
                 outputFile << std::to_string(number) << ' ';
 
                 //read in the y of the vertex
-                inputFile.read((char*)&number, sizeof(number));
+                inputFile.read(reinterpret_cast<char*>(&number), sizeof(number));
 
                 //write the y value to the output file
                 outputFile << std::to_string(number) << ' ';
 
                 //read in the z of the vertex
-                inputFile.read((char*)&number, sizeof(number));
+                inputFile.read(reinterpret_cast<char*>(&number), sizeof(number));
 
                 //write the z value to the output file
                 outputFile << std::to_string(number) << ' ';
@@ -101,7 +101,7 @@ int main()
         if (command == 'c')
         {
             uint16_t commentLenght{};
-            inputFile.read((char*)&commentLenght, sizeof(commentLenght));
+            inputFile.read(reinterpret_cast<char*>(&commentLenght), sizeof(commentLenght));
             
             char* comment{ new char[commentLenght + 1] }; // + 1 for enter
             inputFile.read(comment, commentLenght);
@@ -114,5 +114,5 @@ int main()
         }
     }
 
-    
+    std::cout << "conversion form bobj to obj succeded\n";
 }
