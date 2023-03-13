@@ -10,15 +10,15 @@ void UberMaterialScene::Initialize()
 	m_pShpere = new GameObject();
 	AddChild(m_pShpere);
 	
-	UberMaterial* pMaterial{ MaterialManager::Get()->CreateMaterial<UberMaterial>() };
+	m_pUberMaterial = MaterialManager::Get()->CreateMaterial<UberMaterial>();
 
 	const auto pModel{ new ModelComponent(L"Meshes/Sphere.ovm") };
 
-	pModel->SetMaterial(pMaterial);
+	pModel->SetMaterial(m_pUberMaterial);
 
 	m_pShpere->AddComponent(pModel);
 
-	//m_SceneContext.settings.drawGrid = false;
+	m_SceneContext.settings.drawGrid = false;
 	m_SceneContext.settings.enableOnGUI = true;
 
 	m_pShpere->GetTransform()->Scale(5, 5, 5);
@@ -36,7 +36,5 @@ void UberMaterialScene::Draw()
 
 void UberMaterialScene::OnGUI()
 {
-	ImGui::Text("This only activates if\n SceneSettings.enableOnGUI is True.\n\n");
-	ImGui::Text("Use ImGui to add custom\n controllable scene parameters!");
-	ImGui::ColorEdit3("Demo ClearColor", &m_SceneContext.settings.clearColor.x, ImGuiColorEditFlags_NoInputs);
+	m_pUberMaterial->DrawImGui();
 }

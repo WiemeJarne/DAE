@@ -83,7 +83,7 @@ float4 MainPS(VS_OUTPUT input) : SV_TARGET
 	
 	float4 ambient = gColorAmbient * gAmbientIntensity;
 	
-	return diffuse;
+	return diffuse +  ambient;
 }
 
 
