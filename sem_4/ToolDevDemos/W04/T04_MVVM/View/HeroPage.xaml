@@ -1,0 +1,65 @@
+﻿<Page x:Class="T04_MVVM.View.HeroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:T04_MVVM.View"
+      xmlns:viewModel="clr-namespace:T04_MVVM.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HeroPage">
+    <Page.DataContext>
+        <viewModel:HeroPageVM/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- TODO: Bind source to the Image property of CurrentHero -->
+        <Image Source="{Binding CurrentHero.Image}" Grid.RowSpan="4" />
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <!-- TODO: Bind text to the UserName (string) property -->
+            <TextBlock  Text="Details provided by: " FontWeight="Bold" />
+            <TextBox MinWidth="150" Text="{Binding UserName, FallbackValue=No_username_found}"/>
+        </StackPanel>
+        <!-- TODO: Bind text to the Name property of CurrentHero -->
+        <!-- TODO: Choose (hero name) as the FallbackValue -->
+        <TextBox Grid.Column="1" Grid.Row="1" 
+                   Text="{Binding CurrentHero.Name}"  />
+        <TextBox Grid.Column="1" Grid.Row="2" 
+                   Text="{Binding CurrentHero.RealName}"  />
+        <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" TextWrapping="Wrap"
+                   Text="{Binding CurrentHero.Description}"  />
+
+        <Button Content="SAVE" Grid.Row="4" Margin="8" Padding="13" VerticalAlignment="Center" Command="{Binding SaveCommand}"/>
+
+
+
+
+        <Button Content="RESET" Grid.Row="4" Grid.Column="1" Margin="8"
+                Padding="13" VerticalAlignment="Center" Command="{Binding ResetCommand}"  />
+    </Grid>
+</Page>
