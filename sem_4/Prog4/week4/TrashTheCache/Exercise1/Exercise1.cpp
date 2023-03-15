@@ -6,7 +6,7 @@
 
 int main()
 {
-    const int arraySize{ 1'000'000'000 };
+    const int arraySize{ std::pow(2, 26)};
     int* arr{ new int[arraySize] {} };
 
     for (int stepsize{ 1 }; stepsize <= 1024; stepsize *= 2)
