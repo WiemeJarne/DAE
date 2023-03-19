@@ -3,11 +3,4 @@
 
 SpikyMaterial::SpikyMaterial()
 	:Material<SpikyMaterial>(L"Effects/SpikyShader.fx")
-{
-
-}
-
-void SpikyMaterial::InitializeEffectVariables()
-{
-
-}
+{}

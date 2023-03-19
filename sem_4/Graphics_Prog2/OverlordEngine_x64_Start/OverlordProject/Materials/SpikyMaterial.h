@@ -11,6 +11,6 @@ public:
 	SpikyMaterial& operator=(SpikyMaterial&& other) noexcept = delete;
 
 protected:
-	void InitializeEffectVariables() override;
+	void InitializeEffectVariables() override {};
 };
 
