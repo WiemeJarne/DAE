@@ -29,9 +29,18 @@ private:
 	PxRigidStatic* m_pBlueTrigger{ nullptr };
 	PxRigidStatic* m_pRedTrigger{ nullptr };
 
-	GameObject* m_pBlueBox{};
-	GameObject* m_pRedBox{};
+	GameObject* m_pBlueBox{ nullptr };
+	GameObject* m_pRedBox{ nullptr };
 
 	bool m_IsBlueTriggered{};
 	bool m_IsRedTriggered{};
+
+	PxRevoluteJoint* m_pBlueJoint{ nullptr };
+	PxRevoluteJoint* m_pRedJoint{ nullptr };
+
+	bool m_OpenBlueHatch{};
+	bool m_OpenRedHatch{};
+
+	FMOD::Channel* m_pChannel2D{ nullptr };
+	FMOD::Sound* m_pSound{ nullptr };
 };
