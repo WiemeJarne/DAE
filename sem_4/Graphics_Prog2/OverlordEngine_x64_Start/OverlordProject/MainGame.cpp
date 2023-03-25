@@ -2,8 +2,8 @@
 #include "MainGame.h"
 
 /*LAB Content*/
-// #define W3
- #define W4
+ #define W3
+// #define W4
 // #define W5
 // #define W6
 // #define W7
@@ -19,7 +19,7 @@
 #ifdef W3
 #include "Scenes/Week 3/MinionScene.h"
 #include "Scenes/Week 3/ComponentTestScene.h"
-//#include "Scenes/Week 3/PongScene.h"
+#include "Scenes/Week 3/PongScene.h"
 #endif
 
 #ifdef W4
@@ -95,8 +95,8 @@ void MainGame::Initialize()
 
 #ifdef W3
 	//SceneManager::Get()->AddGameScene(new MinionScene());
-	SceneManager::Get()->AddGameScene(new ComponentTestScene());
-	//SceneManager::Get()->AddGameScene(new PongScene());
+	//SceneManager::Get()->AddGameScene(new ComponentTestScene());
+	SceneManager::Get()->AddGameScene(new PongScene());
 #endif
 
 #ifdef W4
