@@ -9,7 +9,7 @@
 		</contributor>
 		<created>2023-03-06T15:43:20Z</created>
 		<keywords>FXComposer, NVIDIA</keywords>
-		<modified>2023-04-01T14:45:13Z</modified>
+		<modified>2023-04-01T16:33:52Z</modified>
 		<subject/>
 		<title/>
 		<unit/>
@@ -174,18 +174,33 @@
 		</material>
 		<material id="Material" name="UberShader_Material">
 			<instance_effect url="#Effect2">
-				<technique_hint platform="PC-D3D10" ref="DefaultTechnique"/>
-				<setparam ref="gMatrixWorldViewProj">
-					<float4x4>0.246191 3.61649e-006 1.97029 0.00434703 0.40923 2.71635 -0.0511389 -0.00503213 0.981101 -0.150115 -0.12259 3.95275 0.981041 -0.150106 -0.122583 3.95426</float4x4>
+				<technique_hint platform="PC-D3D10" ref="WithAlphaBlending"/>
+				<setparam ref="gMatrixWVP">
+					<float4x4>1.97998 4.24502e-006 0.14945 -0.0140825 0.00622534 2.74623 -0.0825476 -0.00218245 0.075237 -0.030132 -0.996772 6.15333 0.0752324 -0.0301301 -0.996711 6.15484</float4x4>
+				</setparam>
+				<setparam ref="gMatrixViewInverse">
+					<float4x4>0.997163 0.00226566 -0.0752324 -0.455969 1.96041e-006 0.999546 0.0301302 0.18624 0.0752665 -0.0300448 0.996711 6.1351 0 0 -0 1</float4x4>
 				</setparam>
 				<setparam ref="gMatrixWorld">
 					<float4x4>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</float4x4>
 				</setparam>
+				<setparam ref="gLightDirection">
+					<float3>0.577 0.577 0.577</float3>
+				</setparam>
+				<setparam ref="gUseTextureDiffuse">
+					<bool>false</bool>
+				</setparam>
 				<setparam ref="gColorDiffuse">
 					<float4>1 1 1 1</float4>
 				</setparam>
-				<setparam ref="gLightDirection">
-					<float3>1 0 0</float3>
+				<setparam ref="gColorSpecular">
+					<float4>1 1 1 1</float4>
+				</setparam>
+				<setparam ref="gUseTextureSpecularIntensity">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gShininess">
+					<int>50</int>
 				</setparam>
 				<setparam ref="gColorAmbient">
 					<float4>0 0 0 0</float4>
@@ -193,11 +208,84 @@
 				<setparam ref="gAmbientIntensity">
 					<float>0</float>
 				</setparam>
+				<setparam ref="gFlipGreenChannel">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gUseTextureNormal">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gUseEnvironmentMapping">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gReflectionStrength">
+					<float>0</float>
+				</setparam>
+				<setparam ref="gRefractionStrength">
+					<float>0</float>
+				</setparam>
+				<setparam ref="gRefractionIndex">
+					<float>0.3</float>
+				</setparam>
+				<setparam ref="gUseFresnelFalloff">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gColorFresnel">
+					<float4>1 1 1 1</float4>
+				</setparam>
+				<setparam ref="gFresnelPower">
+					<float>1</float>
+				</setparam>
+				<setparam ref="gFresnelMultiplier">
+					<float>1</float>
+				</setparam>
+				<setparam ref="gFresnelHardness">
+					<float>0</float>
+				</setparam>
+				<setparam ref="gOpacityIntensity">
+					<float>1</float>
+				</setparam>
+				<setparam ref="gTextureOpacityIntensity">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gUseSpecularBlinn">
+					<bool>false</bool>
+				</setparam>
+				<setparam ref="gUseSpecularPhong">
+					<bool>false</bool>
+				</setparam>
 				<setparam ref="gTextureDiffuse">
 					<surface type="2D">
 						<init_from>CobbleStone_DiffuseMap</init_from>
 						<format>R8G8B8A8</format>
-						<size>512 512 1</size>
+						<size>0 0 1</size>
+					</surface>
+				</setparam>
+				<setparam ref="gTextureSpecularIntensity">
+					<surface type="2D">
+						<init_as_null/>
+						<format>A8R8G8B8</format>
+						<size>0 0 1</size>
+					</surface>
+				</setparam>
+				<setparam ref="gTextureNormal">
+					<surface type="2D">
+						<init_as_null/>
+						<format>A8R8G8B8</format>
+						<size>0 0 1</size>
+					</surface>
+				</setparam>
+				<setparam ref="gCubeEnvironment">
+					<surface type="CUBE">
+						<init_as_null/>
+						<format>A8R8G8B8</format>
+						<size>0 0 1</size>
+					</surface>
+				</setparam>
+				<setparam ref="gTextureOpacity">
+					<surface type="2D">
+						<init_as_null/>
+						<format>A8R8G8B8</format>
+						<size>0 0 1</size>
 					</surface>
 				</setparam>
 			</instance_effect>
