@@ -2,8 +2,8 @@
 #include "MainGame.h"
 
 /*LAB Content*/
- #define W3
-// #define W4
+// #define W3
+ #define W4
 // #define W5
 // #define W6
 // #define W7
@@ -101,8 +101,8 @@ void MainGame::Initialize()
 
 #ifdef W4
 	//SceneManager::Get()->AddGameScene(new ModelTestScene());
-	//SceneManager::Get()->AddGameScene(new UberMaterialScene());
-	SceneManager::Get()->AddGameScene(new SpikyScene());
+	SceneManager::Get()->AddGameScene(new UberMaterialScene());
+	//SceneManager::Get()->AddGameScene(new SpikyScene());
 	//SceneManager::Get()->AddGameScene(new SpriteTestScene());
 #endif
 
