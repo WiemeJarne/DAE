@@ -9,7 +9,7 @@
 		</contributor>
 		<created>2023-03-06T15:43:20Z</created>
 		<keywords>FXComposer, NVIDIA</keywords>
-		<modified>2023-03-06T16:29:21Z</modified>
+		<modified>2023-04-01T14:45:13Z</modified>
 		<subject/>
 		<title/>
 		<unit/>
@@ -18,11 +18,11 @@
 	<library_visual_scenes>
 		<visual_scene id="DefaultScene" name="DefaultScene">
 			<node id="Node5" name="Node5" layer="">
-				<matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+				<matrix sid="">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
 				<instance_geometry url="#Sphere2" sid="GeometryInstance5" name="Sphere2">
 					<bind_material>
 						<technique_common>
-							<instance_material symbol="SphereMaterial" target="#Demo"/>
+							<instance_material symbol="SphereMaterial" target="#Material"/>
 						</technique_common>
 					</bind_material>
 				</instance_geometry>
@@ -34,7 +34,7 @@
 	</library_visual_scenes>
 	<library_images>
 		<image id="CobbleStone_DiffuseMap" name="CobbleStone_DiffuseMap">
-			<init_from>CobbleStone_DiffuseMap.dds</init_from>
+			<init_from>cobblestone_diffusemap.dds</init_from>
 		</image>
 	</library_images>
 	<library_effects>
@@ -118,9 +118,16 @@
 					<constant/>
 				</technique>
 			</profile_COMMON>
+		</effect>
+		<effect id="Effect2" name="UberShader">
+			<profile_COMMON>
+				<technique sid="__fxc_remove_profile_COMMON">
+					<constant/>
+				</technique>
+			</profile_COMMON>
 			<extra type="import">
 				<technique profile="NVIDIA_FXCOMPOSER">
-					<import url="Demo.fx" compiler_options="" profile="fx"/>
+					<import url="UberShader.fx" compiler_options="" profile="fx"/>
 				</technique>
 			</extra>
 		</effect>
@@ -130,9 +137,6 @@
 			<instance_effect url="#Effect">
 				<technique_hint platform="PC-D3D10" ref="CommonProfile"/>
 				<technique_hint platform="PC-D3D" ref="CommonProfile"/>
-				<setparam ref="Script">
-					<float>0.8</float>
-				</setparam>
 				<setparam ref="EmissionColor">
 					<float4>0 0 0 1</float4>
 				</setparam>
@@ -163,19 +167,19 @@
 				<setparam ref="Index_Of_Refraction">
 					<float>1</float>
 				</setparam>
-				<setparam ref="LightCount">
-					<int>4</int>
-				</setparam>
 			</instance_effect>
 		</material>
 		<material id="Demo" name="Demo_Material">
-			<instance_effect url="#Effect1">
+			<instance_effect url="#Effect1"/>
+		</material>
+		<material id="Material" name="UberShader_Material">
+			<instance_effect url="#Effect2">
 				<technique_hint platform="PC-D3D10" ref="DefaultTechnique"/>
 				<setparam ref="gMatrixWorldViewProj">
-					<float4x4>1.29735 -4.75285e-009 0 0.00557664 -5.11758e-009 1.3969 2.87864e-008 -0.00504002 0 -2.91056e-009 -0.508463 5.0828 0 -2.91038e-009 -0.508432 5.08432</float4x4>
+					<float4x4>0.246191 3.61649e-006 1.97029 0.00434703 0.40923 2.71635 -0.0511389 -0.00503213 0.981101 -0.150115 -0.12259 3.95275 0.981041 -0.150106 -0.122583 3.95426</float4x4>
 				</setparam>
 				<setparam ref="gMatrixWorld">
-					<float4x4>0.0630392 0.0757296 -0.498792 0 9.05896e-007 0.502671 0.0763186 0 0.504508 -0.00946344 0.0623248 0 0 0 0 1</float4x4>
+					<float4x4>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</float4x4>
 				</setparam>
 				<setparam ref="gColorDiffuse">
 					<float4>1 1 1 1</float4>
