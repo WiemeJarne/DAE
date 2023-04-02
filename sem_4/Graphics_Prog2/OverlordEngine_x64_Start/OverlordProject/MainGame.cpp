@@ -3,8 +3,8 @@
 
 /*LAB Content*/
 // #define W3
- #define W4
-// #define W5
+// #define W4
+ #define W5
 // #define W6
 // #define W7
 // #define W8
@@ -94,21 +94,21 @@ void MainGame::Initialize()
 {
 
 #ifdef W3
-	//SceneManager::Get()->AddGameScene(new MinionScene());
-	//SceneManager::Get()->AddGameScene(new ComponentTestScene());
+	SceneManager::Get()->AddGameScene(new MinionScene());
+	SceneManager::Get()->AddGameScene(new ComponentTestScene());
 	SceneManager::Get()->AddGameScene(new PongScene());
 #endif
 
 #ifdef W4
-	//SceneManager::Get()->AddGameScene(new ModelTestScene());
+	SceneManager::Get()->AddGameScene(new ModelTestScene());
 	SceneManager::Get()->AddGameScene(new UberMaterialScene());
-	//SceneManager::Get()->AddGameScene(new SpikyScene());
-	//SceneManager::Get()->AddGameScene(new SpriteTestScene());
+	SceneManager::Get()->AddGameScene(new SpikyScene());
+	SceneManager::Get()->AddGameScene(new SpriteTestScene());
 #endif
 
 #ifdef W5
-	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_1());
-	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_2());
+	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_1());
+	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_2());
 	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_3());
 #endif
 
