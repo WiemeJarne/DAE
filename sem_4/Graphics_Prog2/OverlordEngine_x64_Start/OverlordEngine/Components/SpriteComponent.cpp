@@ -18,7 +18,7 @@ void SpriteComponent::SetTexture(const std::wstring& spriteAsset)
 	m_pTexture = ContentManager::Load<TextureData>(m_SpriteAsset);
 }
 
-void SpriteComponent::Draw(const SceneContext& )
+void SpriteComponent::Draw(const SceneContext& sceneContext)
 {
 	if (!m_pTexture)
 		return;
@@ -28,6 +28,8 @@ void SpriteComponent::Draw(const SceneContext& )
 	const XMFLOAT2 scale{ pTransform->GetWorldScale().x, pTransform->GetWorldScale().y };
 	
 	SpriteRenderer::Get()->AppendSprite(m_pTexture, pos, m_Color, m_Pivot, scale, MathHelper::QuaternionToEuler(pTransform->GetWorldRotation()).z, pTransform->GetPosition().z);
+
+	SpriteRenderer::Get()->Draw(sceneContext);
 
 	//Here you need to draw the SpriteComponent using the Draw of the sprite renderer
 	// The sprite renderer is a singleton
