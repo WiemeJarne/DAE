@@ -2,13 +2,10 @@
 #include "UberMaterialScene.h"
 #include "Materials/UberMaterial.h"
 
-UberMaterialScene::UberMaterialScene() :
-	GameScene(L"UberMaterialScene") {}
-
 void UberMaterialScene::Initialize()
 {
-	m_pShpere = new GameObject();
-	AddChild(m_pShpere);
+	m_pSphere = new GameObject();
+	AddChild(m_pSphere);
 	
 	m_pUberMaterial = MaterialManager::Get()->CreateMaterial<UberMaterial>();
 
@@ -16,22 +13,20 @@ void UberMaterialScene::Initialize()
 
 	pModel->SetMaterial(m_pUberMaterial);
 
-	m_pShpere->AddComponent(pModel);
+	m_pSphere->AddComponent(pModel);
 
 	m_SceneContext.settings.drawGrid = false;
 	m_SceneContext.settings.enableOnGUI = true;
+	m_SceneContext.pCamera->GetTransform()->Translate(0.f, 15.f, -25.f);
 
-	m_pShpere->GetTransform()->Scale(5, 5, 5);
+	m_pSphere->GetTransform()->Scale(5, 5, 5);
 }
 
 void UberMaterialScene::Update()
 {
-
-}
-
-void UberMaterialScene::Draw()
-{
-	//Optional
+	const float rotationSpeed{ 20.f }; //in degrees
+	m_CurrentYRotation += rotationSpeed * m_SceneContext.pGameTime->GetElapsed();
+	m_pSphere->GetTransform()->Rotate(0.f, m_CurrentYRotation, 0.f);
 }
 
 void UberMaterialScene::OnGUI()

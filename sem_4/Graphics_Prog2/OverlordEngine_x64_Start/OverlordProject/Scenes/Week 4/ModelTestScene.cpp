@@ -4,9 +4,6 @@
 #include "Materials/ColorMaterial.h"
 #include "Materials/DiffuseMaterial.h"
 
-ModelTestScene::ModelTestScene() :
-	GameScene(L"MinionScene") {}
-
 void ModelTestScene::Initialize()
 {
 	auto& pPhysX{ PxGetPhysics() };
@@ -39,19 +36,7 @@ void ModelTestScene::Initialize()
 	m_pChair->GetTransform()->Translate(0, 5, 0);
 }
 
-void ModelTestScene::Update()
+void ModelTestScene::Reset()
 {
-	
-}
-
-void ModelTestScene::Draw()
-{
-	//Optional
-}
-
-void ModelTestScene::OnGUI()
-{
-	ImGui::Text("This only activates if\n SceneSettings.enableOnGUI is True.\n\n");
-	ImGui::Text("Use ImGui to add custom\n controllable scene parameters!");
-	ImGui::ColorEdit3("Demo ClearColor", &m_SceneContext.settings.clearColor.x, ImGuiColorEditFlags_NoInputs);
+	m_pChair->GetTransform()->Translate(0, 5, 0);
 }

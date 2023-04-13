@@ -209,20 +209,7 @@ void W2_AssignmentScene::Update()
 
 	if (m_SceneContext.GetInput()->IsKeyboardKey(InputTriggerState::pressed, 'R')) //reset the scene
 	{
-		m_pSphere1->Translate(0.f, 10.f, 0.f);
-		m_pSphere2->Translate(-5.f, 25.f, 0.f);
-		m_pSphere3->Translate(5.f, 25.f, 0.f);
-
-		m_pBlueBox->Translate(-4.f, 5.f, 0.f);
-		m_pBlueBox->RotateDegrees(0.f, 0.f, 0.f);
-		m_pRedBox->Translate(3.5f, 5.f, 0.f);
-		m_pRedBox->RotateDegrees(0.f, 0.f, 0.f);
-
-		m_IsBlueTriggered = false;
-		m_IsRedTriggered = false;
-
-		m_pBlueJoint->setDriveVelocity(10);
-		m_pRedJoint->setDriveVelocity(10);
+		Reset();
 	}
 
 	const float velocity{ -5 };
@@ -240,17 +227,11 @@ void W2_AssignmentScene::Update()
 }
 
 void W2_AssignmentScene::Draw() const
-{
-
-}
+{}
 
 void W2_AssignmentScene::OnSceneActivated()
 {
-
-}
-
-void W2_AssignmentScene::OnSceneDeactivated()
-{
+	Reset();
 }
 
 void W2_AssignmentScene::onTrigger(PxTriggerPair* pairs, PxU32 count)
@@ -288,4 +269,22 @@ void W2_AssignmentScene::onTrigger(PxTriggerPair* pairs, PxU32 count)
 			}
 		}
 	}
+}
+
+void W2_AssignmentScene::Reset()
+{
+	m_pSphere1->Translate(0.f, 10.f, 0.f);
+	m_pSphere2->Translate(-5.f, 25.f, 0.f);
+	m_pSphere3->Translate(5.f, 25.f, 0.f);
+
+	m_pBlueBox->Translate(-4.f, 5.f, 0.f);
+	m_pBlueBox->RotateDegrees(0.f, 0.f, 0.f);
+	m_pRedBox->Translate(3.5f, 5.f, 0.f);
+	m_pRedBox->RotateDegrees(0.f, 0.f, 0.f);
+
+	m_IsBlueTriggered = false;
+	m_IsRedTriggered = false;
+
+	m_pBlueJoint->setDriveVelocity(10);
+	m_pRedJoint->setDriveVelocity(10);
 }

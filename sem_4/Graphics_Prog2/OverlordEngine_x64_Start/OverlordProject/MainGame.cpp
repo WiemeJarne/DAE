@@ -5,14 +5,14 @@
 // #define W3
 // #define W4
 // #define W5
- #define W6
+// #define W6
 // #define W7
 // #define W8
 // #define W9
 // #define W10
 
 /*MILESTONE Content*/
-// #define MILESTONE_1
+ #define MILESTONE_1
 // #define MILESTONE_2
 
 #pragma region Lab/Milestone Includes
@@ -79,13 +79,13 @@
 #pragma endregion
 
 //Game is preparing
-void MainGame::OnGamePreparing(GameContext& /*gameContext*/)
+void MainGame::OnGamePreparing(GameContext& gameContext)
 {
 	//Here you can change some game settings before engine initialize
 	//gameContext.windowWidth=... (default is 1280)
 	//gameContext.windowHeight=... (default is 720)
 
-	//gameContext.windowTitle = L"GP2 - Milestone 1 (2023) | (2DAE13) Doe John";
+	gameContext.windowTitle = L"GP2 - Milestone 1 (2023) | (2DAE15) Wieme Jarne";
 	//gameContext.windowTitle = L"GP2 - Milestone 2 (2023) | (2DAE13) Doe John";
 	//gameContext.windowTitle = L"GP2 - Exam Project (2023) | (2DAE13) Doe John";
 }
@@ -100,15 +100,15 @@ void MainGame::Initialize()
 #endif
 
 #ifdef W4
-	//SceneManager::Get()->AddGameScene(new ModelTestScene());
-	//SceneManager::Get()->AddGameScene(new UberMaterialScene());
-	//SceneManager::Get()->AddGameScene(new SpikyScene());
+	SceneManager::Get()->AddGameScene(new ModelTestScene());
+	SceneManager::Get()->AddGameScene(new UberMaterialScene());
+	SceneManager::Get()->AddGameScene(new SpikyScene());
 	SceneManager::Get()->AddGameScene(new SpriteTestScene());
 #endif
 
 #ifdef W5
-	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_1());
-	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_2());
+	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_1());
+	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_2());
 	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_3());
 #endif
 

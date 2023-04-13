@@ -2,7 +2,7 @@
 class ModelTestScene final : public GameScene
 {
 public:
-	ModelTestScene();
+	ModelTestScene() : GameScene(L"MinionScene") {}
 	~ModelTestScene() override = default;
 
 	ModelTestScene(const ModelTestScene& other) = delete;
@@ -12,10 +12,9 @@ public:
 
 protected:
 	void Initialize() override;
-	void Update() override;
-	void Draw() override;
-	void OnGUI() override;
 
 private:
-	GameObject* m_pChair;
+	GameObject* m_pChair{};
+
+	void Reset();
 };

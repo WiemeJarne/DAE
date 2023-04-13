@@ -3,9 +3,6 @@
 #include "SpikyScene.h"
 #include "Materials/DiffuseMaterial.h"
 
-SpikyScene::SpikyScene() :
-	GameScene(L"SpikyScene") {}
-
 void SpikyScene::Initialize()
 {
 	m_pSpikyMaterial = MaterialManager::Get()->CreateMaterial<SpikyMaterial>();
@@ -30,11 +27,6 @@ void SpikyScene::Update()
 	const float rotationSpeed{ 20.f }; //in degrees
 	m_CurrentYRotation += rotationSpeed * m_SceneContext.pGameTime->GetElapsed();
 	m_pOctaSphere->GetTransform()->Rotate(0.f, m_CurrentYRotation, 0.f);
-}
-
-void SpikyScene::Draw()
-{
-	//Optional
 }
 
 void SpikyScene::OnGUI()

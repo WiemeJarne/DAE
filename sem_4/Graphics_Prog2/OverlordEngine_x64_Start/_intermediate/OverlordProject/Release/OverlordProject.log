@@ -1,0 +1,68 @@
+﻿  stdafx.cpp
+  DiffuseMaterial.cpp
+  DiffuseMaterial_Skinned.cpp
+  SpikyMaterial.cpp
+  BoneObject.cpp
+  PongScene.cpp
+  ModelTestScene.cpp
+  SpikyScene.cpp
+  SpriteTestScene.cpp
+  ComponentTestScene.cpp
+  CubePrefab.cpp
+  SpherePrefab.cpp
+  TorusPrefab.cpp
+  ColorMaterial.cpp
+  MinionScene.cpp
+  SoftwareSkinningScene_1.cpp
+  SoftwareSkinningScene_2.cpp
+  SoftwareSkinningScene_3.cpp
+  HardwareSkinningScene.cpp
+  Main.cpp
+  MainGame.cpp
+  Compiling...
+  UberMaterialScene.cpp
+  UberMaterial.cpp
+     Creating library C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.lib and object C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 6304 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  OverlordProject.vcxproj -> C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exe
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXCommon_64.dll
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXCooking_64.dll
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXFoundation_64.dll
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysX_64.dll
+  4 File(s) copied
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\FMOD\bin\Release\fmod64.dll
+  1 File(s) copied
+  0 File(s) copied
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\DebugRenderer.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\PosNorm3D.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\PosNormCol3D.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\PosNormTex3D.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\PosNormTex3D_Skinned.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\SpikyShader.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\SpriteRenderer.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\TextRenderer.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\UberShader.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bone.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Chair.obj
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Chair.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Chair.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Chair.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\OctaSphere.obj
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\OctaSphere.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\OctaSphere.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\OctaSphere.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PeasantGirl.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Sphere.obj
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Sphere.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Sphere.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Chair_Dark.dds
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\CobbleStone_DiffuseMap.dds
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\CobbleStone_HeightMap.dds
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\CobbleStone_NormalMap.dds
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\PeasantGirl_Diffuse.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Sunol_Cubemap.dds
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\TestSprite.jpg
+  29 File(s) copied

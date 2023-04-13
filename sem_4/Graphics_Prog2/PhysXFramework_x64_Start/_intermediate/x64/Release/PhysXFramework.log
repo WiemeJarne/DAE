@@ -1,0 +1,83 @@
+﻿  stdafx.cpp
+  AudioTestScene.cpp
+  BouncingBallScene.cpp
+  BoxForceScene.cpp
+  BoxTorqueScene.cpp
+  FrictionTestScene.cpp
+  PhysXMeshTestScene.cpp
+  TriggerTestScene.cpp
+C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\TriggerTestScene.cpp(92,30): warning C4018: '<': signed/unsigned mismatch
+  W1_AssignmentScene.cpp
+  BaseCamera.cpp
+  BinaryReader.cpp
+  ContentManager.cpp
+  Core.cpp
+  CubePosColorNorm.cpp
+  CylinderPosColorNorm.cpp
+  D3D11.cpp
+  DdsTexLoader.cpp
+  DdsTexResource.cpp
+  DebugRenderer.cpp
+  EffectLoader.cpp
+  FreeCamera.cpp
+  Compiling...
+  GameObject.cpp
+  GameScene.cpp
+  GameTime.cpp
+  InputManager.cpp
+  Locator.cpp
+  Logger.cpp
+  main.cpp
+  MeshData.cpp
+  MeshDataLoader.cpp
+  MeshObject.cpp
+  MeshObjectTex.cpp
+  PhysxErrorCallback.cpp
+  PhysxManager.cpp
+  PhysXTextScene.cpp
+  PxConvexMeshLoader.cpp
+  PxTriangleMeshLoader.cpp
+  SceneContext.cpp
+  SceneManager.cpp
+  SceneSelector.cpp
+  SoundManager.cpp
+  Compiling...
+  SpherePosColorNorm.cpp
+  TestScene.cpp
+  TorusPosColorNorm.cpp
+  TrackingCamera.cpp
+  W2_AssignmentScene.cpp
+C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\W2_AssignmentScene.cpp(239,30): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 2386 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  PhysXFramework.vcxproj -> C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\_build\x64\Release\PhysXFramework.exe
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXCommon_64.dll
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXCooking_64.dll
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXFoundation_64.dll
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysX_64.dll
+  4 File(s) copied
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\FMOD\bin\Release\fmod64.dll
+  1 File(s) copied
+  0 File(s) copied
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Effects\DebugRenderer.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Effects\PosColNorm3D.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Effects\PosNormTex3D.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.obj
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.obj
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.obj
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Sounds\bell.mp3
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Sounds\Thrones.mp3
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Sounds\wave.mp3
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Textures\Chair_Dark.dds
+  19 File(s) copied

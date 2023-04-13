@@ -8,6 +8,20 @@ UberMaterial::UberMaterial()
 
 void UberMaterial::InitializeEffectVariables()
 {
+	SetVariable_Vector(L"gLightDirection", XMFLOAT3(-0.551f, 0.534f, -0.641f));
+
+	SetVariable_Scalar(L"gFlipGreenChannel", true);
+
+	SetVariable_Scalar(L"gReflectionStrength", 0.6f);
+	SetVariable_Scalar(L"gRefractionStrength", 0.3f);
+	SetVariable_Scalar(L"gRefractionIndex", 0.9f);
+
+	SetVariable_Scalar(L"gUseFresnelFalloff", true);
+	SetVariable_Scalar(L"gFresnelPower", 2.f);
+	SetVariable_Scalar(L"gFresnelMultiplier", 1.5f);
+	SetVariable_Scalar(L"gFresnelHardness", 2.f);
+	SetVariable_Scalar(L"gOpacityIntensity", 1.f);
+
 	SetVariable_Scalar(L"gUseTextureDiffuse", true);
 	SetVariable_Texture(L"gTextureDiffuse", ContentManager::Load<TextureData>(L"Textures/CobbleStone_DiffuseMap.dds"));
 

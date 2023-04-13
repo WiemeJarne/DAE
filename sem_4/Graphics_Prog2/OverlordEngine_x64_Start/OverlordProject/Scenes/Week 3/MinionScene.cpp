@@ -4,10 +4,6 @@
 
 #include "Prefabs/TorusPrefab.h"
 
-
-MinionScene::MinionScene() :
-	GameScene(L"MinionScene"){}
-
 void MinionScene::Initialize()
 {
 	//m_SceneContext.settings.showInfoOverlay = true;
@@ -36,16 +32,4 @@ void MinionScene::Update()
 	m_pTorusBig->GetTransform()->Rotate(0, rotation, 0);
 	m_pTorusMedium->GetTransform()->Rotate(rotation, 0, 0);
 	m_pTorusSmall->GetTransform()->Rotate(rotation, 0, 0);
-}
-
-void MinionScene::Draw()
-{
-	//Optional
-}
-
-void MinionScene::OnGUI()
-{
-	ImGui::Text("This only activates if\n SceneSettings.enableOnGUI is True.\n\n");
-	ImGui::Text("Use ImGui to add custom\n controllable scene parameters!");
-	ImGui::ColorEdit3("Demo ClearColor", &m_SceneContext.settings.clearColor.x, ImGuiColorEditFlags_NoInputs);
 }

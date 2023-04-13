@@ -13,7 +13,7 @@ public:
 protected:
 	void Initialize() override;
 	void Update() override;
-	void Reset();
+	void OnSceneActivated() override;
 
 private:
 	FixedCamera* m_pFixedCamera{ nullptr };
@@ -22,4 +22,5 @@ private:
 	GameObject* m_pPeddleLeft{ nullptr };
 	GameObject* m_pPeddleRight{ nullptr };
 	GameObject* m_pBall{ nullptr };
+	void Reset();
 };

@@ -62,7 +62,7 @@ void W1_AssignmentScene::Initialize()
 			AddGameObject(cube);
 			cube->Translate(xTranslation, yTranslation, 0.f);
 			const int randomRotation(std::rand() % 20 - 10);
-			cube->RotateDegrees(0.f, randomRotation, 0.f);
+			cube->RotateDegrees(0.f, static_cast<float>(randomRotation), 0.f);
 
 			PxRigidDynamic* pCubeActor{ pPhysX->createRigidDynamic(PxTransform(PxIdentity)) };
 			pCubeActor->setMass(0.1f);
@@ -121,47 +121,44 @@ void W1_AssignmentScene::Update()
 
 	if (m_SceneContext.GetInput()->IsKeyboardKey(InputTriggerState::pressed, 'R')) //reset the scene
 	{
-		//reposition SPHERE
-		m_pSphere->Translate(0.f, 0.f, -50.f);
-
-		//stop SHPERE rotating
-		static_cast<PxRigidBody*>(m_pSphere->GetRigidActor())->setForceAndTorque(PxVec3(0.f, 0.f, 0.f), PxVec3(0.f, 0.f, 0.f));
-
-		//reposition CUBES
-		float xTranslation{ m_XStartPos };
-		float yTranslation{};
-
-		for (int rowNr{}; rowNr < m_AmountOfRows; ++rowNr)
-		{
-			for (int colNr{}; colNr < m_AmountOfCollumns; ++colNr)
-			{
-				m_Cubes[rowNr * m_AmountOfCollumns + colNr]->Translate(xTranslation, yTranslation, 0.f);
-
-				const int randomRotation(std::rand() % 20 - 10);
-				m_Cubes[rowNr * m_AmountOfCollumns + colNr]->RotateDegrees(0.f, randomRotation, 0.f);
-
-				xTranslation += m_CubeActorDimensions.x + m_HorizontalSpaceBetweenCubes;
-			}
-			xTranslation = m_XStartPos;
-			yTranslation += m_CubeActorDimensions.y + m_VerticalSpaceBetweenCubes;
-		}
-
-		//reposition CAMERA
-		m_SceneContext.GetCamera()->SetPosition(XMFLOAT3(-15.f, 20.f, -75.f));
-		m_SceneContext.GetCamera()->SetForward(XMFLOAT3(0.5f, -0.5f, 1.f));
+		Reset();
 	}
 }
 
 void W1_AssignmentScene::Draw() const
-{
-
-}
+{}
 
 void W1_AssignmentScene::OnSceneActivated()
 {
-
+	Reset();
 }
 
-void W1_AssignmentScene::OnSceneDeactivated()
+void W1_AssignmentScene::Reset()
 {
+	//SPHERE
+	m_pSphere->Translate(0.f, 0.f, -50.f);
+	static_cast<PxRigidBody*>(m_pSphere->GetRigidActor())->setForceAndTorque(PxVec3(0.f, 0.f, 0.f), PxVec3(0.f, 0.f, 0.f));
+
+	//CUBES
+	float xTranslation{ m_XStartPos };
+	float yTranslation{};
+
+	for (int rowNr{}; rowNr < m_AmountOfRows; ++rowNr)
+	{
+		for (int colNr{}; colNr < m_AmountOfCollumns; ++colNr)
+		{
+			m_Cubes[rowNr * m_AmountOfCollumns + colNr]->Translate(xTranslation, yTranslation, 0.f);
+
+			const int randomRotation(std::rand() % 20 - 10);
+			m_Cubes[rowNr * m_AmountOfCollumns + colNr]->RotateDegrees(0.f, static_cast<float>(randomRotation), 0.f);
+
+			xTranslation += m_CubeActorDimensions.x + m_HorizontalSpaceBetweenCubes;
+		}
+		xTranslation = m_XStartPos;
+		yTranslation += m_CubeActorDimensions.y + m_VerticalSpaceBetweenCubes;
+	}
+
+	//CAMERA
+	m_SceneContext.GetCamera()->SetPosition(XMFLOAT3(-15.f, 20.f, -75.f));
+	m_SceneContext.GetCamera()->SetForward(XMFLOAT3(0.5f, -0.5f, 1.f));
 }

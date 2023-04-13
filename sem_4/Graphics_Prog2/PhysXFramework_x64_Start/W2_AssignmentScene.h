@@ -16,7 +16,6 @@ protected:
 	void Update() override;
 	void Draw() const override;
 	void OnSceneActivated() override;
-	void OnSceneDeactivated() override;
 
 	void onTrigger(PxTriggerPair* pairs, PxU32 count) override;
 
@@ -43,4 +42,6 @@ private:
 
 	FMOD::Channel* m_pChannel2D{ nullptr };
 	FMOD::Sound* m_pSound{ nullptr };
+
+	void Reset();
 };

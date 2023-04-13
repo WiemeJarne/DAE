@@ -4,7 +4,7 @@ class UberMaterial;
 class UberMaterialScene final : public GameScene
 {
 public:
-	UberMaterialScene();
+	UberMaterialScene() : GameScene(L"UberMaterialScene") {}
 	~UberMaterialScene() override = default;
 
 	UberMaterialScene(const UberMaterialScene& other) = delete;
@@ -15,10 +15,10 @@ public:
 protected:
 	void Initialize() override;
 	void Update() override;
-	void Draw() override;
 	void OnGUI() override;
 
 private:
-	GameObject* m_pShpere{};
+	GameObject* m_pSphere{};
 	UberMaterial* m_pUberMaterial{};
+	float m_CurrentYRotation{};
 };

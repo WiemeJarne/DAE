@@ -167,6 +167,11 @@ void PongScene::Update()
 	}
 }
 
+void PongScene::OnSceneActivated()
+{
+	Reset();
+}
+
 void PongScene::Reset()
 {
 	m_pBall->GetTransform()->Translate(0.f, 0.f, 0.f);

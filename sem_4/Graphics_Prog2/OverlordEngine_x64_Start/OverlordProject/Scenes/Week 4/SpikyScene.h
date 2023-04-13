@@ -4,7 +4,7 @@
 class SpikyScene final : public GameScene
 {
 public:
-	SpikyScene();
+	SpikyScene() : GameScene(L"SpikyScene") {}
 	~SpikyScene() override = default;
 
 	SpikyScene(const SpikyScene& other) = delete;
@@ -15,7 +15,6 @@ public:
 protected:
 	void Initialize() override;
 	void Update() override;
-	void Draw() override;
 	void OnGUI() override;
 
 private:
