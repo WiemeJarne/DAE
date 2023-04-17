@@ -24,6 +24,9 @@
     <ClCompile Include="Prefabs\BoneObject.cpp" />
     <ClCompile Include="Scenes\Week 6\HardwareSkinningScene.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial_Skinned.cpp" />
+    <ClCompile Include="Scenes\Week 7\FontTestScene.cpp" />
+    <ClCompile Include="Scenes\Week 7\CharacterScene.cpp" />
+    <ClCompile Include="Scenes\Week 7\PickingScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -48,5 +51,8 @@
     <ClInclude Include="Prefabs\BoneObject.h" />
     <ClInclude Include="Scenes\Week 6\HardwareSkinningScene.h" />
     <ClInclude Include="Materials\DiffuseMaterial_Skinned.h" />
+    <ClInclude Include="Scenes\Week 7\FontTestScene.h" />
+    <ClInclude Include="Scenes\Week 7\CharacterScene.h" />
+    <ClInclude Include="Scenes\Week 7\PickingScene.h" />
   </ItemGroup>
 </Project>
