@@ -28,8 +28,8 @@ int main()
         {
             const Value& cube{ *it };
 
-            if (cube.HasMember("x") && cube.HasMember("y") && cube.HasMember("z"))
-            {
+            /*if (cube.HasMember("x") && cube.HasMember("y") && cube.HasMember("z"))
+            {*/
                 const Value& loc{ cube["loc"] };
 
                 if (loc.IsArray() && loc.Size() == 3)
@@ -45,7 +45,7 @@ int main()
                         printf("{%d,%d,%d}\n", x.GetInt(), y.GetInt(), z.GetInt());
                     }
                 }
-            }
+            //}
         }
     }
 }

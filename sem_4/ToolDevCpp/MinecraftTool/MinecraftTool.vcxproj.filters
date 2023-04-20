@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DemoWeek1.cpp">
+    <ClCompile Include="MinecraftTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
