@@ -8,9 +8,20 @@ ControllerComponent::ControllerComponent(const PxCapsuleControllerDesc& controll
 
 void ControllerComponent::Initialize(const SceneContext& /*sceneContext*/)
 {
-	if(!m_IsInitialized)
+	if (!m_IsInitialized)
 	{
-		TODO_W7(L"Complete the ControllerComponent Intialization")
+		const auto& position{ GetTransform()->GetPosition() };
+		m_ControllerDesc.position = PxExtendedVec3(position.x, position.y, position.z);
+		m_ControllerDesc.userData = m_pController;
+
+		const auto& pxControllerManager = GetScene()->GetPhysxProxy()->GetControllerManager();
+		m_pController = pxControllerManager->createController(m_ControllerDesc);
+		ASSERT_NULL_(m_pController);
+
+		m_pController->getActor()->userData = this;
+
+		SetCollisionGroup(static_cast<CollisionGroup>(m_CollisionGroups.word0));
+		SetCollisionIgnoreGroup(static_cast<CollisionGroup>(m_CollisionGroups.word1));
 	}
 }
 
