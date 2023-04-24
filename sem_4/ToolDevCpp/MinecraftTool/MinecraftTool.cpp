@@ -6,6 +6,8 @@
 #include <fstream>
 #include <windows.h>
 #include <vector>
+#include <string>
+#include <codecvt>
 #include "rapidjson.h"
 #include "document.h"
 #include "stream.h"
@@ -55,6 +57,10 @@ struct Cube
 	bool hasBackNeighbor{};
 	bool hasFrontNeighbor{};
 
+	bool isOpaque{};
+
+	std::wstring layer{};
+
 	bool operator==(Cube other)
 	{
 		if (	p1 == other.p1 && p2 == other.p2
@@ -69,7 +75,7 @@ struct Cube
 	}
 };
 
-void CreateCube(int x, int y, int z, std::vector<Cube>& cubes);
+void CreateCube(const std::wstring& layer, const Position& pos, bool isOpaque, std::vector<Cube>& cubes);
 void WriteCubesToFile(FILE* pOFile, const std::vector<Cube>& cubes);
 void CalculateCubesNeigbors(std::vector<Cube>& cubes);
 
@@ -90,10 +96,15 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	const wchar_t* text = L"#∂ is the symbol for partial derivative.\n";
 	fwrite(text, wcslen(text) * sizeof(wchar_t), 1, pOFile);
 
+	text = L"mtllib minecraftMats.mtl\n";
+	fwrite(text, wcslen(text) * sizeof(wchar_t), 1, pOFile);
+
 	using namespace rapidjson;
 	IStreamWrapper isw{ is };
 	Document jsonDoc;
 	jsonDoc.ParseStream(isw);
+
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter{};
 
 	int amountOfCubes{};
 
@@ -103,23 +114,42 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 
 		for (Value::ConstValueIterator it = jsonDoc.Begin(); it != jsonDoc.End(); ++it)
 		{
-			const Value& cube{ *it };
+			const Value& newCubes{ *it };
 
-			if (cube.HasMember("positions"))
+			std::wstring newCubesLayer{};
+			if (newCubes.HasMember("layer"))
 			{
-				const Value& positions{ cube["positions"] };
+				const Value& layer{ newCubes["layer"] };
+
+				if (layer.IsString())
+				{
+					newCubesLayer = converter.from_bytes(layer.GetString());
+					//make the first letter capitilized
+					newCubesLayer[0] = std::toupper(newCubesLayer[0]);
+				}				
+			}
+
+			bool areNewCubesOpaque{};
+			if (newCubes.HasMember("opaque"))
+			{
+				const Value& isOpaque{ newCubes["opaque"] };
+
+				if(isOpaque.IsBool())
+					areNewCubesOpaque = isOpaque.GetBool();
+			}
+
+			if (newCubes.HasMember("positions"))
+			{
+				const Value& positions{ newCubes["positions"] };
 
 				for (int index{}; index < static_cast<int>(positions.Size()); ++index)
 				{
 					const Value& pos{ positions[index] };
 
-					if (pos.Size() == 3)
+					if (pos.Size() == 3 && pos[0].IsInt() && pos[1].IsInt() && pos[2].IsInt())
 					{
-						if (pos[0].IsInt() && pos[1].IsInt() && pos[2].IsInt())
-						{
-							CreateCube(pos[0].GetInt(), pos[1].GetInt(), pos[2].GetInt(), cubes);
-							++amountOfCubes;
-						}
+						CreateCube(newCubesLayer, Position(pos[0].GetInt(), pos[1].GetInt(), pos[2].GetInt()), areNewCubesOpaque, cubes);
+						++amountOfCubes;
 					}
 				}
 			}
@@ -128,26 +158,24 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 		WriteCubesToFile(pOFile, cubes);
 	}
 
-	
-	
-	
-
 	fclose(pOFile);
 	return 0;
 }
 
-void CreateCube(int x, int y, int z, std::vector<Cube>& cubes)
+void CreateCube(const std::wstring& layer, const Position& pos, bool isOpaque, std::vector<Cube>& cubes)
 {
 	Cube newCube{};
 
-	newCube.p1 = Position(0 + x, 0 + z, 0 + y);
-	newCube.p2 = Position(0 + x, 0 + z, 1 + y);
-	newCube.p3 = Position(0 + x, 1 + z, 0 + y);
-	newCube.p4 = Position(0 + x, 1 + z, 1 + y);
-	newCube.p5 = Position(1 + x, 0 + z, 0 + y);
-	newCube.p6 = Position(1 + x, 0 + z, 1 + y);
-	newCube.p7 = Position(1 + x, 1 + z, 0 + y);
-	newCube.p8 = Position(1 + x, 1 + z, 1 + y);
+	newCube.p1 = Position(0 + pos.x, 0 + pos.z, 0 + pos.y);
+	newCube.p2 = Position(0 + pos.x, 0 + pos.z, 1 + pos.y);
+	newCube.p3 = Position(0 + pos.x, 1 + pos.z, 0 + pos.y);
+	newCube.p4 = Position(0 + pos.x, 1 + pos.z, 1 + pos.y);
+	newCube.p5 = Position(1 + pos.x, 0 + pos.z, 0 + pos.y);
+	newCube.p6 = Position(1 + pos.x, 0 + pos.z, 1 + pos.y);
+	newCube.p7 = Position(1 + pos.x, 1 + pos.z, 0 + pos.y);
+	newCube.p8 = Position(1 + pos.x, 1 + pos.z, 1 + pos.y);
+	newCube.layer = layer;
+	newCube.isOpaque = isOpaque;
 
 	cubes.push_back(newCube);
 }
@@ -166,50 +194,62 @@ void WriteCubesToFile(FILE* pOFile, const std::vector<Cube>& cubes)
 		fwprintf_s(pOFile, L"v %i %i %i\n", cube.p8.x, cube.p8.y, cube.p8.z);
 	}
 
-	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.0f, 0.0f, 1.0f);
-	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.0f, 0.0f, -1.0f);
-	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.0f, 1.0f, 0.0f);
-	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.0f, -1.0f, 0.0f);
-	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 1.0f, 0.0f, 0.0f);
-	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", -1.0f, 0.0f, 0.0f);
+	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.f, 0.f, 1.f);
+	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.f, 0.f, -1.f);
+	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.f, 1.f, 0.f);
+	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 0.f, -1.f, 0.f);
+	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", 1.f, 0.f, 0.f);
+	fwprintf_s(pOFile, L"vn %.4f %.4f %.4f\n", -1.f, 0.f, 0.f);
 
+	fwprintf_s(pOFile, L"vt %.4f %.4f\n", 0.f, 0.f);
+	fwprintf_s(pOFile, L"vt %.4f %.4f\n", 1.f, 0.f);
+	fwprintf_s(pOFile, L"vt %.4f %.4f\n", 0.f, 1.f);
+	fwprintf_s(pOFile, L"vt %.4f %.4f\n", 1.f, 1.f);
+
+	std::wstring currentLayer{};
 	for (int cubeNr{}; cubeNr < static_cast<int>(cubes.size()); ++cubeNr)
 	{
+		if (currentLayer.find(cubes[cubeNr].layer) == std::wstring::npos) //check if a new layer was started
+		{
+			currentLayer = L"usemtl " + cubes[cubeNr].layer + L'\n';
+			fwrite(currentLayer.c_str(), wcslen(currentLayer.c_str()) * sizeof(wchar_t), 1, pOFile);
+		}
+
 		if (!cubes[cubeNr].hasRightNeighbor)
 		{
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 1 + 8 * cubeNr, 2, 7 + 8 * cubeNr, 2, 5 + 8 * cubeNr, 2);
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 1 + 8 * cubeNr, 2, 3 + 8 * cubeNr, 2, 7 + 8 * cubeNr, 2);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 1 + 8 * cubeNr, 1, 2, 7 + 8 * cubeNr, 4, 2, 5 + 8 * cubeNr, 2, 2);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 1 + 8 * cubeNr, 1, 2, 3 + 8 * cubeNr, 3, 2, 7 + 8 * cubeNr, 4, 2);
 		}
 
 		if (!cubes[cubeNr].hasBackNeighbor)
 		{
 
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 1 + 8 * cubeNr, 6, 4 + 8 * cubeNr, 6, 3 + 8 * cubeNr, 6);
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 1 + 8 * cubeNr, 6, 2 + 8 * cubeNr, 6, 4 + 8 * cubeNr, 6);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 1 + 8 * cubeNr, 2, 6, 4 + 8 * cubeNr, 3, 6, 3 + 8 * cubeNr, 4, 6);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 1 + 8 * cubeNr, 2, 6, 2 + 8 * cubeNr, 1, 6, 4 + 8 * cubeNr, 3, 6);
 		}
 
 		if (!cubes[cubeNr].hasTopNeighbor)
 		{
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 3 + 8 * cubeNr, 3, 8 + 8 * cubeNr, 3, 7 + 8 * cubeNr, 3);
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 3 + 8 * cubeNr, 3, 4 + 8 * cubeNr, 3, 8 + 8 * cubeNr, 3);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 3 + 8 * cubeNr, 2, 3, 8 + 8 * cubeNr, 3, 3, 7 + 8 * cubeNr, 1, 3);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 3 + 8 * cubeNr, 2, 3, 4 + 8 * cubeNr, 4, 3, 8 + 8 * cubeNr, 3, 3);
 		}
 		
 		if (!cubes[cubeNr].hasFrontNeighbor)
 		{
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 5 + 8 * cubeNr, 5, 7 + 8 * cubeNr, 5, 8 + 8 * cubeNr, 5);
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 5 + 8 * cubeNr, 5, 8 + 8 * cubeNr, 5, 6 + 8 * cubeNr, 5);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 5 + 8 * cubeNr, 1, 5, 7 + 8 * cubeNr, 3, 5, 8 + 8 * cubeNr, 4, 5);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 5 + 8 * cubeNr, 1, 5, 8 + 8 * cubeNr, 4, 5, 6 + 8 * cubeNr, 2, 5);
 		}
 		
 		if (!cubes[cubeNr].hasBottomNeighbor)
 		{
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 1 + 8 * cubeNr, 4, 5 + 8 * cubeNr, 4, 6 + 8 * cubeNr, 4);
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 1 + 8 * cubeNr, 4, 6 + 8 * cubeNr, 4, 2 + 8 * cubeNr, 4);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 1 + 8 * cubeNr, 4, 4, 5 + 8 * cubeNr, 3, 4, 6 + 8 * cubeNr, 1, 4);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 1 + 8 * cubeNr, 4, 4, 6 + 8 * cubeNr, 1, 4, 2 + 8 * cubeNr, 2, 4);
 		}
 		
 		if (!cubes[cubeNr].hasLeftNeighbor)
 		{
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 2 + 8 * cubeNr, 1, 6 + 8 * cubeNr, 1, 8 + 8 * cubeNr, 1);
-			fwprintf_s(pOFile, L"f %d//%d %d//%d %d//%d\n", 2 + 8 * cubeNr, 1, 8 + 8 * cubeNr, 1, 4 + 8 * cubeNr, 1);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 2 + 8 * cubeNr, 1, 1, 6 + 8 * cubeNr, 2, 1, 8 + 8 * cubeNr, 4, 1);
+			fwprintf_s(pOFile, L"f %d/%d/%d %d/%d/%d %d/%d/%d\n", 2 + 8 * cubeNr, 1, 1, 8 + 8 * cubeNr, 4, 1, 4 + 8 * cubeNr, 3, 1);
 		}
 	}
 }
@@ -221,7 +261,7 @@ void CalculateCubesNeigbors(std::vector<Cube>& cubes)
 		for (auto& otherCube : cubes)
 		{
 			//make sure cube is not the same as otherCube
-			if (cube == otherCube)
+			if (cube == otherCube || !cube.isOpaque || !otherCube.isOpaque)
 				continue;
 
 			//check if otherCube is a rightNeighbor for cube
