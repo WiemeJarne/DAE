@@ -15,6 +15,7 @@ struct CharacterDesc
 	float maxMoveSpeed{ 15.f };
 	float maxFallSpeed{ 15.f };
 
+	bool canJump{ true };
 	float JumpSpeed{ 15.f };
 
 	float moveAccelerationTime{ .3f };
@@ -24,11 +25,17 @@ struct CharacterDesc
 
 	float rotationSpeed{ 60.f };
 
+	GamepadIndex playerIndex{};
+	bool useController{};
 	int actionId_MoveLeft{ -1 };
 	int actionId_MoveRight{ -1 };
 	int actionId_MoveForward{ -1 };
 	int actionId_MoveBackward{ -1 };
 	int actionId_Jump{ -1 };
+
+	bool useOwnCamera{ true };
+
+	float stepOffset{ 0.5f };
 };
 
 class Character : public GameObject
