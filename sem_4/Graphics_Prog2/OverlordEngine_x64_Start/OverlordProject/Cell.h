@@ -11,13 +11,16 @@ public:
 		empty,
 		bomb,
 		wall,
-		fire
+		fire,
+		crackedWall
 	};
 
 	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state = State::empty);
+	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell);
 
 	void Update();
 	void PlaceBomb(int range);
+	void DestroyObjectInCell();
 	XMFLOAT3 GetMiddlePos() const { return m_MiddlePos; }
 	State GetState() const { return m_State; }
 
@@ -29,7 +32,7 @@ private:
 	const int m_RowNr{};
 	const int m_ColNr{};
 	int m_BombRange{};
-	std::vector<GameObject*> m_pGameObjectsInCell{};
+	GameObject* m_pGameObjectInCell{};
 
 	static GameScene* m_spGameScene;
 	static DiffuseMaterial* m_spBombMaterial;

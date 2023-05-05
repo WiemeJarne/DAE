@@ -43,6 +43,12 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 	}	
 }
 
+Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell)
+	: Cell(pGameScene, pOwnerGrid, middlePos, rowNr, colNr, state)
+{
+	m_pGameObjectInCell = pGameObjectInCell;
+}
+
 void Cell::Update()
 {
 	if (m_State == State::bomb)
@@ -51,12 +57,14 @@ void Cell::Update()
 
 		if (m_TimeSinceItemPlaceOnCell >= m_sSecUntilExplotion)
 		{
-			m_spGameScene->RemoveChild(m_pGameObjectsInCell[0], true);
-			m_TimeSinceItemPlaceOnCell = 0.f;
-			m_pGameObjectsInCell[0] = nullptr;
-			ExplodeBomb();
-
-			m_pGameObjectsInCell.erase(std::remove(m_pGameObjectsInCell.begin(), m_pGameObjectsInCell.end(), nullptr), m_pGameObjectsInCell.end());
+			if (m_pGameObjectInCell)
+			{
+				DestroyObjectInCell();
+				m_pGameObjectInCell = nullptr;
+				m_State = State::empty;
+				m_TimeSinceItemPlaceOnCell = 0.f;
+				ExplodeBomb();
+			}
 		}
 	}
 
@@ -66,14 +74,13 @@ void Cell::Update()
 
 		if (m_TimeSinceItemPlaceOnCell >= m_sSecFireBurn)
 		{
-			for (auto pFire : m_pGameObjectsInCell)
+			if (m_pGameObjectInCell)
 			{
-				m_spGameScene->RemoveChild(pFire, true);
-				pFire = nullptr;
+				DestroyObjectInCell();
+				m_pGameObjectInCell = nullptr;
 				m_State = State::empty;
 				m_TimeSinceItemPlaceOnCell = 0.f;
 			}
-			m_pGameObjectsInCell.erase(std::remove(m_pGameObjectsInCell.begin(), m_pGameObjectsInCell.end(), nullptr), m_pGameObjectsInCell.end());
 		}
 	}
 }
@@ -91,35 +98,76 @@ void Cell::PlaceBomb(int range)
 	pBomb->GetTransform()->Translate(m_MiddlePos);
 	pBomb->GetTransform()->Scale(0.01f);
 
-	m_pGameObjectsInCell.push_back(pBomb);
+	DestroyObjectInCell();
+	m_pGameObjectInCell = pBomb;
+}
+
+void Cell::DestroyObjectInCell()
+{
+	if (m_pGameObjectInCell)
+	{
+		m_spGameScene->RemoveChild(m_pGameObjectInCell, true);
+	}
 }
 
 void Cell::ExplodeBomb()
 {
-	for (int index{1}; index <= m_BombRange; ++index)
+	for (int index{ 1 }; index <= m_BombRange; ++index)
 	{
 		auto bottomNeigbor{ m_pOwnerGrid->GetCell(m_RowNr - index, m_ColNr) };
 		if (bottomNeigbor && bottomNeigbor->GetState() != State::wall && bottomNeigbor->GetState() != State::fire)
 		{
-			PlaceFire(bottomNeigbor->GetMiddlePos());
-		}
+			if (bottomNeigbor->GetState() == State::crackedWall)
+			{
+				bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
+				break;
+			}
 
+			bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
+		}
+	}
+
+	for (int index{ 1 }; index <= m_BombRange; ++index)
+	{
 		auto leftNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr - index) };
 		if (leftNeighbor && leftNeighbor->GetState() != State::wall && leftNeighbor->GetState() != State::fire)
 		{
-			PlaceFire(leftNeighbor->GetMiddlePos());
-		}
+			if (leftNeighbor->GetState() == State::crackedWall)
+			{
+				leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
+				break;	
+			}
 
+			leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
+		}
+	}
+	for (int index{ 1 }; index <= m_BombRange; ++index)
+	{
 		auto topNeigbor{ m_pOwnerGrid->GetCell(m_RowNr + index, m_ColNr) };
 		if (topNeigbor && topNeigbor->GetState() != State::wall && topNeigbor->GetState() != State::fire)
 		{
-			PlaceFire(topNeigbor->GetMiddlePos());
-		}
+			if (topNeigbor->GetState() == State::crackedWall)
+			{
+				topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
+				break;
+			}
 
+			topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
+		}
+	}
+
+	for (int index{ 1 }; index <= m_BombRange; ++index)
+	{
 		auto rightNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr + index) };
 		if (rightNeighbor && rightNeighbor->GetState() != State::wall && rightNeighbor->GetState() != State::fire)
 		{
-			PlaceFire(rightNeighbor->GetMiddlePos());
+			if (rightNeighbor->GetState() == State::crackedWall)
+			{
+				rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
+				break;
+			}
+
+			rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
 		}
 	}
 }
@@ -134,6 +182,10 @@ void Cell::PlaceFire(XMFLOAT3 pos)
 		{
 			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
 				std::cout << "player in flame\n";
+			//else if(pOtherObject)
+			//{
+			//	m_spGameScene->RemoveChild(pOtherObject, true);
+			//}
 		}
 	};
 
@@ -143,9 +195,9 @@ void Cell::PlaceFire(XMFLOAT3 pos)
 	auto pRigidBody{ pFlame->AddComponent(new RigidBodyComponent(true)) };
 	pRigidBody->AddCollider(PxBoxGeometry(0.5f, 0.5f, 0.5f), *m_spPhysxMaterial, true);
 	pFlame->SetOnTriggerCallBack(callBack);
-
 	pFlame->GetTransform()->Translate(pos);
 	pFlame->GetTransform()->Scale(0.01f);
 
-	m_pGameObjectsInCell.push_back(pFlame);
+	DestroyObjectInCell();
+	m_pGameObjectInCell = pFlame;
 }

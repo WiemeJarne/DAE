@@ -15,12 +15,12 @@ void ExamScene::Initialize()
 	auto pBounceyMat{ pDefaultMaterial };
 
 	//CAMERA
-	auto m_pFixedCamera = new FixedCamera();
-	const float cameraZOffset{ -3.f };
-	m_pFixedCamera->GetTransform()->Translate(0.f, 25.f, 0.f);
-	m_pFixedCamera->GetTransform()->Rotate(85.f, 0.f, 0.f);
-	AddChild(m_pFixedCamera);
-	SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
+	//auto m_pFixedCamera = new FixedCamera();
+	//const float cameraZOffset{ -3.f };
+	//m_pFixedCamera->GetTransform()->Translate(0.f, 25.f, 0.f);
+	//m_pFixedCamera->GetTransform()->Rotate(85.f, 0.f, 0.f);
+	//AddChild(m_pFixedCamera);
+	//SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
 
 	//ground plane
 	GameSceneExt::CreatePhysXGroundPlane(*this, pBounceyMat);
@@ -50,32 +50,52 @@ void ExamScene::Initialize()
 	m_SceneContext.pInput->AddInputAction(InputAction(player1PlantBomb, InputState::pressed, -1, -1, XINPUT_GAMEPAD_A, GamepadIndex::playerOne));
 	m_SceneContext.pInput->AddInputAction(InputAction(player2PlantBomb, InputState::pressed, -1, -1, XINPUT_GAMEPAD_A, GamepadIndex::playerTwo));
 
-	const int amountOfRows{ 15 };
-	const int amountOfCollumns{ 15 };
-	m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
+	//const int amountOfRows{ 15 };
+	//const int amountOfCollumns{ 15 };
+	//m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
 
 	//translate Camera to middle of the grid on xz-plane
-	m_pFixedCamera->GetTransform()->Translate(amountOfRows / 2.f, 30.f, amountOfCollumns / 2.f + cameraZOffset);
+	//m_pFixedCamera->GetTransform()->Translate(amountOfRows / 2.f, 30.f, amountOfCollumns / 2.f + cameraZOffset);
 	
-	//auto pAnimator = pModel->GetAnimator();
-	//pAnimator->SetAnimation(0);
-	//pAnimator->SetAnimationSpeed(1.f);
-	//pAnimator->Play();
+	auto pBonusMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
+	pBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
+
+	auto pBonus{ AddChild(new GameObject()) };
+	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
+	pModel->SetMaterial(pBonusMaterial);
+	pBonus->GetTransform()->Scale(0.01f);
+
+	auto pAnimator = pModel->GetAnimator();
+	auto clipCount{pAnimator->GetClipCount()};
+	std::cout << clipCount << '\n';
+	auto clipNames { new char* [clipCount] };
+	for (UINT i{ 0 }; i < clipCount; ++i)
+	{
+		auto clipName = StringUtil::utf8_encode(pAnimator->GetClip(static_cast<int>(i)).name);
+		const auto clipSize = clipName.size();
+		clipNames[i] = new char[clipSize + 1];
+		strncpy_s(clipNames[i], clipSize + 1, clipName.c_str(), clipSize);
+	}
+	pAnimator->SetAnimation(0);
+	pAnimator->SetAnimationSpeed(1.f);
+	pAnimator->Play();
+	//std::cout << pAnimator->IsPlaying() << '\n';
 }
 
 void ExamScene::Update()
 {
-	if (m_SceneContext.pInput->IsActionTriggered(player1PlantBomb))
+	if (m_SceneContext.pInput->IsActionTriggered(player1PlantBomb) && m_pGrid)
 	{
 		m_pGrid->PlaceBomb(m_Characters[0]->GetTransform()->GetWorldPosition(), 2);
 	}
 	
-	if (m_SceneContext.pInput->IsActionTriggered(player2PlantBomb))
+	if (m_SceneContext.pInput->IsActionTriggered(player2PlantBomb) && m_pGrid)
 	{
 		m_pGrid->PlaceBomb(m_Characters[1]->GetTransform()->GetWorldPosition(), 2);
 	}
 
-	m_pGrid->Update();
+	if(m_pGrid)
+		m_pGrid->Update();
 }
 
 void ExamScene::Reset()

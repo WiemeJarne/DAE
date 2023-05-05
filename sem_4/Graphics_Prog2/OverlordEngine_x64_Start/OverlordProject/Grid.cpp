@@ -9,6 +9,10 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 	auto pBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
 	pBrickMaterial->SetDiffuseTexture(L"Textures/brick.jpg");
 
+	//crackedBrick material
+	auto pCrackedBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
+	pCrackedBrickMaterial->SetDiffuseTexture(L"Textures/CrackedBrick/rock.jpg");
+
 	//grass material
 	auto pGrassMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
 	pGrassMaterial->SetDiffuseTexture(L"Textures/Diffuse_Seamless_Grass_Tile.png");
@@ -43,6 +47,16 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 				pRigidBody = pBrick->AddComponent(new RigidBodyComponent(true));
 				pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
 			}
+			/*else if (rowNr % 2 == 1 && colNr % 2 == 1)
+			{
+				auto pMetalBlock = AddChild(new GameObject());
+				pMetalBlock->GetTransform()->Scale(0.045f);
+				pMetalBlock->GetTransform()->Translate(static_cast<float>(colNr), 1.5f, static_cast<float>(rowNr));
+				pModel = pMetalBlock->AddComponent(new ModelComponent(L"Meshes/Cube.ovm"));
+				pModel->SetMaterial(pMetalPlateMaterial);
+				pRigidBody = pMetalBlock->AddComponent(new RigidBodyComponent(true));
+				pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
+			}*/
 			else
 			{
 				auto pGrass{ pGameScene->AddChild(new GameObject()) };
@@ -50,7 +64,6 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 				pGrass->GetTransform()->Translate(static_cast<float>(colNr), 0.5f, static_cast<float>(rowNr));
 				auto cellPos{ pGrass->GetTransform()->GetPosition() };
 				cellPos.y += 1.f;
-				m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::empty));
 
 				//randomly rotate the grass block around the x-axis
 				int randomNr{ rand() % 4 };
@@ -102,16 +115,26 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 				auto pRigidBody{ pGrass->AddComponent(new RigidBodyComponent(true)) };
 				pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
 
-				/*if (rowNr % 2 == 1 && colNr % 2 == 1)
+				//when not in 1 of the corners place a crackedBrick
+				const int cellIndex{rowNr * amountOfColumns + colNr};
+				if (cellIndex != (1 * amountOfColumns + 1) && cellIndex != (2 * amountOfColumns + 1) && cellIndex != (1 * amountOfColumns + 2) //no blocks in the bottom left corner
+					&& cellIndex != (1 * amountOfColumns + (amountOfColumns - 2)) && cellIndex != (2 * amountOfColumns + (amountOfColumns - 2)) && cellIndex != (1 * amountOfColumns + (amountOfColumns - 3)) //no blocks in the bottom right corner
+					&& cellIndex != ((amountOfRows - 2) * amountOfColumns + 1) && cellIndex != ((amountOfRows - 3) * amountOfColumns + 1) && cellIndex != ((amountOfRows - 2) * amountOfColumns + 2) //no blocks in the top left corner
+					&& cellIndex != ((amountOfRows - 2) * amountOfColumns + (amountOfColumns - 2)) && cellIndex != ((amountOfRows - 3) * amountOfColumns + (amountOfColumns - 2)) && cellIndex != ((amountOfRows - 2) * amountOfColumns + (amountOfColumns - 3))) //no blocks in the top right corner
 				{
-					auto pMetalBlock = AddChild(new GameObject());
-					pMetalBlock->GetTransform()->Scale(0.045f);
-					pMetalBlock->GetTransform()->Translate(static_cast<float>(colNr), 1.5f, static_cast<float>(rowNr));
-					pModel = pMetalBlock->AddComponent(new ModelComponent(L"Meshes/Cube.ovm"));
-					pModel->SetMaterial(pMetalPlateMaterial);
-					pRigidBody = pMetalBlock->AddComponent(new RigidBodyComponent(true));
+					auto pCrackedBrick{ pGameScene->AddChild(new GameObject()) };
+					pCrackedBrick->GetTransform()->Scale(0.01f);
+					pCrackedBrick->GetTransform()->Translate(static_cast<float>(colNr), 1.5f, static_cast<float>(rowNr));
+					pModel = pCrackedBrick->AddComponent(new ModelComponent(L"Meshes/CrackedBrick.ovm"));
+					pModel->SetMaterial(pCrackedBrickMaterial);
+					pRigidBody = pCrackedBrick->AddComponent(new RigidBodyComponent(true));
 					pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
-				}*/
+					m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::crackedWall, pCrackedBrick));
+				}
+				else
+				{
+					m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::empty));
+				}
 			}
 		}
 	}
@@ -165,7 +188,7 @@ void Grid::PlaceBomb(XMFLOAT3 posInCell, int range)
 Cell* Grid::GetCell(int rowNr, int colNr) const 
 { 
 	const int cellIndex{ rowNr * m_AmountOfColumns + colNr };
-	if(cellIndex < (m_AmountOfRows) * (m_AmountOfColumns))
+	if(cellIndex < (m_AmountOfRows) * (m_AmountOfColumns) && cellIndex > 0)
 		return m_PlayingFieldCells[cellIndex]; 
 
 	return nullptr;
