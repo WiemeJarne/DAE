@@ -50,9 +50,9 @@ void ExamScene::Initialize()
 	m_SceneContext.pInput->AddInputAction(InputAction(player1PlantBomb, InputState::pressed, -1, -1, XINPUT_GAMEPAD_A, GamepadIndex::playerOne));
 	m_SceneContext.pInput->AddInputAction(InputAction(player2PlantBomb, InputState::pressed, -1, -1, XINPUT_GAMEPAD_A, GamepadIndex::playerTwo));
 
-	//constexpr int amountOfRows{ 15 };
-	//constexpr int amountOfCollumns{ 15 };
-	//m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
+	constexpr int amountOfRows{ 15 };
+	constexpr int amountOfCollumns{ 15 };
+	m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
 
 	//translate Camera to middle of the grid on xz-plane
 	//m_pFixedCamera->GetTransform()->Translate(amountOfRows / 2.f, 30.f, amountOfCollumns / 2.f + cameraZOffset);
@@ -61,25 +61,9 @@ void ExamScene::Initialize()
 	pBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
 
 	auto pBonus{ AddChild(new GameObject()) };
-	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
+	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/CrackedBrick.ovm")) };
 	pModel->SetMaterial(pBonusMaterial);
 	pBonus->GetTransform()->Scale(0.01f);
-	
-	auto pAnimator = pModel->GetAnimator();
-	auto clipCount{pAnimator->GetClipCount()};
-	std::cout << clipCount << '\n';
-	auto clipNames { new char* [clipCount] };
-	for (UINT i{ 0 }; i < clipCount; ++i)
-	{
-		auto clipName = StringUtil::utf8_encode(pAnimator->GetClip(static_cast<int>(i)).name);
-		const auto clipSize = clipName.size();
-		clipNames[i] = new char[clipSize + 1];
-		strncpy_s(clipNames[i], clipSize + 1, clipName.c_str(), clipSize);
-	}
-	pAnimator->SetAnimation(0);
-	pAnimator->SetAnimationSpeed(1.f);
-	pAnimator->Play();
-	std::cout << pAnimator->IsPlaying() << '\n';
 }
 
 void ExamScene::Update()
