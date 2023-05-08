@@ -51,6 +51,12 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 void Cell::Update()
 {
+	if (m_ShouldAddColliderToGameObjectInCell)
+	{
+		AddColliderToGameObjectInCell();
+		m_ShouldAddColliderToGameObjectInCell = false;
+	}
+
 	if (m_State == State::bomb)
 	{
 		m_TimeSinceItemPlaceOnCell += m_spGameScene->GetSceneContext().pGameTime->GetElapsed();
@@ -87,6 +93,8 @@ void Cell::Update()
 
 void Cell::PlaceBomb(int range)
 {
+	m_TimeSinceItemPlaceOnCell = 0.f;
+
 	m_BombRange = range;
 
 	m_State = State::bomb;
@@ -94,12 +102,31 @@ void Cell::PlaceBomb(int range)
 	auto pBomb{ m_spGameScene->AddChild(new GameObject()) };
 	auto pModel{ pBomb->AddComponent(new ModelComponent(L"Meshes/Bomb.ovm")) };
 	pModel->SetMaterial(m_spBombMaterial);
+	auto pRigidBody = pBomb->AddComponent(new RigidBodyComponent(true));
+	pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *m_spPhysxMaterial, true);
+
+	auto callBack
+	{
+		[&](GameObject*, GameObject* , PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::LEAVE)
+				m_ShouldAddColliderToGameObjectInCell = true;
+		}
+	};
+	pBomb->SetOnTriggerCallBack(callBack);
 
 	pBomb->GetTransform()->Translate(m_MiddlePos);
 	pBomb->GetTransform()->Scale(0.01f);
 
 	DestroyObjectInCell();
 	m_pGameObjectInCell = pBomb;
+}
+
+void Cell::AddColliderToGameObjectInCell()
+{
+	auto pRigidBody = m_pGameObjectInCell->AddComponent(new RigidBodyComponent(true));
+	pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *m_spPhysxMaterial);
+	m_pGameObjectInCell->SetOnTriggerCallBack(nullptr);
 }
 
 void Cell::DestroyObjectInCell()
@@ -112,11 +139,19 @@ void Cell::DestroyObjectInCell()
 
 void Cell::ExplodeBomb()
 {
+	PlaceFire(GetMiddlePos());
+
 	for (int index{ 1 }; index <= m_BombRange; ++index)
 	{
 		auto bottomNeigbor{ m_pOwnerGrid->GetCell(m_RowNr - index, m_ColNr) };
 		if (bottomNeigbor && bottomNeigbor->GetState() != State::wall && bottomNeigbor->GetState() != State::fire)
 		{
+			if (bottomNeigbor->GetState() == State::bomb)
+			{
+				bottomNeigbor->ExplodeBomb();
+				break;
+			}
+
 			if (bottomNeigbor->GetState() == State::crackedWall)
 			{
 				bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
@@ -132,6 +167,12 @@ void Cell::ExplodeBomb()
 		auto leftNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr - index) };
 		if (leftNeighbor && leftNeighbor->GetState() != State::wall && leftNeighbor->GetState() != State::fire)
 		{
+			if (leftNeighbor->GetState() == State::bomb)
+			{
+				leftNeighbor->ExplodeBomb();
+				break;
+			}
+
 			if (leftNeighbor->GetState() == State::crackedWall)
 			{
 				leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
@@ -146,6 +187,12 @@ void Cell::ExplodeBomb()
 		auto topNeigbor{ m_pOwnerGrid->GetCell(m_RowNr + index, m_ColNr) };
 		if (topNeigbor && topNeigbor->GetState() != State::wall && topNeigbor->GetState() != State::fire)
 		{
+			if (topNeigbor->GetState() == State::bomb)
+			{
+				topNeigbor->ExplodeBomb();
+				break;
+			}
+
 			if (topNeigbor->GetState() == State::crackedWall)
 			{
 				topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
@@ -161,6 +208,12 @@ void Cell::ExplodeBomb()
 		auto rightNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr + index) };
 		if (rightNeighbor && rightNeighbor->GetState() != State::wall && rightNeighbor->GetState() != State::fire)
 		{
+			if (rightNeighbor->GetState() == State::bomb)
+			{
+				rightNeighbor->ExplodeBomb();
+				break;
+			}
+
 			if (rightNeighbor->GetState() == State::crackedWall)
 			{
 				rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
@@ -174,6 +227,8 @@ void Cell::ExplodeBomb()
 
 void Cell::PlaceFire(XMFLOAT3 pos)
 {
+	m_TimeSinceItemPlaceOnCell = 0.f;
+
 	m_State = State::fire;
 
 	auto callBack

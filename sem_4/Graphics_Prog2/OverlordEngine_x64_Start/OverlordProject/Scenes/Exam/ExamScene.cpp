@@ -36,7 +36,7 @@ void ExamScene::Initialize()
 	
 	auto pCharacter = AddChild(new Character(characterDesc));
 	pCharacter->GetTransform()->Translate(7.f, 5.f, 5.f);
-
+	
 	m_Characters.push_back(pCharacter);
 	
 	characterDesc.playerIndex = GamepadIndex::playerTwo;
@@ -50,8 +50,8 @@ void ExamScene::Initialize()
 	m_SceneContext.pInput->AddInputAction(InputAction(player1PlantBomb, InputState::pressed, -1, -1, XINPUT_GAMEPAD_A, GamepadIndex::playerOne));
 	m_SceneContext.pInput->AddInputAction(InputAction(player2PlantBomb, InputState::pressed, -1, -1, XINPUT_GAMEPAD_A, GamepadIndex::playerTwo));
 
-	//const int amountOfRows{ 15 };
-	//const int amountOfCollumns{ 15 };
+	//constexpr int amountOfRows{ 15 };
+	//constexpr int amountOfCollumns{ 15 };
 	//m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
 
 	//translate Camera to middle of the grid on xz-plane
@@ -64,7 +64,7 @@ void ExamScene::Initialize()
 	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
 	pModel->SetMaterial(pBonusMaterial);
 	pBonus->GetTransform()->Scale(0.01f);
-
+	
 	auto pAnimator = pModel->GetAnimator();
 	auto clipCount{pAnimator->GetClipCount()};
 	std::cout << clipCount << '\n';
@@ -79,7 +79,7 @@ void ExamScene::Initialize()
 	pAnimator->SetAnimation(0);
 	pAnimator->SetAnimationSpeed(1.f);
 	pAnimator->Play();
-	//std::cout << pAnimator->IsPlaying() << '\n';
+	std::cout << pAnimator->IsPlaying() << '\n';
 }
 
 void ExamScene::Update()

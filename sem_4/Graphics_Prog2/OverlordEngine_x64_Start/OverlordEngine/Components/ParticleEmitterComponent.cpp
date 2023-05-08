@@ -16,32 +16,96 @@ ParticleEmitterComponent::ParticleEmitterComponent(const std::wstring& assetFile
 
 ParticleEmitterComponent::~ParticleEmitterComponent()
 {
-	TODO_W9(L"Implement Destructor")
+	delete m_ParticlesArray;
+	m_pVertexBuffer->Release();
 }
 
-void ParticleEmitterComponent::Initialize(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::Initialize(const SceneContext& sceneContext)
 {
-	TODO_W9(L"Implement Initialize")
+	if (!m_pParticleMaterial)
+	{
+		m_pParticleMaterial = MaterialManager::Get()->CreateMaterial<ParticleMaterial>();
+	}
+
+	CreateVertexBuffer(sceneContext);
+
+	m_pParticleTexture = ContentManager::Load<TextureData>(L"Resources/Textures/Smoke.png");
 }
 
-void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& sceneContext)
 {
-	TODO_W9(L"Implement CreateVertexBuffer")
+	if (m_pVertexBuffer)
+		m_pVertexBuffer->Release();
+
+	D3D11_BUFFER_DESC vertexBuffer{};
+	vertexBuffer.Usage = D3D11_USAGE_DYNAMIC;
+	vertexBuffer.ByteWidth = sizeof(VertexParticle) * m_ParticleCount;
+	vertexBuffer.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBuffer.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+	HANDLE_ERROR(sceneContext.d3dContext.pDevice->CreateBuffer(&vertexBuffer, nullptr, &m_pVertexBuffer))
 }
 
-void ParticleEmitterComponent::Update(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 {
-	TODO_W9(L"Implement Update")
+	float particleInterval{ ((m_EmitterSettings.maxEnergy + m_EmitterSettings.minEnergy) / 2.f) / m_ParticleCount };
+
+	const float elapsedSec{ sceneContext.pGameTime->GetElapsed() };
+
+	m_LastParticleSpawn += elapsedSec;
+
+	m_ActiveParticles = 0u;
+
+	D3D11_MAPPED_SUBRESOURCE* pData{};
+
+	HANDLE_ERROR(sceneContext.d3dContext.pDeviceContext->Map(m_pVertexBuffer, 0u, D3D11_MAP_WRITE_DISCARD, 0u, pData));
+	
+	VertexParticle* pBuffer{};
+	pBuffer = reinterpret_cast<VertexParticle*>(pData);
+
+	for (UINT index{}; index < m_ParticleCount; ++index)
+	{
+		auto pParticle{ m_ParticlesArray + index };
+
+		if (pParticle->isActive)
+			UpdateParticle(*pParticle, elapsedSec);
+		
+		if (!pParticle->isActive && m_LastParticleSpawn > particleInterval)
+		{
+			SpawnParticle(*pParticle);
+		}
+
+		if (pParticle->isActive)
+		{
+			pBuffer[m_ActiveParticles] = pParticle->vertexInfo;
+			++m_ActiveParticles;
+		}
+	}
+
+	sceneContext.d3dContext.pDeviceContext->Unmap(m_pVertexBuffer, 0u);
 }
 
-void ParticleEmitterComponent::UpdateParticle(Particle& /*p*/, float /*elapsedTime*/) const
+void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) const
 {
-	TODO_W9(L"Implement UpdateParticle")
+	if (!p.isActive)
+		return;
+
+	p.currentEnergy -= elapsedTime;
+
+	auto pos{ XMLoadFloat3(&p.vertexInfo.Position) };
+	auto velocity{ XMLoadFloat3(&p.vertexInfo.Position) };
+	pos += elapsedTime * velocity;
+	XMStoreFloat3(&p.vertexInfo.Position, pos);
+
+	p.vertexInfo.Color = m_EmitterSettings.color;
+	p.vertexInfo.Color.w = m_EmitterSettings.color.w * (p.currentEnergy / p.totalEnergy);
+
+	p.vertexInfo.Size = p.initialSize * p.sizeChange * (p.currentEnergy / p.totalEnergy);
 }
 
-void ParticleEmitterComponent::SpawnParticle(Particle& /*p*/)
+void ParticleEmitterComponent::SpawnParticle(Particle& p)
 {
-	TODO_W9(L"Implement SpawnParticle")
+	p.isActive = true;
 }
 
 void ParticleEmitterComponent::PostDraw(const SceneContext& /*sceneContext*/)

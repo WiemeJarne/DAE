@@ -33,6 +33,7 @@ private:
 	const int m_ColNr{};
 	int m_BombRange{};
 	GameObject* m_pGameObjectInCell{};
+	bool m_ShouldAddColliderToGameObjectInCell{};
 
 	static GameScene* m_spGameScene;
 	static DiffuseMaterial* m_spBombMaterial;
@@ -43,4 +44,5 @@ private:
 
 	void ExplodeBomb();
 	void PlaceFire(XMFLOAT3 pos);
+	void AddColliderToGameObjectInCell();
 };
