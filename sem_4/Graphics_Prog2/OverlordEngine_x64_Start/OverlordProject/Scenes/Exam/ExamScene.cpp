@@ -70,12 +70,12 @@ void ExamScene::Update()
 {
 	if (m_SceneContext.pInput->IsActionTriggered(player1PlantBomb) && m_pGrid)
 	{
-		m_pGrid->PlaceBomb(m_Characters[0]->GetTransform()->GetWorldPosition(), 2);
+		m_pGrid->PlaceBomb(m_Characters[0]->GetTransform()->GetWorldPosition(), &m_Characters[0]->GetCharacterDescription());
 	}
 	
 	if (m_SceneContext.pInput->IsActionTriggered(player2PlantBomb) && m_pGrid)
 	{
-		m_pGrid->PlaceBomb(m_Characters[1]->GetTransform()->GetWorldPosition(), 2);
+		m_pGrid->PlaceBomb(m_Characters[1]->GetTransform()->GetWorldPosition(), &m_Characters[1]->GetCharacterDescription());
 	}
 
 	if(m_pGrid)

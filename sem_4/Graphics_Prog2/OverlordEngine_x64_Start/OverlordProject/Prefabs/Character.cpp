@@ -13,6 +13,8 @@ void Character::Initialize(const SceneContext& /*sceneContext*/)
 	m_pControllerComponent = AddComponent(new ControllerComponent(m_CharacterDesc.controller));
 	m_pControllerComponent->GetPxController()->setStepOffset(m_CharacterDesc.stepOffset);
 
+	m_CharacterDesc.currentMaxMoveSpeed = m_CharacterDesc.maxMoveSpeed;
+
 	//Camera
 	const auto pCamera = AddChild(new FixedCamera());
 	m_pCameraComponent = pCamera->GetComponent<CameraComponent>();

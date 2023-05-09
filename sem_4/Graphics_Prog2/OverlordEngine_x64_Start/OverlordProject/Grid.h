@@ -11,8 +11,9 @@ public:
 	~Grid();
 
 	void Update();
-	void PlaceBomb(XMFLOAT3 posInCell, int range);
+	void PlaceBomb(XMFLOAT3 posInCell, CharacterDesc* pCharacterDesc);
 	Cell* GetCell(int rowNr, int colNr) const;
+	Cell* GetCell(XMFLOAT3 posInCell) const;
 
 private:
 	const int m_AmountOfRows{};

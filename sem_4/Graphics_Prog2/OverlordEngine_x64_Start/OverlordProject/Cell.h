@@ -1,4 +1,5 @@
 #pragma once
+#include "Prefabs/Character.h"
 
 class DiffuseMaterial;
 class Grid;
@@ -20,11 +21,12 @@ public:
 	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell);
 
 	void Update();
-	void PlaceBomb(int range);
+	void PlaceBomb(CharacterDesc* pCharacterDesc);
 	void DestroyObjectInCell();
 	XMFLOAT3 GetMiddlePos() const { return m_MiddlePos; }
 	State GetState() const { return m_State; }
 	void SetShouldPlacePickUp(bool shouldPlacePickUp) { m_ShouldPlacePickUp = shouldPlacePickUp; }
+	void SetShouldDestroyGameObjectInCell(bool shouldDestroyGameObjectInCell) { m_ShouldDestroyGameObjectInCell = shouldDestroyGameObjectInCell; }
 
 private:
 	XMFLOAT3 m_MiddlePos{};
@@ -33,10 +35,12 @@ private:
 	Grid* m_pOwnerGrid{};
 	const int m_RowNr{};
 	const int m_ColNr{};
-	int m_BombRange{};
 	GameObject* m_pGameObjectInCell{};
+	int m_BombBlastRadius{};
+	CharacterDesc* m_pCharacterDescPlacedBomb{};
 	bool m_ShouldAddColliderToGameObjectInCell{};
 	bool m_ShouldPlacePickUp{};
+	bool m_ShouldDestroyGameObjectInCell{};
 
 	static GameScene* m_spGameScene;
 	static DiffuseMaterial* m_spBombMaterial;
@@ -65,5 +69,4 @@ private:
 	void PlaceFire(XMFLOAT3 pos);
 	void AddColliderToGameObjectInCell();
 	void PlaceRandomPickUp(XMFLOAT3 pos);
-	void BombUpBonusCallBack(GameObject*, GameObject*, PxTriggerAction);
 };

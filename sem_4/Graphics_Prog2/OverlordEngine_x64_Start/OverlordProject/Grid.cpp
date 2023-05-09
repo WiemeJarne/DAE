@@ -161,13 +161,27 @@ void Grid::Update()
 	}
 }
 
-void Grid::PlaceBomb(XMFLOAT3 posInCell, int range)
+void Grid::PlaceBomb(XMFLOAT3 posInCell, CharacterDesc* pCharacterDesc)
+{
+	auto pCell{ GetCell(posInCell) };
+
+	if(pCell && pCell->GetState() != Cell::State::bomb)
+		pCell->PlaceBomb(pCharacterDesc);
+}
+
+Cell* Grid::GetCell(int rowNr, int colNr) const 
+{ 
+	const int cellIndex{ rowNr * m_AmountOfColumns + colNr };
+	if(cellIndex < (m_AmountOfRows) * (m_AmountOfColumns) && cellIndex > 0)
+		return m_PlayingFieldCells[cellIndex]; 
+
+	return nullptr;
+}
+
+Cell* Grid::GetCell(XMFLOAT3 posInCell) const
 {
 	for (auto& cell : m_PlayingFieldCells)
 	{
-		if (cell->GetState() == Cell::State::bomb)
-			continue;
-
 		if (posInCell.x < cell->GetMiddlePos().x - 0.5f)
 			continue;
 
@@ -186,15 +200,8 @@ void Grid::PlaceBomb(XMFLOAT3 posInCell, int range)
 		if (posInCell.z > cell->GetMiddlePos().z + 0.5f)
 			continue;
 
-		cell->PlaceBomb(range);
+		return cell;
 	}
-}
-
-Cell* Grid::GetCell(int rowNr, int colNr) const 
-{ 
-	const int cellIndex{ rowNr * m_AmountOfColumns + colNr };
-	if(cellIndex < (m_AmountOfRows) * (m_AmountOfColumns) && cellIndex > 0)
-		return m_PlayingFieldCells[cellIndex]; 
 
 	return nullptr;
 }

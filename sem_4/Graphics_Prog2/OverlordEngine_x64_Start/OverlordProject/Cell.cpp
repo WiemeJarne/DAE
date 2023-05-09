@@ -53,10 +53,23 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spBombUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombUp.png");
 
 		m_sBombUpBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in bomb up\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				++characterDesc.amountOfBombsAllowedToBePlacedAtOnce;
+
+				if (characterDesc.amountOfBombsAllowedToBePlacedAtOnce > characterDesc.maxAmountOfBombsAllowedToBePlacedAtOnce)
+					characterDesc.amountOfBombsAllowedToBePlacedAtOnce = characterDesc.maxAmountOfBombsAllowedToBePlacedAtOnce;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if(pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -171,10 +184,10 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 void Cell::Update()
 {
-	if (m_ShouldAddColliderToGameObjectInCell)
+	if (m_ShouldDestroyGameObjectInCell)
 	{
-		AddColliderToGameObjectInCell();
-		m_ShouldAddColliderToGameObjectInCell = false;
+		DestroyObjectInCell();
+		m_ShouldDestroyGameObjectInCell = false;
 	}
 
 	if (m_State == State::bomb)
@@ -190,6 +203,7 @@ void Cell::Update()
 				m_State = State::empty;
 				m_TimeSinceItemPlaceOnCell = 0.f;
 				ExplodeBomb();
+				m_pCharacterDescPlacedBomb = nullptr;
 			}
 		}
 	}
@@ -214,11 +228,18 @@ void Cell::Update()
 	}
 }
 
-void Cell::PlaceBomb(int range)
+void Cell::PlaceBomb(CharacterDesc* pCharacterDesc)
 {
-	m_TimeSinceItemPlaceOnCell = 0.f;
+	if (pCharacterDesc->amountOfBombsCurrentlyOnGrid == pCharacterDesc->amountOfBombsAllowedToBePlacedAtOnce)
+		return;
 
-	m_BombRange = range;
+	m_pCharacterDescPlacedBomb = pCharacterDesc;
+
+	m_BombBlastRadius = pCharacterDesc->bombBlastRadius;
+
+	pCharacterDesc->amountOfBombsCurrentlyOnGrid += 1;
+
+	m_TimeSinceItemPlaceOnCell = 0.f;
 
 	m_State = State::bomb;
 
@@ -262,9 +283,11 @@ void Cell::DestroyObjectInCell()
 
 void Cell::ExplodeBomb()
 {
+	--m_pCharacterDescPlacedBomb->amountOfBombsCurrentlyOnGrid;
+
 	PlaceFire(m_MiddlePos);
 
-	for (int index{ 1 }; index <= m_BombRange; ++index)
+	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
 		auto bottomNeigbor{ m_pOwnerGrid->GetCell(m_RowNr - index, m_ColNr) };
 		if (bottomNeigbor && bottomNeigbor->GetState() != State::wall && bottomNeigbor->GetState() != State::fire)
@@ -289,7 +312,7 @@ void Cell::ExplodeBomb()
 		}
 	}
 
-	for (int index{ 1 }; index <= m_BombRange; ++index)
+	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
 		auto leftNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr - index) };
 		if (leftNeighbor && leftNeighbor->GetState() != State::fire)
@@ -313,7 +336,7 @@ void Cell::ExplodeBomb()
 			leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
 		}
 	}
-	for (int index{ 1 }; index <= m_BombRange; ++index)
+	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
 		auto topNeigbor{ m_pOwnerGrid->GetCell(m_RowNr + index, m_ColNr) };
 		if (topNeigbor && topNeigbor->GetState() != State::fire)
@@ -338,7 +361,7 @@ void Cell::ExplodeBomb()
 		}
 	}
 
-	for (int index{ 1 }; index <= m_BombRange; ++index)
+	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
 		auto rightNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr + index) };
 		if (rightNeighbor && rightNeighbor->GetState() != State::fire)
@@ -405,23 +428,11 @@ void Cell::PlaceRandomPickUp(XMFLOAT3 pos)
 
 	m_State = State::pickUp;
 
-	auto callBack
-	{
-		[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in pickUp\n";
-			//else if(pOtherObject)
-			//{
-			//	m_spGameScene->RemoveChild(pOtherObject, true);
-			//}
-		}
-	};
-
 	auto pBonus = m_spGameScene->AddChild(new GameObject());
 	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
 
-	const int randomInt{ std::rand() % 8 };
+	//const int randomInt{ std::rand() % 8 };
+	const int randomInt{ 0 };
 
 	switch (randomInt)
 	{

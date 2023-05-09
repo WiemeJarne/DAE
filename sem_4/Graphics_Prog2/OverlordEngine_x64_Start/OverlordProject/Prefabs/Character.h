@@ -12,6 +12,8 @@ struct CharacterDesc
 		controller.material = pMaterial;
 	}
 
+	float currentMaxMoveSpeed{};
+	float minMoveSpeed{ 5.f };
 	float maxMoveSpeed{ 15.f };
 	float maxFallSpeed{ 15.f };
 
@@ -36,6 +38,13 @@ struct CharacterDesc
 	bool useOwnCamera{ true };
 
 	float stepOffset{ 0.5f };
+
+	const int maxAmountOfBombsAllowedToBePlacedAtOnce{ 8 };
+	int amountOfBombsAllowedToBePlacedAtOnce{ 1 };
+	int amountOfBombsCurrentlyOnGrid{};
+	int bombBlastRadius{ 2 };
+	bool hasPierceBomb{};
+	
 };
 
 class Character : public GameObject
@@ -50,6 +59,7 @@ public:
 	Character& operator=(Character&& other) noexcept = delete;
 
 	void DrawImGui();
+	CharacterDesc& GetCharacterDescription() { return m_CharacterDesc; }
 
 protected:
 	void Initialize(const SceneContext&) override;
