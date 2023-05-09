@@ -15,12 +15,12 @@ void ExamScene::Initialize()
 	auto pBounceyMat{ pDefaultMaterial };
 
 	//CAMERA
-	//auto m_pFixedCamera = new FixedCamera();
-	//const float cameraZOffset{ -3.f };
-	//m_pFixedCamera->GetTransform()->Translate(0.f, 25.f, 0.f);
-	//m_pFixedCamera->GetTransform()->Rotate(85.f, 0.f, 0.f);
-	//AddChild(m_pFixedCamera);
-	//SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
+	auto m_pFixedCamera = new FixedCamera();
+	const float cameraZOffset{ -3.f };
+	m_pFixedCamera->GetTransform()->Translate(0.f, 25.f, 0.f);
+	m_pFixedCamera->GetTransform()->Rotate(85.f, 0.f, 0.f);
+	AddChild(m_pFixedCamera);
+	SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
 
 	//ground plane
 	GameSceneExt::CreatePhysXGroundPlane(*this, pBounceyMat);
@@ -55,7 +55,7 @@ void ExamScene::Initialize()
 	m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
 
 	//translate Camera to middle of the grid on xz-plane
-	//m_pFixedCamera->GetTransform()->Translate(amountOfRows / 2.f, 30.f, amountOfCollumns / 2.f + cameraZOffset);
+	m_pFixedCamera->GetTransform()->Translate(amountOfRows / 2.f, 30.f, amountOfCollumns / 2.f + cameraZOffset);
 	
 	auto pBonusMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
 	pBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");

@@ -12,7 +12,8 @@ public:
 		bomb,
 		wall,
 		fire,
-		crackedWall
+		crackedWall,
+		pickUp
 	};
 
 	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state = State::empty);
@@ -23,6 +24,7 @@ public:
 	void DestroyObjectInCell();
 	XMFLOAT3 GetMiddlePos() const { return m_MiddlePos; }
 	State GetState() const { return m_State; }
+	void SetShouldPlacePickUp(bool shouldPlacePickUp) { m_ShouldPlacePickUp = shouldPlacePickUp; }
 
 private:
 	XMFLOAT3 m_MiddlePos{};
@@ -34,15 +36,34 @@ private:
 	int m_BombRange{};
 	GameObject* m_pGameObjectInCell{};
 	bool m_ShouldAddColliderToGameObjectInCell{};
+	bool m_ShouldPlacePickUp{};
 
 	static GameScene* m_spGameScene;
 	static DiffuseMaterial* m_spBombMaterial;
 	static DiffuseMaterial* m_spFlameMaterial;
+	static DiffuseMaterial* m_spBombUpBonusMaterial;
+	static DiffuseMaterial* m_spBombDownBonusMaterial;
+	static DiffuseMaterial* m_spFireUpBonusMaterial;
+	static DiffuseMaterial* m_spFireDownBonusMaterial;
+	static DiffuseMaterial* m_spFullFireBonusMaterial;
+	static DiffuseMaterial* m_spPierceBombBonusMaterial;
+	static DiffuseMaterial* m_spSkateUpBonusMaterial;
+	static DiffuseMaterial* m_spSkateDownBonusMaterial;
 	static PxMaterial* m_spPhysxMaterial;
 	static float m_sSecUntilExplotion;
 	static float m_sSecFireBurn;
+	static GameObject::PhysicsCallback m_sBombUpBonusCallBack;
+	static GameObject::PhysicsCallback m_sBombDownBonusCallBack;
+	static GameObject::PhysicsCallback m_sFireUpBonusCallBack;
+	static GameObject::PhysicsCallback m_sFireDownBonusCallBack;
+	static GameObject::PhysicsCallback m_sFullFireBonusCallBack;
+	static GameObject::PhysicsCallback m_sPierceBombBonusCallBack;
+	static GameObject::PhysicsCallback m_sSkateUpBonusCallBack;
+	static GameObject::PhysicsCallback m_sSkateDownBonusCallBack;
 
 	void ExplodeBomb();
 	void PlaceFire(XMFLOAT3 pos);
 	void AddColliderToGameObjectInCell();
+	void PlaceRandomPickUp(XMFLOAT3 pos);
+	void BombUpBonusCallBack(GameObject*, GameObject*, PxTriggerAction);
 };

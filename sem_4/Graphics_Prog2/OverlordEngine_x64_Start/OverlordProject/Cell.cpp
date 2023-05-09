@@ -8,9 +8,25 @@
 GameScene* Cell::m_spGameScene{};
 DiffuseMaterial* Cell::m_spBombMaterial{};
 DiffuseMaterial* Cell::m_spFlameMaterial{};
+DiffuseMaterial* Cell::m_spBombUpBonusMaterial{};
+DiffuseMaterial* Cell::m_spBombDownBonusMaterial{};
+DiffuseMaterial* Cell::m_spFireUpBonusMaterial{};
+DiffuseMaterial* Cell::m_spFireDownBonusMaterial{};
+DiffuseMaterial* Cell::m_spFullFireBonusMaterial{};
+DiffuseMaterial* Cell::m_spPierceBombBonusMaterial{};
+DiffuseMaterial* Cell::m_spSkateUpBonusMaterial{};
+DiffuseMaterial* Cell::m_spSkateDownBonusMaterial{};
 PxMaterial* Cell::m_spPhysxMaterial{};
 float Cell::m_sSecUntilExplotion{ 2.f };
 float Cell::m_sSecFireBurn{ 1.f };
+GameObject::PhysicsCallback Cell::m_sBombUpBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sBombDownBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sFireUpBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sFireDownBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sFullFireBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sPierceBombBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sSkateUpBonusCallBack;
+GameObject::PhysicsCallback Cell::m_sSkateDownBonusCallBack;
 
 Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state)
 	: m_pOwnerGrid{ pOwnerGrid }
@@ -29,6 +45,110 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 	{
 		m_spFlameMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
 		m_spFlameMaterial->SetDiffuseTexture(L"Textures/Fire.png");
+	}
+
+	if (!m_spBombUpBonusMaterial)
+	{
+		m_spBombUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spBombUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombUp.png");
+
+		m_sBombUpBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in bomb up\n";
+		};
+	}
+
+	if (!m_spBombDownBonusMaterial)
+	{
+		m_spBombDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spBombDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombDown.png");
+
+		m_sBombDownBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in bomb down\n";
+		};
+	}
+
+	if (!m_spFireUpBonusMaterial)
+	{
+		m_spFireUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFireUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireUp.png");
+
+		m_sFireUpBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in fire up\n";
+		};
+	}
+
+	if (!m_spFireDownBonusMaterial)
+	{
+		m_spFireDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFireDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireDown.png");
+
+		m_sFireDownBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in fire down\n";
+		};
+	}
+
+	if (!m_spFullFireBonusMaterial)
+	{
+		m_spFullFireBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFullFireBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
+
+		m_sFullFireBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in full fire\n";
+		};
+	}
+
+	if (!m_spPierceBombBonusMaterial)
+	{
+		m_spPierceBombBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spPierceBombBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/PierceBomb.png");
+
+		m_sPierceBombBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in pierce bomb\n";
+		};
+	}
+
+	if (!m_spSkateUpBonusMaterial)
+	{
+		m_spSkateUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spSkateUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateUp.png");
+
+		m_sSkateUpBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in skate up\n";
+		};
+	}
+
+	if (!m_spSkateDownBonusMaterial)
+	{
+		m_spSkateDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spSkateDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateDown.png");
+
+		m_sSkateDownBonusCallBack =
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in skate down\n";
+		};
 	}
 
 	if (!m_spPhysxMaterial)
@@ -86,6 +206,9 @@ void Cell::Update()
 				m_pGameObjectInCell = nullptr;
 				m_State = State::empty;
 				m_TimeSinceItemPlaceOnCell = 0.f;
+
+				if(m_ShouldPlacePickUp)
+					PlaceRandomPickUp(m_MiddlePos);
 			}
 		}
 	}
@@ -139,7 +262,7 @@ void Cell::DestroyObjectInCell()
 
 void Cell::ExplodeBomb()
 {
-	PlaceFire(GetMiddlePos());
+	PlaceFire(m_MiddlePos);
 
 	for (int index{ 1 }; index <= m_BombRange; ++index)
 	{
@@ -152,8 +275,12 @@ void Cell::ExplodeBomb()
 				break;
 			}
 
+			if (bottomNeigbor->GetState() == State::wall)
+				break;
+
 			if (bottomNeigbor->GetState() == State::crackedWall)
 			{
+				bottomNeigbor->SetShouldPlacePickUp(true);
 				bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
 				break;
 			}
@@ -165,7 +292,7 @@ void Cell::ExplodeBomb()
 	for (int index{ 1 }; index <= m_BombRange; ++index)
 	{
 		auto leftNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr - index) };
-		if (leftNeighbor && leftNeighbor->GetState() != State::wall && leftNeighbor->GetState() != State::fire)
+		if (leftNeighbor && leftNeighbor->GetState() != State::fire)
 		{
 			if (leftNeighbor->GetState() == State::bomb)
 			{
@@ -173,10 +300,14 @@ void Cell::ExplodeBomb()
 				break;
 			}
 
+			if (leftNeighbor->GetState() == State::wall)
+				break;
+
 			if (leftNeighbor->GetState() == State::crackedWall)
 			{
+				leftNeighbor->SetShouldPlacePickUp(true);
 				leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
-				break;	
+				break;
 			}
 
 			leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
@@ -185,7 +316,7 @@ void Cell::ExplodeBomb()
 	for (int index{ 1 }; index <= m_BombRange; ++index)
 	{
 		auto topNeigbor{ m_pOwnerGrid->GetCell(m_RowNr + index, m_ColNr) };
-		if (topNeigbor && topNeigbor->GetState() != State::wall && topNeigbor->GetState() != State::fire)
+		if (topNeigbor && topNeigbor->GetState() != State::fire)
 		{
 			if (topNeigbor->GetState() == State::bomb)
 			{
@@ -193,8 +324,12 @@ void Cell::ExplodeBomb()
 				break;
 			}
 
+			if (topNeigbor->GetState() == State::wall)
+				break;
+
 			if (topNeigbor->GetState() == State::crackedWall)
 			{
+				topNeigbor->SetShouldPlacePickUp(true);
 				topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
 				break;
 			}
@@ -206,7 +341,7 @@ void Cell::ExplodeBomb()
 	for (int index{ 1 }; index <= m_BombRange; ++index)
 	{
 		auto rightNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr + index) };
-		if (rightNeighbor && rightNeighbor->GetState() != State::wall && rightNeighbor->GetState() != State::fire)
+		if (rightNeighbor && rightNeighbor->GetState() != State::fire)
 		{
 			if (rightNeighbor->GetState() == State::bomb)
 			{
@@ -214,8 +349,12 @@ void Cell::ExplodeBomb()
 				break;
 			}
 
+			if (rightNeighbor->GetState() == State::wall)
+				break;
+
 			if (rightNeighbor->GetState() == State::crackedWall)
 			{
+				rightNeighbor->SetShouldPlacePickUp(true);
 				rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
 				break;
 			}
@@ -227,6 +366,8 @@ void Cell::ExplodeBomb()
 
 void Cell::PlaceFire(XMFLOAT3 pos)
 {
+	DestroyObjectInCell();
+
 	m_TimeSinceItemPlaceOnCell = 0.f;
 
 	m_State = State::fire;
@@ -252,7 +393,77 @@ void Cell::PlaceFire(XMFLOAT3 pos)
 	pFlame->SetOnTriggerCallBack(callBack);
 	pFlame->GetTransform()->Translate(pos);
 	pFlame->GetTransform()->Scale(0.01f);
+	
+	m_pGameObjectInCell = pFlame;
+}
+
+void Cell::PlaceRandomPickUp(XMFLOAT3 pos)
+{
+	m_ShouldPlacePickUp = false;
+
+	m_TimeSinceItemPlaceOnCell = 0.f;
+
+	m_State = State::pickUp;
+
+	auto callBack
+	{
+		[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
+				std::cout << "player in pickUp\n";
+			//else if(pOtherObject)
+			//{
+			//	m_spGameScene->RemoveChild(pOtherObject, true);
+			//}
+		}
+	};
+
+	auto pBonus = m_spGameScene->AddChild(new GameObject());
+	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
+
+	const int randomInt{ std::rand() % 8 };
+
+	switch (randomInt)
+	{
+	case 0:
+		pModel->SetMaterial(m_spBombUpBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sBombUpBonusCallBack);
+		break;
+	case 1:
+		pModel->SetMaterial(m_spBombDownBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sBombDownBonusCallBack);
+		break;
+	case 2:
+		pModel->SetMaterial(m_spFireUpBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sFireUpBonusCallBack);
+		break;
+	case 3:
+		pModel->SetMaterial(m_spFireDownBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sFireDownBonusCallBack);
+		break;
+	case 4:
+		pModel->SetMaterial(m_spFullFireBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sFullFireBonusCallBack);
+		break;
+	case 5:
+		pModel->SetMaterial(m_spPierceBombBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sPierceBombBonusCallBack);
+		break;
+	case 6:
+		pModel->SetMaterial(m_spSkateUpBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sSkateUpBonusCallBack);
+		break;
+	case 7:
+		pModel->SetMaterial(m_spSkateDownBonusMaterial);
+		pBonus->SetOnTriggerCallBack(m_sSkateDownBonusCallBack);
+		break;
+	}
+
+	auto pRigidBody{ pBonus->AddComponent(new RigidBodyComponent(true)) };
+	pRigidBody->AddCollider(PxBoxGeometry(0.5f, 0.5f, 0.5f), *m_spPhysxMaterial, true);
+	pBonus->GetTransform()->Translate(pos);
+	pBonus->GetTransform()->Scale(0.007f);
 
 	DestroyObjectInCell();
-	m_pGameObjectInCell = pFlame;
+	m_pGameObjectInCell = pBonus;
 }
