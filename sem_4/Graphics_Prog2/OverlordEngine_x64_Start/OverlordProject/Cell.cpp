@@ -79,10 +79,23 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spBombDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombDown.png");
 
 		m_sBombDownBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in bomb down\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				--characterDesc.amountOfBombsAllowedToBePlacedAtOnce;
+
+				if (characterDesc.amountOfBombsAllowedToBePlacedAtOnce < 1)
+					characterDesc.amountOfBombsAllowedToBePlacedAtOnce = 1;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -92,10 +105,23 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spFireUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireUp.png");
 
 		m_sFireUpBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in fire up\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				++characterDesc.bombBlastRadius;
+
+				if (characterDesc.bombBlastRadius > characterDesc.maxBombBlastRadius)
+					characterDesc.bombBlastRadius = characterDesc.maxBombBlastRadius;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -105,10 +131,23 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spFireDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireDown.png");
 
 		m_sFireDownBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in fire down\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				--characterDesc.bombBlastRadius;
+
+				if (characterDesc.bombBlastRadius < 1)
+					characterDesc.bombBlastRadius = 1;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -118,10 +157,20 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spFullFireBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
 
 		m_sFullFireBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in full fire\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				characterDesc.bombBlastRadius = characterDesc.maxBombBlastRadius;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -131,10 +180,20 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spPierceBombBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/PierceBomb.png");
 
 		m_sPierceBombBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in pierce bomb\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				characterDesc.hasPierceBomb = true;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -144,10 +203,23 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spSkateUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateUp.png");
 
 		m_sSkateUpBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in skate up\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				characterDesc.currentMaxMoveSpeed += 3.f;
+
+				if (characterDesc.currentMaxMoveSpeed > characterDesc.maxMoveSpeed)
+					characterDesc.currentMaxMoveSpeed = characterDesc.maxMoveSpeed;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 
@@ -157,10 +229,23 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 		m_spSkateDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateDown.png");
 
 		m_sSkateDownBonusCallBack =
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
 		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in skate down\n";
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+				characterDesc.currentMaxMoveSpeed -= 3.f;
+
+				if (characterDesc.currentMaxMoveSpeed < characterDesc.minMoveSpeed)
+					characterDesc.currentMaxMoveSpeed = characterDesc.minMoveSpeed;
+
+				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+				if (pCell)
+					pCell->SetShouldDestroyGameObjectInCell(true);
+			}
 		};
 	}
 

@@ -13,8 +13,6 @@ void Character::Initialize(const SceneContext& /*sceneContext*/)
 	m_pControllerComponent = AddComponent(new ControllerComponent(m_CharacterDesc.controller));
 	m_pControllerComponent->GetPxController()->setStepOffset(m_CharacterDesc.stepOffset);
 
-	m_CharacterDesc.currentMaxMoveSpeed = m_CharacterDesc.maxMoveSpeed;
-
 	//Camera
 	const auto pCamera = AddChild(new FixedCamera());
 	m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
@@ -124,8 +122,7 @@ void Character::Update(const SceneContext& sceneContext)
 		//Increase the current MoveSpeed with the current Acceleration (m_MoveSpeed)
 		m_MoveSpeed += currentMoveAcceleration;
 
-		//Make sure the current MoveSpeed stays below the maximum MoveSpeed (CharacterDesc::maxMoveSpeed)
-		m_MoveSpeed = std::min(m_MoveSpeed, m_CharacterDesc.maxMoveSpeed);
+		m_MoveSpeed = std::min(m_MoveSpeed, m_CharacterDesc.currentMaxMoveSpeed);
 	}
 	else //Else (character is not moving, or stopped moving)
 	{
@@ -197,10 +194,10 @@ void Character::DrawImGui()
 		ImGui::Text(std::format("Jump Height: {:0.1f} m", jumpMaxHeight).c_str());
 
 		ImGui::Dummy({ 0.f,5.f });
-		if (ImGui::DragFloat("Max Move Speed (m/s)", &m_CharacterDesc.maxMoveSpeed, 0.1f, 0.f, 0.f, "%.1f") ||
+		if (ImGui::DragFloat("Max Move Speed (m/s)", &m_CharacterDesc.currentMaxMoveSpeed, 0.1f, 0.f, 0.f, "%.1f") ||
 			ImGui::DragFloat("Move Acceleration Time (s)", &m_CharacterDesc.moveAccelerationTime, 0.1f, 0.f, 0.f, "%.1f"))
 		{
-			m_MoveAcceleration = m_CharacterDesc.maxMoveSpeed / m_CharacterDesc.moveAccelerationTime;
+			m_MoveAcceleration = m_CharacterDesc.currentMaxMoveSpeed / m_CharacterDesc.moveAccelerationTime;
 		}
 
 		ImGui::Dummy({ 0.f,5.f });

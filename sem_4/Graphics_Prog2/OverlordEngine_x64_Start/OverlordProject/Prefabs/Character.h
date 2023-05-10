@@ -12,9 +12,9 @@ struct CharacterDesc
 		controller.material = pMaterial;
 	}
 
-	float currentMaxMoveSpeed{};
+	float currentMaxMoveSpeed{ 9.f };
 	float minMoveSpeed{ 5.f };
-	float maxMoveSpeed{ 15.f };
+	const float maxMoveSpeed{ 15.f };
 	float maxFallSpeed{ 15.f };
 
 	bool canJump{ true };
@@ -42,6 +42,7 @@ struct CharacterDesc
 	const int maxAmountOfBombsAllowedToBePlacedAtOnce{ 8 };
 	int amountOfBombsAllowedToBePlacedAtOnce{ 1 };
 	int amountOfBombsCurrentlyOnGrid{};
+	const int maxBombBlastRadius{};
 	int bombBlastRadius{ 2 };
 	bool hasPierceBomb{};
 	
