@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "Character.h"
 
-Character::Character(const CharacterDesc& characterDesc) :
+Character::Character(const CharacterDesc& characterDesc, CharacterAnimationState animationState) :
 	m_CharacterDesc{ characterDesc },
 	m_MoveAcceleration(characterDesc.maxMoveSpeed / characterDesc.moveAccelerationTime),
-	m_FallAcceleration(characterDesc.maxFallSpeed / characterDesc.fallAccelerationTime)
+	m_FallAcceleration(characterDesc.maxFallSpeed / characterDesc.fallAccelerationTime),
+	m_AnimationState{ animationState }
 {}
 
 void Character::Initialize(const SceneContext& /*sceneContext*/)
@@ -26,7 +27,9 @@ void Character::Initialize(const SceneContext& /*sceneContext*/)
 
 void Character::Update(const SceneContext& sceneContext)
 {
-	//constexpr float epsilon{ 0.01f }; //Constant that can be used to compare if a float is near zero
+	m_MoveAcceleration = m_CharacterDesc.maxMoveSpeed / m_CharacterDesc.moveAccelerationTime;
+
+	constexpr float epsilon{ 0.01f }; //Constant that can be used to compare if a float is near zero
 	const float elapsedSec{ sceneContext.pGameTime->GetElapsed() };
 
 	//***************
@@ -81,6 +84,22 @@ void Character::Update(const SceneContext& sceneContext)
 		look.y = -look.y;
 	}
 
+	if (m_CharacterDesc.lookTowardsWalkDirection)
+	{
+		look = sceneContext.pInput->GetThumbstickPosition(true, m_CharacterDesc.playerIndex);
+
+		//Rotate this character based on the TotalPitch (X)
+		if (m_pChild)
+		{
+			auto modelTransform{ m_pChild->GetTransform() };
+			auto previousRotation{ modelTransform->GetRotation() };
+			modelTransform->Rotate(0.f, -previousRotation.y, 0.f);
+			modelTransform->Rotate(0.f, std::atan2(look.y, -look.x) + XM_PIDIV2, 0.f, false);
+		}
+		
+		
+	}
+
 	//************************
 	//GATHERING TRANSFORM INFO
 
@@ -122,7 +141,7 @@ void Character::Update(const SceneContext& sceneContext)
 		//Increase the current MoveSpeed with the current Acceleration (m_MoveSpeed)
 		m_MoveSpeed += currentMoveAcceleration;
 
-		m_MoveSpeed = std::min(m_MoveSpeed, m_CharacterDesc.currentMaxMoveSpeed);
+		m_MoveSpeed = std::min(m_MoveSpeed, m_CharacterDesc.maxMoveSpeed * m_CharacterDesc.speedMultiplier);
 	}
 	else //Else (character is not moving, or stopped moving)
 	{
@@ -175,6 +194,31 @@ void Character::Update(const SceneContext& sceneContext)
 
 	m_pControllerComponent->Move(displacement);
 
+	if (m_pModelAnimator && (abs(displacement.x) > epsilon || abs(displacement.y) > epsilon || abs(displacement.z) > epsilon))
+	{
+		if (m_AnimationState != CharacterAnimationState::running)
+		{
+			m_pModelAnimator->SetAnimation(L"run");
+
+			if(!m_pModelAnimator->IsPlaying())
+				m_pModelAnimator->Play();
+
+			m_AnimationState = CharacterAnimationState::running;
+		}
+	}
+	else if(m_pModelAnimator)
+	{
+		if (m_AnimationState != CharacterAnimationState::idle)
+		{
+			m_pModelAnimator->SetAnimation(L"idle");
+
+			if (!m_pModelAnimator->IsPlaying())
+				m_pModelAnimator->Play();
+
+			m_AnimationState = CharacterAnimationState::idle;
+		}
+	}
+
 	//The above is a simple implementation of Movement Dynamics, adjust the code to further improve the movement logic and behaviour.
 	//Also, it can be usefull to use a seperate RayCast to check if the character is grounded (more responsive)
 }
@@ -194,10 +238,10 @@ void Character::DrawImGui()
 		ImGui::Text(std::format("Jump Height: {:0.1f} m", jumpMaxHeight).c_str());
 
 		ImGui::Dummy({ 0.f,5.f });
-		if (ImGui::DragFloat("Max Move Speed (m/s)", &m_CharacterDesc.currentMaxMoveSpeed, 0.1f, 0.f, 0.f, "%.1f") ||
+		if (ImGui::DragFloat("Max Move Speed (m/s)", &m_CharacterDesc.maxMoveSpeed, 0.1f, 0.f, 0.f, "%.1f") ||
 			ImGui::DragFloat("Move Acceleration Time (s)", &m_CharacterDesc.moveAccelerationTime, 0.1f, 0.f, 0.f, "%.1f"))
 		{
-			m_MoveAcceleration = m_CharacterDesc.currentMaxMoveSpeed / m_CharacterDesc.moveAccelerationTime;
+			m_MoveAcceleration = m_CharacterDesc.maxMoveSpeed / m_CharacterDesc.moveAccelerationTime;
 		}
 
 		ImGui::Dummy({ 0.f,5.f });

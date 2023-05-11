@@ -55,7 +55,11 @@ void TransformComponent::UpdateTransforms()
 		if (isSet(m_IsTransformChanged, TransformChanged::TRANSLATION))m_pRigidBodyComponent->Translate(m_Position);
 		else m_Position = m_pRigidBodyComponent->GetPosition();
 
-		if (isSet(m_IsTransformChanged, TransformChanged::ROTATION)) m_pRigidBodyComponent->Rotate(m_Rotation);
+		if (isSet(m_IsTransformChanged, TransformChanged::ROTATION))
+		{
+			m_pRigidBodyComponent->Rotate(m_Rotation);
+			std::cout << "rotated\n";
+		}
 		else m_Rotation = m_pRigidBodyComponent->GetRotation();
 	}
 	else if(m_pControllerComponent && m_IsInitialized)

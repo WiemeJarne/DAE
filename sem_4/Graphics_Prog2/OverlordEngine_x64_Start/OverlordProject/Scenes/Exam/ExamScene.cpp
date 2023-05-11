@@ -20,7 +20,7 @@ void ExamScene::Initialize()
 	m_pFixedCamera->GetTransform()->Translate(0.f, 25.f, 0.f);
 	m_pFixedCamera->GetTransform()->Rotate(85.f, 0.f, 0.f);
 	AddChild(m_pFixedCamera);
-	SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
+	//SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
 
 	//ground plane
 	GameSceneExt::CreatePhysXGroundPlane(*this, pBounceyMat);
@@ -31,10 +31,19 @@ void ExamScene::Initialize()
 	characterDesc.canJump = false;
 	characterDesc.useOwnCamera = false;
 	characterDesc.stepOffset = 0.f;
-	characterDesc.maxMoveSpeed = 5.f;
+	characterDesc.lookTowardsWalkDirection = true;
 	characterDesc.playerIndex = GamepadIndex::playerOne;
 	
-	auto pCharacter = AddChild(new Character(characterDesc));
+	auto pCharacter = AddChild(new Character(characterDesc, CharacterAnimationState::idle));
+	auto pChildObject{ pCharacter->AddChild(new GameObject()) };
+	auto pModel{ pChildObject->AddComponent(new ModelComponent(L"Meshes/Player.ovm")) };
+	pChildObject->GetTransform()->Translate(0.f, -0.5f, 0.f);
+	pModel->GetTransform()->Scale(0.01f);
+	auto pCharacterMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Skinned>() };
+	pCharacterMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
+	pModel->SetMaterial(pCharacterMaterial);
+	pCharacter->SetModelAnimator(pModel->GetAnimator());
+	pCharacter->SetPChild(pChildObject);
 	pCharacter->GetTransform()->Translate(7.f, 5.f, 5.f);
 	
 	m_Characters.push_back(pCharacter);
@@ -52,18 +61,12 @@ void ExamScene::Initialize()
 
 	constexpr int amountOfRows{ 15 };
 	constexpr int amountOfCollumns{ 15 };
-	m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
+	//m_pGrid = new Grid(amountOfRows, amountOfCollumns, this, pBounceyMat);
 
 	//translate Camera to middle of the grid on xz-plane
 	m_pFixedCamera->GetTransform()->Translate(amountOfRows / 2.f, 30.f, amountOfCollumns / 2.f + cameraZOffset);
-	
-	auto pBonusMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
-	pBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
 
-	auto pBonus{ AddChild(new GameObject()) };
-	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/CrackedBrick.ovm")) };
-	pModel->SetMaterial(pBonusMaterial);
-	pBonus->GetTransform()->Scale(0.01f);
+	
 }
 
 void ExamScene::Update()

@@ -12,9 +12,52 @@ struct CharacterDesc
 		controller.material = pMaterial;
 	}
 
-	float currentMaxMoveSpeed{ 9.f };
-	float minMoveSpeed{ 5.f };
-	const float maxMoveSpeed{ 15.f };
+	void CalculateMoveSpeedMultiplier()
+	{
+		switch (speedLevel)
+		{
+		case 1:
+			speedMultiplier = 1.f;
+			break;
+
+		case 2:
+			speedMultiplier = 1.25f;
+			break;
+
+		case 3:
+			speedMultiplier = 1.5f;
+			break;
+
+		case 4:
+			speedMultiplier = 1.75f;
+			break;
+
+		case 5:
+			speedMultiplier = 2.f;
+			break;
+
+		case 6:
+			speedMultiplier = 2.25f;
+			break;
+
+		case 7:
+			speedMultiplier = 2.5f;
+			break;
+
+		case 8:
+			speedMultiplier = 2.75f;
+			break;
+
+		default:
+			speedLevel = 1;
+			CalculateMoveSpeedMultiplier();
+			break;
+		}
+	}
+
+	int speedLevel{ 8 };
+	float speedMultiplier{ 1.f };
+	float maxMoveSpeed{ 5.f };
 	float maxFallSpeed{ 15.f };
 
 	bool canJump{ true };
@@ -35,23 +78,31 @@ struct CharacterDesc
 	int actionId_MoveBackward{ -1 };
 	int actionId_Jump{ -1 };
 
+	bool lookTowardsWalkDirection{};
+
 	bool useOwnCamera{ true };
 
 	float stepOffset{ 0.5f };
 
 	const int maxAmountOfBombsAllowedToBePlacedAtOnce{ 8 };
-	int amountOfBombsAllowedToBePlacedAtOnce{ 1 };
+	int amountOfBombsAllowedToBePlacedAtOnce{ 3 };
 	int amountOfBombsCurrentlyOnGrid{};
-	const int maxBombBlastRadius{};
-	int bombBlastRadius{ 2 };
+	const int maxBombBlastRadius{ 10 };
+	int bombBlastRadius{ 5 };
 	bool hasPierceBomb{};
-	
+};
+
+enum class CharacterAnimationState
+{
+	none,
+	idle,
+	running
 };
 
 class Character : public GameObject
 {
 public:
-	Character(const CharacterDesc& characterDesc);
+	Character(const CharacterDesc& characterDesc, CharacterAnimationState animationState = CharacterAnimationState::none);
 	~Character() override = default;
 
 	Character(const Character& other) = delete;
@@ -60,6 +111,8 @@ public:
 	Character& operator=(Character&& other) noexcept = delete;
 
 	void DrawImGui();
+	void SetModelAnimator(ModelAnimator* pModelAnimator) { m_pModelAnimator = pModelAnimator; }
+	void SetPChild(GameObject* pChild) { m_pChild = pChild; }
 	CharacterDesc& GetCharacterDescription() { return m_CharacterDesc; }
 
 protected:
@@ -69,6 +122,11 @@ protected:
 private:
 	CameraComponent* m_pCameraComponent{};
 	ControllerComponent* m_pControllerComponent{};
+	ModelAnimator* m_pModelAnimator{};
+
+	CharacterAnimationState m_AnimationState{};
+
+	GameObject* m_pChild{}; //the model of the player is in the component of a child because if not the model floats
 
 	CharacterDesc m_CharacterDesc;
 	float m_TotalPitch{}, m_TotalYaw{};				//Total camera Pitch(X) and Yaw(Y) rotation

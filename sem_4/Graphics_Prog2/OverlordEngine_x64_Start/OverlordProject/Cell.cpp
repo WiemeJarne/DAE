@@ -210,10 +210,9 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 			{
 				auto& characterDesc{ pCharacter->GetCharacterDescription() };
 
-				characterDesc.currentMaxMoveSpeed += 3.f;
+				++characterDesc.speedLevel;
 
-				if (characterDesc.currentMaxMoveSpeed > characterDesc.maxMoveSpeed)
-					characterDesc.currentMaxMoveSpeed = characterDesc.maxMoveSpeed;
+				characterDesc.CalculateMoveSpeedMultiplier();
 
 				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
 
@@ -236,10 +235,9 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 			{
 				auto& characterDesc{ pCharacter->GetCharacterDescription() };
 
-				characterDesc.currentMaxMoveSpeed -= 3.f;
+				--characterDesc.speedLevel;
 
-				if (characterDesc.currentMaxMoveSpeed < characterDesc.minMoveSpeed)
-					characterDesc.currentMaxMoveSpeed = characterDesc.minMoveSpeed;
+				characterDesc.CalculateMoveSpeedMultiplier();
 
 				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
 
@@ -273,6 +271,7 @@ void Cell::Update()
 	{
 		DestroyObjectInCell();
 		m_ShouldDestroyGameObjectInCell = false;
+		m_State = State::empty;
 	}
 
 	if (m_State == State::bomb)
@@ -362,7 +361,8 @@ void Cell::DestroyObjectInCell()
 {
 	if (m_pGameObjectInCell)
 	{
-		m_spGameScene->RemoveChild(m_pGameObjectInCell, true);
+		m_pGameObjectInCell->GetScene()->RemoveChild(m_pGameObjectInCell, true);
+		m_pGameObjectInCell = nullptr;
 	}
 }
 
@@ -371,6 +371,7 @@ void Cell::ExplodeBomb()
 	--m_pCharacterDescPlacedBomb->amountOfBombsCurrentlyOnGrid;
 
 	PlaceFire(m_MiddlePos);
+	--m_BombBlastRadius;
 
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
@@ -390,10 +391,17 @@ void Cell::ExplodeBomb()
 			{
 				bottomNeigbor->SetShouldPlacePickUp(true);
 				bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
-				break;
+
+				if(!m_pCharacterDescPlacedBomb->hasPierceBomb)
+					break;
+
+				continue;
 			}
 
-			bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
+			if (bottomNeigbor->GetState() == State::empty || bottomNeigbor->GetState() == State::pickUp)
+			{
+				bottomNeigbor->PlaceFire(bottomNeigbor->GetMiddlePos());
+			}
 		}
 	}
 
@@ -415,10 +423,17 @@ void Cell::ExplodeBomb()
 			{
 				leftNeighbor->SetShouldPlacePickUp(true);
 				leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
-				break;
+
+				if (!m_pCharacterDescPlacedBomb->hasPierceBomb)
+					break;
+
+				continue;
 			}
 
-			leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
+			if (leftNeighbor->GetState() == State::empty || leftNeighbor->GetState() == State::pickUp)
+			{
+				leftNeighbor->PlaceFire(leftNeighbor->GetMiddlePos());
+			}
 		}
 	}
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
@@ -430,6 +445,8 @@ void Cell::ExplodeBomb()
 			{
 				topNeigbor->ExplodeBomb();
 				break;
+
+				continue;
 			}
 
 			if (topNeigbor->GetState() == State::wall)
@@ -439,10 +456,17 @@ void Cell::ExplodeBomb()
 			{
 				topNeigbor->SetShouldPlacePickUp(true);
 				topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
-				break;
+
+				if (!m_pCharacterDescPlacedBomb->hasPierceBomb)
+					break;
+
+				continue;
 			}
 
-			topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
+			if (topNeigbor->GetState() == State::empty || topNeigbor->GetState() == State::pickUp)
+			{
+				topNeigbor->PlaceFire(topNeigbor->GetMiddlePos());
+			}
 		}
 	}
 
@@ -464,10 +488,17 @@ void Cell::ExplodeBomb()
 			{
 				rightNeighbor->SetShouldPlacePickUp(true);
 				rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
-				break;
+
+				if (!m_pCharacterDescPlacedBomb->hasPierceBomb)
+					break;
+
+				continue;
 			}
 
-			rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
+			if (rightNeighbor->GetState() == State::empty || rightNeighbor->GetState() == State::pickUp)
+			{
+				rightNeighbor->PlaceFire(rightNeighbor->GetMiddlePos());
+			}
 		}
 	}
 }
@@ -517,7 +548,7 @@ void Cell::PlaceRandomPickUp(XMFLOAT3 pos)
 	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
 
 	//const int randomInt{ std::rand() % 8 };
-	const int randomInt{ 0 };
+	const int randomInt{ 7 };
 
 	switch (randomInt)
 	{
