@@ -84,19 +84,22 @@ void Character::Update(const SceneContext& sceneContext)
 		look.y = -look.y;
 	}
 
-	if (m_CharacterDesc.lookTowardsWalkDirection)
+	if (m_CharacterDesc.lookTowardsWalkDirection && m_pChild)
 	{
-		look = sceneContext.pInput->GetThumbstickPosition(true, m_CharacterDesc.playerIndex);
-
 		//Rotate this character based on the TotalPitch (X)
-		if (m_pChild)
-		{
-			auto modelTransform{ m_pChild->GetTransform() };
-			auto previousRotation{ modelTransform->GetRotation() };
-			modelTransform->Rotate(0.f, -previousRotation.y, 0.f);
-			modelTransform->Rotate(0.f, std::atan2(look.y, -look.x) + XM_PIDIV2, 0.f, false);
-		}
-		
+			look = sceneContext.pInput->GetThumbstickPosition(true, m_CharacterDesc.playerIndex);
+
+			if(!(abs(look.x) < epsilon && abs(look.y) < epsilon))
+				m_PreviousLook = look;
+
+			if (abs(look.x) < epsilon && abs(look.y) < epsilon)
+				look = m_PreviousLook;
+
+		auto modelTransform{ m_pChild->GetTransform() };
+		auto previousRotation{ modelTransform->GetRotation() };
+		modelTransform->Rotate(0.f, -previousRotation.y, 0.f);
+		modelTransform->Rotate(0.f, std::atan2(look.y, -look.x) + XM_PIDIV2, 0.f, false);
+
 		
 	}
 
@@ -142,6 +145,16 @@ void Character::Update(const SceneContext& sceneContext)
 		m_MoveSpeed += currentMoveAcceleration;
 
 		m_MoveSpeed = std::min(m_MoveSpeed, m_CharacterDesc.maxMoveSpeed * m_CharacterDesc.speedMultiplier);
+
+		if (m_pModelAnimator && m_AnimationState != CharacterAnimationState::running)
+		{
+			m_pModelAnimator->SetAnimation(L"run");
+
+			if (!m_pModelAnimator->IsPlaying())
+				m_pModelAnimator->Play();
+
+			m_AnimationState = CharacterAnimationState::running;
+		}
 	}
 	else //Else (character is not moving, or stopped moving)
 	{
@@ -150,6 +163,16 @@ void Character::Update(const SceneContext& sceneContext)
 
 		//Make sure the current MoveSpeed doesn't get smaller than zero
 		m_MoveSpeed = std::max(m_MoveSpeed, 0.f);
+
+		if (m_pModelAnimator && m_AnimationState != CharacterAnimationState::idle)
+		{
+			m_pModelAnimator->SetAnimation(L"idle");
+
+			if (!m_pModelAnimator->IsPlaying())
+				m_pModelAnimator->Play();
+
+			m_AnimationState = CharacterAnimationState::idle;
+		}
 	}
 
 	//Now we can calculate the Horizontal Velocity which should be stored in m_TotalVelocity.xz
@@ -194,7 +217,7 @@ void Character::Update(const SceneContext& sceneContext)
 
 	m_pControllerComponent->Move(displacement);
 
-	if (m_pModelAnimator && (abs(displacement.x) > epsilon || abs(displacement.y) > epsilon || abs(displacement.z) > epsilon))
+	/*if (m_pModelAnimator && (abs(displacement.x) > epsilon || abs(displacement.z) > epsilon))
 	{
 		if (m_AnimationState != CharacterAnimationState::running)
 		{
@@ -217,7 +240,7 @@ void Character::Update(const SceneContext& sceneContext)
 
 			m_AnimationState = CharacterAnimationState::idle;
 		}
-	}
+	}*/
 
 	//The above is a simple implementation of Movement Dynamics, adjust the code to further improve the movement logic and behaviour.
 	//Also, it can be usefull to use a seperate RayCast to check if the character is grounded (more responsive)

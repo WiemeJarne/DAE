@@ -1,5 +1,6 @@
 #pragma once
 #include "Prefabs/Character.h"
+#include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 
 class DiffuseMaterial;
 class Grid;
@@ -43,16 +44,16 @@ private:
 	bool m_ShouldDestroyGameObjectInCell{};
 
 	static GameScene* m_spGameScene;
-	static DiffuseMaterial* m_spBombMaterial;
-	static DiffuseMaterial* m_spFlameMaterial;
-	static DiffuseMaterial* m_spBombUpBonusMaterial;
-	static DiffuseMaterial* m_spBombDownBonusMaterial;
-	static DiffuseMaterial* m_spFireUpBonusMaterial;
-	static DiffuseMaterial* m_spFireDownBonusMaterial;
-	static DiffuseMaterial* m_spFullFireBonusMaterial;
-	static DiffuseMaterial* m_spPierceBombBonusMaterial;
-	static DiffuseMaterial* m_spSkateUpBonusMaterial;
-	static DiffuseMaterial* m_spSkateDownBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spBombMaterial;
+	static DiffuseMaterial_Shadow* m_spFlameMaterial;
+	static DiffuseMaterial_Shadow* m_spBombUpBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spBombDownBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spFireUpBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spFireDownBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spFullFireBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spPierceBombBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spSkateUpBonusMaterial;
+	static DiffuseMaterial_Shadow* m_spSkateDownBonusMaterial;
 	static PxMaterial* m_spPhysxMaterial;
 	static float m_sSecUntilExplotion;
 	static float m_sSecFireBurn;

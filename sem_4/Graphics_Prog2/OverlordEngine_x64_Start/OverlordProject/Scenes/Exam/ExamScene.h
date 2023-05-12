@@ -9,7 +9,7 @@ class ExamScene final : public GameScene
 {
 public:
 	ExamScene() : GameScene(L"ExamScene") {}
-	~ExamScene() override = default;
+	~ExamScene() override;
 
 	ExamScene(const ExamScene& other) = delete;
 	ExamScene(ExamScene&& other) noexcept = delete;

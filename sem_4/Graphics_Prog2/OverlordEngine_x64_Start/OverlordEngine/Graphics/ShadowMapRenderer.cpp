@@ -72,7 +72,7 @@ void ShadowMapRenderer::Begin(const SceneContext& sceneContext)
 	//		*viewHeight> 100.f
 	//		*nearZ>0.1f
 	//		*farZ>500.f
-	const XMMATRIX projectionMatrix{ XMMatrixOrthographicLH(sceneContext.aspectRatio * 100.f, 100.f, 0.1f, 500.f) };
+	const XMMATRIX projectionMatrix{ XMMatrixOrthographicLH(sceneContext.aspectRatio * 100.f, 100.f, 45.f, 150.f) };
 
 	//- Use XMMatrixLookAtLH to create a View Matrix
 	//		*eyePosition: Position of the Direction Light (SceneContext::pLights > Retrieve Directional Light)

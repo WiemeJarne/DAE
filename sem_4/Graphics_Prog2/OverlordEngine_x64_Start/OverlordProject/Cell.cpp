@@ -6,16 +6,16 @@
 #include <iostream>
 
 GameScene* Cell::m_spGameScene{};
-DiffuseMaterial* Cell::m_spBombMaterial{};
-DiffuseMaterial* Cell::m_spFlameMaterial{};
-DiffuseMaterial* Cell::m_spBombUpBonusMaterial{};
-DiffuseMaterial* Cell::m_spBombDownBonusMaterial{};
-DiffuseMaterial* Cell::m_spFireUpBonusMaterial{};
-DiffuseMaterial* Cell::m_spFireDownBonusMaterial{};
-DiffuseMaterial* Cell::m_spFullFireBonusMaterial{};
-DiffuseMaterial* Cell::m_spPierceBombBonusMaterial{};
-DiffuseMaterial* Cell::m_spSkateUpBonusMaterial{};
-DiffuseMaterial* Cell::m_spSkateDownBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spBombMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spFlameMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spBombUpBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spBombDownBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spFireUpBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spFireDownBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spFullFireBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spPierceBombBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spSkateUpBonusMaterial{};
+DiffuseMaterial_Shadow* Cell::m_spSkateDownBonusMaterial{};
 PxMaterial* Cell::m_spPhysxMaterial{};
 float Cell::m_sSecUntilExplotion{ 2.f };
 float Cell::m_sSecFireBurn{ 1.f };
@@ -37,19 +37,19 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 {
 	if (!m_spBombMaterial)
 	{
-		m_spBombMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spBombMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombMaterial->SetDiffuseTexture(L"Textures/Bomb/Bomb.png");
 	}
 
 	if (!m_spFlameMaterial)
 	{
-		m_spFlameMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFlameMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFlameMaterial->SetDiffuseTexture(L"Textures/Fire.png");
 	}
 
 	if (!m_spBombUpBonusMaterial)
 	{
-		m_spBombUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spBombUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombUp.png");
 
 		m_sBombUpBonusCallBack =
@@ -75,7 +75,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spBombDownBonusMaterial)
 	{
-		m_spBombDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spBombDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombDown.png");
 
 		m_sBombDownBonusCallBack =
@@ -101,7 +101,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spFireUpBonusMaterial)
 	{
-		m_spFireUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFireUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFireUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireUp.png");
 
 		m_sFireUpBonusCallBack =
@@ -127,7 +127,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spFireDownBonusMaterial)
 	{
-		m_spFireDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFireDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFireDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireDown.png");
 
 		m_sFireDownBonusCallBack =
@@ -153,7 +153,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spFullFireBonusMaterial)
 	{
-		m_spFullFireBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spFullFireBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFullFireBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
 
 		m_sFullFireBonusCallBack =
@@ -176,7 +176,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spPierceBombBonusMaterial)
 	{
-		m_spPierceBombBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spPierceBombBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spPierceBombBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/PierceBomb.png");
 
 		m_sPierceBombBonusCallBack =
@@ -199,7 +199,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spSkateUpBonusMaterial)
 	{
-		m_spSkateUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spSkateUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spSkateUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateUp.png");
 
 		m_sSkateUpBonusCallBack =
@@ -224,7 +224,7 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 	if (!m_spSkateDownBonusMaterial)
 	{
-		m_spSkateDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+		m_spSkateDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spSkateDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateDown.png");
 
 		m_sSkateDownBonusCallBack =

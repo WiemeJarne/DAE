@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Materials\Shadow\ColorMaterial_Shadow_Skinned.cpp" />
     <ClCompile Include="Scenes\Exam\ExamScene.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial_Skinned.cpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Materials\Shadow\ColorMaterial_Shadow_Skinned.h" />
     <ClInclude Include="Scenes\Exam\ExamScene.h" />
     <ClInclude Include="Materials\DiffuseMaterial.h" />
     <ClInclude Include="Materials\DiffuseMaterial_Skinned.h" />

@@ -1,11 +1,142 @@
-﻿     Creating library C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.lib and object C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exp
+﻿  stdafx.cpp
+  Cell.cpp
+  Grid.cpp
+  ColorMaterial_Shadow_Skinned.cpp
+  ExamScene.cpp
+  DiffuseMaterial.cpp
+  DiffuseMaterial_Skinned.cpp
+  DiffuseMaterial_Shadow.cpp
+  DiffuseMaterial_Shadow_Skinned.cpp
+  SpikyMaterial.cpp
+  BoneObject.cpp
+  Character.cpp
+  PongScene.cpp
+  ModelTestScene.cpp
+  SpikyScene.cpp
+  SpriteTestScene.cpp
+  ComponentTestScene.cpp
+  CubePrefab.cpp
+  SpherePrefab.cpp
+  TorusPrefab.cpp
+  ColorMaterial.cpp
+  Compiling...
+  MinionScene.cpp
+  SoftwareSkinningScene_1.cpp
+  SoftwareSkinningScene_2.cpp
+  SoftwareSkinningScene_3.cpp
+  HardwareSkinningScene.cpp
+  CharacterScene.cpp
+  FontTestScene.cpp
+  PickingScene.cpp
+  ShadowMappingScene.cpp
+  ParticleScene.cpp
+  Main.cpp
+  MainGame.cpp
+  UberMaterialScene.cpp
+  UberMaterial.cpp
+     Creating library C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.lib and object C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exp
   Generating code
-  7 of 5498 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    93 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 6044 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   OverlordProject.vcxproj -> C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exe
   0 File(s) copied
   0 File(s) copied
   0 File(s) copied
-  0 File(s) copied
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\DebugRenderer.fxc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\ParticleRenderer.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\PosNorm3D.fxc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\PosNormTex3D_Skinned.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\SpriteRenderer.fxc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\TextRenderer.fxc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\Shadow\PosNormCol3D_Shadow_Skinned.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\Shadow\PosNormTex3D_Shadow.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\Shadow\PosNormTex3D_Shadow_Skinned.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Effects\Shadow\ShadowMapGenerator.fx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\bomb.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bomb.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bomb.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bomb.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\bonus.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bonus.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bonus.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Bonus.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Box.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Box.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Box.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Brick.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Brick.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Brick.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Brick.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\CrackedBrick.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\CrackedBrick.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\CrackedBrick.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\CrackedBrick.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Cube.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Cube.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Cube.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Cube.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\fire.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Fire.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Fire.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Fire.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\pickUp.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\pickUp.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\pickUp.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\player.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Player.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Player.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Player.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PlayerIdle.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PlayerIdle.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PlayerIdle.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PlayerRun.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PlayerRun.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\PlayerRun.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Rock.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Rock.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Rock.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Rock.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\SimpleLevel.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\SimpleLevel.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Teapot.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Terrain.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Terrain.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Terrain.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\terrain.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Tree.fbx
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Tree.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Tree.ovpc
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\Tree.ovpt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Meshes\UnitPlane.ovm
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\SpriteFonts\Consolas_32.fnt
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\SpriteFonts\Consolas_32_0.dds
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\brick.jpg
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\brick.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Diffuse_Seamless_Dirt_Tile.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Diffuse_Seamless_Grass_Tile.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Fire.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\FireBall.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\GroundBrick.jpg
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\MetalPlate.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Normal_Seamless_Dirt_Tile.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Normal_Seamless_Grass_Tile.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\seamless_height_diff.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Smoke.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Spec_Seamless_Dirt_Tile.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Spec_Seamless_Grass_Tile.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bomb\Bomb.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bomb\Bomb_normals.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bomb\Bomb_spec.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\BombDown.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\BombUp.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\FireDown.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\FireUp.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\FullFire.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\PierceBomb.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\SkateDown.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\Bonus\SkateUp.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\CrackedBrick\NormalMap.png
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\CrackedBrick\rock.jpg
+  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\CrackedBrick\SpecularMap.png
+  96 File(s) copied

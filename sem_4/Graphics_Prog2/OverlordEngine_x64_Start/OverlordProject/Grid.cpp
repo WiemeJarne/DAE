@@ -1,24 +1,25 @@
 #include "stdafx.h"
 #include "Grid.h"
+#include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 
 Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMaterial* pPhysxMaterial)
 	: m_AmountOfRows{ amountOfRows }
 	, m_AmountOfColumns{ amountOfColumns }
 {
 	//brick material
-	auto pBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
+	auto pBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
 	pBrickMaterial->SetDiffuseTexture(L"Textures/brick.jpg");
 
 	//crackedBrick material
-	auto pCrackedBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
+	auto pCrackedBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
 	pCrackedBrickMaterial->SetDiffuseTexture(L"Textures/CrackedBrick/rock.jpg");
 
 	//grass material
-	auto pGrassMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
+	auto pGrassMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
 	pGrassMaterial->SetDiffuseTexture(L"Textures/Diffuse_Seamless_Grass_Tile.png");
 
 	//metalPlate material
-	auto pMetalPlateMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial>() };
+	auto pMetalPlateMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
 	pMetalPlateMaterial->SetDiffuseTexture(L"Textures/MetalPlate.png");
 
 	for (int rowNr{}; rowNr < amountOfRows; ++rowNr)

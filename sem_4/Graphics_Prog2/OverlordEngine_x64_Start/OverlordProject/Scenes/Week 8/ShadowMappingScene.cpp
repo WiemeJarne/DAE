@@ -3,6 +3,7 @@
 
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 #include "Materials/Shadow/DiffuseMaterial_Shadow_Skinned.h"
+#include "Materials/Shadow/ColorMaterial_Shadow_Skinned.h"
 
 
 void ShadowMappingScene::Initialize()
@@ -14,8 +15,8 @@ void ShadowMappingScene::Initialize()
 
 	//Materials
 	//*********
-	const auto pPeasantMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow_Skinned>();
-	pPeasantMaterial->SetDiffuseTexture(L"Textures/PeasantGirl_Diffuse.png");
+	const auto pPeasantMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial_Shadow_Skinned>();
+	//pPeasantMaterial->SetDiffuseTexture(L"Textures/PeasantGirl_Diffuse.png");
 
 	const auto pGroundMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	pGroundMaterial->SetDiffuseTexture(L"Textures/GroundBrick.jpg");
@@ -34,7 +35,7 @@ void ShadowMappingScene::Initialize()
 	//Character Mesh
 	//**************
 	const auto pObject = AddChild(new GameObject);
-	const auto pModel = pObject->AddComponent(new ModelComponent(L"Meshes/PeasantGirl.ovm"));
+	const auto pModel = pObject->AddComponent(new ModelComponent(L"Meshes/Player.ovm"));
 	pModel->SetMaterial(pPeasantMaterial);
 
 	pObject->GetTransform()->Scale(0.1f, 0.1f, 0.1f);
