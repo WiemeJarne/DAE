@@ -120,6 +120,19 @@ void ExamScene::Update()
 
 	if(m_pGrid)
 		m_pGrid->Update();
+
+	//loop over the players and check if a player died if so delete the player it the world position y value is higher then 30.f
+	for (auto& pCharacter : m_Characters)
+	{
+		if (pCharacter && pCharacter->GetCharacterDescription().isDead)
+		{
+			if (pCharacter->GetTransform()->GetWorldPosition().y >= 30.f)
+			{
+				RemoveChild(pCharacter, true);
+				pCharacter = nullptr;
+			}
+		}
+	}
 }
 
 void ExamScene::UpdateButtons()
@@ -283,7 +296,8 @@ void ExamScene::UpdateMenus()
 			break;
 
 		case Buttons::restart:
-
+			Reset();
+			NavigateToMenu(Menus::joinMenu);
 			break;
 
 		case Buttons::toMainMenu:
@@ -316,18 +330,16 @@ void ExamScene::UpdateMenus()
 void ExamScene::Reset()
 {
 	//delete all the characters and the grid and set the lightDirection
-	for (auto pCharacter : m_Characters)
+	for (auto& pCharacter : m_Characters)
 	{
 		if (pCharacter)
 		{
 			RemoveChild(pCharacter, true);
+			pCharacter = nullptr;
 		}
 	}
 
 	m_IsPaused = true;
-
-	m_Characters.clear();
-	m_Characters.resize(4);
 
 	SafeDelete(m_pGrid);
 
