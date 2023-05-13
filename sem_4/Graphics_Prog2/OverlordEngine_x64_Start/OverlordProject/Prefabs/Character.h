@@ -60,6 +60,7 @@ struct CharacterDesc
 	float maxMoveSpeed{ 5.f };
 	float maxFallSpeed{ 15.f };
 
+	bool canWalk{ true };
 	bool canJump{ true };
 	float JumpSpeed{ 15.f };
 
@@ -82,13 +83,17 @@ struct CharacterDesc
 
 	bool useOwnCamera{ true };
 
+	bool isDead{};
+
+	XMFLOAT3 flyDirection{ 0.f, 0.f, 1.f };
+
 	float stepOffset{ 0.5f };
 
 	const int maxAmountOfBombsAllowedToBePlacedAtOnce{ 8 };
-	int amountOfBombsAllowedToBePlacedAtOnce{ 3 };
+	int amountOfBombsAllowedToBePlacedAtOnce{ 1 };
 	int amountOfBombsCurrentlyOnGrid{};
 	const int maxBombBlastRadius{ 10 };
-	int bombBlastRadius{ 5 };
+	int bombBlastRadius{ 2 };
 	bool hasPierceBomb{};
 };
 

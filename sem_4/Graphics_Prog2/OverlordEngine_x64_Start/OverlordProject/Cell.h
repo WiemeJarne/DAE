@@ -20,6 +20,7 @@ public:
 
 	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state = State::empty);
 	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell);
+	~Cell();
 
 	void Update();
 	void PlaceBomb(CharacterDesc* pCharacterDesc);
@@ -28,6 +29,7 @@ public:
 	State GetState() const { return m_State; }
 	void SetShouldPlacePickUp(bool shouldPlacePickUp) { m_ShouldPlacePickUp = shouldPlacePickUp; }
 	void SetShouldDestroyGameObjectInCell(bool shouldDestroyGameObjectInCell) { m_ShouldDestroyGameObjectInCell = shouldDestroyGameObjectInCell; }
+	void SetShouldAddColliderToGameObjectInCell(bool shouldAddColliderToGameObjectInCell) { m_ShouldAddColliderToGameObjectInCell = shouldAddColliderToGameObjectInCell; }
 
 private:
 	XMFLOAT3 m_MiddlePos{};
@@ -57,6 +59,8 @@ private:
 	static PxMaterial* m_spPhysxMaterial;
 	static float m_sSecUntilExplotion;
 	static float m_sSecFireBurn;
+	static GameObject::PhysicsCallback m_sBombCallBack;
+	static GameObject::PhysicsCallback m_sFireCallBack;
 	static GameObject::PhysicsCallback m_sBombUpBonusCallBack;
 	static GameObject::PhysicsCallback m_sBombDownBonusCallBack;
 	static GameObject::PhysicsCallback m_sFireUpBonusCallBack;

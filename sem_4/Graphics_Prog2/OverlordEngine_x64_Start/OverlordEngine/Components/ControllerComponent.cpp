@@ -6,6 +6,11 @@ ControllerComponent::ControllerComponent(const PxCapsuleControllerDesc& controll
 {
 }
 
+ControllerComponent::~ControllerComponent()
+{
+	m_pController->release();
+}
+
 void ControllerComponent::Initialize(const SceneContext& /*sceneContext*/)
 {
 	if (!m_IsInitialized)

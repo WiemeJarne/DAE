@@ -4,7 +4,7 @@ class ControllerComponent : public BaseComponent
 {
 public:
 	ControllerComponent(const PxCapsuleControllerDesc& controllerDesc);
-	~ControllerComponent() override = default;
+	~ControllerComponent() override;
 
 	ControllerComponent(const ControllerComponent& other) = delete;
 	ControllerComponent(ControllerComponent&& other) noexcept = delete;

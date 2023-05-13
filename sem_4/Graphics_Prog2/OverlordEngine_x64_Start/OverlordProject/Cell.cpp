@@ -19,6 +19,8 @@ DiffuseMaterial_Shadow* Cell::m_spSkateDownBonusMaterial{};
 PxMaterial* Cell::m_spPhysxMaterial{};
 float Cell::m_sSecUntilExplotion{ 2.f };
 float Cell::m_sSecFireBurn{ 1.f };
+GameObject::PhysicsCallback Cell::m_sBombCallBack;
+GameObject::PhysicsCallback Cell::m_sFireCallBack;
 GameObject::PhysicsCallback Cell::m_sBombUpBonusCallBack;
 GameObject::PhysicsCallback Cell::m_sBombDownBonusCallBack;
 GameObject::PhysicsCallback Cell::m_sFireUpBonusCallBack;
@@ -39,12 +41,29 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 	{
 		m_spBombMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombMaterial->SetDiffuseTexture(L"Textures/Bomb/Bomb.png");
+
+		m_sBombCallBack =
+			[&](GameObject* pTriggerObject, GameObject*, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::LEAVE)
+				m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition())->SetShouldAddColliderToGameObjectInCell(true);
+		};
 	}
 
 	if (!m_spFlameMaterial)
 	{
 		m_spFlameMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFlameMaterial->SetDiffuseTexture(L"Textures/Fire.png");
+
+		m_sFireCallBack = 
+			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+		{
+			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+			if (action == PxTriggerAction::ENTER && pCharacter)
+			{
+				pCharacter->GetCharacterDescription().isDead = true;
+			}
+		};
 	}
 
 	if (!m_spBombUpBonusMaterial)
@@ -140,8 +159,8 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 
 				--characterDesc.bombBlastRadius;
 
-				if (characterDesc.bombBlastRadius < 1)
-					characterDesc.bombBlastRadius = 1;
+				if (characterDesc.bombBlastRadius < 2)
+					characterDesc.bombBlastRadius = 2;
 
 				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
 
@@ -265,8 +284,19 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 	m_pGameObjectInCell = pGameObjectInCell;
 }
 
+Cell::~Cell()
+{
+	DestroyObjectInCell();
+}
+
 void Cell::Update()
 {
+	if (m_ShouldAddColliderToGameObjectInCell)
+	{
+		AddColliderToGameObjectInCell();
+		m_ShouldAddColliderToGameObjectInCell = false;
+	}
+
 	if (m_ShouldDestroyGameObjectInCell)
 	{
 		DestroyObjectInCell();
@@ -333,15 +363,7 @@ void Cell::PlaceBomb(CharacterDesc* pCharacterDesc)
 	auto pRigidBody = pBomb->AddComponent(new RigidBodyComponent(true));
 	pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *m_spPhysxMaterial, true);
 
-	auto callBack
-	{
-		[&](GameObject*, GameObject* , PxTriggerAction action)
-		{
-			if (action == PxTriggerAction::LEAVE)
-				m_ShouldAddColliderToGameObjectInCell = true;
-		}
-	};
-	pBomb->SetOnTriggerCallBack(callBack);
+	pBomb->SetOnTriggerCallBack(m_sBombCallBack);
 
 	pBomb->GetTransform()->Translate(m_MiddlePos);
 	pBomb->GetTransform()->Scale(0.01f);
@@ -376,7 +398,7 @@ void Cell::ExplodeBomb()
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
 		auto bottomNeigbor{ m_pOwnerGrid->GetCell(m_RowNr - index, m_ColNr) };
-		if (bottomNeigbor && bottomNeigbor->GetState() != State::wall && bottomNeigbor->GetState() != State::fire)
+		if (bottomNeigbor && bottomNeigbor->GetState() != State::fire)
 		{
 			if (bottomNeigbor->GetState() == State::bomb)
 			{
@@ -511,25 +533,12 @@ void Cell::PlaceFire(XMFLOAT3 pos)
 
 	m_State = State::fire;
 
-	auto callBack
-	{
-		[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			if (action == PxTriggerAction::ENTER && reinterpret_cast<Character*>(pOtherObject))
-				std::cout << "player in flame\n";
-			//else if(pOtherObject)
-			//{
-			//	m_spGameScene->RemoveChild(pOtherObject, true);
-			//}
-		}
-	};
-
 	auto pFlame = m_spGameScene->AddChild(new GameObject());
 	auto pModel{ pFlame->AddComponent(new ModelComponent(L"Meshes/Fire.ovm")) };
 	pModel->SetMaterial(m_spFlameMaterial);
 	auto pRigidBody{ pFlame->AddComponent(new RigidBodyComponent(true)) };
 	pRigidBody->AddCollider(PxBoxGeometry(0.5f, 0.5f, 0.5f), *m_spPhysxMaterial, true);
-	pFlame->SetOnTriggerCallBack(callBack);
+	pFlame->SetOnTriggerCallBack(m_sFireCallBack);
 	pFlame->GetTransform()->Translate(pos);
 	pFlame->GetTransform()->Scale(0.01f);
 	
@@ -544,11 +553,18 @@ void Cell::PlaceRandomPickUp(XMFLOAT3 pos)
 
 	m_State = State::pickUp;
 
+	DestroyObjectInCell();
+	m_State = State::empty;
+
+	int randomInt{ std::rand() % 2 };
+
+	if (randomInt == 0)
+		return;
+
 	auto pBonus = m_spGameScene->AddChild(new GameObject());
 	auto pModel{ pBonus->AddComponent(new ModelComponent(L"Meshes/Bonus.ovm")) };
 
-	//const int randomInt{ std::rand() % 8 };
-	const int randomInt{ 7 };
+	randomInt = std::rand() % 8;
 
 	switch (randomInt)
 	{
@@ -591,6 +607,5 @@ void Cell::PlaceRandomPickUp(XMFLOAT3 pos)
 	pBonus->GetTransform()->Translate(pos);
 	pBonus->GetTransform()->Scale(0.007f);
 
-	DestroyObjectInCell();
 	m_pGameObjectInCell = pBonus;
 }

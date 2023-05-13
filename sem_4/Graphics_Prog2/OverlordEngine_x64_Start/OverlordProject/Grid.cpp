@@ -38,7 +38,8 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 
 				auto cellPos{ pBrick->GetTransform()->GetPosition() };
 				cellPos.y += 1.f;
-				m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::wall));
+				
+				m_BottomLayerGameObject.push_back(pBrick);
 
 				pBrick = pGameScene->AddChild(new GameObject());
 				pBrick->GetTransform()->Scale(0.045f);
@@ -47,6 +48,7 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 				pModel->SetMaterial(pBrickMaterial);
 				pRigidBody = pBrick->AddComponent(new RigidBodyComponent(true));
 				pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
+				m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::wall, pBrick));
 			}
 			else
 			{
@@ -55,6 +57,8 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 				pGrass->GetTransform()->Translate(static_cast<float>(colNr), 0.5f, static_cast<float>(rowNr));
 				auto cellPos{ pGrass->GetTransform()->GetPosition() };
 				cellPos.y += 1.f;
+
+				m_BottomLayerGameObject.push_back(pGrass);
 
 				//randomly rotate the grass block around the x-axis
 				int randomNr{ rand() % 4 };
@@ -150,7 +154,12 @@ Grid::~Grid()
 {
 	for (auto cell : m_PlayingFieldCells)
 	{
-		delete cell;
+		SafeDelete(cell);
+	}
+
+	for (auto pGameObject : m_BottomLayerGameObject)
+	{
+		pGameObject->GetScene()->RemoveChild(pGameObject, true);
 	}
 }
 

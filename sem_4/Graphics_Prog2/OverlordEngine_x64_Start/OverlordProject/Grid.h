@@ -14,11 +14,13 @@ public:
 	void PlaceBomb(XMFLOAT3 posInCell, CharacterDesc* pCharacterDesc);
 	Cell* GetCell(int rowNr, int colNr) const;
 	Cell* GetCell(XMFLOAT3 posInCell) const;
+	int GetAmountOfRow() const { return m_AmountOfRows; }
+	int GetAmountOfColumns() const { return m_AmountOfColumns;  }
 
 private:
 	const int m_AmountOfRows{};
 	const int m_AmountOfColumns{};
 	std::vector<Cell*> m_PlayingFieldCells{};
-
+	std::vector<GameObject*> m_BottomLayerGameObject{};
 	
 };

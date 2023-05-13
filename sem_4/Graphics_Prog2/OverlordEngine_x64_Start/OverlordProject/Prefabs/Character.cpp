@@ -99,8 +99,6 @@ void Character::Update(const SceneContext& sceneContext)
 		auto previousRotation{ modelTransform->GetRotation() };
 		modelTransform->Rotate(0.f, -previousRotation.y, 0.f);
 		modelTransform->Rotate(0.f, std::atan2(look.y, -look.x) + XM_PIDIV2, 0.f, false);
-
-		
 	}
 
 	//************************
@@ -112,6 +110,7 @@ void Character::Update(const SceneContext& sceneContext)
 	//Retrieve the forward & right vector (as XMVECTOR) from the TransformComponent
 	const auto& forward{ XMLoadFloat3(&transfromComponent->GetForward()) };
 	const auto& right{ XMLoadFloat3(&transfromComponent->GetRight()) };
+	const auto& up{ XMLoadFloat3(&transfromComponent->GetUp()) };
 
 	//***************
 	//CAMERA ROTATION
@@ -135,7 +134,7 @@ void Character::Update(const SceneContext& sceneContext)
 	//Calculate the current move acceleration for this frame (m_MoveAcceleration * ElapsedTime)
 	const float currentMoveAcceleration{ m_MoveAcceleration * elapsedSec };
 	//If the character is moving (= input is pressed)
-	if (abs(move.x) > 0.f || abs(move.y) > 0.f)
+	if ((abs(move.x) > 0.f || abs(move.y) > 0.f) && m_CharacterDesc.canWalk && !m_CharacterDesc.isDead)
 	{
 		//Calculate & Store the current direction (m_CurrentDirection) >> based on the forward/right vectors and the pressed input
 		const XMVECTOR currentDirection{ right * move.x + forward * move.y };
@@ -146,7 +145,7 @@ void Character::Update(const SceneContext& sceneContext)
 
 		m_MoveSpeed = std::min(m_MoveSpeed, m_CharacterDesc.maxMoveSpeed * m_CharacterDesc.speedMultiplier);
 
-		if (m_pModelAnimator && m_AnimationState != CharacterAnimationState::running)
+		if (!m_CharacterDesc.isDead && m_pModelAnimator && m_AnimationState != CharacterAnimationState::running)
 		{
 			m_pModelAnimator->SetAnimation(L"run");
 
@@ -156,7 +155,7 @@ void Character::Update(const SceneContext& sceneContext)
 			m_AnimationState = CharacterAnimationState::running;
 		}
 	}
-	else //Else (character is not moving, or stopped moving)
+	else if(!m_CharacterDesc.isDead)//Else (character is not moving, or stopped moving)
 	{
 		//Decrease the current MoveSpeed with the current Acceleration (m_MoveSpeed)
 		m_MoveSpeed -= currentMoveAcceleration;
@@ -175,11 +174,33 @@ void Character::Update(const SceneContext& sceneContext)
 		}
 	}
 
+	//check if the character is dead
+	if (m_CharacterDesc.isDead)
+	{
+		//if so check if the flyDirction x and y values are close to 0
+		if (abs(m_CharacterDesc.flyDirection.x) < epsilon && abs(m_CharacterDesc.flyDirection.x) < epsilon)
+		{
+			//if so randomize the x and y values between -1 and 1
+			m_CharacterDesc.flyDirection.x = ((rand() % 11) - 5) / 10.f;
+			m_CharacterDesc.flyDirection.y = ((rand() % 11) - 5) / 10.f;
+
+			const XMVECTOR currentDirection{ right * m_CharacterDesc.flyDirection.x + forward * m_CharacterDesc.flyDirection.y + up * m_CharacterDesc.flyDirection.z };
+			XMStoreFloat3(&m_CurrentDirection, currentDirection);
+
+			m_AnimationState = CharacterAnimationState::none;
+			if (m_pModelAnimator)
+				m_pModelAnimator->Pause();
+		}
+
+		m_MoveSpeed += currentMoveAcceleration;	
+	}
+
 	//Now we can calculate the Horizontal Velocity which should be stored in m_TotalVelocity.xz
 	//Calculate the horizontal velocity (m_CurrentDirection * MoveSpeed)
 	//Set the x/z component of m_TotalVelocity (horizontal_velocity x/z)
 	//It's important that you don't overwrite the y component of m_TotalVelocity (contains the vertical velocity)
 	m_TotalVelocity.x = m_CurrentDirection.x * m_MoveSpeed;
+	m_TotalVelocity.y = m_CurrentDirection.y * m_MoveSpeed;
 	m_TotalVelocity.z = m_CurrentDirection.z * m_MoveSpeed;
 
 	//## Vertical Movement (Jump/Fall)
@@ -197,7 +218,7 @@ void Character::Update(const SceneContext& sceneContext)
 		//Set m_TotalVelocity.y equal to CharacterDesc::JumpSpeed
 		m_TotalVelocity.y = m_CharacterDesc.JumpSpeed;
 	}
-	else //Else (=Character is grounded, no input pressed)
+	else if(!m_CharacterDesc.isDead) //Else if not dead (=Character is grounded, no input pressed)
 	{
 		//m_TotalVelocity.y is zero
 		m_TotalVelocity.y = 0.f;
@@ -216,31 +237,6 @@ void Character::Update(const SceneContext& sceneContext)
 	};
 
 	m_pControllerComponent->Move(displacement);
-
-	/*if (m_pModelAnimator && (abs(displacement.x) > epsilon || abs(displacement.z) > epsilon))
-	{
-		if (m_AnimationState != CharacterAnimationState::running)
-		{
-			m_pModelAnimator->SetAnimation(L"run");
-
-			if(!m_pModelAnimator->IsPlaying())
-				m_pModelAnimator->Play();
-
-			m_AnimationState = CharacterAnimationState::running;
-		}
-	}
-	else if(m_pModelAnimator)
-	{
-		if (m_AnimationState != CharacterAnimationState::idle)
-		{
-			m_pModelAnimator->SetAnimation(L"idle");
-
-			if (!m_pModelAnimator->IsPlaying())
-				m_pModelAnimator->Play();
-
-			m_AnimationState = CharacterAnimationState::idle;
-		}
-	}*/
 
 	//The above is a simple implementation of Movement Dynamics, adjust the code to further improve the movement logic and behaviour.
 	//Also, it can be usefull to use a seperate RayCast to check if the character is grounded (more responsive)

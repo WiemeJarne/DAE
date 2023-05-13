@@ -2,6 +2,7 @@
 #include <vector>
 
 class DiffuseMaterial;
+class ColorMaterial_Shadow_Skinned;
 class Character;
 class Grid;
 
@@ -49,7 +50,9 @@ private:
 	enum class Menus
 	{
 		mainMenu,
-		inGameMenu,
+		joinMenu,
+		inGameUI,
+		pauseMenu,
 		endMenu,
 		none
 	};
@@ -62,6 +65,7 @@ private:
 	GameObject* m_pContinueButton{};
 	GameObject* m_pRestartButton{};
 	GameObject* m_pToMainMenuButton{};
+	GameObject* m_pTerrain{};
 
 	const float m_SelectedButtonXOffset{ -20.f };
 	float m_DeselectedButtonXPos{};
@@ -72,9 +76,32 @@ private:
 	XMFLOAT3 m_VsSymbolPosWhenBattleButtonSelected{};
 	XMFLOAT3 m_StopSymbolPosWhenBattleButtonSelected{};
 
+	std::string m_JoinScreenText{ "press start to join and A to start the game" };
+
+	PxMaterial* m_pDefaultMaterial{};
+
+	ColorMaterial_Shadow_Skinned* m_pRedMaterial{};
+	ColorMaterial_Shadow_Skinned* m_pSkinMaterial{};
+	ColorMaterial_Shadow_Skinned* m_pBlueMaterial{};
+	ColorMaterial_Shadow_Skinned* m_pBlackMaterial{};
+	ColorMaterial_Shadow_Skinned* m_pYellowMaterial{};
+	ColorMaterial_Shadow_Skinned* m_pWhiteMaterial{};
+
+	bool m_IsPaused{ true };
+	bool m_CountDown{ false };
+
+	const float m_RoundDurationSec{ 180.f };
+	float m_TimeLeft{};
+	float m_CountDownStart{ 3.f };
+
 	void Reset();
 
+	void InitializeSprites();
+	void UpdateButtons();
+	void UpdateMenus();
+	void JoinGame(GamepadIndex gamepadIndex);
 	void NavigateToMenu(Menus menuToNavigateTo);
 	void SelectButton(Buttons button, bool skipDelayTime = false);
 	void DeselectButton(Buttons button);
+	void StartRound();
 };
