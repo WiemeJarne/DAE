@@ -13,84 +13,49 @@
 #include "stream.h"
 #include "filereadstream.h"
 #include "istreamwrapper.h"
-
-struct Position
-{
-	Position()
-	: x{ 0 }
-	, y{ 0 }
-	, z{ 0 }
-	{}
-
-	Position(int _x, int _y, int _z)
-		: x{ _x }
-		, y{ _y }
-		, z{ _z }
-	{}
-
-	int x, y, z;
-
-	bool operator==(Position other)
-	{
-		if (x == other.x && y == other.y && z == other.z)
-			return true;
-
-		return false;
-	}
-};
-
-struct Cube
-{
-	Position p1;
-	Position p2;
-	Position p3;
-	Position p4;
-	Position p5;
-	Position p6;
-	Position p7;
-	Position p8;
-
-	bool hasRightNeighbor{};
-	bool hasLeftNeighbor{};
-	bool hasTopNeighbor{};
-	bool hasBottomNeighbor{};
-	bool hasBackNeighbor{};
-	bool hasFrontNeighbor{};
-
-	bool isOpaque{};
-
-	std::wstring layer{};
-
-	bool operator==(Cube other)
-	{
-		if (	p1 == other.p1 && p2 == other.p2
-			 && p3 == other.p3 && p4 == other.p4
-			 && p5 == other.p5 && p6 == other.p6
-			 && p7 == other.p7 && p8 == other.p8)
-		{
-			return true;
-		}
-
-		return false;
-	}
-};
-
-void CreateCube(const std::wstring& layer, const Position& pos, bool isOpaque, std::vector<Cube>& cubes);
-void WriteCubesToFile(FILE* pOFile, const std::vector<Cube>& cubes);
-void CalculateCubesNeigbors(std::vector<Cube>& cubes);
+#include "MinecraftTool.h"
 
 int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
+	if (argc != 2 && argc != 3)
+		PrintInstructions();
+
+	std::ifstream is{ argv[1] };
+
+	if (!is)
+	{
+		std::wcout << L"Couldn't find inputFile\n";
+		PrintInstructions();
+		return -1;
+	}
+
+	if (std::wstring(argv[1]).find(L".json") == 0)
+	{
+		std::wcout << L"InputFile must be a json file.\n";
+		PrintInstructions();
+	}
+
 	FILE* pOFile = nullptr;
-	_wfopen_s(&pOFile, L"scene.obj", L"w+,ccs=UTF-8");
+	std::wstring outputFile{};
+
+	if (argc == 3)
+		outputFile = argv[2];
+	else
+	{
+		outputFile = L"output.obj";
+		std::wcout << L"Couldn't find given outputFile the file will be named output.obj and will be placed in the same folder as MinecraftTool.exe\n";
+	}
+
+	_wfopen_s(&pOFile, outputFile.c_str(), L"w+,ccs=UTF-8");
 
 	if (pOFile == nullptr)
 		return -1;
-
-	std::ifstream is{ "scene.json" };
-
-	if (!is)
-		return -1;
+	
+	if (outputFile.find(L".obj") == 0)
+	{
+		std::wcout << L"OutputFile must be an obj file.\n";
+		PrintInstructions();
+	}
 
 	// it was possible to create the file for writing.
 	const wchar_t* text = L"#∂ is the symbol for partial derivative.\n";
@@ -159,6 +124,9 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	}
 
 	fclose(pOFile);
+
+	std::cout << "Convertion completed\n";
+
 	return 0;
 }
 
@@ -289,4 +257,9 @@ void CalculateCubesNeigbors(std::vector<Cube>& cubes)
 			}
 		}
 	}
+}
+
+void PrintInstructions()
+{
+	std::wcout << L"Wrong amount of arguments.\nPossible arguments:\n\tMinecraftTool inputFile.json\n\tMinecraftTool inputFile.json outputFile.obj\n";
 }
