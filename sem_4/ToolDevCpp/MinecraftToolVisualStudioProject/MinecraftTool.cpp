@@ -17,10 +17,13 @@
 
 int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
-	if (argc != 2 && argc != 3)
+	if (argc != 3 && argc != 5)
+	{
+		std::wcout << "wrong amount of arguments\n";
 		PrintInstructions();
+	}
 
-	std::ifstream is{ argv[1] };
+	std::ifstream is{ argv[2] };
 
 	if (!is)
 	{
@@ -29,7 +32,14 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 		return -1;
 	}
 
-	if (std::wstring(argv[1]).find(L".json") == 0)
+	if (std::wstring(argv[1]) != L"-i")
+	{
+		std::wcout << L"Wrong 2nd argument\n";
+		PrintInstructions();
+	}
+
+	std::wstring inputFile{ std::wstring(argv[2]) };
+	if (std::wstring(inputFile).find(L".json") == 0)
 	{
 		std::wcout << L"InputFile must be a json file.\n";
 		PrintInstructions();
@@ -38,12 +48,27 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	FILE* pOFile = nullptr;
 	std::wstring outputFile{};
 
-	if (argc == 3)
-		outputFile = argv[2];
+	if (argc == 5)
+	{
+		if (std::wstring(argv[3]) != L"-o")
+		{
+			std::wcout << L"Wrong 4rd argument\n";
+			PrintInstructions();
+		}
+
+		outputFile = argv[4];
+	}
 	else
 	{
-		outputFile = L"output.obj";
-		std::wcout << L"Couldn't find given outputFile the file will be named output.obj and will be placed in the same folder as MinecraftTool.exe\n";
+		outputFile = inputFile.erase(inputFile.find(L"json")).append(L"obj");
+	}
+
+	if (outputFile == L"")
+		return -1;
+
+	if (outputFile.find(L".obj") == 0)
+	{
+		std::wcout << L"OutputFile must be an obj file\n";
 	}
 
 	_wfopen_s(&pOFile, outputFile.c_str(), L"w+,ccs=UTF-8");
@@ -128,6 +153,18 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	std::cout << "Convertion completed\n";
 
 	return 0;
+}
+
+std::wstring Replace(const std::wstring& str, const std::wstring& subStrToReplace, const std::wstring& strToReplaceSubStringWith)
+{
+	size_t start_pos = str.find(subStrToReplace);
+
+	std::wstring result{ str };
+
+	if (start_pos == std::string::npos)
+		result.replace(start_pos, subStrToReplace.length(), strToReplaceSubStringWith);
+
+	return result;
 }
 
 void CreateCube(const std::wstring& layer, const Position& pos, bool isOpaque, std::vector<Cube>& cubes)
@@ -261,5 +298,5 @@ void CalculateCubesNeigbors(std::vector<Cube>& cubes)
 
 void PrintInstructions()
 {
-	std::wcout << L"Wrong amount of arguments.\nPossible arguments:\n\tMinecraftTool inputFile.json\n\tMinecraftTool inputFile.json outputFile.obj\n";
+	std::wcout << L"Possible arguments:\n\tMinecraftTool -i (inputFileName).json\n\tMinecraftTool -i inputFile.json -o outputFile.obj\n";
 }

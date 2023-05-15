@@ -64,3 +64,4 @@ void CreateCube(const std::wstring& layer, const Position& pos, bool isOpaque, s
 void WriteCubesToFile(FILE* pOFile, const std::vector<Cube>& cubes);
 void CalculateCubesNeigbors(std::vector<Cube>& cubes);
 void PrintInstructions();
+std::wstring Replace(const std::wstring& str, const std::wstring& subStrToReplace, const std::wstring& strToReplaceSubStringWith);
