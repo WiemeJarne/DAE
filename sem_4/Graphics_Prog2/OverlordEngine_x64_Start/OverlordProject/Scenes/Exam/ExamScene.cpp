@@ -6,6 +6,7 @@
 #include "Materials/Shadow/ColorMaterial_Shadow_Skinned.h"
 #include "Prefabs/Character.h"
 #include "Grid.h"
+#include "Materials/Post/PostFilmGrain.h"
 
 void ExamScene::Initialize()
 {
@@ -41,7 +42,7 @@ void ExamScene::Initialize()
 	m_pTerrain->GetTransform()->Translate(0.f, -5.f, 0.f);
 
 	NavigateToMenu(Menus::mainMenu);
-
+	
 	////ground plane
 	GameSceneExt::CreatePhysXGroundPlane(*this, m_pDefaultMaterial);
 
@@ -59,6 +60,9 @@ void ExamScene::Initialize()
 	m_pWhiteMaterial->SetColor(XMFLOAT4(Colors::White));	
 
 	Reset();
+
+	m_pPostFilmGrain = MaterialManager::Get()->CreateMaterial<PostFilmGrain>();
+	AddPostProcessingEffect(m_pPostFilmGrain);
 }
 
 ExamScene::~ExamScene()
@@ -74,16 +78,16 @@ void ExamScene::Update()
 
 	if (m_CurrentMenu == Menus::joinMenu)
 	{
-		if(m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START))
+		if(m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START) && !m_Characters[0])
 			JoinGame(GamepadIndex::playerOne);
 
-		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START, GamepadIndex::playerTwo))
+		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START, GamepadIndex::playerTwo) && !m_Characters[1])
 			JoinGame(GamepadIndex::playerTwo);
 
-		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START, GamepadIndex::playerThree))
+		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START, GamepadIndex::playerThree) && !m_Characters[2])
 			JoinGame(GamepadIndex::playerThree);
 
-		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START, GamepadIndex::playerFour))
+		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_START, GamepadIndex::playerFour) && !m_Characters[3])
 			JoinGame(GamepadIndex::playerFour);
 
 		if (m_SceneContext.pInput->IsGamepadButton(InputState::pressed, XINPUT_GAMEPAD_A)

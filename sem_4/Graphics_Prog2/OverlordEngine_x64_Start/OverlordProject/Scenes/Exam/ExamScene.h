@@ -5,6 +5,7 @@ class DiffuseMaterial;
 class ColorMaterial_Shadow_Skinned;
 class Character;
 class Grid;
+class PostFilmGrain;
 
 class ExamScene final : public GameScene
 {
@@ -93,6 +94,8 @@ private:
 	const float m_RoundDurationSec{ 180.f };
 	float m_TimeLeft{};
 	float m_CountDownStart{ 3.f };
+
+	PostFilmGrain* m_pPostFilmGrain{};
 
 	void Reset();
 

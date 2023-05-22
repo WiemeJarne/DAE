@@ -19,7 +19,7 @@ namespace dae
 
 	private:
 		struct Block
-		{
+		{	
 			union
 			{
 				Block* next;
