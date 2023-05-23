@@ -7,11 +7,6 @@ dae::FixedSizeAllocator::FixedSizeAllocator(size_t sizeInBytes, size_t _blockSiz
 	, pool{ new Block[nbBlocks + 1] }
 	, head{ pool }
 {
-	for (int index{}; index < nbBlocks; ++index)
-	{
-		pool[index].SetSize(static_cast<int>(_blockSize));
-	}
-
 	Block* first = pool + 1;
 	first->next = nullptr;
 
@@ -20,7 +15,7 @@ dae::FixedSizeAllocator::FixedSizeAllocator(size_t sizeInBytes, size_t _blockSiz
 
 dae::FixedSizeAllocator::~FixedSizeAllocator()
 {
-	delete pool;
+	delete[] pool;
 }
 
 void* dae::FixedSizeAllocator::Acquire(size_t)
@@ -37,7 +32,7 @@ void* dae::FixedSizeAllocator::Acquire(size_t)
 	if (nextBlock == head + nbBlocks) //all blocks are ocupied
 		throw std::runtime_error("out of memory");
 
-	previousBlock->next = nextBlock->next;
+	nextBlock->data = new char[blockSize];
 
 	return nextBlock->data;
 }

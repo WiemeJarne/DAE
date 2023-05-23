@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jarne\Documents\DAE\sem_4\ToolDevCpp\MinecraftToolCMakeProject - Copy\commoncode\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\jarne\Documents\DAE\sem_4\ToolDevCpp\MinecraftToolCMakeProject - Copy\commoncode\minecraftjson.h">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D963E6B8-61D3-3CC8-9CBC-473D3F9AFD79}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/CMakeFiles/PACKAGE.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/CMakeFiles/INSTALL.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/CMakeFiles/ALL_BUILD.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/CMakeFiles/ZERO_CHECK.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/rapidjson/CMakeFiles/PACKAGE.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/rapidjson/CMakeFiles/INSTALL.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/commoncode/CMakeFiles/commoncode.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/commoncode/CMakeFiles/PACKAGE.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/commoncode/CMakeFiles/INSTALL.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/minecraftjsonconsole/CMakeFiles/MinecraftJsonConsole.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/minecraftjsonconsole/CMakeFiles/PACKAGE.dir
+C:/Users/jarne/Documents/DAE/sem_4/ToolDevCpp/MinecraftToolCMakeProject - Copy/buil/minecraftjsonconsole/CMakeFiles/INSTALL.dir

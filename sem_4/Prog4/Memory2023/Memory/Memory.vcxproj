@@ -23,11 +23,13 @@
     <ClInclude Include="MemoryAllocator.h" />
     <ClInclude Include="MemoryOverrides.h" />
     <ClInclude Include="SingleLinkAllocator.h" />
+    <ClInclude Include="StackAllocator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FixedSizeAllocator.cpp" />
     <ClCompile Include="MemoryOverrides.cpp" />
     <ClCompile Include="SingleLinkAllocator.cpp" />
+    <ClCompile Include="StackAllocator.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

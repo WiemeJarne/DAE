@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jarne\Documents\DAE\sem_4\ToolDevCpp\MinecraftToolCMakeProject - Copy\buil\CMakeFiles\c659189827b395eace9c231bdfd9f415\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6C1EEC47-09F7-3BF6-8479-900DC990E5BD}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
