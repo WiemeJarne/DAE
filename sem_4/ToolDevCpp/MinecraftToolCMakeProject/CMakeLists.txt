@@ -3,6 +3,12 @@ cmake_minimum_required(VERSION 3.22)
 
 project(MinecraftTool)
 
+project(MyJUCEApp VERSION 1.0.0)
+
+add_subdirectory("JUCE")
+
+add_subdirectory("JuceGUI")
+
 add_subdirectory(rapidjson)
 message("Include Directory: ${rapidjsonIncludeDir}")
 
@@ -19,6 +25,8 @@ PUBLIC
 )
 
 install(TARGETS MinecraftTool DESTINATION bin)
+
+install(TARGETS MyJUCEApp DESTINATION bin)
 
 include(InstallRequiredSystemLibraries)
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")

@@ -52,7 +52,8 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	}
 	else
 	{
-		outputFile = inputFile.erase(inputFile.find(L"json")).append(L"obj");
+		outputFile = inputFile;
+		outputFile.erase(inputFile.find(L"json")).append(L"obj");
 	}
 
 	if (outputFile == L"")
