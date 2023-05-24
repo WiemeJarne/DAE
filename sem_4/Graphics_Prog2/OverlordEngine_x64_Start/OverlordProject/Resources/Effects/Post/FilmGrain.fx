@@ -56,13 +56,10 @@ PS_INPUT VS(VS_INPUT input)
 
 float random(float2 p)
 {
-    float2 K1 = float2(
-        23.14069263277926, // e^pi (Gelfond's constant)
-        2.665144142690225 // 2^sqrt(2) (Gelfond–Schneider constant)
-    );
-
-    return frac(cos(dot(p, K1)) * 12345.6789);
+        float seed = dot(p, float2(12.9898, 78.233)) + fract(sin(dot(p, float2(4.5453, 23.187))) * 43758.5453);
+        return frac(seed);
 }
+
 
 //PIXEL SHADER
 //------------

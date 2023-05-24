@@ -263,11 +263,13 @@ void JsonToObj(const std::wstring& inputFile, const std::wstring& outputFile)
 
 		CalculateCubesNeigbors(cubes);
 
+		std::cout << "4\n";
+
 		FILE* pOFile = nullptr;
 		_wfopen_s(&pOFile, outputFile.c_str(), L"w+,ccs=UTF-8");
 
 		if (pOFile == nullptr)
-			return;
+			std::cout << "failed to open output\n";
 
 		// it was possible to create the file for writing.
 		const wchar_t* text = L"#∂ is the symbol for partial derivative.\n";
