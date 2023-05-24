@@ -51,6 +51,9 @@ Debug/
 # Builds
 **//Build/*
 
+# JUCE
+**/JUCE/*
+
 # Whitelist PakBlacklist-<BuildConfiguration>.txt files
 !**/Build/*/
 **/Build/*/**
