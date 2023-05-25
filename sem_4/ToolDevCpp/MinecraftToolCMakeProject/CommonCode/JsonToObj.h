@@ -201,8 +201,16 @@ void CalculateCubesNeigbors(std::vector<Cube>& cubes)
 	}
 }
 
-void JsonToObj(const std::wstring& inputFile, const std::wstring& outputFile)
+void JsonToObj(const std::wstring& inputFile, const std::wstring& outputFile = L"")
 {
+	std::wstring outputFileName;
+
+	if (outputFile == L"")
+	{
+		outputFileName = inputFile;
+		outputFileName.erase(inputFile.find(L"json")).append(L"obj");
+	}
+
 	std::ifstream is{ inputFile };
 
 	using namespace rapidjson;
@@ -231,7 +239,7 @@ void JsonToObj(const std::wstring& inputFile, const std::wstring& outputFile)
 				{
 					newCubesLayer = converter.from_bytes(layer.GetString());
 					//make the first letter capitilized
-					newCubesLayer[0] = std::toupper(newCubesLayer[0]);
+					newCubesLayer[0] = static_cast<wchar_t>(std::toupper(newCubesLayer[0]));
 				}
 			}
 
@@ -266,10 +274,13 @@ void JsonToObj(const std::wstring& inputFile, const std::wstring& outputFile)
 		std::cout << "4\n";
 
 		FILE* pOFile = nullptr;
-		_wfopen_s(&pOFile, outputFile.c_str(), L"w+,ccs=UTF-8");
+		_wfopen_s(&pOFile, outputFileName.c_str(), L"w+,ccs=UTF-8");
 
 		if (pOFile == nullptr)
+		{
 			std::cout << "failed to open output\n";
+			return;
+		}
 
 		// it was possible to create the file for writing.
 		const wchar_t* text = L"#∂ is the symbol for partial derivative.\n";

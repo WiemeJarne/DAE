@@ -14,14 +14,6 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	{
 		std::wcout << "wrong amount of arguments\n";
 		PrintInstructions();
-	}
-
-	std::ifstream is{ argv[2] };
-
-	if (!is)
-	{
-		std::wcout << L"Couldn't find inputFile\n";
-		PrintInstructions();
 		return -1;
 	}
 
@@ -29,16 +21,24 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	{
 		std::wcout << L"Wrong 2nd argument\n";
 		PrintInstructions();
+		return -1;
 	}
 
-	std::wstring inputFile{ std::wstring(argv[2]) };
+	std::wstring inputFile{ argv[2] };
 	if (std::wstring(inputFile).find(L".json") == 0)
 	{
 		std::wcout << L"InputFile must be a json file.\n";
 		PrintInstructions();
+		return -1;
 	}
 
-	std::wstring outputFile{};
+	std::ifstream is{ inputFile };
+	if (!is)
+	{
+		std::wcout << L"Failed to open inputFile\n";
+		PrintInstructions();
+		return -1;
+	}
 
 	if (argc == 5)
 	{
@@ -46,31 +46,21 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 		{
 			std::wcout << L"Wrong 4rd argument\n";
 			PrintInstructions();
+			return -1;
 		}
 
-		outputFile = argv[4];
-	}
-	else
-	{
-		outputFile = inputFile;
-		outputFile.erase(inputFile.find(L"json")).append(L"obj");
-	}
+		std::wstring outputFile{ argv[4] };
 
-	if (outputFile == L"")
-		return -1;
+		if (outputFile.find(L".obj") == 0)
+		{
+			std::wcout << L"OutputFile must be an obj file.\n";
+			PrintInstructions();
+			return -1;
+		}
 
-	if (outputFile.find(L".obj") == 0)
-	{
-		std::wcout << L"OutputFile must be an obj file\n";
+		JsonToObj(inputFile, outputFile);
 	}
-
-	if (outputFile.find(L".obj") == 0)
-	{
-		std::wcout << L"OutputFile must be an obj file.\n";
-		PrintInstructions();
-	}
-
-	JsonToObj(inputFile, outputFile);
+	else JsonToObj(inputFile);
 
 	std::cout << "Convertion completed\n";
 
@@ -79,5 +69,5 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 
 void PrintInstructions()
 {
-	std::wcout << L"Possible arguments:\n\tMinecraftTool -i (inputFileName).json\n\tMinecraftTool -i inputFile.json -o outputFile.obj\n";
+	std::wcout << L"Possible arguments:\n\tMinecraftTool -i inputFileName.json\n\tMinecraftTool -i inputFileName.json -o outputFileName.obj\n";
 }

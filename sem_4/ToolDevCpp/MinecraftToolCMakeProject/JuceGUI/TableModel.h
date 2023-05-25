@@ -16,6 +16,9 @@ public:
 		bool 	rowIsSelected
 	)override;
 
+	void Clear();
+	void AddVector(const NamedVector3& vector);
+
 private:
 	std::vector<NamedVector3> m_Vectors;
 };

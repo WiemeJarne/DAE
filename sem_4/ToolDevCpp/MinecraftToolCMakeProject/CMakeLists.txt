@@ -5,15 +5,15 @@ project(MinecraftTool)
 
 project(MyJUCEApp VERSION 1.0.0)
 
-add_subdirectory("JUCE")
-
-add_subdirectory("JuceGUI")
-
 add_subdirectory(rapidjson)
 message("Include Directory: ${rapidjsonIncludeDir}")
 
 add_subdirectory(CommonCode)
 message("Inlclude Directory : ${CommonCodeIncludeDir}")
+
+add_subdirectory("JUCE")
+
+add_subdirectory("JuceGUI")
 
 add_subdirectory(MinecraftTool)
 

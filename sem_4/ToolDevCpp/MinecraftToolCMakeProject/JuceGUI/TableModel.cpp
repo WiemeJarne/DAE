@@ -1,10 +1,7 @@
 #include "TableModel.h"
 
 TableModel::TableModel()
-{
-	m_Vectors.push_back({ "vector1",3,2,1 });
-	m_Vectors.push_back({ "vector2",7,6,3 });
-}
+{}
 
 int TableModel::getNumRows()
 {
@@ -51,4 +48,16 @@ void TableModel::paintCell(Graphics& g, int rowNumber, int columnId, int width, 
 			break;
 		}
 	}
+}
+
+void TableModel::Clear()
+{
+	m_Vectors.clear();
+	m_Vectors.resize(0);
+	
+}
+
+void TableModel::AddVector(const NamedVector3& vector)
+{
+	m_Vectors.push_back(vector);
 }

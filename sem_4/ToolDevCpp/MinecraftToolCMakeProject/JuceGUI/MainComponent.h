@@ -27,6 +27,15 @@ private:
     // Your private member variables go here...
     juce::TableListBox m_DataTable;
     TableModel* m_pTableModel;
+    juce::TextButton m_InputFileSelectButton;
+    juce::TextButton m_OutputFileSelectButton;
+    juce::TextButton m_GenerateOutputButton;
+    juce::FileChooser m_InputFileChooser;
+    juce::FileChooser m_OutputFileChooser;
+    juce::String m_InputFilePath;
+    juce::String m_OutputFilePath;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
+
+    void CreateReport(const std::wstring& objFile);
 };
