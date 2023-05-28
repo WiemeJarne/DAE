@@ -10,7 +10,7 @@ void PrintInstructions();
 
 int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
-	if (argc != 3 && argc != 5)
+	if (argc != 3 && argc != 4 && argc != 5 && argc != 6)
 	{
 		std::wcout << "wrong amount of arguments\n";
 		PrintInstructions();
@@ -40,7 +40,21 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 		return -1;
 	}
 
-	if (argc == 5)
+	bool verbose{};
+
+	if (argc == 4)
+	{
+		if(std::wstring(argv[3]) == L"-v")
+			verbose = true;
+		else
+		{
+			std::wcout << L"Wrong 4th argument\n";
+			PrintInstructions();
+			return -1;
+		}
+	}
+
+	if (argc == 5 || argc == 6)
 	{
 		if (std::wstring(argv[3]) != L"-o")
 		{
@@ -58,9 +72,21 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 			return -1;
 		}
 
-		JsonToObj(inputFile, outputFile);
+		if (argc == 6)
+		{
+			if(std::wstring(argv[5]) == L"-v")
+				verbose = true;
+			else
+			{
+				std::wcout << L"Wrong 6th argument\n";
+				PrintInstructions();
+				return -1;
+			}
+		}
+
+		JsonToObj(inputFile, outputFile, verbose);
 	}
-	else JsonToObj(inputFile);
+	else JsonToObj(inputFile, L"", verbose);
 
 	std::cout << "Convertion completed\n";
 
@@ -69,5 +95,8 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 
 void PrintInstructions()
 {
-	std::wcout << L"Possible arguments:\n\tMinecraftTool -i inputFileName.json\n\tMinecraftTool -i inputFileName.json -o outputFileName.obj\n";
+	std::wcout << L"Possible commands:\n";
+	std::wcout << L"\tMinecraftTool -i inputFileName.json\n";
+	std::wcout << "\tMinecraftTool -i inputFileName.json -o outputFileName.obj\n";
+	std::wcout << "After the previous 2 commands you can use -v this will give you more info of what is happening while converting the file.\n";
 }

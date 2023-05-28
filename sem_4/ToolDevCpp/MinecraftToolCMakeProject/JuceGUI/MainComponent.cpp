@@ -3,8 +3,8 @@
 
 //==============================================================================
 MainComponent::MainComponent()
-    : m_InputFileChooser("Select input file", File(), "*.json")
-    , m_OutputFileChooser("Select output file", File(), "*.obj")
+    : m_InputFileChooser("Select input file", File(File::getSpecialLocation(File::userDocumentsDirectory)), "*.json", false)
+    , m_OutputFileChooser("Select output file", File(File::getSpecialLocation(File::userDocumentsDirectory)), "*.obj", false)
 {
     // Make sure you set the size of the component after
     // you add any child components.
@@ -21,33 +21,41 @@ MainComponent::MainComponent()
 
     m_InputFileSelectButton.setButtonText("Input");
     addAndMakeVisible(m_InputFileSelectButton);
-
+    
     m_InputFileSelectButton.onClick = 
         [&]()
     {
-        m_InputFileChooser.launchAsync(0,
+        m_InputFileChooser.launchAsync(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles | FileBrowserComponent::useTreeView,
             [&](const juce::FileChooser& fileChooser) 
             {
                 auto fileName{ fileChooser.getResult().getFullPathName() };
 
                 if(fileName != "")
-                    m_InputFilePath = fileName;
+                    m_InputFilePath = fileName.toWideCharPointer();
             });
     };
-
+    
     m_OutputFileSelectButton.setButtonText("Output");
     addAndMakeVisible(m_OutputFileSelectButton);
 
     m_OutputFileSelectButton.onClick =
         [&]()
     {
-        m_OutputFileChooser.launchAsync(0,
+        m_OutputFileChooser.launchAsync(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles | FileBrowserComponent::canSelectDirectories | FileBrowserComponent::useTreeView,
             [&](const juce::FileChooser& fileChooser)
             {
                 auto fileName{ fileChooser.getResult().getFullPathName() };
 
+                if (fileName == "")
+                    return;
+
                 if (fileName != "")
-                    m_OutputFilePath = fileName;
+                    m_OutputFilePath = fileName.toWideCharPointer();
+                
+                if (m_OutputFilePath.find(L".obj") == std::wstring::npos) //if obj can't be found in the path name a folder was chosen so add output.obj as outputFile
+                {
+                    m_OutputFilePath.append(L"\\output.obj");
+                }
             });
     };
 
@@ -60,17 +68,15 @@ MainComponent::MainComponent()
         if (m_InputFilePath == L"")
             return;
 
-        JsonToObj(m_InputFilePath.toWideCharPointer(), m_OutputFilePath.toWideCharPointer());
+        if (m_OutputFilePath == L"")
+        {
+            m_OutputFilePath = m_InputFilePath;
+            m_OutputFilePath.erase(m_OutputFilePath.find(L"json")).append(L"obj");
+        }
 
-        juce::String outputFilePath{};
-        if (m_OutputFilePath != "")
-            outputFilePath = m_OutputFilePath;
-        else
-            outputFilePath = m_InputFilePath;
-
-        std::wstring wStrOutputFilePath{ outputFilePath.toWideCharPointer() };
-        wStrOutputFilePath.erase(wStrOutputFilePath.find(L"json")).append(L"obj");
-        CreateReport(wStrOutputFilePath);
+        JsonToObj(m_InputFilePath, m_OutputFilePath);
+        
+        CreateReport(m_OutputFilePath);
     };
 }
 

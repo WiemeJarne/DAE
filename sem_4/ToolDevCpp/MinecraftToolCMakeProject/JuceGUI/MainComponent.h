@@ -32,8 +32,8 @@ private:
     juce::TextButton m_GenerateOutputButton;
     juce::FileChooser m_InputFileChooser;
     juce::FileChooser m_OutputFileChooser;
-    juce::String m_InputFilePath;
-    juce::String m_OutputFilePath;
+    std::wstring m_InputFilePath;
+    std::wstring m_OutputFilePath;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 

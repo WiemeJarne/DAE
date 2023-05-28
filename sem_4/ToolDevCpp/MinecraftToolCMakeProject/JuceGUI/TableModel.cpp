@@ -5,20 +5,20 @@ TableModel::TableModel()
 
 int TableModel::getNumRows()
 {
-	return m_Vectors.size();
+	return static_cast<int>(m_Vectors.size());
 }
 
-void TableModel::paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
+void TableModel::paintRowBackground(Graphics& g, int /*rowNumber*/, int width, int height, bool rowIsSelected)
 {
 	if (rowIsSelected)
 	{
 		g.setColour(Colour{210,210,210});
-		g.fillRoundedRectangle(0, 0, width, height, 3);
-		g.drawRoundedRectangle(0, 0, width, height, 3, 2);
+		g.fillRoundedRectangle(0.f, 0.f, static_cast<float>(width), static_cast<float>(height), 3);
+		g.drawRoundedRectangle(0.f, 0.f, static_cast<float>(width), static_cast<float>(height), 3, 2);
 	}else
 	{
 		g.setColour(Colour{ 255,128,64 });
-		g.drawRoundedRectangle(0, 0, width, height, 3, 2);
+		g.drawRoundedRectangle(0.f, 0.f, static_cast<float>(width), static_cast<float>(height), 3, 2);
 	}
 }
 
