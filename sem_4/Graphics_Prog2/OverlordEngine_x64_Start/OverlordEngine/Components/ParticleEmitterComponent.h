@@ -15,7 +15,10 @@ struct ParticleEmitterSettings
 	float minScale{ 1.f }; //The percentual minimum change in size/scale during the particle's lifetime
 	float maxScale{ 1.f }; //The percentual maximum change in size/scale during the particle's lifetime
 
-	XMFLOAT3 velocity{}; //The initial speed & (relative) direction of particles along X, Y and Z
+	//The initial speed & (relative) direction of particles along X, Y and Z
+	XMFLOAT3 minVelocity{};
+	XMFLOAT3 maxVelocity{};
+
 	XMFLOAT4 color{ XMFLOAT4{Colors::White } }; //The color of a particle
 };
 
@@ -30,6 +33,8 @@ struct Particle
 
 	float initialSize{};
 	float sizeChange{};
+
+	XMFLOAT3 velocity{};
 };
 
 class ParticleEmitterComponent : public BaseComponent

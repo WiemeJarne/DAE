@@ -3,8 +3,10 @@
 #include "Materials/DiffuseMaterial.h"
 #include "Grid.h"
 #include "Prefabs/Character.h"
+#include "Components/ParticleEmitterComponent.h"
 #include <iostream>
 
+Grid* Cell::m_spOwnerGrid;
 GameScene* Cell::m_spGameScene{};
 DiffuseMaterial_Shadow* Cell::m_spBombMaterial{};
 DiffuseMaterial_Shadow* Cell::m_spFlameMaterial{};
@@ -29,10 +31,13 @@ GameObject::PhysicsCallback Cell::m_sFullFireBonusCallBack;
 GameObject::PhysicsCallback Cell::m_sPierceBombBonusCallBack;
 GameObject::PhysicsCallback Cell::m_sSkateUpBonusCallBack;
 GameObject::PhysicsCallback Cell::m_sSkateDownBonusCallBack;
+FMOD::System* Cell::m_spFmod;
+FMOD::Sound* Cell::m_spBombExplodeSound;
+FMOD::Channel* Cell::m_spSoundChannel;
+ParticleEmitterSettings Cell::m_sExplosionParticleEmitterSettings;
 
-Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state)
-	: m_pOwnerGrid{ pOwnerGrid }
-	, m_MiddlePos{ middlePos }
+Cell::Cell(GameScene* pGameScene, XMFLOAT3 middlePos, int rowNr, int colNr, State state)
+	: m_MiddlePos{ middlePos }
 	, m_RowNr{ rowNr }
 	, m_ColNr{ colNr }
 	, m_State{ state }
@@ -41,229 +46,60 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 	{
 		m_spBombMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombMaterial->SetDiffuseTexture(L"Textures/Bomb/Bomb.png");
-
-		m_sBombCallBack =
-			[&](GameObject* pTriggerObject, GameObject*, PxTriggerAction action)
-		{
-			if (action == PxTriggerAction::LEAVE)
-				m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition())->SetShouldAddColliderToGameObjectInCell(true);
-		};
 	}
 
 	if (!m_spFlameMaterial)
 	{
 		m_spFlameMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFlameMaterial->SetDiffuseTexture(L"Textures/Fire.png");
-
-		m_sFireCallBack = 
-			[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				pCharacter->GetCharacterDescription().isDead = true;
-			}
-		};
 	}
 
 	if (!m_spBombUpBonusMaterial)
 	{
 		m_spBombUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombUp.png");
-
-		m_sBombUpBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				++characterDesc.amountOfBombsAllowedToBePlacedAtOnce;
-
-				if (characterDesc.amountOfBombsAllowedToBePlacedAtOnce > characterDesc.maxAmountOfBombsAllowedToBePlacedAtOnce)
-					characterDesc.amountOfBombsAllowedToBePlacedAtOnce = characterDesc.maxAmountOfBombsAllowedToBePlacedAtOnce;
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if(pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spBombDownBonusMaterial)
 	{
 		m_spBombDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spBombDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/BombDown.png");
-
-		m_sBombDownBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				--characterDesc.amountOfBombsAllowedToBePlacedAtOnce;
-
-				if (characterDesc.amountOfBombsAllowedToBePlacedAtOnce < 1)
-					characterDesc.amountOfBombsAllowedToBePlacedAtOnce = 1;
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spFireUpBonusMaterial)
 	{
 		m_spFireUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFireUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireUp.png");
-
-		m_sFireUpBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				++characterDesc.bombBlastRadius;
-
-				if (characterDesc.bombBlastRadius > characterDesc.maxBombBlastRadius)
-					characterDesc.bombBlastRadius = characterDesc.maxBombBlastRadius;
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spFireDownBonusMaterial)
 	{
 		m_spFireDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFireDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FireDown.png");
-
-		m_sFireDownBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				--characterDesc.bombBlastRadius;
-
-				if (characterDesc.bombBlastRadius < 2)
-					characterDesc.bombBlastRadius = 2;
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spFullFireBonusMaterial)
 	{
 		m_spFullFireBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spFullFireBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/FullFire.png");
-
-		m_sFullFireBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				characterDesc.bombBlastRadius = characterDesc.maxBombBlastRadius;
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spPierceBombBonusMaterial)
 	{
 		m_spPierceBombBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spPierceBombBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/PierceBomb.png");
-
-		m_sPierceBombBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				characterDesc.hasPierceBomb = true;
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spSkateUpBonusMaterial)
 	{
 		m_spSkateUpBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spSkateUpBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateUp.png");
-
-		m_sSkateUpBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				++characterDesc.speedLevel;
-
-				characterDesc.CalculateMoveSpeedMultiplier();
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spSkateDownBonusMaterial)
 	{
 		m_spSkateDownBonusMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		m_spSkateDownBonusMaterial->SetDiffuseTexture(L"Textures/Bonus/SkateDown.png");
-
-		m_sSkateDownBonusCallBack =
-			[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
-		{
-			auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
-			if (action == PxTriggerAction::ENTER && pCharacter)
-			{
-				auto& characterDesc{ pCharacter->GetCharacterDescription() };
-
-				--characterDesc.speedLevel;
-
-				characterDesc.CalculateMoveSpeedMultiplier();
-
-				auto pCell{ m_pOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
-
-				if (pCell)
-					pCell->SetShouldDestroyGameObjectInCell(true);
-			}
-		};
 	}
 
 	if (!m_spPhysxMaterial)
@@ -275,11 +111,29 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 	if (!m_spGameScene)
 	{
 		m_spGameScene = pGameScene;
+
+		m_sExplosionParticleEmitterSettings.minVelocity = { -2.f,2.f,-2.f };
+		m_sExplosionParticleEmitterSettings.maxVelocity = { 2.f,2.f,2.f };
+		m_sExplosionParticleEmitterSettings.minSize = 0.75f;
+		m_sExplosionParticleEmitterSettings.maxSize = 0.75f;
+		m_sExplosionParticleEmitterSettings.minEnergy = 0.25f;
+		m_sExplosionParticleEmitterSettings.maxEnergy = 0.5f;
+		m_sExplosionParticleEmitterSettings.minScale = 1.f;
+		m_sExplosionParticleEmitterSettings.maxScale = 1.5f;
+		m_sExplosionParticleEmitterSettings.minEmitterRadius = 0.1f;
+		m_sExplosionParticleEmitterSettings.maxEmitterRadius = 0.1f;
+		m_sExplosionParticleEmitterSettings.color = { 1.f,1.f,1.f, .6f };
 	}	
+
+	if (!m_spFmod)
+	{
+		m_spFmod = SoundManager::Get()->GetSystem();
+		m_spFmod->createStream("Resources/Sounds/bombExplosion.wav", FMOD_2D, nullptr, &m_spBombExplodeSound);
+	}
 }
 
-Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell)
-	: Cell(pGameScene, pOwnerGrid, middlePos, rowNr, colNr, state)
+Cell::Cell(GameScene* pGameScene, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell)
+	: Cell(pGameScene, middlePos, rowNr, colNr, state)
 {
 	m_pGameObjectInCell = pGameObjectInCell;
 }
@@ -287,6 +141,180 @@ Cell::Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowN
 Cell::~Cell()
 {
 	DestroyObjectInCell();
+}
+
+void Cell::InitializeGridAndCallBacks(Grid* pGrid)
+{
+	m_spOwnerGrid = pGrid;
+
+	m_sBombCallBack =
+		[&](GameObject* pTriggerObject, GameObject*, PxTriggerAction action)
+	{
+		if (action == PxTriggerAction::LEAVE)
+			m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition())->SetShouldAddColliderToGameObjectInCell(true);
+	};
+
+	m_sFireCallBack =
+		[&](GameObject*, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			pCharacter->GetCharacterDescription().isDead = true;
+		}
+	};
+
+	m_sBombUpBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			++characterDesc.amountOfBombsAllowedToBePlacedAtOnce;
+
+			if (characterDesc.amountOfBombsAllowedToBePlacedAtOnce > characterDesc.maxAmountOfBombsAllowedToBePlacedAtOnce)
+				characterDesc.amountOfBombsAllowedToBePlacedAtOnce = characterDesc.maxAmountOfBombsAllowedToBePlacedAtOnce;
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sBombDownBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			--characterDesc.amountOfBombsAllowedToBePlacedAtOnce;
+
+			if (characterDesc.amountOfBombsAllowedToBePlacedAtOnce < 1)
+				characterDesc.amountOfBombsAllowedToBePlacedAtOnce = 1;
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sFireUpBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			++characterDesc.bombBlastRadius;
+
+			if (characterDesc.bombBlastRadius > characterDesc.maxBombBlastRadius)
+				characterDesc.bombBlastRadius = characterDesc.maxBombBlastRadius;
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sFireDownBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			--characterDesc.bombBlastRadius;
+
+			if (characterDesc.bombBlastRadius < 2)
+				characterDesc.bombBlastRadius = 2;
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sFullFireBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			characterDesc.bombBlastRadius = characterDesc.maxBombBlastRadius;
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sPierceBombBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			characterDesc.hasPierceBomb = true;
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sSkateUpBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			++characterDesc.speedLevel;
+
+			characterDesc.CalculateMoveSpeedMultiplier();
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
+
+	m_sSkateDownBonusCallBack =
+		[&](GameObject* pTriggerObject, GameObject* pOtherObject, PxTriggerAction action)
+	{
+		auto pCharacter{ reinterpret_cast<Character*>(pOtherObject) };
+		if (action == PxTriggerAction::ENTER && pCharacter)
+		{
+			auto& characterDesc{ pCharacter->GetCharacterDescription() };
+
+			--characterDesc.speedLevel;
+
+			characterDesc.CalculateMoveSpeedMultiplier();
+
+			auto pCell{ m_spOwnerGrid->GetCell(pTriggerObject->GetTransform()->GetWorldPosition()) };
+
+			if (pCell)
+				pCell->SetShouldDestroyGameObjectInCell(true);
+		}
+	};
 }
 
 void Cell::Update()
@@ -340,6 +368,37 @@ void Cell::Update()
 			}
 		}
 	}
+
+	//this is code to make the pick-up move up and down this is commented because when it is enabled it causes the callbacks of the triggers attached not to trigger
+	//if (m_State == State::pickUp)
+	//{
+	//	if (!m_pGameObjectInCell)
+	//		return;
+	//
+	//	if (m_PickUpYOffsetTime < 0.f)
+	//		m_IsPickUpGoingUp = true;
+	//	else if (m_PickUpYOffsetTime > 1.f)
+	//		m_IsPickUpGoingUp = false;
+	//
+	//	if(m_IsPickUpGoingUp)
+	//		m_PickUpYOffsetTime += m_spGameScene->GetSceneContext().pGameTime->GetElapsed() * m_PickUpHoverSpeed;
+	//	else
+	//		m_PickUpYOffsetTime -= m_spGameScene->GetSceneContext().pGameTime->GetElapsed() * m_PickUpHoverSpeed;
+	//	
+	//	m_pGameObjectInCell->GetTransform()->Translate(m_MiddlePos.x, m_MiddlePos.y + EaseInOutBack(m_PickUpYOffsetTime) - 0.5f, m_MiddlePos.z);
+	//}
+}
+
+//source: https://easings.net/#easeInOutBack
+float Cell::EaseInOutBack(float time)
+{
+	constexpr float c1{ 1.70158f };
+	constexpr float c2{ c1 * 1.525f };
+	
+	if (time < 0.5f)
+		return (powf(2 * time, 2) * ((c2 + 1) * 2 * time - c2)) / 2;
+	else
+		return (powf(2 * time - 2, 2) * ((c2 + 1) * (time * 2 - 2) + c2) + 2) / 2;
 }
 
 void Cell::PlaceBomb(CharacterDesc* pCharacterDesc)
@@ -390,6 +449,8 @@ void Cell::DestroyObjectInCell()
 
 void Cell::ExplodeBomb()
 {
+	m_spFmod->playSound(m_spBombExplodeSound, nullptr, false, &m_spSoundChannel);
+
 	--m_pCharacterDescPlacedBomb->amountOfBombsCurrentlyOnGrid;
 
 	PlaceFire(m_MiddlePos);
@@ -397,7 +458,7 @@ void Cell::ExplodeBomb()
 
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
-		auto bottomNeigbor{ m_pOwnerGrid->GetCell(m_RowNr - index, m_ColNr) };
+		auto bottomNeigbor{ m_spOwnerGrid->GetCell(m_RowNr - index, m_ColNr) };
 		if (bottomNeigbor && bottomNeigbor->GetState() != State::fire)
 		{
 			if (bottomNeigbor->GetState() == State::bomb)
@@ -429,7 +490,7 @@ void Cell::ExplodeBomb()
 
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
-		auto leftNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr - index) };
+		auto leftNeighbor{ m_spOwnerGrid->GetCell(m_RowNr, m_ColNr - index) };
 		if (leftNeighbor && leftNeighbor->GetState() != State::fire)
 		{
 			if (leftNeighbor->GetState() == State::bomb)
@@ -460,7 +521,7 @@ void Cell::ExplodeBomb()
 	}
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
-		auto topNeigbor{ m_pOwnerGrid->GetCell(m_RowNr + index, m_ColNr) };
+		auto topNeigbor{ m_spOwnerGrid->GetCell(m_RowNr + index, m_ColNr) };
 		if (topNeigbor && topNeigbor->GetState() != State::fire)
 		{
 			if (topNeigbor->GetState() == State::bomb)
@@ -494,7 +555,7 @@ void Cell::ExplodeBomb()
 
 	for (int index{ 1 }; index <= m_BombBlastRadius; ++index)
 	{
-		auto rightNeighbor{ m_pOwnerGrid->GetCell(m_RowNr, m_ColNr + index) };
+		auto rightNeighbor{ m_spOwnerGrid->GetCell(m_RowNr, m_ColNr + index) };
 		if (rightNeighbor && rightNeighbor->GetState() != State::fire)
 		{
 			if (rightNeighbor->GetState() == State::bomb)
@@ -536,12 +597,12 @@ void Cell::PlaceFire(XMFLOAT3 pos)
 	auto pFlame = m_spGameScene->AddChild(new GameObject());
 	auto pModel{ pFlame->AddComponent(new ModelComponent(L"Meshes/Fire.ovm")) };
 	pModel->SetMaterial(m_spFlameMaterial);
+	pFlame->AddComponent(new ParticleEmitterComponent(L"Textures/FireBall.png", m_sExplosionParticleEmitterSettings));
 	auto pRigidBody{ pFlame->AddComponent(new RigidBodyComponent(true)) };
 	pRigidBody->AddCollider(PxBoxGeometry(0.5f, 0.5f, 0.5f), *m_spPhysxMaterial, true);
 	pFlame->SetOnTriggerCallBack(m_sFireCallBack);
 	pFlame->GetTransform()->Translate(pos);
 	pFlame->GetTransform()->Scale(0.01f);
-	
 	m_pGameObjectInCell = pFlame;
 }
 
@@ -551,10 +612,10 @@ void Cell::PlaceRandomPickUp(XMFLOAT3 pos)
 
 	m_TimeSinceItemPlaceOnCell = 0.f;
 
-	m_State = State::pickUp;
-
 	DestroyObjectInCell();
 	m_State = State::empty;
+
+	m_State = State::pickUp;
 
 	int randomInt{ std::rand() % 2 };
 

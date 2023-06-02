@@ -4,6 +4,7 @@
 GameScene::GameScene(std::wstring sceneName):
 	m_SceneName(std::move(sceneName))
 {
+	
 }
 
 GameScene::~GameScene()

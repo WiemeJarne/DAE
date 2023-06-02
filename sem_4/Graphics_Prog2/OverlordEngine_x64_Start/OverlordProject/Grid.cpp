@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Grid.h"
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
+#include "Materials/Shadow/DiffNormTex_Shadow.h"
 
 Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMaterial* pPhysxMaterial)
 	: m_AmountOfRows{ amountOfRows }
@@ -11,12 +12,14 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 	pBrickMaterial->SetDiffuseTexture(L"Textures/brick.jpg");
 
 	//crackedBrick material
-	auto pCrackedBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
+	auto pCrackedBrickMaterial{ MaterialManager::Get()->CreateMaterial<DiffNormTex_Shadow>() };
 	pCrackedBrickMaterial->SetDiffuseTexture(L"Textures/CrackedBrick/rock.jpg");
+	pCrackedBrickMaterial->SetNormalMap(L"Textures/CrackedBrick/NormalMap.png");
 
 	//grass material
-	auto pGrassMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
-	pGrassMaterial->SetDiffuseTexture(L"Textures/Diffuse_Seamless_Grass_Tile.png");
+	auto pGrassMaterial{ MaterialManager::Get()->CreateMaterial<DiffNormTex_Shadow>() };
+	pGrassMaterial->SetDiffuseTexture(L"Textures/Grass/Diffuse_Seamless_Grass_Tile.png");
+	pGrassMaterial->SetNormalMap(L"Textures/Grass/Normal_Seamless_Grass_Tile.png");
 
 	//metalPlate material
 	auto pMetalPlateMaterial{ MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>() };
@@ -48,7 +51,7 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 				pModel->SetMaterial(pBrickMaterial);
 				pRigidBody = pBrick->AddComponent(new RigidBodyComponent(true));
 				pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
-				m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::wall, pBrick));
+				m_PlayingFieldCells.push_back(new Cell(pGameScene, cellPos, rowNr, colNr, Cell::State::wall, pBrick));
 			}
 			else
 			{
@@ -127,7 +130,7 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 						pModel->SetMaterial(pMetalPlateMaterial);
 						pRigidBody = pMetalBlock->AddComponent(new RigidBodyComponent(true));
 						pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
-						m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::wall, pMetalBlock));
+						m_PlayingFieldCells.push_back(new Cell(pGameScene, cellPos, rowNr, colNr, Cell::State::wall, pMetalBlock));
 					}
 					else
 					{
@@ -138,16 +141,18 @@ Grid::Grid(int amountOfRows, int amountOfColumns, GameScene* pGameScene, PxMater
 						pModel->SetMaterial(pCrackedBrickMaterial);
 						pRigidBody = pCrackedBrick->AddComponent(new RigidBodyComponent(true));
 						pRigidBody->AddCollider(PxBoxGeometry(0.75f / 2.f, 0.75f / 2.f, 0.75f / 2.f), *pPhysxMaterial);
-						m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::crackedWall, pCrackedBrick));
+						m_PlayingFieldCells.push_back(new Cell(pGameScene, cellPos, rowNr, colNr, Cell::State::crackedWall, pCrackedBrick));
 					}
 				}
 				else
 				{
-					m_PlayingFieldCells.push_back(new Cell(pGameScene, this, cellPos, rowNr, colNr, Cell::State::empty));
+					m_PlayingFieldCells.push_back(new Cell(pGameScene, cellPos, rowNr, colNr, Cell::State::empty));
 				}
 			}
 		}
 	}
+
+	m_PlayingFieldCells[0]->InitializeGridAndCallBacks(this);
 }
 
 Grid::~Grid()

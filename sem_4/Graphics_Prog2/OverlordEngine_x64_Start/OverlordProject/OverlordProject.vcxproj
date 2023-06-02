@@ -99,6 +99,7 @@
     <ClCompile Include="Materials\Shadow\ColorMaterial_Shadow_Skinned.cpp" />
     <ClCompile Include="Materials\Post\PostBlur.cpp" />
     <ClCompile Include="Materials\Post\PostFilmGrain.cpp" />
+    <ClCompile Include="Materials\Shadow\DiffNormTex_Shadow.cpp" />
     <ClCompile Include="Scenes\Exam\ExamScene.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial_Skinned.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Materials\Shadow\ColorMaterial_Shadow_Skinned.h" />
     <ClInclude Include="Materials\Post\PostBlur.h" />
     <ClInclude Include="Materials\Post\PostFilmGrain.h" />
+    <ClInclude Include="Materials\Shadow\DiffNormTex_Shadow.h" />
     <ClInclude Include="Scenes\Exam\ExamScene.h" />
     <ClInclude Include="Materials\DiffuseMaterial.h" />
     <ClInclude Include="Materials\DiffuseMaterial_Skinned.h" />

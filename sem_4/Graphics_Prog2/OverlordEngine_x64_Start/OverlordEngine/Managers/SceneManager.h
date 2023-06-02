@@ -16,6 +16,9 @@ public:
 	const SceneContext& GetActiveSceneContext() const { return m_ActiveScene->GetSceneContext(); }
 	SceneSettings& GetActiveSceneSettings() const { return m_ActiveScene->GetSceneSettings(); }
 
+	bool IsRunning() const { return m_IsRunning; }
+	void Exit() { m_IsRunning = false; }
+
 protected:
 	void Initialize() override;
 
@@ -33,5 +36,6 @@ private:
 
 	std::vector<GameScene*> m_pScenes{};
 	GameScene* m_ActiveScene{}, * m_NewActiveScene{};
+	bool m_IsRunning{ true };
 };
 

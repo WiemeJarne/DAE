@@ -18,8 +18,8 @@ public:
 		pickUp
 	};
 
-	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state = State::empty);
-	Cell(GameScene* pGameScene, Grid* pOwnerGrid, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell);
+	Cell(GameScene* pGameScene, XMFLOAT3 middlePos, int rowNr, int colNr, State state = State::empty);
+	Cell(GameScene* pGameScene, XMFLOAT3 middlePos, int rowNr, int colNr, State state, GameObject* pGameObjectInCell);
 	~Cell();
 
 	void Update();
@@ -30,12 +30,12 @@ public:
 	void SetShouldPlacePickUp(bool shouldPlacePickUp) { m_ShouldPlacePickUp = shouldPlacePickUp; }
 	void SetShouldDestroyGameObjectInCell(bool shouldDestroyGameObjectInCell) { m_ShouldDestroyGameObjectInCell = shouldDestroyGameObjectInCell; }
 	void SetShouldAddColliderToGameObjectInCell(bool shouldAddColliderToGameObjectInCell) { m_ShouldAddColliderToGameObjectInCell = shouldAddColliderToGameObjectInCell; }
+	static void InitializeGridAndCallBacks(Grid* pGrid);
 
 private:
 	XMFLOAT3 m_MiddlePos{};
 	float m_TimeSinceItemPlaceOnCell{};
 	State m_State{};
-	Grid* m_pOwnerGrid{};
 	const int m_RowNr{};
 	const int m_ColNr{};
 	GameObject* m_pGameObjectInCell{};
@@ -44,7 +44,11 @@ private:
 	bool m_ShouldAddColliderToGameObjectInCell{};
 	bool m_ShouldPlacePickUp{};
 	bool m_ShouldDestroyGameObjectInCell{};
+	float m_PickUpYOffsetTime{};
+	const float m_PickUpHoverSpeed{ 0.1f };
+	bool m_IsPickUpGoingUp{ true };
 
+	static Grid* m_spOwnerGrid;
 	static GameScene* m_spGameScene;
 	static DiffuseMaterial_Shadow* m_spBombMaterial;
 	static DiffuseMaterial_Shadow* m_spFlameMaterial;
@@ -69,7 +73,14 @@ private:
 	static GameObject::PhysicsCallback m_sPierceBombBonusCallBack;
 	static GameObject::PhysicsCallback m_sSkateUpBonusCallBack;
 	static GameObject::PhysicsCallback m_sSkateDownBonusCallBack;
+	static FMOD::System* m_spFmod;
+	static FMOD::Sound* m_spBombExplodeSound;
+	static FMOD::Channel* m_spSoundChannel;
+	static ParticleEmitterSettings m_sExplosionParticleEmitterSettings;
 
+
+	float EaseInOutBack(float time); //value must be between 0 and 1
+	float EaseOutBounce(float time); //value must be between 0 and 1
 	void ExplodeBomb();
 	void PlaceFire(XMFLOAT3 pos);
 	void AddColliderToGameObjectInCell();

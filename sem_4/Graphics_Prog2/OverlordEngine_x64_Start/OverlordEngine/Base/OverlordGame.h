@@ -41,7 +41,7 @@ private:
 	HRESULT InitializeGame();
 
 	void ValidateGameContext();
-	void GameLoop() const;
+	bool GameLoop() const;
 
 	//Windows Proc
 	void StateChanged(int state, bool active);

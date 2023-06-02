@@ -1,65 +1,12 @@
-﻿  stdafx.cpp
-  Cell.cpp
-  Grid.cpp
-  Main.cpp
-  MainGame.cpp
-  ColorMaterial.cpp
-  DiffuseMaterial.cpp
-  DiffuseMaterial_Skinned.cpp
-  ColorMaterial_Shadow_Skinned.cpp
-  DiffuseMaterial_Shadow.cpp
-  DiffuseMaterial_Shadow_Skinned.cpp
-  SpikyMaterial.cpp
-  UberMaterial.cpp
-  BoneObject.cpp
-  Character.cpp
-  CubePrefab.cpp
-  SpherePrefab.cpp
-  TorusPrefab.cpp
-  ExamScene.cpp
-  ComponentTestScene.cpp
-  MinionScene.cpp
-  Compiling...
-  PongScene.cpp
-  ModelTestScene.cpp
-  SpikyScene.cpp
-  SpriteTestScene.cpp
-  UberMaterialScene.cpp
-  SoftwareSkinningScene_1.cpp
-  SoftwareSkinningScene_2.cpp
-  SoftwareSkinningScene_3.cpp
-  HardwareSkinningScene.cpp
-  CharacterScene.cpp
-  FontTestScene.cpp
-  PickingScene.cpp
-  ShadowMappingScene.cpp
-  ParticleScene.cpp
+﻿  Cell.cpp
      Creating library C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.lib and object C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exp
   Generating code
-  842 of 6333 functions (13.3%) were compiled, the rest were copied from previous compilation.
-    236 functions were new in current compilation
-    345 functions had inline decision re-evaluated but remain unchanged
+  40 of 6424 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    42 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   OverlordProject.vcxproj -> C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exe
   0 File(s) copied
   0 File(s) copied
   0 File(s) copied
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\SpriteFonts\Consolas_48.fnt
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\SpriteFonts\Consolas_48_0.dds
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\BattleButtonDeselected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\BattleButtonSelected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\ContinueButtonDeselected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\ContinueButtonSelected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\deselectedButton.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\ExitButtonDeselected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\ExitButtonSelected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\MenuBackGround.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\RestartButtonDeselected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\RestartButtonSelected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\selectedButton.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\stopSymbol.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\ToMainMenuButtonDeselected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\ToMainMenuButtonSelected.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\vsSymbol.png
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\OverlordProject\Resources\Textures\whiteSquare.png
-  18 File(s) copied
+  0 File(s) copied

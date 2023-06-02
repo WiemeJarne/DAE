@@ -10,7 +10,8 @@ void ParticleScene::Initialize()
 
 	//Particle System
 	ParticleEmitterSettings settings{};
-	settings.velocity = { 0.f,6.f,0.f };
+	settings.minVelocity = { 0.f,6.f,0.f };
+	settings.maxVelocity = { 0.f,6.f,0.f };
 	settings.minSize = 1.f;
 	settings.maxSize = 2.f;
 	settings.minEnergy = 1.f;

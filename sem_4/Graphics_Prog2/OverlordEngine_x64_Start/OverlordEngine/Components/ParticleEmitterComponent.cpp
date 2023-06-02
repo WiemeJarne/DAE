@@ -99,7 +99,7 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 	}
 
 	auto pos{ XMLoadFloat3(&p.vertexInfo.Position) };
-	auto velocity{ XMLoadFloat3(&m_EmitterSettings.velocity) };
+	auto velocity{ XMLoadFloat3(&p.velocity) };
 	pos += velocity * elapsedTime;
 	XMStoreFloat3(&p.vertexInfo.Position, pos);
 
@@ -133,6 +133,10 @@ void ParticleEmitterComponent::SpawnParticle(Particle& p)
 	p.vertexInfo.Rotation = MathHelper::randF(-XM_PI, XM_PI);
 
 	p.vertexInfo.Color = m_EmitterSettings.color;
+
+	p.velocity.x = MathHelper::randF(m_EmitterSettings.minVelocity.x, m_EmitterSettings.maxVelocity.x);
+	p.velocity.y = MathHelper::randF(m_EmitterSettings.minVelocity.y, m_EmitterSettings.maxVelocity.y);
+	p.velocity.z = MathHelper::randF(m_EmitterSettings.minVelocity.z, m_EmitterSettings.maxVelocity.z);
 }
 
 void ParticleEmitterComponent::PostDraw(const SceneContext& sceneContext)
@@ -177,7 +181,8 @@ void ParticleEmitterComponent::DrawImGui()
 		ImGui::InputFloatRange("Size Bounds", &m_EmitterSettings.minSize, &m_EmitterSettings.maxSize);
 		ImGui::InputFloatRange("Scale Bounds", &m_EmitterSettings.minScale, &m_EmitterSettings.maxScale);
 		ImGui::InputFloatRange("Radius Bounds", &m_EmitterSettings.minEmitterRadius, &m_EmitterSettings.maxEmitterRadius);
-		ImGui::InputFloat3("Velocity", &m_EmitterSettings.velocity.x);
+		ImGui::InputFloat3("MinVelocity", &m_EmitterSettings.minVelocity.x);
+		ImGui::InputFloat3("MaxVelocity", &m_EmitterSettings.maxVelocity.x);
 		ImGui::ColorEdit4("Color", &m_EmitterSettings.color.x, ImGuiColorEditFlags_NoInputs);
 	}
 }

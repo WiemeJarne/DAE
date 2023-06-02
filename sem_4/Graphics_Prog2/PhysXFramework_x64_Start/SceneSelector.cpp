@@ -6,8 +6,8 @@
 // W01 - W02  (#define ...)
 
 //#define W01
-//#define W02
-#define MILESTONE_1
+#define W02
+//#define MILESTONE_1
 
 #ifdef W01
 #include "TestScene.h"

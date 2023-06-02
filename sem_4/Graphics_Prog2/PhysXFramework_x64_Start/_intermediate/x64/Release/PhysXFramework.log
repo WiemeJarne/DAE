@@ -49,35 +49,11 @@ C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Trigg
   W2_AssignmentScene.cpp
 C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\W2_AssignmentScene.cpp(239,30): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 2386 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 2450 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   PhysXFramework.vcxproj -> C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\_build\x64\Release\PhysXFramework.exe
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXCommon_64.dll
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXCooking_64.dll
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysXFoundation_64.dll
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\PhysX\bin\Release\PhysX_64.dll
-  4 File(s) copied
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\GP2_Libraries\FMOD\bin\Release\fmod64.dll
-  1 File(s) copied
   0 File(s) copied
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Effects\DebugRenderer.fx
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Effects\PosColNorm3D.fx
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Effects\PosNormTex3D.fx
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.obj
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.ovm
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.ovpc
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Chair.ovpt
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.obj
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.ovm
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.ovpc
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Level.ovpt
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.obj
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.ovm
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.ovpc
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Meshes\Sphere.ovpt
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Sounds\bell.mp3
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Sounds\Thrones.mp3
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Sounds\wave.mp3
-  C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\PhysXFramework_x64_Start\Resources\Textures\Chair_Dark.dds
-  19 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied

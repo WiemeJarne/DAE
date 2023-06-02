@@ -72,8 +72,8 @@ void CreateVertex(inout TriangleStream<GS_DATA> triStream, float3 pos, float2 te
 	vertex.Position = mul(float4(pos, 1.f), gWorldViewProj);
 	//Step 3. Assign texCoord to (GS_DATA object).TexCoord
 		//This is a little formula to do texture rotation by transforming the texture coordinates (Can cause artifacts)
-		//texCoord -= float2(0.5f,0.5f);
 	vertex.TexCoord = texCoord;
+		//texCoord -= float2(0.5f,0.5f);
 	vertex.TexCoord -= float2(0.5f, 0.5f);
 		//texCoord = mul(texCoord, uvRotation);
 	vertex.TexCoord = mul(vertex.TexCoord, uvRotation);
@@ -94,16 +94,17 @@ void MainGS(point VS_DATA vertex[1], inout TriangleStream<GS_DATA> triStream)
 	float3 origin = vertex[0].Position;
 
 	//Vertices (Keep in mind that 'origin' contains the center of the quad
-	topLeft = float3(origin.x - size / 2.f, origin.y + size / 2.f, origin.z);
-	topRight = float3(origin.x + size / 2.f, origin.y + size / 2.f, origin.z);
-	bottomLeft = float3(origin.x - size / 2.f, origin.y - size / 2.f, origin.z);
-	bottomRight = float3(origin.x + size / 2.f, origin.y - size / 2.f, origin.z);
+	float halfSize = size / 2.f;
+	topLeft = float3(-halfSize, halfSize, 0.f);
+	topRight = float3(halfSize, halfSize, 0.f);
+	bottomLeft = float3(-halfSize, -halfSize, 0.f);
+	bottomRight = float3(halfSize, -halfSize, 0.f);
 
 	//Transform the vertices using the ViewInverse (Rotational Part Only!!! (~ normal transformation)), this will force them to always point towards the camera (cfr. BillBoarding)
-	topLeft = mul(topLeft, (float3x3)gViewInverse);
-	topRight = mul(topRight, (float3x3)gViewInverse);
-	bottomLeft = mul(bottomLeft, (float3x3)gViewInverse);
-	bottomRight = mul(bottomRight, (float3x3)gViewInverse);
+	topLeft = origin + mul(topLeft, (float3x3)gViewInverse);
+	topRight = origin + mul(topRight, (float3x3)gViewInverse);
+	bottomLeft = origin + mul(bottomLeft, (float3x3)gViewInverse);
+	bottomRight = origin + mul(bottomRight, (float3x3)gViewInverse);
 
 	//This is the 2x2 rotation matrix we need to transform our TextureCoordinates (Texture Rotation)
 	float2x2 uvRotation = {cos(vertex[0].Rotation), - sin(vertex[0].Rotation), sin(vertex[0].Rotation), cos(vertex[0].Rotation)};

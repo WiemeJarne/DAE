@@ -459,7 +459,7 @@ float4 MainPS(VS_Output input) : SV_TARGET {
 	//OPACITY
 	float opacity = CalculateOpacity(input.TexCoord);
 	
-	return float4(finalColor,opacity);
+	return float4(diffColor,1.f);
 }
 
 // Default Technique

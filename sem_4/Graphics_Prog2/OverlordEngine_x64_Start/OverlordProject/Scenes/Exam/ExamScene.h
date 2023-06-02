@@ -72,7 +72,8 @@ private:
 	float m_DeselectedButtonXPos{};
 	float m_SecSinceSelectedButton{};
 
-	SpriteFont* m_pFont{};
+	SpriteFont* m_pFontConsolas48{};
+	SpriteFont* m_pFontConsolas112{};
 
 	XMFLOAT3 m_VsSymbolPosWhenBattleButtonSelected{};
 	XMFLOAT3 m_StopSymbolPosWhenBattleButtonSelected{};
@@ -97,14 +98,45 @@ private:
 
 	PostFilmGrain* m_pPostFilmGrain{};
 
+	//sound
+	FMOD::System* m_pFmod;
+	FMOD::Channel* m_pSoundEffectChannel{};
+	FMOD::Channel* m_pMusicChannel{};
+	FMOD::Sound* m_pTitleMusic{};
+	FMOD::Sound* m_pButtonSelect{};
+	FMOD::Sound* m_pButtonClick{};
+	FMOD::Sound* m_pStartRoundTune{};
+	FMOD::Sound* m_pReadySound{};
+	FMOD::Sound* m_pEndRoundTune{};
+	FMOD::Sound* m_pEndRoundInDrawTune{};
+	FMOD::Sound* m_pRoundMusicTrack1{};
+	FMOD::Sound* m_pRoundMusicTrack2{};
+	FMOD::Sound* m_pRoundMusicTrack3{};
+	FMOD::Sound* m_pMenuMusic{};
+	FMOD::Sound* m_pSoundShout3{};
+	FMOD::Sound* m_pSoundShout2{};
+	FMOD::Sound* m_pSoundShout1{};
+	FMOD::Sound* m_pSoundShoutGo{};
+
+	bool m_IsPlayingRoundMusic{};
+	bool m_ShouldPlayMenuMusic{};
+	float m_MenuMusicStartDelay{};
+
+	bool m_HasShoutedThree{};
+	bool m_HasShoutedTwo{};
+	bool m_HasShoutedOne{};
+
 	void Reset();
 
 	void InitializeSprites();
+	void InitializeSounds();
 	void UpdateButtons();
 	void UpdateMenus();
+	void updateTimer();
 	void JoinGame(GamepadIndex gamepadIndex);
 	void NavigateToMenu(Menus menuToNavigateTo);
-	void SelectButton(Buttons button, bool skipDelayTime = false);
+	void SelectButton(Buttons button, bool skipDelayTime = false, bool playSound = true);
 	void DeselectButton(Buttons button);
 	void StartRound();
+	void EndRound();
 };

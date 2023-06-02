@@ -84,7 +84,7 @@ HRESULT OverlordGame::Run(HINSTANCE hInstance)
 				break;
 		}
 
-		GameLoop();
+		if (!GameLoop()) break;
 	}
 
 	//TODO: should return 'msg.wParam'
@@ -439,7 +439,7 @@ LRESULT OverlordGame::WindowProcedureHook(HWND hWnd, UINT message, WPARAM wParam
 #pragma endregion Windows Procedures
 
 #pragma region
-void OverlordGame::GameLoop() const
+bool OverlordGame::GameLoop() const
 {
 	GameStats::BeginFrame();
 
@@ -480,6 +480,8 @@ void OverlordGame::GameLoop() const
 	m_pSwapchain->Present(activeSceneSettings.vSyncEnabled ? 1 : 0, 0);
 
 	GameStats::EndFrame();
+
+	return SceneManager::Get()->IsRunning();
 }
 
 void OverlordGame::SetRenderTarget(RenderTarget* renderTarget)
