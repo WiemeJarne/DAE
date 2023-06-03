@@ -13,7 +13,9 @@ void ExamScene::Initialize()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	m_SceneContext.settings.enableOnGUI = true;
+	m_SceneContext.settings.enableOnGUI = false;
+	m_SceneContext.settings.drawGrid = false;
+	m_SceneContext.settings.drawPhysXDebug = false;
 
 	auto& pPhysX{ PxGetPhysics() };
 	m_pDefaultMaterial = pPhysX.createMaterial(0.5f, 0.5f, 0.5f);
@@ -23,7 +25,7 @@ void ExamScene::Initialize()
 	//CAMERA
 	auto m_pFixedCamera = new FixedCamera();
 	AddChild(m_pFixedCamera);
-	//SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
+	SetActiveCamera(m_pFixedCamera->GetComponent<CameraComponent>());
 
 	m_pFontConsolas48 = ContentManager::Load<SpriteFont>(L"SpriteFonts/Consolas_48.fnt");
 	m_pFontConsolas112 = ContentManager::Load<SpriteFont>(L"SpriteFonts/Consolas_84.fnt");

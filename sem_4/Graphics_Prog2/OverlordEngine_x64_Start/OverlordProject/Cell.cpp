@@ -33,7 +33,6 @@ GameObject::PhysicsCallback Cell::m_sSkateUpBonusCallBack;
 GameObject::PhysicsCallback Cell::m_sSkateDownBonusCallBack;
 FMOD::System* Cell::m_spFmod;
 FMOD::Sound* Cell::m_spBombExplodeSound;
-FMOD::Channel* Cell::m_spSoundChannel;
 ParticleEmitterSettings Cell::m_sExplosionParticleEmitterSettings;
 
 Cell::Cell(GameScene* pGameScene, XMFLOAT3 middlePos, int rowNr, int colNr, State state)
@@ -449,7 +448,7 @@ void Cell::DestroyObjectInCell()
 
 void Cell::ExplodeBomb()
 {
-	m_spFmod->playSound(m_spBombExplodeSound, nullptr, false, &m_spSoundChannel);
+	m_spFmod->playSound(m_spBombExplodeSound, nullptr, false, &m_pSoundChannel);
 
 	--m_pCharacterDescPlacedBomb->amountOfBombsCurrentlyOnGrid;
 

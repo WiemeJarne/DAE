@@ -1,9 +1,9 @@
-﻿  Cell.cpp
+﻿  ExamScene.cpp
      Creating library C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.lib and object C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exp
   Generating code
-  40 of 6424 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  3 of 6424 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    42 functions had inline decision re-evaluated but remain unchanged
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   OverlordProject.vcxproj -> C:\Users\jarne\Documents\DAE\sem_4\Graphics_Prog2\OverlordEngine_x64_Start\_build\Release\OverlordProject.exe
   0 File(s) copied

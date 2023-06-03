@@ -47,6 +47,7 @@ private:
 	float m_PickUpYOffsetTime{};
 	const float m_PickUpHoverSpeed{ 0.1f };
 	bool m_IsPickUpGoingUp{ true };
+	FMOD::Channel* m_pSoundChannel;
 
 	static Grid* m_spOwnerGrid;
 	static GameScene* m_spGameScene;
@@ -75,7 +76,6 @@ private:
 	static GameObject::PhysicsCallback m_sSkateDownBonusCallBack;
 	static FMOD::System* m_spFmod;
 	static FMOD::Sound* m_spBombExplodeSound;
-	static FMOD::Channel* m_spSoundChannel;
 	static ParticleEmitterSettings m_sExplosionParticleEmitterSettings;
 
 
