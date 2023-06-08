@@ -19,14 +19,14 @@ juce_generate_juce_header(MyJUCEApp)
 
 target_sources(MyJUCEApp PRIVATE ${SOURCES} "TableModel.h" "TableModel.cpp" "NamedVector3.h" "NamedVector3.cpp")
 
-message("Include Directory: ${CommonCodeIncludeDir}")
-
 message("Include Directory: ${rapidjsonIncludeDir}")
+
+message("Include Directory: ${CommonCodeIncludeDir}")
 
 target_include_directories(
 MyJUCEApp PUBLIC
-"${CommonCodeIncludeDir}"
 "${rapidjsonIncludeDir}"
+"${CommonCodeIncludeDir}"
 )
 
 # Link against the JUCE module
