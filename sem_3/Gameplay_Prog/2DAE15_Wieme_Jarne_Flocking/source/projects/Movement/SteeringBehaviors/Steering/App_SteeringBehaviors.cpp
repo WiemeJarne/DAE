@@ -206,7 +206,7 @@ void App_SteeringBehaviors::Update(float deltaTime)
 				ImGui::Text(" Behavior: ");
 				ImGui::SameLine();
 				ImGui::PushItemWidth(100);
-				if (ImGui::Combo("", &a.SelectedBehavior, "Seek\0Wander\0Flee\0Arrive\0Face\0Evade\0Pursuit\0Hide\0AvoidObstacle\0Align\0FacedArrive", 4))
+				if (ImGui::Combo("", &a.SelectedBehavior, "Seek\0Wander\0Flee\0Arrive\0Face\0Evade\0Pursuit\0", 4))
 				{
 					behaviourModified = true;
 				}
